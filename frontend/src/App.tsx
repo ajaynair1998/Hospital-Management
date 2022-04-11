@@ -1,32 +1,17 @@
-import React from "react";
+import * as React from "react";
+import { Routes, Route } from "react-router-dom";
+import Test from "./pages/test";
+import ReduxTest from "./pages/redux-test";
 import "./App.css";
 
 function App() {
 	return (
 		<div className="App">
-			<header className="App-header">
-				<p>
-					Edit <code>src/App.tx</code> and save to reload .
-				</p>
-
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-				</a>
-				<button
-					onClick={() =>
-						window.electron.notificationApi.sendNotification(
-							"notification from react"
-						)
-					}
-				>
-					click here
-				</button>
-			</header>
+			<h1>Welcome to React Router!</h1>
+			<Routes>
+				<Route path="/" element={<Test />} />
+				<Route path="/redux-test" element={<ReduxTest />} />
+			</Routes>
 		</div>
 	);
 }
