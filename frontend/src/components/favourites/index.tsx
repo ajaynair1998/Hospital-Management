@@ -43,18 +43,21 @@ const FavouriteChip = ({
 export default function Favourites() {
 	return (
 		<Box sx={{ width: "100%", bgcolor: "background.paper" }}>
-			<Box sx={{ my: 2, mx: 2 }}>
+			<Box sx={{ my: 1, mx: 2 }}>
 				<Grid container alignItems="center">
 					<Grid item xs>
 						<Typography gutterBottom variant="h5" component="div">
 							Favourites
 						</Typography>
 					</Grid>
-					{/* <Grid item>
-						<Typography gutterBottom variant="h6" component="div">
+					<Grid item>
+						{/* <Typography gutterBottom variant="h6" component="div">
 							Add Favourite
-						</Typography>
-					</Grid> */}
+						</Typography> */}
+						<Box>
+							<Button>Add New Favourite</Button>
+						</Box>
+					</Grid>
 				</Grid>
 			</Box>
 			<Divider variant="middle" />
@@ -79,9 +82,6 @@ export default function Favourites() {
 					/>
 					<Chip label="Hard" deleteIcon={<DeleteIcon />} variant="outlined" />
 				</Stack>
-			</Box>
-			<Box sx={{ mt: 3, ml: 1, mb: 1 }}>
-				<Button>Add New Favourite</Button>
 			</Box>
 		</Box>
 	);
