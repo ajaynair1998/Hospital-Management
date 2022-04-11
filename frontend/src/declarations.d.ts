@@ -4,4 +4,3 @@ declare global {
 		electron: IElectronAPI;
 	}
 }
-declare module "styled-components";
