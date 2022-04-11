@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"noImplicitReturns": true,
+		"noUnusedLocals": true,
+		"outDir": "./build",
+		"sourceMap": true,
+		"strict": true,
+		"target": "es2017",
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"rootDir": "./src"
+	},
+	"compileOnSave": true,
+	"include": ["./src"],
+	"esModuleInterop": true
+}
