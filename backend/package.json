@@ -2,7 +2,7 @@
 	"scripts": {
 		"start": "electron ./build/main.js",
 		"dev": "npm run electron-dev & npm run watch",
-		"db": "ts-node ./src/configs/db-associations/",
+		"db": "ts-node ./src/models/index.ts",
 		"electron-dev": "nodemon --exec electron ./build/main.js",
 		"watch": "tsc --watch "
 	},
