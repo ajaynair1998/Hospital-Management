@@ -7,13 +7,15 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
+import ListItem, { ListItemBaseProps } from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import Functionalities from "../../pages/functionalities";
+import { alpha, styled } from "@mui/material/styles";
 
 import { useDispatch, useSelector } from "react-redux";
 import IStore from "../../models/store";
@@ -47,8 +49,27 @@ export default function ResponsiveDrawer(props: Props) {
 			<Toolbar />
 			<Divider />
 			<List>
-				{categoriesList.map(
-					({ key, category_name, category_icon, location }) => (
+				{categoriesList.map(({ key, category_name, category_icon, location }) =>
+					data.location === location ? (
+						<ListItem
+							sx={{
+								bgcolor: "rgba(0, 0, 0, 0.10)",
+							}}
+							button
+							key={key}
+							onClick={() =>
+								dispatch(
+									setSelectedCategory({
+										category_name: category_name,
+										location: location,
+									})
+								)
+							}
+						>
+							<ListItemIcon>{category_icon}</ListItemIcon>
+							<ListItemText primary={category_name} />
+						</ListItem>
+					) : (
 						<ListItem
 							button
 							key={key}
@@ -145,6 +166,7 @@ export default function ResponsiveDrawer(props: Props) {
 				}}
 			>
 				<Toolbar />
+				{/* 
 				<Typography paragraph>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
 					eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
@@ -173,7 +195,8 @@ export default function ResponsiveDrawer(props: Props) {
 					sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
 					eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
 					posuere sollicitudin aliquam ultrices sagittis orci a.
-				</Typography>
+				</Typography> */}
+				<Functionalities />
 			</Box>
 		</Box>
 	);
