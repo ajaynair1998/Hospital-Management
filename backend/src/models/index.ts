@@ -11,6 +11,7 @@ import Diagnosis from "./Diagnosis";
 import TreatmentPlan from "./Treatment Plan";
 import Medicine from "./Medicine";
 import FollowUp from "./Follow Up";
+import Favourite from "./Favourite";
 
 // ASSOCIATIONS
 Patient.hasMany(ChiefComplaint);
@@ -48,3 +49,7 @@ Medicine.belongsTo(Patient);
 
 Patient.hasMany(FollowUp);
 FollowUp.belongsTo(Patient);
+
+export const db: any = {
+	Favourite: Favourite,
+};
