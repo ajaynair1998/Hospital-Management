@@ -1,7 +1,8 @@
 import { app, BrowserWindow } from "electron";
 import isDev from "electron-is-dev";
 import path from "path";
-import routes from "./routes/index";
+import notifications from "./routes/notificationRoute";
+import favourites from "./routes/fovouritesRoute";
 
 function createWindow(): void {
 	const win = new BrowserWindow({
@@ -25,7 +26,8 @@ app.whenReady().then(() => {
 });
 
 // expose all routes
-routes;
+notifications;
+favourites;
 
 app.on("window-all-closed", function () {
 	if (process.platform !== "darwin") app.quit();
