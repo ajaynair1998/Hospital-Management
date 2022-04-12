@@ -5,4 +5,7 @@ export default interface IStore {
 	categoriesStore: {
 		data: any;
 	};
+	favouritesDataStore: {
+		data: any;
+	};
 }
