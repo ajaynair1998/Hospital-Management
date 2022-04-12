@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import IStore from "../../models/store";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Favourites from "../../components/favourites";
 import BasicSaveAllButton from "../../components/save-all-button";
@@ -10,6 +12,23 @@ let Container = styled.div`
 	flex-direction: column;
 `;
 const ChiefComplaints = () => {
+	let { data } = useSelector((state: IStore) => state.favouritesDataStore);
+
+	useEffect(() => {
+		fetchAllFavourites();
+	}, []);
+
+	async function fetchAllFavourites() {
+		try {
+			let data = await window.electron.favouritesApi.get({
+				type: "chief-complaints",
+			});
+			console.log(data);
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
 	return (
 		<Container>
 			<Favourites />

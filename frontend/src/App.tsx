@@ -9,9 +9,9 @@ function App() {
 	return (
 		<div className="App">
 			<Routes>
-				<Route path="/" element={<Test />} />
+				{/* <Route path="/" element={<Test />} /> */}
 				<Route path="/redux-test" element={<ReduxTest />} />
-				<Route path="/drawer" element={<Drawer />} />
+				<Route path="/" element={<Drawer />} />
 			</Routes>
 			{/* <h1>Welcome to React Router!</h1> */}
 		</div>
