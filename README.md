@@ -18,7 +18,7 @@ An application designed to store the details of patients visiting a hospital or 
 
 ## Support
 
-For support, email ajaynairarun@gmail.com or join our Slack channel.
+For support, email ajaynairarun@gmail.com.
 
 ## Contributing
 
