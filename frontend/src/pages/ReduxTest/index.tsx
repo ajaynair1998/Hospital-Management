@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { IStore } from "../../helpers/interfaces";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedUser } from "../../redux/reducers/userDataReducer";
+import { setSelectedUser } from "../../redux/Reducers/userDataReducer";
 
 const ReduxTest: React.FC = () => {
 	const { data } = useSelector((state: IStore) => state.userDataStore);

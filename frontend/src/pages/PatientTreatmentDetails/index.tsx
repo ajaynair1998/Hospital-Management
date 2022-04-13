@@ -14,12 +14,12 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Functionalities from "../../pages/functionalities";
+import Functionalities from "./functionalities";
 // import { alpha, styled } from "@mui/material/styles";
 
 import { useDispatch, useSelector } from "react-redux";
 import { IStore } from "../../helpers/interfaces";
-import { setSelectedCategory } from "../../redux/reducers/categoriesDataReducer";
+import { setSelectedCategory } from "../../redux/Reducers/categoriesDataReducer";
 
 import { categoriesList } from "./categories";
 
