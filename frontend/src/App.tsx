@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Routes, Route } from "react-router-dom";
-import Test from "./pages/test";
-import ReduxTest from "./pages/redux-test";
+import Test from "./pages/Test";
+import ReduxTest from "./pages/ReduxTest";
 import "./App.css";
-import Drawer from "./components/drawer";
+import PatientTreatmentDetails from "./pages/PatientTreatmentDetails";
 
 function App() {
 	return (
@@ -11,7 +11,7 @@ function App() {
 			<Routes>
 				{/* <Route path="/" element={<Test />} /> */}
 				<Route path="/redux-test" element={<ReduxTest />} />
-				<Route path="/" element={<Drawer />} />
+				<Route path="/" element={<PatientTreatmentDetails />} />
 			</Routes>
 			{/* <h1>Welcome to React Router!</h1> */}
 		</div>
