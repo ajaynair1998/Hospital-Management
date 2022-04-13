@@ -14,7 +14,7 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Functionalities from "./functionalities";
+import Functionalities from "./Functionalities";
 // import { alpha, styled } from "@mui/material/styles";
 
 import { useDispatch, useSelector } from "react-redux";
