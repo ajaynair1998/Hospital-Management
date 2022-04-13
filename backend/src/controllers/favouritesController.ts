@@ -1,4 +1,3 @@
-// import Favourite from "../models/Favourite";
 const FavouritesController: IFavouritesController = {
 	async get(event, args) {
 		try {
