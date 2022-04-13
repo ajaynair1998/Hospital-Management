@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import IStore from "../../models/store";
+import { IStore } from "../../helpers/interfaces";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedUser } from "../../redux/reducers/userDataReducer";
 

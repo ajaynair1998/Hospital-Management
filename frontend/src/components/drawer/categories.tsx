@@ -11,12 +11,8 @@ import HistoryIcon from "@mui/icons-material/History";
 import NextPlanIcon from "@mui/icons-material/NextPlan";
 import TodayIcon from "@mui/icons-material/Today";
 
-export interface ICategory {
-	key: number;
-	category_name: string;
-	category_icon: any;
-	location: string;
-}
+import { ICategory } from "../../helpers/interfaces";
+
 export const categoriesList: ICategory[] = [
 	{
 		key: 0,
