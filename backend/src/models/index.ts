@@ -13,6 +13,8 @@ import Medicine from "./Medicine";
 import FollowUp from "./Follow Up";
 import Favourite from "./Favourite";
 
+import { IDb } from "../helpers/interfaces";
+
 // ASSOCIATIONS
 Patient.hasMany(ChiefComplaint);
 ChiefComplaint.belongsTo(Patient);
@@ -50,6 +52,21 @@ Medicine.belongsTo(Patient);
 Patient.hasMany(FollowUp);
 FollowUp.belongsTo(Patient);
 
-export const db: any = {
+const db: IDb = {
+	Patient: Patient,
+	ChiefComplaint: ChiefComplaint,
+	PastMedicalHistory: PastMedicalHistory,
+	PastDentalHistory: PastDentalHistory,
+	DrugAllergy: DrugAllergy,
+	GeneralExamination: GeneralExamination,
+	LocalExamination: LocalExamination,
+	ClinicalDiagnosis: ClinicalDiagnosis,
+	Investigation: Investigation,
+	Diagnosis: Diagnosis,
+	TreatmentPlan: TreatmentPlan,
+	Medicine: Medicine,
+	FollowUp: FollowUp,
 	Favourite: Favourite,
 };
+
+export default db;
