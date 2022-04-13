@@ -18,7 +18,7 @@ import Functionalities from "../../pages/functionalities";
 // import { alpha, styled } from "@mui/material/styles";
 
 import { useDispatch, useSelector } from "react-redux";
-import IStore from "../../models/store";
+import { IStore } from "../../helpers/interfaces";
 import { setSelectedCategory } from "../../redux/reducers/categoriesDataReducer";
 
 import { categoriesList } from "./categories";
