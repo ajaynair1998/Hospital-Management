@@ -1,7 +1,30 @@
 import { database } from "../../configs/sqlite";
-import { DataTypes } from "sequelize";
+import {
+	Model,
+	DataTypes,
+	CreationOptional,
+	InferAttributes,
+	InferCreationAttributes,
+} from "sequelize";
 
-const FollowUp = database.define("FollowUp", {
+export interface IFollowUp
+	extends Model<
+		InferAttributes<IFollowUp>,
+		InferCreationAttributes<IFollowUp>
+	> {
+	id: CreationOptional<number>;
+	follow_up_text: string;
+	follow_up_date: string;
+	time: string;
+}
+
+const FollowUp = database.define<IFollowUp>("FollowUp", {
+	id: {
+		primaryKey: true,
+		type: DataTypes.INTEGER.UNSIGNED,
+		autoIncrement: true,
+		allowNull: false,
+	},
 	follow_up_text: {
 		type: DataTypes.STRING(1000),
 	},

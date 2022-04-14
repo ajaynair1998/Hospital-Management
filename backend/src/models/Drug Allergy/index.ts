@@ -1,7 +1,29 @@
 import { database } from "../../configs/sqlite";
-import { DataTypes } from "sequelize";
+import {
+	Model,
+	DataTypes,
+	CreationOptional,
+	InferAttributes,
+	InferCreationAttributes,
+} from "sequelize";
 
-const DrugAllergy = database.define("DrugAllergy", {
+export interface IDrugAllergy
+	extends Model<
+		InferAttributes<IDrugAllergy>,
+		InferCreationAttributes<IDrugAllergy>
+	> {
+	id: CreationOptional<number>;
+	history: string;
+	time: string;
+}
+
+const DrugAllergy = database.define<IDrugAllergy>("DrugAllergy", {
+	id: {
+		primaryKey: true,
+		type: DataTypes.INTEGER.UNSIGNED,
+		autoIncrement: true,
+		allowNull: false,
+	},
 	history: {
 		type: DataTypes.STRING(1000),
 	},

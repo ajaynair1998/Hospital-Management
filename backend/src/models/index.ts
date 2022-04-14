@@ -1,7 +1,7 @@
 import Patient from "./Patient";
 import ChiefComplaint from "./Chief Complaint";
 import PastMedicalHistory from "./Past Medical History";
-import PastDentalHistory from "./Past Medical History";
+import PastDentalHistory from "./Past Dental History";
 import DrugAllergy from "./Drug Allergy";
 import GeneralExamination from "./General Examination";
 import LocalExamination from "./Local Examination";
@@ -11,9 +11,7 @@ import Diagnosis from "./Diagnosis";
 import TreatmentPlan from "./Treatment Plan";
 import Medicine from "./Medicine";
 import FollowUp from "./Follow Up";
-import Favourite from "./Favourite";
-
-import { IDb } from "../helpers/interfaces";
+// import Favourite from "./Favourite";
 
 // ASSOCIATIONS
 Patient.hasMany(ChiefComplaint);
@@ -51,22 +49,3 @@ Medicine.belongsTo(Patient);
 
 Patient.hasMany(FollowUp);
 FollowUp.belongsTo(Patient);
-
-const db: IDb = {
-	Patient: Patient,
-	ChiefComplaint: ChiefComplaint,
-	PastMedicalHistory: PastMedicalHistory,
-	PastDentalHistory: PastDentalHistory,
-	DrugAllergy: DrugAllergy,
-	GeneralExamination: GeneralExamination,
-	LocalExamination: LocalExamination,
-	ClinicalDiagnosis: ClinicalDiagnosis,
-	Investigation: Investigation,
-	Diagnosis: Diagnosis,
-	TreatmentPlan: TreatmentPlan,
-	Medicine: Medicine,
-	FollowUp: FollowUp,
-	Favourite: Favourite,
-};
-
-export default db;

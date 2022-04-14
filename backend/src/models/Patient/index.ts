@@ -1,10 +1,45 @@
 import { database } from "../../configs/sqlite";
-import { DataTypes } from "sequelize";
+import {
+	Model,
+	DataTypes,
+	CreationOptional,
+	InferAttributes,
+	InferCreationAttributes,
+} from "sequelize";
 
-const Patient = database.define(
+export interface IPatient
+	extends Model<InferAttributes<IPatient>, InferCreationAttributes<IPatient>> {
+	id: CreationOptional<number>;
+	name: string;
+	time: string;
+	date: string;
+	image: DataTypes.BlobDataType;
+	nationality: string;
+	age: number;
+	date_of_birth: string;
+	gender: DataTypes.EnumDataType<string>;
+	address: string;
+	blood_group: string;
+	phone_number: string;
+	mobile_number: string;
+	email: string;
+	marital_status: string;
+	occupation: string;
+	doctor_name: string;
+	purpose: string;
+	reffered_by: string;
+}
+
+const Patient = database.define<IPatient>(
 	"Patient",
 	{
 		// Model attributes are defined here
+		id: {
+			primaryKey: true,
+			type: DataTypes.INTEGER.UNSIGNED,
+			autoIncrement: true,
+			allowNull: false,
+		},
 		name: {
 			type: DataTypes.STRING,
 			allowNull: false,
