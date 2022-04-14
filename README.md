@@ -35,7 +35,7 @@ $ npm install --save-dev electron-rebuild
 ```
 
 ```javascript
-$ npm run build
+$ npm run rebuild
 ```
 
 - [stackoverflow thread](https://stackoverflow.com/questions/49582728/electronjs-please-install-sqlite3-package-manually)
