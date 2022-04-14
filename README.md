@@ -20,6 +20,26 @@ An application designed to store the details of patients visiting a hospital or 
 
 For support, email ajaynairarun@gmail.com.
 
+## FAQ
+
+#### Error - Please install sqlite3 manually
+
+```javascript
+$ npm install --save-dev electron-rebuild
+```
+
+```javascript
+"scripts": {
+    "rebuild": "electron-rebuild -f -w sqlite3"
+}
+```
+
+```javascript
+$ npm run build
+```
+
+- [stackoverflow thread](https://stackoverflow.com/questions/49582728/electronjs-please-install-sqlite3-package-manually)
+
 ## Contributing
 
 Contributions are always welcome!
