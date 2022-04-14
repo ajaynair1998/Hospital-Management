@@ -1,7 +1,29 @@
 import { database } from "../../configs/sqlite";
-import { DataTypes } from "sequelize";
+import {
+	Model,
+	DataTypes,
+	CreationOptional,
+	InferAttributes,
+	InferCreationAttributes,
+} from "sequelize";
 
-const Investigation = database.define("Investigation", {
+export interface IInvestigation
+	extends Model<
+		InferAttributes<IInvestigation>,
+		InferCreationAttributes<IInvestigation>
+	> {
+	id: CreationOptional<number>;
+	file: string;
+	time: string;
+}
+
+const Investigation = database.define<IInvestigation>("Investigation", {
+	id: {
+		primaryKey: true,
+		type: DataTypes.INTEGER.UNSIGNED,
+		autoIncrement: true,
+		allowNull: false,
+	},
 	file: {
 		type: DataTypes.STRING(1000),
 	},

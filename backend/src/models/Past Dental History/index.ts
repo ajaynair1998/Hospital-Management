@@ -1,14 +1,39 @@
 import { database } from "../../configs/sqlite";
-import { DataTypes } from "sequelize";
+import {
+	Model,
+	DataTypes,
+	CreationOptional,
+	InferAttributes,
+	InferCreationAttributes,
+} from "sequelize";
 
-const PastDentalHistory = database.define("PastDentalHistory", {
-	history: {
-		type: DataTypes.STRING(500),
-	},
-	time: {
-		type: DataTypes.STRING,
-	},
-});
+export interface IPastDentalHistory
+	extends Model<
+		InferAttributes<IPastDentalHistory>,
+		InferCreationAttributes<IPastDentalHistory>
+	> {
+	id: CreationOptional<number>;
+	history: string;
+	time: string;
+}
+
+const PastDentalHistory = database.define<IPastDentalHistory>(
+	"PastDentalHistory",
+	{
+		id: {
+			primaryKey: true,
+			type: DataTypes.INTEGER.UNSIGNED,
+			autoIncrement: true,
+			allowNull: false,
+		},
+		history: {
+			type: DataTypes.STRING(500),
+		},
+		time: {
+			type: DataTypes.STRING,
+		},
+	}
+);
 
 // `sequelize.define` also returns the model
 console.log(PastDentalHistory === database.models.PastDentalHistory); // true
