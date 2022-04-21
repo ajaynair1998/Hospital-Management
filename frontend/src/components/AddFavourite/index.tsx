@@ -5,8 +5,9 @@ import Button from "@mui/material/Button";
 
 interface Props {
 	addNewFavourite: (category: string, data: string) => Promise<any>;
+	category: string;
 }
-const AddFavourite: React.FC<Props> = ({ addNewFavourite }) => {
+const AddFavourite: React.FC<Props> = ({ addNewFavourite, category }) => {
 	const [data, setData] = useState("");
 	let handleChange = (data: string) => {
 		setData(data);
@@ -15,7 +16,7 @@ const AddFavourite: React.FC<Props> = ({ addNewFavourite }) => {
 		e: React.MouseEvent<HTMLButtonElement, MouseEvent>
 	) => {
 		console.log("Add pressed on favourite");
-		let success = await addNewFavourite("chief_complaint", data);
+		let success = await addNewFavourite(category, data);
 		if (success) {
 			setData("");
 		}

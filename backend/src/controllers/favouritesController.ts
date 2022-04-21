@@ -4,13 +4,25 @@ const FavouritesController: IFavouritesController = {
 	async get(event, args) {
 		try {
 			console.log(args);
-			const favourites = await Favourite.findAll({
-				where: {
-					category: "chief_complaint",
-				},
-				raw: true,
-			});
-
+			let category: string = args.category;
+			let favourites;
+			if (category === undefined || null || "") {
+				throw new Error("Unexpected category for favourite");
+			}
+			if (category === "all") {
+				favourites = await Favourite.findAll({
+					raw: true,
+					limit: 10,
+					order: [["id", "DESC"]],
+				});
+			} else {
+				favourites = await Favourite.findAll({
+					where: {
+						category: category,
+					},
+					raw: true,
+				});
+			}
 			console.log(
 				"🚀 ~ file: favouritesController.ts ~ line 16 ~ get ~ favourites",
 				favourites[0]

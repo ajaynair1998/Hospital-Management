@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { getFavourites } from "../../../helpers/functions";
 import ChiefComplaints from "./ChiefComplaints";
 
 let FunctionalityContainer = styled.div``;
@@ -14,6 +15,10 @@ const Functionalities = () => {
 				category,
 				data,
 			});
+			if (response.status === 200) {
+				let allFavourites = await getFavourites();
+				console.log(allFavourites);
+			}
 			console.log(response);
 			return true;
 		} catch (err) {

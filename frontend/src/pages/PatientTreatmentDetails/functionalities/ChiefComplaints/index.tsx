@@ -25,7 +25,10 @@ const ChiefComplaints: React.FC<Props> = ({ addNewFavourite }) => {
 			<Favourites />
 			<SelectionArray />
 			<TextFieldComponent />
-			<AddFavourite addNewFavourite={addNewFavourite} />
+			<AddFavourite
+				addNewFavourite={addNewFavourite}
+				category={"chief_complaint"}
+			/>
 			<BasicSaveAllButton onClick={() => {}} text={"Save"} />
 		</Container>
 	);
