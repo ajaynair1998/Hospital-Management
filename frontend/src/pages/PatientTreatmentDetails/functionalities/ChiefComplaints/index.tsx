@@ -7,12 +7,17 @@ import BasicSaveAllButton from "../../../../components/SaveAllButton";
 import SelectionArray from "../../../../components/SelectionArray";
 import TextFieldComponent from "../../../../components/TextField";
 import FavouritesHook from "../../../../hooks/favourites";
+import AddFavourite from "../../../../components/AddFavourite";
 
 let Container = styled.div`
 	display: flex;
 	flex-direction: column;
 `;
-const ChiefComplaints = () => {
+
+interface Props {
+	addNewFavourite: (category: string, data: string) => Promise<any>;
+}
+const ChiefComplaints: React.FC<Props> = ({ addNewFavourite }) => {
 	let favourites = FavouritesHook();
 
 	return (
@@ -20,6 +25,7 @@ const ChiefComplaints = () => {
 			<Favourites />
 			<SelectionArray />
 			<TextFieldComponent />
+			<AddFavourite addNewFavourite={addNewFavourite} />
 			<BasicSaveAllButton onClick={() => {}} text={"Save"} />
 		</Container>
 	);
