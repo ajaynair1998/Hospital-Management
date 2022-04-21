@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getFavourites } from "../helpers/functions";
 import { IStore } from "../helpers/interfaces";
+import { setFavourites } from "../redux/Reducers/favouritesDataReducer";
 
 const FavouritesHook = () => {
-	const [favourites, setFavourites] = useState([]);
+	const dispatch = useDispatch();
+	const [favourites, setFavouritesInState] = useState([]);
 	let { data } = useSelector((state: IStore) => state.categoriesStore);
 	let location = data.location;
 
@@ -13,10 +16,11 @@ const FavouritesHook = () => {
 
 	async function fetchAllFavourites() {
 		try {
-			let data = await window.electron.favouritesApi.get({
-				type: location,
-			});
-			setFavourites(data);
+			let favourites = await getFavourites();
+			if (favourites.status === 200) {
+				setFavouritesInState(data);
+				dispatch(setFavourites(favourites.data));
+			}
 		} catch (err) {
 			console.log(err);
 		}

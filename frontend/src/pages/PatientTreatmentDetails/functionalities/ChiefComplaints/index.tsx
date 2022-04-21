@@ -6,7 +6,6 @@ import Favourites from "../../../../components/Favourites";
 import BasicSaveAllButton from "../../../../components/SaveAllButton";
 import SelectionArray from "../../../../components/SelectionArray";
 import TextFieldComponent from "../../../../components/TextField";
-import FavouritesHook from "../../../../hooks/favourites";
 import AddFavourite from "../../../../components/AddFavourite";
 
 let Container = styled.div`
@@ -16,13 +15,12 @@ let Container = styled.div`
 
 interface Props {
 	addNewFavourite: (category: string, data: string) => Promise<any>;
+	favourites: any[];
 }
-const ChiefComplaints: React.FC<Props> = ({ addNewFavourite }) => {
-	let favourites = FavouritesHook();
-
+const ChiefComplaints: React.FC<Props> = ({ addNewFavourite, favourites }) => {
 	return (
 		<Container>
-			<Favourites />
+			<Favourites favourites={favourites} />
 			<SelectionArray />
 			<TextFieldComponent />
 			<AddFavourite

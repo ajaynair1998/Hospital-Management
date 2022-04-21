@@ -7,6 +7,11 @@ import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { capitalizeFirstLetter } from "../../helpers/functions";
+
+interface Props {
+	favourites: any[];
+}
 
 interface IFavouriteChip {
 	id: number;
@@ -40,7 +45,7 @@ const FavouriteChip = ({
 	}
 };
 
-export default function Favourites() {
+export default function Favourites({ favourites }: Props) {
 	return (
 		<Box sx={{ width: "100%", bgcolor: "background.paper" }}>
 			<Box sx={{ my: 1, mx: 2 }}>
@@ -54,16 +59,21 @@ export default function Favourites() {
 						{/* <Typography gutterBottom variant="h6" component="div">
 							Add Favourite
 						</Typography> */}
-						<Box>
+						{/* <Box>
 							<Button>Add New Favourite</Button>
-						</Box>
+						</Box> */}
 					</Grid>
 				</Grid>
 			</Box>
 			<Divider variant="middle" />
 			<Box sx={{ m: 2 }}>
-				<Stack direction="row" spacing={1}>
-					<Chip
+				<Stack
+					direction="row"
+					spacing={1}
+					flexWrap={"wrap"}
+					alignItems={"flex-start"}
+				>
+					{/* <Chip
 						label="Extra Soft"
 						deleteIcon={<DeleteIcon />}
 						variant="outlined"
@@ -79,8 +89,28 @@ export default function Favourites() {
 						deleteIcon={<DeleteIcon />}
 						variant="outlined"
 						onDelete={() => {}}
-					/>
-					<Chip label="Hard" deleteIcon={<DeleteIcon />} variant="outlined" />
+					/> */}
+
+					{favourites &&
+						favourites.length > 0 &&
+						favourites.map((item) => {
+							return (
+								<Chip
+									key={item.id}
+									label={capitalizeFirstLetter(item.data)}
+									deleteIcon={<DeleteIcon />}
+									variant="outlined"
+									onDelete={() => {}}
+									sx={{
+										mb: "10px!important",
+										ml: "0px!important",
+										mr: "5px!important",
+									}}
+								/>
+							);
+						})}
+
+					{/* <Chip label="Hard" deleteIcon={<DeleteIcon />} variant="outlined" /> */}
 				</Stack>
 			</Box>
 		</Box>
