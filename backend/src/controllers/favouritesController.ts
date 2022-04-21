@@ -1,10 +1,16 @@
 import Favourite from "../models/Favourite";
 import _ from "lodash";
+interface Iget {
+	category: string;
+}
+interface Ipost {
+	category: string;
+	data: string;
+}
 const FavouritesController: IFavouritesController = {
-	async get(event, args) {
+	async get(event, args: Iget) {
 		try {
-			console.log(args);
-			let category: string = args.category;
+			let category = args.category;
 			let favourites;
 			if (category === undefined || null || "") {
 				throw new Error("Unexpected category for favourite");
@@ -12,7 +18,7 @@ const FavouritesController: IFavouritesController = {
 			if (category === "all") {
 				favourites = await Favourite.findAll({
 					raw: true,
-					limit: 10,
+					// limit: 10,
 					order: [["id", "DESC"]],
 				});
 			} else {
@@ -23,10 +29,6 @@ const FavouritesController: IFavouritesController = {
 					raw: true,
 				});
 			}
-			console.log(
-				"🚀 ~ file: favouritesController.ts ~ line 16 ~ get ~ favourites",
-				favourites[0]
-			);
 
 			return { status: 200, data: favourites };
 		} catch (err: any) {
@@ -34,11 +36,10 @@ const FavouritesController: IFavouritesController = {
 			return { status: 500, message: err.message };
 		}
 	},
-	async post(event, args) {
+	async post(event, args: Ipost) {
 		try {
-			console.log(args);
-			let category: string = args.category;
-			let data: string = args.data;
+			let category = args.category;
+			let data = args.data;
 
 			if (category === null || data === null) {
 				throw new Error("Incorrect favourite type or data");

@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const favouritesDataSlice = createSlice({
 	name: "favouritesData",
 	initialState: {
-		data: {},
+		data: [],
 	},
 	reducers: {
 		setFavourites: (state, action) => {

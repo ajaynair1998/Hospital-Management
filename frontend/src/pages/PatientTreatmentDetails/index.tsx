@@ -42,7 +42,6 @@ export default function ResponsiveDrawer(props: Props) {
 	};
 	const dispatch = useDispatch();
 	const { data } = useSelector((state: IStore) => state.categoriesStore);
-	console.log("🚀 ~ file: index.tsx ~ line 43 ~ ResponsiveDrawer ~ data", data);
 
 	const drawer = (
 		<div>
