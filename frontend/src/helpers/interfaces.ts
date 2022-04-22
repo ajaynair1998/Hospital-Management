@@ -3,6 +3,7 @@ export interface IElectronAPI {
 	favouritesApi: {
 		get: (req: any) => Promise<any>;
 		post: (req: any) => Promise<any>;
+		delete: (req: any) => Promise<any>;
 	};
 }
 

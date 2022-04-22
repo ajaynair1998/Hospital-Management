@@ -1,14 +1,18 @@
 import Favourite from "../models/Favourite";
 import _ from "lodash";
-interface Iget {
+interface IGet {
 	category: string;
 }
-interface Ipost {
+interface IPost {
 	category: string;
 	data: string;
 }
+
+interface IDelete {
+	id: number;
+}
 const FavouritesController: IFavouritesController = {
-	async get(event, args: Iget) {
+	async get(event, args: IGet) {
 		try {
 			let category = args.category;
 			let favourites;
@@ -36,7 +40,7 @@ const FavouritesController: IFavouritesController = {
 			return { status: 500, message: err.message };
 		}
 	},
-	async post(event, args: Ipost) {
+	async post(event, args: IPost) {
 		try {
 			let category = args.category;
 			let data = args.data;
@@ -69,11 +73,38 @@ const FavouritesController: IFavouritesController = {
 			return { status: 500, message: err.message };
 		}
 	},
+	async delete(event, args: IDelete) {
+		try {
+			let id = args.id;
+
+			if (id === null || id === undefined) {
+				throw new Error("Undefined or null as id");
+			}
+			let favouriteExists = await Favourite.destroy({
+				where: {
+					id: id,
+				},
+			});
+
+			if (favouriteExists > 0) {
+				return {
+					status: 200,
+					message: `Favourite with id ${id} was deleted successfully`,
+				};
+			} else {
+				throw new Error("The favourite with this id doesnt exist");
+			}
+		} catch (err: any) {
+			console.log(err);
+			return { status: 500, message: err.message };
+		}
+	},
 };
 
 interface IFavouritesController {
 	get: (event: any, args: any) => Promise<any>;
 	post: (event: any, args: any) => Promise<any>;
+	delete: (event: any, args: any) => Promise<any>;
 }
 
 export default FavouritesController;

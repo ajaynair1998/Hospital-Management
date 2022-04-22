@@ -7,11 +7,14 @@ contextBridge.exposeInMainWorld("electron", {
 		},
 	},
 	favouritesApi: {
-		async get(req: IFavourite): Promise<any> {
+		async get(req: { category: string }): Promise<any> {
 			return ipcRenderer.invoke("favourites-get", req);
 		},
 		async post(req: IFavourite): Promise<any> {
 			return ipcRenderer.invoke("favourites-post", req);
+		},
+		async delete(req: { id: number }): Promise<any> {
+			return ipcRenderer.invoke("favourites-delete", req);
 		},
 	},
 });
