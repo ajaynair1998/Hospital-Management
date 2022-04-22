@@ -8,10 +8,11 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { capitalizeFirstLetter } from "../../helpers/functions";
+import FavouritesHook from "../../hooks/favourites";
+import { useSelector } from "react-redux";
+import { IStore } from "../../helpers/interfaces";
 
-interface Props {
-	favourites: any[];
-}
+interface Props {}
 
 interface IFavouriteChip {
 	id: number;
@@ -45,7 +46,11 @@ const FavouriteChip = ({
 	}
 };
 
-export default function Favourites({ favourites }: Props) {
+export default function Favourites({}: Props) {
+	let favourites = useSelector(
+		(state: IStore) => state.favouritesDataStore.data
+	);
+	FavouritesHook();
 	return (
 		<Box sx={{ width: "100%", bgcolor: "background.paper" }}>
 			<Box sx={{ my: 1, mx: 2 }}>
@@ -93,7 +98,7 @@ export default function Favourites({ favourites }: Props) {
 
 					{favourites &&
 						favourites.length > 0 &&
-						favourites.map((item) => {
+						favourites.map((item: any) => {
 							return (
 								<Chip
 									key={item.id}

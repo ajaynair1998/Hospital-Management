@@ -13,20 +13,14 @@ let Container = styled.div`
 	flex-direction: column;
 `;
 
-interface Props {
-	addNewFavourite: (category: string, data: string) => Promise<any>;
-	favourites: any[];
-}
-const ChiefComplaints: React.FC<Props> = ({ addNewFavourite, favourites }) => {
+interface Props {}
+const ChiefComplaints: React.FC<Props> = ({}) => {
 	return (
 		<Container>
-			<Favourites favourites={favourites} />
+			<Favourites />
 			<SelectionArray />
 			<TextFieldComponent />
-			<AddFavourite
-				addNewFavourite={addNewFavourite}
-				category={"chief_complaint"}
-			/>
+			<AddFavourite category={"chief_complaint"} />
 			<BasicSaveAllButton onClick={() => {}} text={"Save"} />
 		</Container>
 	);
