@@ -7,10 +7,9 @@ import { getFavourites } from "../../helpers/functions";
 import { setFavourites } from "../../redux/Reducers/favouritesDataReducer";
 
 interface Props {
-	addNewFavourite: (category: string, data: string) => Promise<any>;
 	category: string;
 }
-const AddFavourite: React.FC<Props> = ({ addNewFavourite, category }) => {
+const AddFavourite: React.FC<Props> = ({ category }) => {
 	const dispatch = useDispatch();
 	const [data, setData] = useState("");
 	let handleChange = (data: string) => {
@@ -29,6 +28,28 @@ const AddFavourite: React.FC<Props> = ({ addNewFavourite, category }) => {
 			}
 		}
 	};
+
+	let addNewFavourite = async (
+		category: string,
+		data: string
+	): Promise<any> => {
+		try {
+			let response = await window.electron.favouritesApi.post({
+				category,
+				data,
+			});
+			if (response.status === 200) {
+				let allFavourites = await getFavourites();
+				console.log(allFavourites);
+			}
+			console.log(response);
+			return true;
+		} catch (err) {
+			console.log(err);
+			return false;
+		}
+	};
+
 	return (
 		<Box
 			component="form"
