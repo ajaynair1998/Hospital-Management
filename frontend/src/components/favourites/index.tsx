@@ -7,10 +7,11 @@ import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { capitalizeFirstLetter } from "../../helpers/functions";
+import { capitalizeFirstLetter, getFavourites } from "../../helpers/functions";
 import FavouritesHook from "../../hooks/favourites";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IStore } from "../../helpers/interfaces";
+import { setFavourites } from "../../redux/Reducers/favouritesDataReducer";
 
 interface Props {}
 
@@ -47,10 +48,23 @@ const FavouriteChip = ({
 };
 
 export default function Favourites({}: Props) {
+	let dispatch = useDispatch();
 	let favourites = useSelector(
 		(state: IStore) => state.favouritesDataStore.data
 	);
 	FavouritesHook();
+
+	const deleteFavourite = async (id: number) => {
+		try {
+			await window.electron.favouritesApi.delete({ id: id });
+			let favourites = await getFavourites();
+			if (favourites.status === 200) {
+				dispatch(setFavourites(favourites.data));
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	};
 	return (
 		<Box sx={{ width: "100%", bgcolor: "background.paper" }}>
 			<Box sx={{ my: 1, mx: 2 }}>
@@ -105,7 +119,9 @@ export default function Favourites({}: Props) {
 									label={capitalizeFirstLetter(item.data)}
 									deleteIcon={<DeleteIcon />}
 									variant="outlined"
-									onDelete={() => {}}
+									onDelete={() => {
+										deleteFavourite(item.id);
+									}}
 									sx={{
 										mb: "10px!important",
 										ml: "0px!important",
