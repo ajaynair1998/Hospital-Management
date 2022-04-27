@@ -7,6 +7,8 @@ import BasicSaveAllButton from "../../../../components/SaveAllButton";
 import SelectionArray from "../../../../components/SelectionArray";
 import TextFieldComponent from "../../../../components/TextField";
 import AddFavourite from "../../../../components/AddFavourite";
+import ChiefComplaintInput from "../../../../components/ChiefComplaintInput";
+import StickyFooter from "../../../../components/StickyFooter";
 
 let Container = styled.div`
 	display: flex;
@@ -19,9 +21,7 @@ const ChiefComplaints: React.FC<Props> = ({}) => {
 		<Container>
 			<Favourites />
 			<SelectionArray />
-			<TextFieldComponent />
-			<AddFavourite category={"chief_complaint"} />
-			<BasicSaveAllButton onClick={() => {}} text={"Save"} />
+			<ChiefComplaintInput />
 		</Container>
 	);
 };

@@ -22,6 +22,7 @@ import { IStore } from "../../helpers/interfaces";
 import { setSelectedCategory } from "../../redux/Reducers/categoriesDataReducer";
 
 import { categoriesList } from "./categories";
+import StickyFooter from "../../components/StickyFooter";
 
 const drawerWidth = 240;
 
