@@ -25,6 +25,11 @@ export interface IStore {
 		treatment_details_id: number;
 		chief_complaints: IChiefComplaint[];
 	};
+	utilDataStore: {
+		data: {
+			inputValue: string;
+		};
+	};
 }
 
 export interface ICategory {

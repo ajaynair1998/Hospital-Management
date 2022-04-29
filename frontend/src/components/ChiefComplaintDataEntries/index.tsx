@@ -44,17 +44,19 @@ export const ChiefComplaintDataEntries = () => {
 	}, []);
 	return (
 		<Box m={2}>
-			{chief_complaints.map((item: IChiefComplaint) => {
-				return (
-					<ChiefComplaintDataEntry
-						createdAt={item.createdAt}
-						complaint={item.complaint}
-						details={item.details}
-						duration={item.duration}
-						id={item.id}
-					/>
-				);
-			})}
+			{chief_complaints &&
+				chief_complaints.map((item: IChiefComplaint) => {
+					return (
+						<ChiefComplaintDataEntry
+							createdAt={item.createdAt}
+							complaint={item.complaint}
+							details={item.details}
+							duration={item.duration}
+							id={item.id}
+							key={item.id}
+						/>
+					);
+				})}
 		</Box>
 	);
 };

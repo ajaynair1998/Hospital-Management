@@ -12,6 +12,7 @@ import FavouritesHook from "../../hooks/favourites";
 import { useDispatch, useSelector } from "react-redux";
 import { IStore } from "../../helpers/interfaces";
 import { setFavourites } from "../../redux/Reducers/favouritesDataReducer";
+import { setSelectedInputValue } from "../../redux/Reducers/utilDataReducer";
 
 interface Props {}
 
@@ -53,6 +54,10 @@ export default function Favourites({}: Props) {
 		(state: IStore) => state.favouritesDataStore.data
 	);
 	FavouritesHook();
+
+	const handleClick = (data: string) => {
+		dispatch(setSelectedInputValue(data));
+	};
 
 	const deleteFavourite = async (id: number) => {
 		try {
@@ -117,12 +122,14 @@ export default function Favourites({}: Props) {
 								<Chip
 									key={item.id}
 									label={capitalizeFirstLetter(item.data)}
+									onClick={() => handleClick(item.data)}
 									deleteIcon={<DeleteIcon />}
 									variant="outlined"
 									onDelete={() => {
 										deleteFavourite(item.id);
 									}}
 									sx={{
+										cursor: "pointer",
 										mb: "10px!important",
 										ml: "0px!important",
 										mr: "5px!important",

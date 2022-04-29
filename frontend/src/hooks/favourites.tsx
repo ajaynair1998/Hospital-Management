@@ -16,7 +16,7 @@ const FavouritesHook = () => {
 
 	async function fetchAllFavourites() {
 		try {
-			let favourites = await getFavourites();
+			let favourites = await getFavourites(data.location);
 			if (favourites.status === 200) {
 				setFavouritesInState(data);
 				dispatch(setFavourites(favourites.data));

@@ -9,8 +9,12 @@ import {
 	FormControl,
 	Button,
 } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setChiefComplaints } from "../../redux/Reducers/patientTreatmentDetailsReducer";
+import { IStore } from "../../helpers/interfaces";
+import { setSelectedInputValue } from "../../redux/Reducers/utilDataReducer";
+import { getFavourites } from "../../helpers/functions";
+import { setFavourites } from "../../redux/Reducers/favouritesDataReducer";
 
 const ChiefComplaintInput = () => {
 	const dispatch = useDispatch();
@@ -20,12 +24,31 @@ const ChiefComplaintInput = () => {
 	let [duration, setDuration] = useState("");
 	let [details, setDetails] = useState("");
 
+	let { inputValue } = useSelector((state: IStore) => state.utilDataStore.data);
+
 	let handleChangeType = (e: SelectChangeEvent<string>) => {
 		setType(e.target.value);
 	};
 
+	useEffect(() => {
+		setComplaint(inputValue);
+	}, [inputValue]);
+
+	const handleInputValueChange = (value: string) => {
+		dispatch(setSelectedInputValue(value));
+	};
+
 	const handleAdd = async () => {
 		try {
+			// check whether this exists in the favourites , if not
+			// add it into the facourites data
+
+			let addedToFavourites = await window.electron.favouritesApi.post({
+				category: "chief_complaint",
+				data: complaint,
+			});
+
+			let { data } = await getFavourites("chief_complaint");
 			const response = await window.electron.ChiefComplaintsApi.post({
 				treatmentDetailId: 1,
 				details: details,
@@ -39,6 +62,7 @@ const ChiefComplaintInput = () => {
 			console.log(allComplaints);
 
 			dispatch(setChiefComplaints(allComplaints.data));
+			dispatch(setFavourites(data));
 			setComplaint("");
 			setType("hours");
 			setDuration("");
@@ -62,7 +86,7 @@ const ChiefComplaintInput = () => {
 				variant="outlined"
 				value={complaint}
 				sx={{ width: "200px!important" }}
-				onChange={(e) => setComplaint(e.target.value)}
+				onChange={(e) => handleInputValueChange(e.target.value)}
 			/>
 			<TextField
 				id="outlined-basic"
@@ -95,7 +119,6 @@ const ChiefComplaintInput = () => {
 				multiline
 				rows={4}
 				value={details}
-				defaultValue="Default Value"
 				sx={{ width: "300px!important" }}
 				onChange={(e) => setDetails(e.target.value)}
 			/>

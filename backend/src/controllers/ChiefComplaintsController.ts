@@ -43,6 +43,7 @@ const ChiefComplaintsController: IChiefComplaintsController = {
 					treatmentDetailId: TreatmentDetailId,
 				},
 				raw: true,
+				order: [["createdAt", "DESC"]],
 			});
 			console.log(complaints);
 			return {
