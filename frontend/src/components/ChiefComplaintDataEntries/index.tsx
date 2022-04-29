@@ -5,9 +5,10 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 import { Button, Box } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IStore } from "../../helpers/interfaces";
 import { IChiefComplaint } from "../../helpers/interfaces";
+import { setChiefComplaints } from "../../redux/Reducers/patientTreatmentDetailsReducer";
 
 const Img = styled("img")({
 	margin: "auto",
@@ -17,44 +18,74 @@ const Img = styled("img")({
 });
 
 interface IProps {
-	created_at?: string;
+	createdAt?: string;
 	complaint?: string;
 	details?: string;
 	duration?: string;
 	id?: number;
 }
 
-export function DataEntries() {
-	let { chief_complaints } = useSelector(
-		(state: IStore) => state.patientTreatmentDetailsDataStore
+export const ChiefComplaintDataEntries = () => {
+	const chief_complaints = useSelector(
+		(state: IStore) => state.patientTreatmentDetailsDataStore.chief_complaints
 	);
+	let dispatch = useDispatch();
+	const fetchAllExistingChiefComplaints = async () => {
+		let response = await window.electron.ChiefComplaintsApi.get({
+			treatmentDetailId: 1,
+		});
+		if (response.status === 200) {
+			dispatch(setChiefComplaints(response.data));
+		}
+	};
+
+	React.useEffect(() => {
+		fetchAllExistingChiefComplaints();
+	}, []);
 	return (
 		<Box m={2}>
 			{chief_complaints.map((item: IChiefComplaint) => {
-				return ChiefComplaintDataEntry(item);
+				return (
+					<ChiefComplaintDataEntry
+						createdAt={item.createdAt}
+						complaint={item.complaint}
+						details={item.details}
+						duration={item.duration}
+						id={item.id}
+					/>
+				);
 			})}
 		</Box>
 	);
-}
+};
 
 export default function ChiefComplaintDataEntry({
-	created_at,
+	createdAt,
 	complaint,
 	details,
 	duration,
 	id,
 }: IProps) {
-	const [createdAt, setCreatedAt] = React.useState("23-07-1998");
-	const [chiefComplaint, setCheifComplaint] = React.useState("Toothache");
-	const [durationValue, setDuration] = React.useState("23 Hours");
-	const [detailValue, setDetail] = React.useState(
-		"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iurodio nemo ipsum beatae id soluta ea, quod porro ut eveniet,minima odit reiciendis neque, eaque placeat deserunt unde fugiatatque!"
-	);
+	const [created_at, setCreatedAt] = React.useState<any>("");
+	const [chiefComplaint, setCheifComplaint] = React.useState<any>("");
+	const [durationValue, setDuration] = React.useState<any>("");
+	const [detailValue, setDetail] = React.useState<any>("");
+
+	React.useEffect(() => {
+		setCreatedAt(createdAt);
+		setCheifComplaint(complaint);
+		setDuration(duration);
+		setDetail(details);
+	}, []);
 	return (
 		<Paper
+			key={id}
+			elevation={2}
 			sx={{
 				p: 2,
-				margin: 2,
+				mb: 1,
+
+				// margin: 2,
 				// maxWidth: 500,
 				flexGrow: 1,
 				backgroundColor: (theme) =>
@@ -91,7 +122,7 @@ export default function ChiefComplaintDataEntry({
 					</Grid>
 					<Grid item>
 						<Typography variant="subtitle1" component="div">
-							{createdAt}
+							{created_at}
 						</Typography>
 					</Grid>
 				</Grid>

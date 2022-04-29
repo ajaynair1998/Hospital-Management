@@ -7,6 +7,7 @@ export interface IElectronAPI {
 	};
 	ChiefComplaintsApi: {
 		post: (req: any) => Promise<any>;
+		get: (req: any) => Promise<any>;
 	};
 }
 
@@ -38,5 +39,5 @@ export interface IChiefComplaint {
 	duration: string;
 	complaint: string;
 	details: string;
-	created_at: string;
+	createdAt: string;
 }

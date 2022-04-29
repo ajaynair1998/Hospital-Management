@@ -1,5 +1,4 @@
 import ChiefComplaint from "../models/Chief Complaint";
-import TreatmentDetail from "../models/Treatment Detail";
 import _ from "lodash";
 
 interface IPost extends IChiefComplaint {}
@@ -36,10 +35,30 @@ const ChiefComplaintsController: IChiefComplaintsController = {
 			return { status: 500, message: err.message };
 		}
 	},
+	async get(event: any, args: { treatmentDetailId: number }) {
+		try {
+			const TreatmentDetailId = args.treatmentDetailId;
+			let complaints = await ChiefComplaint.findAll({
+				where: {
+					treatmentDetailId: TreatmentDetailId,
+				},
+				raw: true,
+			});
+			console.log(complaints);
+			return {
+				status: 200,
+				data: complaints,
+			};
+		} catch (err: any) {
+			console.log(err);
+			return { status: 500, message: err.message };
+		}
+	},
 };
 
 interface IChiefComplaintsController {
 	post: (event: any, args: any) => Promise<any>;
+	get: (event: any, args: any) => Promise<any>;
 }
 
 export default ChiefComplaintsController;

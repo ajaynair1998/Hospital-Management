@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	Box,
 	TextField,
@@ -9,8 +9,11 @@ import {
 	FormControl,
 	Button,
 } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { setChiefComplaints } from "../../redux/Reducers/patientTreatmentDetailsReducer";
 
 const ChiefComplaintInput = () => {
+	const dispatch = useDispatch();
 	let [treatmentDetailId, setTreatmentDetailId] = useState(1);
 	let [complaint, setComplaint] = useState("");
 	let [type, setType] = useState("hours");
@@ -29,7 +32,17 @@ const ChiefComplaintInput = () => {
 				complaint: complaint,
 				duration: duration,
 			});
-			console.log(response);
+
+			let allComplaints = await window.electron.ChiefComplaintsApi.get({
+				treatmentDetailId: 1,
+			});
+			console.log(allComplaints);
+
+			dispatch(setChiefComplaints(allComplaints.data));
+			setComplaint("");
+			setType("hours");
+			setDuration("");
+			setDetails("");
 		} catch (err: any) {
 			console.log(err.message);
 		}
@@ -92,7 +105,7 @@ const ChiefComplaintInput = () => {
 				sx={{
 					width: "80px!important",
 				}}
-				onClick={handleAdd}
+				onClick={() => handleAdd()}
 			>
 				Add
 			</Button>
