@@ -12,18 +12,30 @@ export interface ITreatmentDetail
 		InferAttributes<ITreatmentDetail>,
 		InferCreationAttributes<ITreatmentDetail>
 	> {
-	id: CreationOptional<number>;
-	time: string;
+	id?: CreationOptional<number>;
+	time?: string;
+	patientId?: number;
 }
 
 const TreatmentDetail = sequelize.define<ITreatmentDetail>("TreatmentDetail", {
 	id: {
-		type: DataTypes.UUID,
-		defaultValue: DataTypes.UUIDV4,
+		// type: DataTypes.UUID,
+		// defaultValue: DataTypes.UUIDV4,
+		// primaryKey: true,
 		primaryKey: true,
+		type: DataTypes.INTEGER.UNSIGNED,
+		autoIncrement: true,
+		allowNull: false,
 	},
 	time: {
 		type: DataTypes.STRING,
+	},
+	patientId: {
+		type: DataTypes.INTEGER.UNSIGNED,
+		references: {
+			model: "Patients", // 'fathers' refers to table name
+			key: "id", // 'id' refers to column name in fathers table
+		},
 	},
 });
 

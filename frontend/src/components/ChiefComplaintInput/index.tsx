@@ -11,10 +11,28 @@ import {
 } from "@mui/material";
 
 const ChiefComplaintInput = () => {
+	let [treatmentDetailId, setTreatmentDetailId] = useState(1);
+	let [complaint, setComplaint] = useState("");
 	let [type, setType] = useState("hours");
+	let [duration, setDuration] = useState("");
+	let [details, setDetails] = useState("");
 
 	let handleChangeType = (e: SelectChangeEvent<string>) => {
 		setType(e.target.value);
+	};
+
+	const handleAdd = async () => {
+		try {
+			const response = await window.electron.ChiefComplaintsApi.post({
+				treatmentDetailId: 1,
+				details: details,
+				complaint: complaint,
+				duration: duration,
+			});
+			console.log(response);
+		} catch (err: any) {
+			console.log(err.message);
+		}
 	};
 	return (
 		<Box
@@ -29,13 +47,17 @@ const ChiefComplaintInput = () => {
 				id="outlined-basic"
 				label="Complaint"
 				variant="outlined"
+				value={complaint}
 				sx={{ width: "200px!important" }}
+				onChange={(e) => setComplaint(e.target.value)}
 			/>
 			<TextField
 				id="outlined-basic"
 				label="Duration"
 				variant="outlined"
+				value={duration}
 				sx={{ width: "200px!important" }}
+				onChange={(e) => setDuration(e.target.value)}
 			/>
 			<FormControl sx={{ width: "200px!important" }}>
 				<InputLabel id="demo-simple-select-label"> type</InputLabel>
@@ -59,8 +81,10 @@ const ChiefComplaintInput = () => {
 				label="Details"
 				multiline
 				rows={4}
+				value={details}
 				defaultValue="Default Value"
 				sx={{ width: "300px!important" }}
+				onChange={(e) => setDetails(e.target.value)}
 			/>
 
 			<Button
@@ -68,6 +92,7 @@ const ChiefComplaintInput = () => {
 				sx={{
 					width: "80px!important",
 				}}
+				onClick={handleAdd}
 			>
 				Add
 			</Button>

@@ -17,9 +17,21 @@ contextBridge.exposeInMainWorld("electron", {
 			return ipcRenderer.invoke("favourites-delete", req);
 		},
 	},
+	ChiefComplaintsApi: {
+		async post(req: IChiefComplaint): Promise<any> {
+			return ipcRenderer.invoke("chief-complaints-post", req);
+		},
+	},
 });
 
 interface IFavourite {
 	type: string;
 	favourite?: string;
+}
+
+interface IChiefComplaint {
+	treatmentDetailId: number;
+	complaint: string;
+	duration: string;
+	details: string;
 }

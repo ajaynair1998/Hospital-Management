@@ -5,6 +5,9 @@ export interface IElectronAPI {
 		post: (req: any) => Promise<any>;
 		delete: (req: any) => Promise<any>;
 	};
+	ChiefComplaintsApi: {
+		post: (req: any) => Promise<any>;
+	};
 }
 
 export interface IStore {
@@ -17,6 +20,10 @@ export interface IStore {
 	favouritesDataStore: {
 		data: any;
 	};
+	patientTreatmentDetailsDataStore: {
+		treatment_details_id: number;
+		chief_complaints: IChiefComplaint[];
+	};
 }
 
 export interface ICategory {
@@ -24,4 +31,12 @@ export interface ICategory {
 	category_name: string;
 	category_icon: any;
 	location: string;
+}
+
+export interface IChiefComplaint {
+	id: number;
+	duration: string;
+	complaint: string;
+	details: string;
+	created_at: string;
 }

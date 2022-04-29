@@ -11,23 +11,23 @@ export interface IPatient
 	extends Model<InferAttributes<IPatient>, InferCreationAttributes<IPatient>> {
 	id: CreationOptional<number>;
 	name: string;
-	time: string;
-	date: string;
-	image: DataTypes.BlobDataType;
-	nationality: string;
-	age: number;
-	date_of_birth: string;
-	gender: DataTypes.EnumDataType<string>;
-	address: string;
-	blood_group: string;
-	phone_number: string;
-	mobile_number: string;
-	email: string;
-	marital_status: string;
-	occupation: string;
-	doctor_name: string;
-	purpose: string;
-	reffered_by: string;
+	time?: string;
+	date?: string;
+	image?: DataTypes.BlobDataType;
+	nationality?: string;
+	age?: number;
+	date_of_birth?: string;
+	gender?: DataTypes.EnumDataType<string>;
+	address?: string;
+	blood_group?: string;
+	phone_number?: string;
+	mobile_number?: string;
+	email?: string;
+	marital_status?: string;
+	occupation?: string;
+	doctor_name?: string;
+	purpose?: string;
+	reffered_by?: string;
 }
 
 const Patient = database.define<IPatient>(

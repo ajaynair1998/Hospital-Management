@@ -9,6 +9,7 @@ import TextFieldComponent from "../../../../components/TextField";
 import AddFavourite from "../../../../components/AddFavourite";
 import ChiefComplaintInput from "../../../../components/ChiefComplaintInput";
 import StickyFooter from "../../../../components/StickyFooter";
+import ChiefComplaintDataEntries from "../../../../components/ChiefComplaintDataEntries";
 
 let Container = styled.div`
 	display: flex;
@@ -22,6 +23,7 @@ const ChiefComplaints: React.FC<Props> = ({}) => {
 			<Favourites />
 			<SelectionArray />
 			<ChiefComplaintInput />
+			<ChiefComplaintDataEntries />
 		</Container>
 	);
 };

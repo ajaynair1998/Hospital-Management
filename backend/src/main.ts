@@ -3,6 +3,7 @@ import isDev from "electron-is-dev";
 import path from "path";
 import notifications from "./routes/notificationRoute";
 import favourites from "./routes/fovouritesRoute";
+import chiefComplaintsRoute from "./routes/chiefComplaintsRoute";
 
 function createWindow(): void {
 	const win = new BrowserWindow({
@@ -31,6 +32,7 @@ app.whenReady().then(() => {
 // expose all routes
 notifications;
 favourites;
+chiefComplaintsRoute;
 
 app.on("window-all-closed", function () {
 	if (process.platform !== "darwin") app.quit();

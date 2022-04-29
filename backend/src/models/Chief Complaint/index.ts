@@ -12,22 +12,38 @@ export interface IChiefComplaint
 		InferAttributes<IChiefComplaint>,
 		InferCreationAttributes<IChiefComplaint>
 	> {
-	id: CreationOptional<number>;
+	id?: CreationOptional<number>;
 	complaint: string;
-	time: string;
+	time?: string;
+	duration: string;
+	details: string;
+	treatmentDetailId?: number;
 }
 
 const ChiefComplaint = sequelize.define<IChiefComplaint>("ChiefComplaint", {
 	id: {
-		type: DataTypes.UUID,
-		defaultValue: DataTypes.UUIDV4,
+		type: DataTypes.UUIDV1,
+		defaultValue: DataTypes.UUIDV1,
 		primaryKey: true,
 	},
 	complaint: {
 		type: DataTypes.STRING(500),
 	},
+	duration: {
+		type: DataTypes.STRING(500),
+	},
 	time: {
 		type: DataTypes.STRING,
+	},
+	details: {
+		type: DataTypes.STRING(1000),
+	},
+	treatmentDetailId: {
+		type: DataTypes.INTEGER.UNSIGNED,
+		references: {
+			model: "TreatmentDetails", // 'fathers' refers to table name
+			key: "id", // 'id' refers to column name in fathers table
+		},
 	},
 });
 
