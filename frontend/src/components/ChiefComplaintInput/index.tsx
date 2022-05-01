@@ -12,9 +12,13 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { setChiefComplaints } from "../../redux/Reducers/patientTreatmentDetailsReducer";
 import { IStore } from "../../helpers/interfaces";
-import { setSelectedInputValue } from "../../redux/Reducers/utilDataReducer";
-import { getFavourites } from "../../helpers/functions";
+import {
+	setSelectedInputValue,
+	setSnackBarState,
+} from "../../redux/Reducers/utilDataReducer";
+import { getFavourites, timeout } from "../../helpers/functions";
 import { setFavourites } from "../../redux/Reducers/favouritesDataReducer";
+import { setTimeout } from "timers/promises";
 
 const ChiefComplaintInput = () => {
 	const dispatch = useDispatch();
@@ -67,6 +71,10 @@ const ChiefComplaintInput = () => {
 			setType("hours");
 			setDuration("");
 			setDetails("");
+
+			if (response.status === 200) {
+				dispatch(setSnackBarState({ snackBarOpen: true, text: "Success" }));
+			}
 		} catch (err: any) {
 			console.log(err.message);
 		}

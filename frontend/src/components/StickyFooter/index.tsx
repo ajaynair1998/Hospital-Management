@@ -1,7 +1,16 @@
 import { AppBar, Box, Button } from "@mui/material";
 import React from "react";
+import NavigationIcon from "@mui/icons-material/Navigation";
 
 const StickyFooter = () => {
+	const goToTop = () => {
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth",
+			/* you can also use 'auto' behaviour
+         in place of 'smooth' */
+		});
+	};
 	return (
 		<AppBar
 			elevation={0}
@@ -30,6 +39,13 @@ const StickyFooter = () => {
 			>
 				<Button variant="outlined">Exit</Button>
 				<Button variant="outlined">Save All</Button>
+				<Button
+					variant="outlined"
+					sx={{ alignContent: "baseline" }}
+					onClick={goToTop}
+				>
+					<NavigationIcon /> Go to Top
+				</Button>
 			</Box>
 		</AppBar>
 	);

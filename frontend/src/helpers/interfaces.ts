@@ -28,6 +28,8 @@ export interface IStore {
 	utilDataStore: {
 		data: {
 			inputValue: string;
+			snackBarOpen: boolean;
+			snackBarText: string;
 		};
 	};
 }

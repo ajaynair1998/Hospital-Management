@@ -5,6 +5,7 @@ import store from "./redux/store";
 import { Provider } from "react-redux";
 import "./index.css";
 import App from "./App";
+import PositionedSnackbar from "./components/SnackBar";
 
 ReactDOM.render(
 	<React.StrictMode>
@@ -12,6 +13,7 @@ ReactDOM.render(
 			<BrowserRouter>
 				<App />
 			</BrowserRouter>
+			<PositionedSnackbar />
 		</Provider>
 	</React.StrictMode>,
 	document.getElementById("root")

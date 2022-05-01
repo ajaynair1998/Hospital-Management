@@ -82,10 +82,10 @@ export default function ChiefComplaintDataEntry({
 	return (
 		<Paper
 			key={id}
-			elevation={2}
+			elevation={5}
 			sx={{
 				p: 2,
-				mb: 1,
+				mb: 2,
 
 				// margin: 2,
 				// maxWidth: 500,
@@ -102,7 +102,7 @@ export default function ChiefComplaintDataEntry({
         </Grid> */}
 				<Grid item xs={12} sm container>
 					<Grid item xs container direction="column" spacing={2}>
-						<Grid item xs>
+						<Grid item xs sx={{ m: 1 }}>
 							<Typography gutterBottom variant="subtitle1" component="div">
 								{chiefComplaint}
 							</Typography>
@@ -123,7 +123,7 @@ export default function ChiefComplaintDataEntry({
 						</Grid>
 					</Grid>
 					<Grid item>
-						<Typography variant="subtitle1" component="div">
+						<Typography variant="subtitle1" component="div" sx={{ m: 1 }}>
 							{created_at}
 						</Typography>
 					</Grid>

@@ -20,3 +20,7 @@ export const getFavourites: (category?: string) => Promise<any> = async (
 export function capitalizeFirstLetter(string: string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+export function timeout(delay: number) {
+	return new Promise((res) => setTimeout(res, delay));
+}
