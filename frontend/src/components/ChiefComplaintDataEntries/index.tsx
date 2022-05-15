@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IStore } from "../../helpers/interfaces";
 import { IChiefComplaint } from "../../helpers/interfaces";
 import { setChiefComplaints } from "../../redux/Reducers/patientTreatmentDetailsReducer";
+import { convertToReadableDate } from "../../helpers";
 
 const Img = styled("img")({
 	margin: "auto",
@@ -73,6 +74,8 @@ export default function ChiefComplaintDataEntry({
 	const [durationValue, setDuration] = React.useState<any>("");
 	const [detailValue, setDetail] = React.useState<any>("");
 
+	let created_at_readable_format = convertToReadableDate(createdAt);
+
 	React.useEffect(() => {
 		setCreatedAt(createdAt);
 		setCheifComplaint(complaint);
@@ -124,7 +127,7 @@ export default function ChiefComplaintDataEntry({
 					</Grid>
 					<Grid item>
 						<Typography variant="subtitle1" component="div" sx={{ m: 1 }}>
-							{created_at}
+							{created_at_readable_format}
 						</Typography>
 					</Grid>
 				</Grid>
