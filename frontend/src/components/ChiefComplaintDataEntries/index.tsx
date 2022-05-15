@@ -74,6 +74,7 @@ export default function ChiefComplaintDataEntry({
 	const [durationValue, setDuration] = React.useState<any>("");
 	const [detailValue, setDetail] = React.useState<any>("");
 
+	let dispatch = useDispatch();
 	let created_at_readable_format = convertToReadableDate(createdAt);
 
 	React.useEffect(() => {
@@ -82,6 +83,23 @@ export default function ChiefComplaintDataEntry({
 		setDuration(duration);
 		setDetail(details);
 	}, []);
+
+	const handleRemoveButton = async () => {
+		try {
+			let deleted = await window.electron.ChiefComplaintsApi.delete({ id: id });
+			await fetchAllExistingChiefComplaints();
+		} catch (err: any) {
+			console.log(err.message);
+		}
+	};
+	const fetchAllExistingChiefComplaints = async () => {
+		let response = await window.electron.ChiefComplaintsApi.get({
+			treatmentDetailId: 1,
+		});
+		if (response.status === 200) {
+			dispatch(setChiefComplaints(response.data));
+		}
+	};
 	return (
 		<Paper
 			key={id}
@@ -118,7 +136,9 @@ export default function ChiefComplaintDataEntry({
 						</Grid>
 						<Grid item xs container direction="row" spacing={2}>
 							<Grid item>
-								<Button sx={{ color: "#ea2929" }}>Remove</Button>
+								<Button sx={{ color: "#ea2929" }} onClick={handleRemoveButton}>
+									Remove
+								</Button>
 							</Grid>
 							<Grid item>
 								<Button>Edit</Button>

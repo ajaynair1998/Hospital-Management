@@ -8,6 +8,7 @@ export interface IElectronAPI {
 	ChiefComplaintsApi: {
 		post: (req: any) => Promise<any>;
 		get: (req: any) => Promise<any>;
+		delete: (req: any) => Promise<any>;
 	};
 }
 

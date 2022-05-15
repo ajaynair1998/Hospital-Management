@@ -24,6 +24,9 @@ contextBridge.exposeInMainWorld("electron", {
 		async get(req: { treatmentDetailId: number }): Promise<any> {
 			return ipcRenderer.invoke("chief-complaints-get", req);
 		},
+		async delete(req: { id: number }): Promise<any> {
+			return ipcRenderer.invoke("chief-complaints-delete", req);
+		},
 	},
 });
 

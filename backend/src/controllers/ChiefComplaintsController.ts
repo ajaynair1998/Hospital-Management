@@ -55,11 +55,37 @@ const ChiefComplaintsController: IChiefComplaintsController = {
 			return { status: 500, message: err.message };
 		}
 	},
+	async delete(event: any, args: { id: number }) {
+		try {
+			const chiefComplaintId = args.id;
+			let deleteEntry = await ChiefComplaint.destroy({
+				where: {
+					id: chiefComplaintId,
+				},
+			});
+
+			if (deleteEntry === 1) {
+				return {
+					status: 200,
+					message: `Deleted ${chiefComplaintId} successfully`,
+				};
+			}
+
+			return {
+				status: 500,
+				message: `Chief complaint ${chiefComplaintId} doesnt exist`,
+			};
+		} catch (err: any) {
+			console.log(err);
+			return { status: 500, message: err.message };
+		}
+	},
 };
 
 interface IChiefComplaintsController {
 	post: (event: any, args: any) => Promise<any>;
 	get: (event: any, args: any) => Promise<any>;
+	delete: (event: any, args: any) => Promise<any>;
 }
 
 export default ChiefComplaintsController;
