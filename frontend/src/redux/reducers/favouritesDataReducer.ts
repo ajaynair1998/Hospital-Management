@@ -6,7 +6,7 @@ export const favouritesDataSlice = createSlice({
 		data: [],
 	},
 	reducers: {
-		setFavourites: (state, action) => {
+		setFavourites: (state: any, action: any) => {
 			state.data = action.payload;
 		},
 	},

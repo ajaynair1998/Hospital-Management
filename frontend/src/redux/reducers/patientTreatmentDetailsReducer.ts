@@ -7,7 +7,7 @@ export const PatientTreatmentDetailsDataSlice = createSlice({
 		chief_complaints: [],
 	},
 	reducers: {
-		setChiefComplaints: (state, action) => {
+		setChiefComplaints: (state: any, action: any) => {
 			state.chief_complaints = action.payload;
 		},
 	},

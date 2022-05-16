@@ -10,6 +10,7 @@ import { IStore } from "../../helpers/interfaces";
 import { IChiefComplaint } from "../../helpers/interfaces";
 import { setChiefComplaints } from "../../redux/Reducers/patientTreatmentDetailsReducer";
 import { convertToReadableDate } from "../../helpers";
+import AlertDialog from "../Dialog";
 
 const Img = styled("img")({
 	margin: "auto",
@@ -24,9 +25,15 @@ interface IProps {
 	details?: string;
 	duration?: string;
 	id?: number;
+	handleSelectComplaint: Function;
+	openDialog: React.Dispatch<React.SetStateAction<boolean>>;
+	setSelectedComplaintText: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const ChiefComplaintDataEntries = () => {
+	const [selectedComplaint, setSelectedComplaint] = React.useState(null);
+	const [selectedComplaintText, setSelectedComplaintText] = React.useState("");
+	const [dialogIsOpen, setDialogOpen] = React.useState(false);
 	const chief_complaints = useSelector(
 		(state: IStore) => state.patientTreatmentDetailsDataStore.chief_complaints
 	);
@@ -39,26 +46,48 @@ export const ChiefComplaintDataEntries = () => {
 			dispatch(setChiefComplaints(response.data));
 		}
 	};
+	const handleRemoveButton = async () => {
+		try {
+			let deleted = await window.electron.ChiefComplaintsApi.delete({
+				id: selectedComplaint,
+			});
+			setDialogOpen(false);
+			await fetchAllExistingChiefComplaints();
+		} catch (err: any) {
+			console.log(err.message);
+		}
+	};
 
 	React.useEffect(() => {
 		fetchAllExistingChiefComplaints();
 	}, []);
 	return (
-		<Box m={2}>
-			{chief_complaints &&
-				chief_complaints.map((item: IChiefComplaint) => {
-					return (
-						<ChiefComplaintDataEntry
-							createdAt={item.createdAt}
-							complaint={item.complaint}
-							details={item.details}
-							duration={item.duration}
-							id={item.id}
-							key={item.id}
-						/>
-					);
-				})}
-		</Box>
+		<React.Fragment>
+			<Box m={2}>
+				{chief_complaints &&
+					chief_complaints.map((item: IChiefComplaint) => {
+						return (
+							<ChiefComplaintDataEntry
+								createdAt={item.createdAt}
+								complaint={item.complaint}
+								details={item.details}
+								duration={item.duration}
+								id={item.id}
+								key={item.id}
+								handleSelectComplaint={setSelectedComplaint}
+								openDialog={setDialogOpen}
+								setSelectedComplaintText={setSelectedComplaintText}
+							/>
+						);
+					})}
+			</Box>
+			<AlertDialog
+				action={handleRemoveButton}
+				isOpen={dialogIsOpen}
+				text={`Do you want to remove ${selectedComplaintText} ?`}
+				close={() => setDialogOpen(false)}
+			/>
+		</React.Fragment>
 	);
 };
 
@@ -68,6 +97,9 @@ export default function ChiefComplaintDataEntry({
 	details,
 	duration,
 	id,
+	handleSelectComplaint,
+	openDialog,
+	setSelectedComplaintText,
 }: IProps) {
 	const [created_at, setCreatedAt] = React.useState<any>("");
 	const [chiefComplaint, setCheifComplaint] = React.useState<any>("");
@@ -86,20 +118,14 @@ export default function ChiefComplaintDataEntry({
 
 	const handleRemoveButton = async () => {
 		try {
-			let deleted = await window.electron.ChiefComplaintsApi.delete({ id: id });
-			await fetchAllExistingChiefComplaints();
+			handleSelectComplaint(id);
+			setSelectedComplaintText(chiefComplaint);
+			openDialog(true);
 		} catch (err: any) {
 			console.log(err.message);
 		}
 	};
-	const fetchAllExistingChiefComplaints = async () => {
-		let response = await window.electron.ChiefComplaintsApi.get({
-			treatmentDetailId: 1,
-		});
-		if (response.status === 200) {
-			dispatch(setChiefComplaints(response.data));
-		}
-	};
+
 	return (
 		<Paper
 			key={id}

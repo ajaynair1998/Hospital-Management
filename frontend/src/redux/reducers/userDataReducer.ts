@@ -6,7 +6,7 @@ export const userDataSlice = createSlice({
 		data: {},
 	},
 	reducers: {
-		setSelectedUser: (state, action) => {
+		setSelectedUser: (state: any, action: any) => {
 			state.data = action.payload;
 		},
 	},

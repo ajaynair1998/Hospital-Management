@@ -10,10 +10,10 @@ export const utilDataSlice = createSlice({
 		},
 	},
 	reducers: {
-		setSelectedInputValue: (state, action) => {
+		setSelectedInputValue: (state: any, action: any) => {
 			state.data.inputValue = action.payload;
 		},
-		setSnackBarState: (state, action) => {
+		setSnackBarState: (state: any, action: any) => {
 			state.data.snackBarOpen = action.payload.snackBarOpen;
 			state.data.snackBarText = action.payload.text;
 		},

@@ -9,7 +9,7 @@ export const CategoriesDataSlice = createSlice({
 		},
 	},
 	reducers: {
-		setSelectedCategory: (state, action) => {
+		setSelectedCategory: (state: any, action: any) => {
 			state.data = action.payload;
 		},
 	},

@@ -6,22 +6,35 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export default function AlertDialog() {
+interface IAlertDialog {
+	action: Function;
+	text: string;
+	isOpen: boolean;
+	close: Function;
+}
+
+export default function AlertDialog({
+	action,
+	text,
+	isOpen,
+	close,
+}: IAlertDialog) {
 	const [open, setOpen] = React.useState(false);
 
-	const handleClickOpen = () => {
-		setOpen(true);
+	const handleClose = () => {
+		close();
 	};
 
-	const handleClose = () => {
-		setOpen(false);
+	const handleYes = async () => {
+		await action();
 	};
+
+	React.useEffect(() => {
+		setOpen(isOpen);
+	}, [isOpen]);
 
 	return (
-		<div>
-			<Button variant="outlined" onClick={handleClickOpen}>
-				Open alert dialog
-			</Button>
+		<React.Fragment>
 			<Dialog
 				open={open}
 				onClose={handleClose}
@@ -33,17 +46,16 @@ export default function AlertDialog() {
 				</DialogTitle>
 				<DialogContent>
 					<DialogContentText id="alert-dialog-description">
-						Let Google help apps determine location. This means sending
-						anonymous location data to Google, even when no apps are running.
+						{text}
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose}>Disagree</Button>
-					<Button onClick={handleClose} autoFocus>
-						Agree
+					<Button onClick={handleClose}>No</Button>
+					<Button onClick={handleYes} autoFocus>
+						Yes
 					</Button>
 				</DialogActions>
 			</Dialog>
-		</div>
+		</React.Fragment>
 	);
 }
