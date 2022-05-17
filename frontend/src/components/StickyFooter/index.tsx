@@ -38,7 +38,7 @@ const StickyFooter = () => {
 				}}
 			>
 				<Button variant="outlined">Exit</Button>
-				<Button variant="outlined">Save All</Button>
+				<Button variant="outlined">Next</Button>
 				<Button
 					variant="outlined"
 					sx={{ alignContent: "baseline" }}

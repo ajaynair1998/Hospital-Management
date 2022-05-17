@@ -129,7 +129,7 @@ export default function ChiefComplaintDataEntry({
 	return (
 		<Paper
 			key={id}
-			elevation={5}
+			elevation={2}
 			sx={{
 				p: 2,
 				mb: 2,

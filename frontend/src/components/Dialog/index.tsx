@@ -11,6 +11,7 @@ interface IAlertDialog {
 	text: string;
 	isOpen: boolean;
 	close: Function;
+	title?: string;
 }
 
 export default function AlertDialog({
@@ -18,6 +19,7 @@ export default function AlertDialog({
 	text,
 	isOpen,
 	close,
+	title,
 }: IAlertDialog) {
 	const [open, setOpen] = React.useState(false);
 
@@ -42,7 +44,7 @@ export default function AlertDialog({
 				aria-describedby="alert-dialog-description"
 			>
 				<DialogTitle id="alert-dialog-title">
-					{"Use Google's location service?"}
+					{title ? title : "Are you sure ?"}
 				</DialogTitle>
 				<DialogContent>
 					<DialogContentText id="alert-dialog-description">

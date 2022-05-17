@@ -57,7 +57,7 @@ const ChiefComplaintInput = () => {
 				treatmentDetailId: 1,
 				details: details,
 				complaint: complaint,
-				duration: duration,
+				duration: duration + " " + type,
 			});
 
 			let allComplaints = await window.electron.ChiefComplaintsApi.get({
