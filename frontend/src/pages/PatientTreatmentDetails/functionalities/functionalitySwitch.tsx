@@ -11,6 +11,24 @@ export const FunctionalitySwitch = (): JSX.Element => {
 			return <ChiefComplaints />;
 		case "clinical_diagnosis":
 			return <ClinicalDiagnosis />;
+		case "diagnosis":
+			return <React.Fragment />;
+		case "drug_allergy":
+			return <React.Fragment />;
+		case "general_examination":
+			return <React.Fragment />;
+		case "investigation":
+			return <React.Fragment />;
+		case "local_examination":
+			return <React.Fragment />;
+		case "medicine":
+			return <React.Fragment />;
+		case "past_medical_history":
+			return <React.Fragment />;
+		case "treatment_plan":
+			return <React.Fragment />;
+		case "follow_up":
+			return <React.Fragment />;
 		default:
 			return <ChiefComplaints />;
 	}
