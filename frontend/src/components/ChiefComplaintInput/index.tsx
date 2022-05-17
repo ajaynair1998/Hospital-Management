@@ -87,6 +87,8 @@ const ChiefComplaintInput = () => {
 			}}
 			noValidate
 			autoComplete="off"
+			display={"flex"}
+			flexDirection={"column"}
 		>
 			<TextField
 				id="outlined-basic"
