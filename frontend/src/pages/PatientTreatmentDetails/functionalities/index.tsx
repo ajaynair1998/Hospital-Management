@@ -6,6 +6,7 @@ import ChiefComplaints from "./ChiefComplaints";
 import { useSelector } from "react-redux";
 import { IStore } from "../../../helpers/interfaces";
 import StickyFooter from "../../../components/StickyFooter";
+import { FunctionalitySwitch } from "./functionalitySwitch";
 
 let FunctionalityContainer = styled.div`
 	min-height: 1000px;
@@ -15,7 +16,7 @@ const Functionalities = () => {
 	return (
 		<Fragment>
 			<FunctionalityContainer>
-				<ChiefComplaints />
+				<FunctionalitySwitch />
 			</FunctionalityContainer>
 			<StickyFooter />
 		</Fragment>
