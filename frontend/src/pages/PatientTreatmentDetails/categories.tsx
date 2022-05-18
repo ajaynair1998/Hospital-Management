@@ -79,6 +79,6 @@ export const categoriesList: ICategory[] = [
 		key: 11,
 		category_name: "Follow Ups",
 		category_icon: <TodayIcon />,
-		location: "follow-up",
+		location: "follow_up",
 	},
 ];

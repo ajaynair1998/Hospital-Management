@@ -23,7 +23,6 @@ const ChiefComplaints: React.FC<Props> = ({}) => {
 		<Container>
 			<Favourites />
 			<ChiefComplaintInput />
-			{/* <ChiefComplaintDataEntries /> */}
 			<ChiefComplaintDataEntries />
 		</Container>
 	);
