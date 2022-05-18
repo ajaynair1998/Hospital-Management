@@ -16,16 +16,16 @@ export interface ILocalExamination
 	extra_oral: string;
 	intra_oral: string;
 	time: string;
+	treatmentDetailId?: number;
 }
 
 const LocalExamination = database.define<ILocalExamination>(
 	"LocalExamination",
 	{
 		id: {
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
 			primaryKey: true,
-			type: DataTypes.INTEGER.UNSIGNED,
-			autoIncrement: true,
-			allowNull: false,
 		},
 		extra_oral: {
 			type: DataTypes.STRING,
@@ -36,9 +36,19 @@ const LocalExamination = database.define<ILocalExamination>(
 		time: {
 			type: DataTypes.STRING,
 		},
+		treatmentDetailId: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			references: {
+				model: "TreatmentDetails", // 'fathers' refers to table name
+				key: "id", // 'id' refers to column name in fathers table
+			},
+		},
 	}
 );
 
 // `sequelize.define` also returns the model
-console.log(LocalExamination === database.models.LocalExamination); // true
+console.log(
+	LocalExamination === database.models.LocalExamination,
+	"Local Examination"
+); // true
 export default LocalExamination;

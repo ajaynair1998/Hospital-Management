@@ -20,10 +20,9 @@ export interface IFavourite
 
 const Favourite = database.define<IFavourite>("Favourite", {
 	id: {
+		type: DataTypes.UUID,
+		defaultValue: DataTypes.UUIDV4,
 		primaryKey: true,
-		type: DataTypes.INTEGER.UNSIGNED,
-		autoIncrement: true,
-		allowNull: false,
 	},
 	data: {
 		type: DataTypes.STRING(1000),
@@ -37,5 +36,5 @@ const Favourite = database.define<IFavourite>("Favourite", {
 });
 
 // `sequelize.define` also returns the model
-console.log(Favourite === database.models.Favourite); // true
+console.log(Favourite === database.models.Favourite, "Favourite"); // true
 export default Favourite;

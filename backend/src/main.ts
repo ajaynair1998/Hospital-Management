@@ -4,6 +4,7 @@ import path from "path";
 import notifications from "./routes/notificationRoute";
 import favourites from "./routes/fovouritesRoute";
 import chiefComplaintsRoute from "./routes/chiefComplaintsRoute";
+import clinicalDiagnosisRoute from "./routes/clinicalDiagnosisRoute";
 
 function createWindow(): void {
 	const win = new BrowserWindow({
@@ -33,6 +34,7 @@ app.whenReady().then(() => {
 notifications;
 favourites;
 chiefComplaintsRoute;
+clinicalDiagnosisRoute;
 
 app.on("window-all-closed", function () {
 	if (process.platform !== "darwin") app.quit();

@@ -15,16 +15,16 @@ export interface IPastMedicalHistory
 	id: CreationOptional<number>;
 	history: string;
 	time: string;
+	treatmentDetailId?: number;
 }
 
 const PastMedicalHistory = database.define<IPastMedicalHistory>(
 	"PastMedicalHistory",
 	{
 		id: {
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
 			primaryKey: true,
-			type: DataTypes.INTEGER.UNSIGNED,
-			autoIncrement: true,
-			allowNull: false,
 		},
 		history: {
 			type: DataTypes.STRING(500),
@@ -32,9 +32,19 @@ const PastMedicalHistory = database.define<IPastMedicalHistory>(
 		time: {
 			type: DataTypes.STRING,
 		},
+		treatmentDetailId: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			references: {
+				model: "TreatmentDetails", // 'fathers' refers to table name
+				key: "id", // 'id' refers to column name in fathers table
+			},
+		},
 	}
 );
 
 // `sequelize.define` also returns the model
-console.log(PastMedicalHistory === database.models.PastMedicalHistory); // true
+console.log(
+	PastMedicalHistory === database.models.PastMedicalHistory,
+	"Past Medical History"
+); // true
 export default PastMedicalHistory;

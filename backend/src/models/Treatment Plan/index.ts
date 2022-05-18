@@ -16,14 +16,14 @@ export interface ITreatmentPlan
 	treatment_plan: string;
 	treatment: string;
 	time: string;
+	treatmentDetailId?: number;
 }
 
 const TreatmentPlan = database.define<ITreatmentPlan>("TreatmentPlan", {
 	id: {
+		type: DataTypes.UUID,
+		defaultValue: DataTypes.UUIDV4,
 		primaryKey: true,
-		type: DataTypes.INTEGER.UNSIGNED,
-		autoIncrement: true,
-		allowNull: false,
 	},
 	treatment_plan: {
 		type: DataTypes.STRING(1000),
@@ -34,8 +34,15 @@ const TreatmentPlan = database.define<ITreatmentPlan>("TreatmentPlan", {
 	time: {
 		type: DataTypes.STRING,
 	},
+	treatmentDetailId: {
+		type: DataTypes.INTEGER.UNSIGNED,
+		references: {
+			model: "TreatmentDetails", // 'fathers' refers to table name
+			key: "id", // 'id' refers to column name in fathers table
+		},
+	},
 });
 
 // `sequelize.define` also returns the model
-console.log(TreatmentPlan === database.models.TreatmentPlan); // true
+console.log(TreatmentPlan === database.models.TreatmentPlan, "Treatment Plan"); // true
 export default TreatmentPlan;

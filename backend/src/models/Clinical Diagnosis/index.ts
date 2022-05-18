@@ -13,14 +13,17 @@ export interface IClinicalDiagnosis
 	> {
 	id: CreationOptional<number>;
 	diagnosis: string;
-	time: string;
+	time?: string;
+	details: string;
+	treatmentDetailId?: number;
 }
 const ClinicalDiagnosis = database.define<IClinicalDiagnosis>(
 	"ClinicalDiagnosis",
 	{
 		id: {
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
 			primaryKey: true,
-			type: DataTypes.INTEGER.UNSIGNED,
 		},
 		diagnosis: {
 			type: DataTypes.STRING(1000),
@@ -28,9 +31,22 @@ const ClinicalDiagnosis = database.define<IClinicalDiagnosis>(
 		time: {
 			type: DataTypes.STRING,
 		},
+		details: {
+			type: DataTypes.STRING,
+		},
+		treatmentDetailId: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			references: {
+				model: "TreatmentDetails", // 'fathers' refers to table name
+				key: "id", // 'id' refers to column name in fathers table
+			},
+		},
 	}
 );
 
 // `sequelize.define` also returns the model
-console.log(ClinicalDiagnosis === database.models.ClinicalDiagnosis); // true
+console.log(
+	ClinicalDiagnosis === database.models.ClinicalDiagnosis,
+	"Clinical Diagnosis"
+); // true
 export default ClinicalDiagnosis;

@@ -22,8 +22,8 @@ export interface IChiefComplaint
 
 const ChiefComplaint = sequelize.define<IChiefComplaint>("ChiefComplaint", {
 	id: {
-		type: DataTypes.UUIDV1,
-		defaultValue: DataTypes.UUIDV1,
+		type: DataTypes.UUID,
+		defaultValue: DataTypes.UUIDV4,
 		primaryKey: true,
 	},
 	complaint: {
@@ -48,5 +48,8 @@ const ChiefComplaint = sequelize.define<IChiefComplaint>("ChiefComplaint", {
 });
 
 // `sequelize.define` also returns the model
-console.log(ChiefComplaint === sequelize.models.ChiefComplaint); // true
+console.log(
+	ChiefComplaint === sequelize.models.ChiefComplaint,
+	"CHief Complaint"
+); // true
 export default ChiefComplaint;

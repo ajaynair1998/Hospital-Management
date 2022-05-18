@@ -15,14 +15,14 @@ export interface IDiagnosis
 	id: CreationOptional<number>;
 	diagnosis: string;
 	time: string;
+	treatmentDetailId?: number;
 }
 
 const Diagnosis = database.define<IDiagnosis>("Diagnosis", {
 	id: {
+		type: DataTypes.UUID,
+		defaultValue: DataTypes.UUIDV4,
 		primaryKey: true,
-		type: DataTypes.INTEGER.UNSIGNED,
-		autoIncrement: true,
-		allowNull: false,
 	},
 	diagnosis: {
 		type: DataTypes.STRING(1000),
@@ -30,8 +30,15 @@ const Diagnosis = database.define<IDiagnosis>("Diagnosis", {
 	time: {
 		type: DataTypes.STRING,
 	},
+	treatmentDetailId: {
+		type: DataTypes.INTEGER.UNSIGNED,
+		references: {
+			model: "TreatmentDetails", // 'fathers' refers to table name
+			key: "id", // 'id' refers to column name in fathers table
+		},
+	},
 });
 
 // `sequelize.define` also returns the model
-console.log(Diagnosis === database.models.Diagnosis); // true
+console.log(Diagnosis === database.models.Diagnosis, "Diagnosis"); // true
 export default Diagnosis;

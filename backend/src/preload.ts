@@ -28,6 +28,17 @@ contextBridge.exposeInMainWorld("electron", {
 			return ipcRenderer.invoke("chief-complaints-delete", req);
 		},
 	},
+	ClinicalDiagnosisApi: {
+		async post(req: IClinicalDiagnosis): Promise<any> {
+			return ipcRenderer.invoke("clinical-diagnosis-post", req);
+		},
+		async get(req: { treatmentDetailId: number }): Promise<any> {
+			return ipcRenderer.invoke("clinical-diagnosis-get", req);
+		},
+		async delete(req: { id: number }): Promise<any> {
+			return ipcRenderer.invoke("clinical-diagnosis-delete", req);
+		},
+	},
 });
 
 interface IFavourite {
@@ -39,5 +50,11 @@ interface IChiefComplaint {
 	treatmentDetailId: number;
 	complaint: string;
 	duration: string;
+	details: string;
+}
+
+interface IClinicalDiagnosis {
+	treatmentDetailId: number;
+	diagnosis: string;
 	details: string;
 }

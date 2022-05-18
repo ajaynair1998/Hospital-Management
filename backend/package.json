@@ -5,7 +5,8 @@
 		"db": "ts-node ./src/models/index.ts",
 		"electron-dev": "nodemon --exec electron ./build/main.js",
 		"watch": "tsc --watch ",
-		"rebuild": "electron-rebuild -f -w sqlite3"
+		"rebuild": "electron-rebuild -f -w sqlite3",
+		"debug-data": "ts-node ./src/helpers/addTestData.ts"
 	},
 	"devDependencies": {
 		"@types/sequelize": "^4.28.11",

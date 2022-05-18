@@ -1,28 +1,20 @@
-import ChiefComplaint from "../models/Chief Complaint";
+import ClinicalDiagnosis, {
+	IClinicalDiagnosis,
+} from "../models/Clinical Diagnosis";
 import _ from "lodash";
 
-interface IPost extends IChiefComplaint {}
+interface IPost extends IClinicalDiagnosis {}
 
-const ChiefComplaintsController: IChiefComplaintsController = {
+const ClinicalDiagnosisController: IClinicalDiagnosisController = {
 	async post(event, args: IPost) {
 		try {
 			const treatment_detail_id = args.treatmentDetailId;
+			const diagnosis = args.diagnosis;
 			const details = args.details;
-			const duration = args.duration;
-			const complaint = args.complaint;
 
-			// await Patient.create({
-			// 	name: "ajay",
-			// });
-
-			// await TreatmentDetail.create({
-			// 	patientId: 1,
-			// });
-
-			await ChiefComplaint.create({
+			await ClinicalDiagnosis.create({
 				treatmentDetailId: 1,
-				complaint: complaint,
-				duration: duration,
+				diagnosis: diagnosis,
 				details: details,
 			});
 
@@ -38,16 +30,17 @@ const ChiefComplaintsController: IChiefComplaintsController = {
 	async get(event: any, args: { treatmentDetailId: number }) {
 		try {
 			const TreatmentDetailId = args.treatmentDetailId;
-			let complaints = await ChiefComplaint.findAll({
+			let allDiagnosis = await ClinicalDiagnosis.findAll({
 				where: {
 					treatmentDetailId: TreatmentDetailId,
 				},
 				raw: true,
 				order: [["createdAt", "DESC"]],
 			});
+			console.log(allDiagnosis);
 			return {
 				status: 200,
-				data: complaints,
+				data: allDiagnosis,
 			};
 		} catch (err: any) {
 			console.log(err);
@@ -56,23 +49,23 @@ const ChiefComplaintsController: IChiefComplaintsController = {
 	},
 	async delete(event: any, args: { id: number }) {
 		try {
-			const chiefComplaintId = args.id;
-			let deleteEntry = await ChiefComplaint.destroy({
+			const diagnosisId = args.id;
+			let deleteEntry = await ClinicalDiagnosis.destroy({
 				where: {
-					id: chiefComplaintId,
+					id: diagnosisId,
 				},
 			});
 
 			if (deleteEntry === 1) {
 				return {
 					status: 200,
-					message: `Deleted ${chiefComplaintId} successfully`,
+					message: `Deleted ${diagnosisId} successfully`,
 				};
 			}
 
 			return {
 				status: 500,
-				message: `Chief complaint ${chiefComplaintId} doesnt exist`,
+				message: `Chief complaint ${diagnosisId} doesnt exist`,
 			};
 		} catch (err: any) {
 			console.log(err);
@@ -81,10 +74,10 @@ const ChiefComplaintsController: IChiefComplaintsController = {
 	},
 };
 
-interface IChiefComplaintsController {
+interface IClinicalDiagnosisController {
 	post: (event: any, args: any) => Promise<any>;
 	get: (event: any, args: any) => Promise<any>;
 	delete: (event: any, args: any) => Promise<any>;
 }
 
-export default ChiefComplaintsController;
+export default ClinicalDiagnosisController;

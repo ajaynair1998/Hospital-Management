@@ -1,5 +1,5 @@
-// import Patient from "./Patient";
-// import ChiefComplaint from "./Chief Complaint";
+import Patient from "./Patient";
+import ChiefComplaint from "./Chief Complaint";
 import PastMedicalHistory from "./Past Medical History";
 import PastDentalHistory from "./Past Dental History";
 import DrugAllergy from "./Drug Allergy";
@@ -12,69 +12,60 @@ import TreatmentPlan from "./Treatment Plan";
 import Medicine from "./Medicine";
 import FollowUp from "./Follow Up";
 import TreatmentDetail from "./Treatment Detail";
-// import Favourite from "./Favourite";
+import Favourite from "./Favourite";
 
 // ASSOCIATIONS
+Patient;
+ChiefComplaint;
+PastMedicalHistory;
+PastDentalHistory;
+DrugAllergy;
+GeneralExamination;
+LocalExamination;
+ClinicalDiagnosis;
+Investigation;
+Diagnosis;
+TreatmentPlan;
+Medicine;
+FollowUp;
+TreatmentDetail;
+Favourite;
 
 // Patient.hasMany(TreatmentDetail);
 // TreatmentDetail.belongsTo(Patient);
 
-// Patient.hasMany(ChiefComplaint);
-// ChiefComplaint.belongsTo(Patient);
 // TreatmentDetail.hasMany(ChiefComplaint);
 // ChiefComplaint.belongsTo(TreatmentDetail);
 
-// Patient.hasMany(PastMedicalHistory);
-// PastMedicalHistory.belongsTo(Patient);
-TreatmentDetail.hasMany(PastMedicalHistory);
-PastMedicalHistory.belongsTo(TreatmentDetail);
+// TreatmentDetail.hasMany(PastMedicalHistory);
+// PastMedicalHistory.belongsTo(TreatmentDetail);
 
-// Patient.hasMany(PastDentalHistory);
-// PastDentalHistory.belongsTo(Patient);
-TreatmentDetail.hasMany(PastDentalHistory);
-PastDentalHistory.belongsTo(TreatmentDetail);
+// TreatmentDetail.hasMany(PastDentalHistory);
+// PastDentalHistory.belongsTo(TreatmentDetail);
 
-// Patient.hasMany(DrugAllergy);
-// DrugAllergy.belongsTo(Patient);
-TreatmentDetail.hasMany(DrugAllergy);
-DrugAllergy.belongsTo(TreatmentDetail);
+// TreatmentDetail.hasMany(DrugAllergy);
+// DrugAllergy.belongsTo(TreatmentDetail);
 
-// Patient.hasMany(GeneralExamination);
-// GeneralExamination.belongsTo(Patient);
-TreatmentDetail.hasMany(GeneralExamination);
-GeneralExamination.belongsTo(TreatmentDetail);
+// TreatmentDetail.hasMany(GeneralExamination);
+// GeneralExamination.belongsTo(TreatmentDetail);
 
-// Patient.hasMany(LocalExamination);
-// LocalExamination.belongsTo(Patient);
-TreatmentDetail.hasMany(LocalExamination);
-LocalExamination.belongsTo(TreatmentDetail);
+// TreatmentDetail.hasMany(LocalExamination);
+// LocalExamination.belongsTo(TreatmentDetail);
 
-// Patient.hasMany(ClinicalDiagnosis);
-// ClinicalDiagnosis.belongsTo(Patient);
-TreatmentDetail.hasMany(ClinicalDiagnosis);
-ClinicalDiagnosis.belongsTo(TreatmentDetail);
+// TreatmentDetail.hasMany(ClinicalDiagnosis);
+// ClinicalDiagnosis.belongsTo(TreatmentDetail);
 
-// Patient.hasMany(Investigation);
-// Investigation.belongsTo(Patient);
-TreatmentDetail.hasMany(Investigation);
-Investigation.belongsTo(TreatmentDetail);
+// TreatmentDetail.hasMany(Investigation);
+// Investigation.belongsTo(TreatmentDetail);
 
-// Patient.hasMany(Diagnosis);
-// Diagnosis.belongsTo(Patient);
-TreatmentDetail.hasMany(Diagnosis);
-Diagnosis.belongsTo(TreatmentDetail);
+// TreatmentDetail.hasMany(Diagnosis);
+// Diagnosis.belongsTo(TreatmentDetail);
 
-// Patient.hasMany(TreatmentPlan);
-// TreatmentPlan.belongsTo(Patient);
-TreatmentDetail.hasMany(TreatmentPlan);
-TreatmentPlan.belongsTo(TreatmentDetail);
+// TreatmentDetail.hasMany(TreatmentPlan);
+// TreatmentPlan.belongsTo(TreatmentDetail);
 
-// Patient.hasMany(Medicine);
-// Medicine.belongsTo(Patient);
-TreatmentDetail.hasMany(Medicine);
-Medicine.belongsTo(TreatmentDetail);
+// TreatmentDetail.hasMany(Medicine);
+// Medicine.belongsTo(TreatmentDetail);
 
-// Patient.hasMany(FollowUp);
-// FollowUp.belongsTo(Patient);
-TreatmentDetail.hasMany(FollowUp);
-FollowUp.belongsTo(TreatmentDetail);
+// TreatmentDetail.hasMany(FollowUp);
+// FollowUp.belongsTo(TreatmentDetail);

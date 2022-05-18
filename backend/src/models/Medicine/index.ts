@@ -17,14 +17,14 @@ export interface IMedicine
 	medicine_type: string;
 	frequency: string;
 	time: string;
+	treatmentDetailId?: number;
 }
 
 const Medicine = database.define<IMedicine>("Medicine", {
 	id: {
+		type: DataTypes.UUID,
+		defaultValue: DataTypes.UUIDV4,
 		primaryKey: true,
-		type: DataTypes.INTEGER.UNSIGNED,
-		autoIncrement: true,
-		allowNull: false,
 	},
 	medicine_type: {
 		type: DataTypes.STRING,
@@ -38,8 +38,15 @@ const Medicine = database.define<IMedicine>("Medicine", {
 	time: {
 		type: DataTypes.STRING,
 	},
+	treatmentDetailId: {
+		type: DataTypes.INTEGER.UNSIGNED,
+		references: {
+			model: "TreatmentDetails", // 'fathers' refers to table name
+			key: "id", // 'id' refers to column name in fathers table
+		},
+	},
 });
 
 // `sequelize.define` also returns the model
-console.log(Medicine === database.models.Medicine); // true
+console.log(Medicine === database.models.Medicine, "Medicine"); // true
 export default Medicine;

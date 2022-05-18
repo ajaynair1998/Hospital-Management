@@ -12,9 +12,11 @@ const sequelizeDB = new Sequelize({
 (async (): Promise<any> => {
 	try {
 		// COPY AND PASTE THIS FUNCTION TO DEBUG SOMEWHERE BY CREATING DATA OR SOMETHING
-		sequelizeDB.sync({ alter: true, force: false });
+		await sequelizeDB.sync({ alter: false, force: false });
+		console.log("Syncronised DB");
 	} catch (err: any) {
 		console.log("Failed to syncronize");
+		console.log(err);
 	}
 })();
 

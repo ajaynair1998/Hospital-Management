@@ -17,16 +17,16 @@ export interface IGeneralExamination
 	temperature: string;
 	oxygen_saturation: string;
 	time: string;
+	treatmentDetailId?: number;
 }
 
 const GeneralExamination = database.define<IGeneralExamination>(
 	"GeneralExamination",
 	{
 		id: {
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
 			primaryKey: true,
-			type: DataTypes.INTEGER.UNSIGNED,
-			autoIncrement: true,
-			allowNull: false,
 		},
 		bp: {
 			type: DataTypes.STRING,
@@ -40,9 +40,19 @@ const GeneralExamination = database.define<IGeneralExamination>(
 		time: {
 			type: DataTypes.STRING,
 		},
+		treatmentDetailId: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			references: {
+				model: "TreatmentDetails", // 'fathers' refers to table name
+				key: "id", // 'id' refers to column name in fathers table
+			},
+		},
 	}
 );
 
 // `sequelize.define` also returns the model
-console.log(GeneralExamination === database.models.GeneralExamination); // true
+console.log(
+	GeneralExamination === database.models.GeneralExamination,
+	"General Examination"
+); // true
 export default GeneralExamination;

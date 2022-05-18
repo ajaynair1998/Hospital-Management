@@ -16,14 +16,14 @@ export interface IFollowUp
 	follow_up_text: string;
 	follow_up_date: string;
 	time: string;
+	treatmentDetailId?: number;
 }
 
 const FollowUp = database.define<IFollowUp>("FollowUp", {
 	id: {
+		type: DataTypes.UUID,
+		defaultValue: DataTypes.UUIDV4,
 		primaryKey: true,
-		type: DataTypes.INTEGER.UNSIGNED,
-		autoIncrement: true,
-		allowNull: false,
 	},
 	follow_up_text: {
 		type: DataTypes.STRING(1000),
@@ -34,8 +34,15 @@ const FollowUp = database.define<IFollowUp>("FollowUp", {
 	time: {
 		type: DataTypes.STRING,
 	},
+	treatmentDetailId: {
+		type: DataTypes.INTEGER.UNSIGNED,
+		references: {
+			model: "TreatmentDetails", // 'fathers' refers to table name
+			key: "id", // 'id' refers to column name in fathers table
+		},
+	},
 });
 
 // `sequelize.define` also returns the model
-console.log(FollowUp === database.models.FollowUp); // true
+console.log(FollowUp === database.models.FollowUp, "Follow Up"); // true
 export default FollowUp;

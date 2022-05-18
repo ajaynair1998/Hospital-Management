@@ -35,10 +35,10 @@ const Patient = database.define<IPatient>(
 	{
 		// Model attributes are defined here
 		id: {
-			primaryKey: true,
-			type: DataTypes.INTEGER.UNSIGNED,
-			autoIncrement: true,
+			type: DataTypes.INTEGER,
 			allowNull: false,
+			autoIncrement: true,
+			primaryKey: true,
 		},
 		name: {
 			type: DataTypes.STRING,
@@ -105,6 +105,6 @@ const Patient = database.define<IPatient>(
 );
 
 // `sequelize.define` also returns the model
-console.log(Patient === database.models.Patient); // true
+console.log(Patient === database.models.Patient, "Patient"); // true
 
 export default Patient;

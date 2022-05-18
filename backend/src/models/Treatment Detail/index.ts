@@ -19,19 +19,16 @@ export interface ITreatmentDetail
 
 const TreatmentDetail = sequelize.define<ITreatmentDetail>("TreatmentDetail", {
 	id: {
-		// type: DataTypes.UUID,
-		// defaultValue: DataTypes.UUIDV4,
-		// primaryKey: true,
-		primaryKey: true,
-		type: DataTypes.INTEGER.UNSIGNED,
-		autoIncrement: true,
+		type: DataTypes.INTEGER,
 		allowNull: false,
+		autoIncrement: true,
+		primaryKey: true,
 	},
 	time: {
 		type: DataTypes.STRING,
 	},
 	patientId: {
-		type: DataTypes.INTEGER.UNSIGNED,
+		type: DataTypes.INTEGER,
 		references: {
 			model: "Patients", // 'fathers' refers to table name
 			key: "id", // 'id' refers to column name in fathers table
@@ -40,5 +37,8 @@ const TreatmentDetail = sequelize.define<ITreatmentDetail>("TreatmentDetail", {
 });
 
 // `sequelize.define` also returns the model
-console.log(TreatmentDetail === sequelize.models.TreatmentDetail); // true
+console.log(
+	TreatmentDetail === sequelize.models.TreatmentDetail,
+	"Treatment Detail"
+); // true
 export default TreatmentDetail;

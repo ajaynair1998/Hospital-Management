@@ -1,5 +1,5 @@
 import { ipcMain } from "electron";
-import ChiefComplaintsController from "../controllers/ChiefComplaintsController";
+import ChiefComplaintsController from "../controllers/chiefComplaintsController";
 
 ipcMain.handle("chief-complaints-post", ChiefComplaintsController.post);
 ipcMain.handle("chief-complaints-get", ChiefComplaintsController.get);
