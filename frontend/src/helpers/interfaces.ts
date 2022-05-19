@@ -10,6 +10,11 @@ export interface IElectronAPI {
 		get: (req: any) => Promise<any>;
 		delete: (req: any) => Promise<any>;
 	};
+	ClinicalDiagnosisApi: {
+		post: (req: any) => Promise<any>;
+		get: (req: any) => Promise<any>;
+		delete: (req: any) => Promise<any>;
+	};
 }
 
 export interface IStore {
@@ -25,6 +30,7 @@ export interface IStore {
 	patientTreatmentDetailsDataStore: {
 		treatment_details_id: number;
 		chief_complaints: IChiefComplaint[];
+		clinical_diagnosis: IClinicalDiagnosis[];
 	};
 	utilDataStore: {
 		data: {
@@ -46,6 +52,13 @@ export interface IChiefComplaint {
 	id: number;
 	duration: string;
 	complaint: string;
+	details: string;
+	createdAt: string;
+}
+
+export interface IClinicalDiagnosis {
+	id: number;
+	diagnosis: string;
 	details: string;
 	createdAt: string;
 }
