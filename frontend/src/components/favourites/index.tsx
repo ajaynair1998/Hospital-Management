@@ -12,7 +12,10 @@ import FavouritesHook from "../../hooks/favourites";
 import { useDispatch, useSelector } from "react-redux";
 import { IStore } from "../../helpers/interfaces";
 import { setFavourites } from "../../redux/Reducers/favouritesDataReducer";
-import { setSelectedInputValue } from "../../redux/Reducers/utilDataReducer";
+import {
+	setInputDialogState,
+	setSelectedInputValue,
+} from "../../redux/Reducers/utilDataReducer";
 
 interface Props {}
 
@@ -57,6 +60,7 @@ export default function Favourites({}: Props) {
 
 	const handleClick = (data: string) => {
 		dispatch(setSelectedInputValue(data));
+		dispatch(setInputDialogState({ inputDialogOpen: true }));
 	};
 
 	const deleteFavourite = async (id: number) => {

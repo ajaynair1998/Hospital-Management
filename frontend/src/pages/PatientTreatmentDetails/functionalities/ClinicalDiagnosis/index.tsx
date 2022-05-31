@@ -24,7 +24,7 @@ const ClinicalDiagnosis: React.FC<Props> = ({}) => {
 	return (
 		<Container>
 			<Favourites />
-			<ClinicalDiagnosisInput />
+			{/* <ClinicalDiagnosisInput /> */}
 			<ClinicalDiagnosisDataEntries />
 		</Container>
 	);

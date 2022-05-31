@@ -10,11 +10,13 @@ import {
 	Button,
 	Divider,
 	DialogActions,
+	AppBar,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setChiefComplaints } from "../../redux/Reducers/patientTreatmentDetailsReducer";
 import { IStore } from "../../helpers/interfaces";
 import {
+	setInputDialogState,
 	setSelectedInputValue,
 	setSnackBarState,
 } from "../../redux/Reducers/utilDataReducer";
@@ -76,6 +78,7 @@ const ChiefComplaintInput = () => {
 
 			if (response.status === 200) {
 				dispatch(setSnackBarState({ snackBarOpen: true, text: "Success" }));
+				dispatch(setInputDialogState({ inputDialogOpen: false }));
 			}
 		} catch (err: any) {
 			console.log(err.message);
@@ -138,7 +141,7 @@ const ChiefComplaintInput = () => {
 					onChange={(e) => setDetails(e.target.value)}
 				/>
 
-				<DialogActions sx={{ m: 0, p: "0!important" }}>
+				{/* <DialogActions sx={{ m: 0, p: "0!important" }}>
 					<Button
 						variant="outlined"
 						sx={{
@@ -149,7 +152,46 @@ const ChiefComplaintInput = () => {
 					>
 						Save
 					</Button>
-				</DialogActions>
+				</DialogActions> */}
+				<AppBar
+					elevation={0}
+					sx={{
+						position: "sticky",
+						bottom: "0",
+						zIndex: 150,
+						backgroundColor: "#ffffff",
+						// m: 0,
+						my: "0!important",
+						height: "50px",
+						width: "100%",
+						borderWidth: 0,
+						p: "0!important",
+					}}
+				>
+					<Box
+						width="100%"
+						sx={{
+							flexDirection: "row-reverse",
+							alignContent: "center",
+							display: "flex",
+							alignItems: "center",
+							margin: "auto",
+							gap: "20px",
+							// pr: 2,
+						}}
+					>
+						<Button
+							variant="outlined"
+							sx={{
+								width: "120px!important",
+								mr: "0",
+							}}
+							onClick={() => handleAdd()}
+						>
+							Save
+						</Button>
+					</Box>
+				</AppBar>
 			</Box>
 		</React.Fragment>
 	);

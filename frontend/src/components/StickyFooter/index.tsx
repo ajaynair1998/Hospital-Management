@@ -29,6 +29,7 @@ const StickyFooter = () => {
 				height: "50px",
 				width: "100%",
 				borderWidth: 0,
+				p: "0!important",
 			}}
 		>
 			<Box

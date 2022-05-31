@@ -8,6 +8,7 @@ import {
 	SelectChangeEvent,
 	FormControl,
 	Button,
+	AppBar,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -79,7 +80,7 @@ const ClinicalDiagnosisInput = () => {
 		<Box
 			component="form"
 			sx={{
-				"& > :not(style)": { m: 2, width: "25ch" },
+				"& > :not(style)": { m: 2, width: "90%" },
 			}}
 			noValidate
 			autoComplete="off"
@@ -91,7 +92,7 @@ const ClinicalDiagnosisInput = () => {
 				label="Clinical Diagnosis"
 				variant="outlined"
 				value={diagnosis}
-				sx={{ width: "200px!important" }}
+				// sx={{ width: "200px!important" }}
 				onChange={(e) => handleInputValueChange(e.target.value)}
 			/>
 
@@ -101,11 +102,11 @@ const ClinicalDiagnosisInput = () => {
 				multiline
 				rows={4}
 				value={details}
-				sx={{ width: "300px!important" }}
+				// sx={{ width: "300px!important" }}
 				onChange={(e) => setDetails(e.target.value)}
 			/>
 
-			<Button
+			{/* <Button
 				variant="contained"
 				sx={{
 					width: "80px!important",
@@ -113,7 +114,46 @@ const ClinicalDiagnosisInput = () => {
 				onClick={() => handleAdd()}
 			>
 				Add
-			</Button>
+			</Button> */}
+			<AppBar
+				elevation={0}
+				sx={{
+					position: "sticky",
+					bottom: "0",
+					zIndex: 150,
+					backgroundColor: "#ffffff",
+					// m: 0,
+					my: "0!important",
+					height: "50px",
+					width: "100%",
+					borderWidth: 0,
+					p: "0!important",
+				}}
+			>
+				<Box
+					width="100%"
+					sx={{
+						flexDirection: "row-reverse",
+						alignContent: "center",
+						display: "flex",
+						alignItems: "center",
+						margin: "auto",
+						gap: "20px",
+						// pr: 2,
+					}}
+				>
+					<Button
+						variant="outlined"
+						sx={{
+							width: "120px!important",
+							mr: "0",
+						}}
+						onClick={() => handleAdd()}
+					>
+						Save
+					</Button>
+				</Box>
+			</AppBar>
 		</Box>
 	);
 };
