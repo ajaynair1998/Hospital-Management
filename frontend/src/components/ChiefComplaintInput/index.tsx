@@ -8,6 +8,8 @@ import {
 	SelectChangeEvent,
 	FormControl,
 	Button,
+	Divider,
+	DialogActions,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setChiefComplaints } from "../../redux/Reducers/patientTreatmentDetailsReducer";
@@ -80,69 +82,76 @@ const ChiefComplaintInput = () => {
 		}
 	};
 	return (
-		<Box
-			component="form"
-			sx={{
-				"& > :not(style)": { m: 2, width: "25ch" },
-			}}
-			noValidate
-			autoComplete="off"
-			display={"flex"}
-			flexDirection={"column"}
-		>
-			<TextField
-				id="outlined-basic"
-				label="Complaint"
-				variant="outlined"
-				value={complaint}
-				sx={{ width: "200px!important" }}
-				onChange={(e) => handleInputValueChange(e.target.value)}
-			/>
-			<TextField
-				id="outlined-basic"
-				label="Duration"
-				variant="outlined"
-				value={duration}
-				sx={{ width: "200px!important" }}
-				onChange={(e) => setDuration(e.target.value)}
-			/>
-			<FormControl sx={{ width: "200px!important" }}>
-				<InputLabel id="demo-simple-select-label"> type</InputLabel>
-				<Select
-					labelId="demo-simple-select-label"
-					id="demo-simple-select"
-					value={type}
-					label="type"
-					onChange={(e) => handleChangeType(e)}
-				>
-					<MenuItem value={"hours"}>Hours</MenuItem>
-					<MenuItem value={"weeks"}>Weeks</MenuItem>
-					<MenuItem value={"days"}>Days</MenuItem>
-					<MenuItem value={"months"}>Months</MenuItem>
-					<MenuItem value={"years"}>Years</MenuItem>
-				</Select>
-			</FormControl>
-
-			<TextField
-				id="outlined-multiline-static"
-				label="Details"
-				multiline
-				rows={4}
-				value={details}
-				sx={{ width: "300px!important" }}
-				onChange={(e) => setDetails(e.target.value)}
-			/>
-
-			<Button
-				variant="contained"
+		<React.Fragment>
+			<Box
+				component="form"
 				sx={{
-					width: "80px!important",
+					// "& > :not(style)": { m: 2, width: "25ch" },
+					"& > :not(style)": { m: 2, width: "90%" },
 				}}
-				onClick={() => handleAdd()}
+				noValidate
+				autoComplete="off"
+				display={"flex"}
+				flexDirection={"column"}
 			>
-				Add
-			</Button>
-		</Box>
+				<TextField
+					id="outlined-basic"
+					label="Complaint"
+					variant="outlined"
+					value={complaint}
+					// sx={{ width: "200px!important" }}
+
+					onChange={(e) => handleInputValueChange(e.target.value)}
+				/>
+				<TextField
+					id="outlined-basic"
+					label="Duration"
+					variant="outlined"
+					value={duration}
+					// sx={{ width: "200px!important" }}
+					onChange={(e) => setDuration(e.target.value)}
+				/>
+				<FormControl>
+					<InputLabel id="demo-simple-select-label"> type</InputLabel>
+					<Select
+						labelId="demo-simple-select-label"
+						id="demo-simple-select"
+						value={type}
+						label="type"
+						onChange={(e) => handleChangeType(e)}
+					>
+						<MenuItem value={"hours"}>Hours</MenuItem>
+						<MenuItem value={"weeks"}>Weeks</MenuItem>
+						<MenuItem value={"days"}>Days</MenuItem>
+						<MenuItem value={"months"}>Months</MenuItem>
+						<MenuItem value={"years"}>Years</MenuItem>
+					</Select>
+				</FormControl>
+
+				<TextField
+					id="outlined-multiline-static"
+					label="Details"
+					multiline
+					rows={4}
+					value={details}
+					// sx={{ width: "300px!important" }}
+					onChange={(e) => setDetails(e.target.value)}
+				/>
+
+				<DialogActions sx={{ m: 0, p: "0!important" }}>
+					<Button
+						variant="outlined"
+						sx={{
+							width: "120px!important",
+							mr: 0,
+						}}
+						onClick={() => handleAdd()}
+					>
+						Save
+					</Button>
+				</DialogActions>
+			</Box>
+		</React.Fragment>
 	);
 };
 

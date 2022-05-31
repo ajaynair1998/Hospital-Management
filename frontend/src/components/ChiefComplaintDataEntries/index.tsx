@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
-import { Button, Box } from "@mui/material";
+import { Button, Box, Divider } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { IStore } from "../../helpers/interfaces";
 import { IChiefComplaint } from "../../helpers/interfaces";
@@ -63,6 +63,16 @@ export const ChiefComplaintDataEntries = () => {
 	}, []);
 	return (
 		<React.Fragment>
+			<Box sx={{ my: 1, mx: 2 }}>
+				<Grid container alignItems="center">
+					<Grid item xs>
+						<Typography gutterBottom variant="h5" component="div">
+							Data Entries
+						</Typography>
+					</Grid>
+				</Grid>
+			</Box>
+			<Divider variant="middle" />
 			<Box m={2}>
 				{chief_complaints &&
 					chief_complaints.map((item: IChiefComplaint) => {

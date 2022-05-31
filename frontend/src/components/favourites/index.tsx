@@ -70,6 +70,7 @@ export default function Favourites({}: Props) {
 			console.log(err);
 		}
 	};
+
 	return (
 		<Box sx={{ width: "100%", bgcolor: "background.paper" }}>
 			<Box sx={{ my: 1, mx: 2 }}>

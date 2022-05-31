@@ -1,8 +1,11 @@
 import { AppBar, Box, Button } from "@mui/material";
 import React from "react";
 import NavigationIcon from "@mui/icons-material/Navigation";
+import { useDispatch } from "react-redux";
+import { setInputDialogState } from "../../redux/Reducers/utilDataReducer";
 
 const StickyFooter = () => {
+	let dispatch = useDispatch();
 	const goToTop = () => {
 		window.scrollTo({
 			top: 0,
@@ -10,6 +13,9 @@ const StickyFooter = () => {
 			/* you can also use 'auto' behaviour
          in place of 'smooth' */
 		});
+	};
+	let handleOpenInputDialog = () => {
+		dispatch(setInputDialogState({ inputDialogOpen: true }));
 	};
 	return (
 		<AppBar
@@ -45,6 +51,13 @@ const StickyFooter = () => {
 					onClick={goToTop}
 				>
 					<NavigationIcon /> Go to Top
+				</Button>
+				<Button
+					variant="contained"
+					color="success"
+					onClick={handleOpenInputDialog}
+				>
+					New entry
 				</Button>
 			</Box>
 		</AppBar>

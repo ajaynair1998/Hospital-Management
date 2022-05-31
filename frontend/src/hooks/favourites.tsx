@@ -6,7 +6,7 @@ import { setFavourites } from "../redux/Reducers/favouritesDataReducer";
 
 const FavouritesHook = () => {
 	const dispatch = useDispatch();
-	const [favourites, setFavouritesInState] = useState([]);
+	const [favourites, setFavouritesInState]: any[] = useState([]);
 	let { data } = useSelector((state: IStore) => state.categoriesStore);
 	let location = data.location;
 

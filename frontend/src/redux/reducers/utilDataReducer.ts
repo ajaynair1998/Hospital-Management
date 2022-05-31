@@ -7,6 +7,7 @@ export const utilDataSlice = createSlice({
 			inputValue: "",
 			snackBarOpen: false,
 			snackBarText: "",
+			inputDialogOpen: false,
 		},
 	},
 	reducers: {
@@ -17,9 +18,12 @@ export const utilDataSlice = createSlice({
 			state.data.snackBarOpen = action.payload.snackBarOpen;
 			state.data.snackBarText = action.payload.text;
 		},
+		setInputDialogState: (state: any, action: any) => {
+			state.data.inputDialogOpen = action.payload.inputDialogOpen;
+		},
 	},
 });
 
-export const { setSelectedInputValue, setSnackBarState } =
+export const { setSelectedInputValue, setSnackBarState, setInputDialogState } =
 	utilDataSlice.actions;
 export default utilDataSlice.reducer;

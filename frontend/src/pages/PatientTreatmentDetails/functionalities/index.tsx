@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { IStore } from "../../../helpers/interfaces";
 import StickyFooter from "../../../components/StickyFooter";
 import { FunctionalitySwitch } from "./functionalitySwitch";
+import InputDialog from "../../../components/InputDialog";
 
 let FunctionalityContainer = styled.div`
 	min-height: 1000px;
@@ -18,6 +19,7 @@ const Functionalities = () => {
 			<FunctionalityContainer>
 				<FunctionalitySwitch />
 			</FunctionalityContainer>
+			<InputDialog />
 			<StickyFooter />
 		</Fragment>
 	);

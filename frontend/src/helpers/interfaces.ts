@@ -22,10 +22,10 @@ export interface IStore {
 		data: any;
 	};
 	categoriesStore: {
-		data: any;
+		data: { location: any; category_name: any };
 	};
 	favouritesDataStore: {
-		data: any;
+		data: any[];
 	};
 	patientTreatmentDetailsDataStore: {
 		treatment_details_id: number;
@@ -37,6 +37,7 @@ export interface IStore {
 			inputValue: string;
 			snackBarOpen: boolean;
 			snackBarText: string;
+			inputDialogOpen: boolean;
 		};
 	};
 }
