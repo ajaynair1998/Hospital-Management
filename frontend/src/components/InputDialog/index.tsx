@@ -78,7 +78,6 @@ export default function InputDialog() {
 	React.useEffect(() => {
 		setOpen(inputDialogOpen);
 	}, [inputDialogOpen]);
-	console.log(inputDialogOpen);
 
 	return (
 		<React.Fragment>

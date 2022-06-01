@@ -81,4 +81,10 @@ export const categoriesList: ICategory[] = [
 		category_icon: <TodayIcon />,
 		location: "follow_up",
 	},
+	{
+		key: 12,
+		category_name: "Past Surgical Histories",
+		category_icon: <HistoryIcon />,
+		location: "past_surgical_history",
+	},
 ];

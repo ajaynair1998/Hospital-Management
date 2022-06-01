@@ -12,6 +12,14 @@ const sequelizeDB = new Sequelize({
 (async (): Promise<any> => {
 	try {
 		// COPY AND PASTE THIS FUNCTION TO DEBUG SOMEWHERE BY CREATING DATA OR SOMETHING
+		// SOMETIMES EVEN ADDING DEBUG DATA WILL PRODUCE ERROR IF ALTER IS TRUE SINCE WE ARE EXPORTING THE DB FROM HERE !!YET TO FIND OUT WHY
+		// TO MAKE SURE THIS WORKS
+		// IF YOU WANT TO ADD NEW TABLES
+		// ->ADD alter : true
+		// -> DELETE THE CURRENT DB
+		// ->NPM RUN DB
+		// ->ADD alter : false
+		// npm run debug-data
 		await sequelizeDB.sync({ alter: false, force: false });
 		console.log("Syncronised DB");
 	} catch (err: any) {

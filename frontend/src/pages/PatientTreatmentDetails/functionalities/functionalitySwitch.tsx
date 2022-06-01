@@ -29,6 +29,8 @@ export const FunctionalitySwitch = (): JSX.Element => {
 			return <React.Fragment />;
 		case "follow_up":
 			return <React.Fragment />;
+		case "past_surgical_history":
+			return <React.Fragment />;
 		default:
 			return <ChiefComplaints />;
 	}
