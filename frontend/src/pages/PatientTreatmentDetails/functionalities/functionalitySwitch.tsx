@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { IStore } from "../../../helpers/interfaces";
 import ChiefComplaints from "./ChiefComplaints";
 import ClinicalDiagnosis from "./ClinicalDiagnosis";
+import PastMedicalHistory from "./PastMedicalHistory";
 
 export const FunctionalitySwitch = (): JSX.Element => {
 	const { data } = useSelector((state: IStore) => state.categoriesStore);
@@ -24,7 +25,7 @@ export const FunctionalitySwitch = (): JSX.Element => {
 		case "medicine":
 			return <React.Fragment />;
 		case "past_medical_history":
-			return <React.Fragment />;
+			return <PastMedicalHistory />;
 		case "treatment_plan":
 			return <React.Fragment />;
 		case "follow_up":
