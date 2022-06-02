@@ -1,27 +1,27 @@
-import PastSurgicalHistory from "../models/Past Surgical History";
-import { IPastSurgicalHistory } from "../preload";
 import _ from "lodash";
+import { IGeneralExamination } from "../preload";
+import GeneralExamination from "../models/General Examination";
 
-interface IPost extends IPastSurgicalHistory {}
+interface IPost extends IGeneralExamination {}
 
-const PastSurgicalHistoryController: IPastSurgicalHistoryController = {
+const GeneralExaminationController: IGeneralExaminationController = {
 	async post(event, args: IPost) {
 		try {
 			const treatment_detail_id = args.treatmentDetailId;
-			const details = args.details;
-			const duration = args.duration;
-			const history = args.history;
+			const bp = args.bp;
+			const oxygen_saturation = args.oxygen_saturation;
+			const temperature = args.temperature;
 
-			await PastSurgicalHistory.create({
+			await GeneralExamination.create({
 				treatmentDetailId: 1,
-				history: history,
-				duration: duration,
-				details: details,
+				bp: bp,
+				temperature: temperature,
+				oxygen_saturation: oxygen_saturation,
 			});
 
 			return {
 				status: 200,
-				message: `Treatment Detail ${treatment_detail_id} updated successfully`,
+				message: `General Examination ${treatment_detail_id} successfully`,
 			};
 		} catch (err: any) {
 			console.log(err);
@@ -31,7 +31,7 @@ const PastSurgicalHistoryController: IPastSurgicalHistoryController = {
 	async get(event: any, args: { treatmentDetailId: number }) {
 		try {
 			const TreatmentDetailId = args.treatmentDetailId;
-			let histories = await PastSurgicalHistory.findAll({
+			let generalExaminations = await GeneralExamination.findAll({
 				where: {
 					treatmentDetailId: TreatmentDetailId,
 				},
@@ -40,7 +40,7 @@ const PastSurgicalHistoryController: IPastSurgicalHistoryController = {
 			});
 			return {
 				status: 200,
-				data: histories,
+				data: generalExaminations,
 			};
 		} catch (err: any) {
 			console.log(err);
@@ -49,23 +49,23 @@ const PastSurgicalHistoryController: IPastSurgicalHistoryController = {
 	},
 	async delete(event: any, args: { id: number }) {
 		try {
-			const pastSurgicalHistoryId = args.id;
-			let deleteEntry = await PastSurgicalHistory.destroy({
+			const generalExaminationId = args.id;
+			let deleteEntry = await GeneralExamination.destroy({
 				where: {
-					id: pastSurgicalHistoryId,
+					id: generalExaminationId,
 				},
 			});
 
 			if (deleteEntry === 1) {
 				return {
 					status: 200,
-					message: `Deleted ${pastSurgicalHistoryId} successfully`,
+					message: `Deleted ${generalExaminationId} successfully`,
 				};
 			}
 
 			return {
 				status: 500,
-				message: `Past Surgical History ${pastSurgicalHistoryId} doesnt exist`,
+				message: `Past Surgical History ${generalExaminationId} doesnt exist`,
 			};
 		} catch (err: any) {
 			console.log(err);
@@ -74,10 +74,10 @@ const PastSurgicalHistoryController: IPastSurgicalHistoryController = {
 	},
 };
 
-interface IPastSurgicalHistoryController {
+interface IGeneralExaminationController {
 	post: (event: any, args: any) => Promise<any>;
 	get: (event: any, args: any) => Promise<any>;
 	delete: (event: any, args: any) => Promise<any>;
 }
 
-export default PastSurgicalHistoryController;
+export default GeneralExaminationController;

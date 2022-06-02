@@ -17,6 +17,7 @@ import {
 } from "../../redux/Reducers/patientTreatmentDetailsReducer";
 import { IStore } from "../../helpers/interfaces";
 import {
+	setInputDialogState,
 	setSelectedInputValue,
 	setSnackBarState,
 } from "../../redux/Reducers/utilDataReducer";
@@ -71,6 +72,7 @@ const ClinicalDiagnosisInput = () => {
 
 			if (response.status === 200) {
 				dispatch(setSnackBarState({ snackBarOpen: true, text: "Success" }));
+				dispatch(setInputDialogState({ inputDialogOpen: false }));
 			}
 		} catch (err: any) {
 			console.log(err.message);

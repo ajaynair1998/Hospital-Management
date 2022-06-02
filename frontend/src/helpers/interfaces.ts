@@ -25,6 +25,11 @@ export interface IElectronAPI {
 		get: (req: any) => Promise<any>;
 		delete: (req: any) => Promise<any>;
 	};
+	GeneralExaminationApi: {
+		post: (req: any) => Promise<any>;
+		get: (req: any) => Promise<any>;
+		delete: (req: any) => Promise<any>;
+	};
 }
 
 export interface IStore {
@@ -43,6 +48,7 @@ export interface IStore {
 		clinical_diagnosis: IClinicalDiagnosis[];
 		past_medical_history: IPastMedicalHistory[];
 		past_surgical_history: IPastSurgicalHistory[];
+		general_examination: IGeneralExamination[];
 	};
 	utilDataStore: {
 		data: {
@@ -89,5 +95,13 @@ export interface IPastSurgicalHistory {
 	duration: string;
 	history: string;
 	details: string;
+	createdAt: string;
+}
+
+export interface IGeneralExamination {
+	id: number;
+	bp: string;
+	temperature: string;
+	oxygen_saturation: string;
 	createdAt: string;
 }

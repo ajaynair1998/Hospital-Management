@@ -7,6 +7,7 @@ import chiefComplaintsRoute from "./routes/chiefComplaintsRoute";
 import clinicalDiagnosisRoute from "./routes/clinicalDiagnosisRoute";
 import pastMedicalHistoryRoute from "./routes/pastMedicalHistoryRoute";
 import pastSurgicalHistoryRoute from "./routes/pastSurgicalHistoryRoute";
+import generalExaminationRoute from "./routes/generalExaminationRoute";
 
 function createWindow(): void {
 	const win = new BrowserWindow({
@@ -39,6 +40,7 @@ chiefComplaintsRoute;
 clinicalDiagnosisRoute;
 pastMedicalHistoryRoute;
 pastSurgicalHistoryRoute;
+generalExaminationRoute;
 
 app.on("window-all-closed", function () {
 	if (process.platform !== "darwin") app.quit();

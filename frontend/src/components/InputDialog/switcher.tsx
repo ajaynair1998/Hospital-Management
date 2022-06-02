@@ -1,9 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { IStore } from "../../helpers/interfaces";
-import ClinicalDiagnosis from "../../pages/PatientTreatmentDetails/Functionalities/ClinicalDiagnosis";
 import ChiefComplaintInput from "../ChiefComplaintInput";
 import ClinicalDiagnosisInput from "../ClinicalDiagnosisInput";
+import GeneralExaminationInput from "../GeneralExaminationInput";
 import PastMedicalHistoryInput from "../PastMedicalHistoryInput";
 import PastSurgicalHistoryInput from "../PastSurgicalHistoryInput";
 
@@ -21,6 +21,8 @@ export const InputSwitcher = () => {
 			return <PastMedicalHistoryInput />;
 		case "past_surgical_history":
 			return <PastSurgicalHistoryInput />;
+		case "general_examination":
+			return <GeneralExaminationInput />;
 		default:
 			return <React.Fragment />;
 	}

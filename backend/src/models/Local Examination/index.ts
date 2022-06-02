@@ -28,10 +28,10 @@ const LocalExamination = database.define<ILocalExamination>(
 			primaryKey: true,
 		},
 		extra_oral: {
-			type: DataTypes.STRING,
+			type: DataTypes.STRING(1000),
 		},
 		intra_oral: {
-			type: DataTypes.STRING,
+			type: DataTypes.STRING(1000),
 		},
 		time: {
 			type: DataTypes.STRING,

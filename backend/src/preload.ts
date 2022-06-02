@@ -61,36 +61,54 @@ contextBridge.exposeInMainWorld("electron", {
 			return ipcRenderer.invoke("past-surgical-history-delete", req);
 		},
 	},
+	GeneralExaminationApi: {
+		async post(req: IGeneralExamination): Promise<any> {
+			return ipcRenderer.invoke("general-examination-post", req);
+		},
+		async get(req: { treatmentDetailId: number }): Promise<any> {
+			return ipcRenderer.invoke("general-examination-get", req);
+		},
+		async delete(req: { id: number }): Promise<any> {
+			return ipcRenderer.invoke("general-examination-delete", req);
+		},
+	},
 });
 
-interface IFavourite {
+export interface IFavourite {
 	type: string;
 	favourite?: string;
 }
 
-interface IChiefComplaint {
+export interface IChiefComplaint {
 	treatmentDetailId: number;
 	complaint: string;
 	duration: string;
 	details: string;
 }
 
-interface IClinicalDiagnosis {
+export interface IClinicalDiagnosis {
 	treatmentDetailId: number;
 	diagnosis: string;
 	details: string;
 }
 
-interface IPastMedicalHistory {
+export interface IPastMedicalHistory {
 	treatmentDetailId: number;
 	history: string;
 	duration: string;
 	details: string;
 }
 
-interface IPastSurgicalHistory {
+export interface IPastSurgicalHistory {
 	treatmentDetailId: number;
 	history: string;
 	duration: string;
 	details: string;
+}
+
+export interface IGeneralExamination {
+	treatmentDetailId: number;
+	bp: string;
+	temperature: string;
+	oxygen_saturation: string;
 }

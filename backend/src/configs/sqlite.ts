@@ -21,9 +21,9 @@ const sequelizeDB = new Sequelize({
 		// ->ADD alter : false
 		// npm run debug-data
 		await sequelizeDB.sync({ alter: false, force: false });
-		console.log("Syncronised DB");
+		console.log("\x1b[32m%s\x1b[0m", "Syncronised DB");
 	} catch (err: any) {
-		console.log("Failed to syncronize");
+		console.log("\x1b[31m%s\x1b[0m", "Failed to syncronize");
 		console.log(err);
 	}
 })();

@@ -16,7 +16,7 @@ export interface IGeneralExamination
 	bp: string;
 	temperature: string;
 	oxygen_saturation: string;
-	time: string;
+	time?: string;
 	treatmentDetailId?: number;
 }
 

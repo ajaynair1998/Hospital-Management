@@ -6,14 +6,22 @@ import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 import { Button, Box, Divider } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { IClinicalDiagnosis, IStore } from "../../helpers/interfaces";
+import {
+	IGeneralExamination,
+	IPastMedicalHistory,
+	IPastSurgicalHistory,
+	IStore,
+} from "../../helpers/interfaces";
 import { IChiefComplaint } from "../../helpers/interfaces";
 import {
 	setChiefComplaints,
-	setClinicalDiagnosis,
+	setGeneralExamination,
+	setPastMedicalHistory,
+	setPastSurgicalHistory,
 } from "../../redux/Reducers/patientTreatmentDetailsReducer";
 import { convertToReadableDate } from "../../helpers";
 import AlertDialog from "../Dialog";
+import { minWidth } from "@mui/system";
 
 const Img = styled("img")({
 	margin: "auto",
@@ -24,45 +32,46 @@ const Img = styled("img")({
 
 interface IProps {
 	createdAt?: string;
-	diagnosis?: string;
-	details?: string;
-	duration?: string;
+	bp: string;
+	temperature?: string;
+	oxygen_saturation?: string;
 	id?: number;
-	handleSelectDiagnosis: Function;
+	handleSelectGeneralExamination: Function;
 	openDialog: React.Dispatch<React.SetStateAction<boolean>>;
-	setSelectedDiagnosisText: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const ClinicalDiagnosisDataEntries = () => {
-	const [selectedDiagnosis, setSelectedDiagnosis] = React.useState(null);
-	const [selectedDiagnosisText, setSelectedDiagnosisText] = React.useState("");
+const GeneralExaminationDataEntries = () => {
+	const [selectedGeneralExamination, setSelectedGeneralExamination] =
+		React.useState(null);
 	const [dialogIsOpen, setDialogOpen] = React.useState(false);
-	const clinical_diagnosis = useSelector(
-		(state: IStore) => state.patientTreatmentDetailsDataStore.clinical_diagnosis
+	const general_examination = useSelector(
+		(state: IStore) =>
+			state.patientTreatmentDetailsDataStore.general_examination
 	);
 	let dispatch = useDispatch();
-	const fetchAllExistingClinicalDiagnosis = async () => {
-		let response = await window.electron.ClinicalDiagnosisApi.get({
+	const fetchAllExistingGeneralExamination = async () => {
+		let response = await window.electron.GeneralExaminationApi.get({
 			treatmentDetailId: 1,
 		});
 		if (response.status === 200) {
-			dispatch(setClinicalDiagnosis(response.data));
+			console.log(response);
+			dispatch(setGeneralExamination(response.data));
 		}
 	};
 	const handleRemoveButton = async () => {
 		try {
-			let deleted = await window.electron.ClinicalDiagnosisApi.delete({
-				id: selectedDiagnosis,
+			let deleted = await window.electron.GeneralExaminationApi.delete({
+				id: selectedGeneralExamination,
 			});
 			setDialogOpen(false);
-			await fetchAllExistingClinicalDiagnosis();
+			await fetchAllExistingGeneralExamination();
 		} catch (err: any) {
 			console.log(err.message);
 		}
 	};
 
 	React.useEffect(() => {
-		fetchAllExistingClinicalDiagnosis();
+		fetchAllExistingGeneralExamination();
 	}, []);
 	return (
 		<React.Fragment>
@@ -77,18 +86,18 @@ export const ClinicalDiagnosisDataEntries = () => {
 			</Box>
 			<Divider variant="middle" />
 			<Box m={2}>
-				{clinical_diagnosis &&
-					clinical_diagnosis.map((item: IClinicalDiagnosis) => {
+				{general_examination &&
+					general_examination.map((item: IGeneralExamination) => {
 						return (
-							<ChiefComplaintDataEntry
+							<GeneralExaminationDataEntry
 								createdAt={item.createdAt}
-								diagnosis={item.diagnosis}
-								details={item.details}
+								bp={item.bp}
+								temperature={item.temperature}
+								oxygen_saturation={item.oxygen_saturation}
 								id={item.id}
 								key={item.id}
-								handleSelectDiagnosis={setSelectedDiagnosis}
+								handleSelectGeneralExamination={setSelectedGeneralExamination}
 								openDialog={setDialogOpen}
-								setSelectedDiagnosisText={setSelectedDiagnosisText}
 							/>
 						);
 					})}
@@ -96,40 +105,30 @@ export const ClinicalDiagnosisDataEntries = () => {
 			<AlertDialog
 				action={handleRemoveButton}
 				isOpen={dialogIsOpen}
-				text={`Do you want to remove ${selectedDiagnosisText} ?`}
+				text={`Do you want to remove this General Examination ?`}
 				close={() => setDialogOpen(false)}
 			/>
 		</React.Fragment>
 	);
 };
 
-export default function ChiefComplaintDataEntry({
+export function GeneralExaminationDataEntry({
 	createdAt,
-	diagnosis,
-	details,
-	duration,
+	bp,
+	temperature,
+	oxygen_saturation,
 	id,
-	handleSelectDiagnosis,
+	handleSelectGeneralExamination,
 	openDialog,
-	setSelectedDiagnosisText,
 }: IProps) {
 	const [created_at, setCreatedAt] = React.useState<any>("");
-	const [clinicalDiagnosis, setClinicalDiagnosis] = React.useState<any>("");
-	const [detailValue, setDetail] = React.useState<any>("");
 
 	let dispatch = useDispatch();
 	let created_at_readable_format = convertToReadableDate(createdAt);
 
-	React.useEffect(() => {
-		setCreatedAt(createdAt);
-		setClinicalDiagnosis(diagnosis);
-		setDetail(details);
-	}, []);
-
 	const handleRemoveButton = async () => {
 		try {
-			handleSelectDiagnosis(id);
-			setSelectedDiagnosisText(clinicalDiagnosis);
+			handleSelectGeneralExamination(id);
 			openDialog(true);
 		} catch (err: any) {
 			console.log(err.message);
@@ -160,11 +159,67 @@ export default function ChiefComplaintDataEntry({
 				<Grid item xs={12} sm container>
 					<Grid item xs container direction="column" spacing={2}>
 						<Grid item xs sx={{ m: 1 }}>
-							<Typography gutterBottom variant="subtitle1" component="div">
-								{clinicalDiagnosis}
+							<Typography
+								variant="body1"
+								gutterBottom
+								sx={{ mb: 1 }}
+								color="#fff"
+							>
+								Vitals
 							</Typography>
-							<Typography variant="body2" gutterBottom>
-								{detailValue}
+							<Typography
+								variant="body2"
+								gutterBottom
+								sx={{
+									display: "flex",
+									flexDirection: "row",
+									alignContent: "center",
+								}}
+							>
+								<Typography
+									variant="body2"
+									color="text.secondary"
+									sx={{ minWidth: "150px" }}
+								>
+									BP
+								</Typography>{" "}
+								-&nbsp;&nbsp;{bp}
+							</Typography>
+							<Typography
+								variant="body2"
+								gutterBottom
+								sx={{
+									display: "flex",
+									flexDirection: "row",
+									alignContent: "center",
+								}}
+							>
+								<Typography
+									variant="body2"
+									color="text.secondary"
+									sx={{ minWidth: "150px" }}
+								>
+									Oxygen Saturation
+								</Typography>{" "}
+								-&nbsp;&nbsp;{oxygen_saturation}
+							</Typography>
+							<Typography
+								variant="body2"
+								gutterBottom
+								sx={{
+									display: "flex",
+									flexDirection: "row",
+									alignContent: "center",
+								}}
+							>
+								<Typography
+									variant="body2"
+									color="text.secondary"
+									sx={{ minWidth: "150px" }}
+								>
+									Temperature
+								</Typography>
+								-&nbsp;&nbsp;{temperature}
 							</Typography>
 						</Grid>
 						<Grid item xs container direction="row" spacing={2}>
@@ -188,3 +243,5 @@ export default function ChiefComplaintDataEntry({
 		</Paper>
 	);
 }
+
+export default GeneralExaminationDataEntries;
