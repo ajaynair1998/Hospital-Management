@@ -6,11 +6,16 @@ import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 import { Button, Box, Divider } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { IPastMedicalHistory, IStore } from "../../helpers/interfaces";
+import {
+	IPastMedicalHistory,
+	IPastSurgicalHistory,
+	IStore,
+} from "../../helpers/interfaces";
 import { IChiefComplaint } from "../../helpers/interfaces";
 import {
 	setChiefComplaints,
 	setPastMedicalHistory,
+	setPastSurgicalHistory,
 } from "../../redux/Reducers/patientTreatmentDetailsReducer";
 import { convertToReadableDate } from "../../helpers";
 import AlertDialog from "../Dialog";
@@ -33,37 +38,37 @@ interface IProps {
 	setSelectedHistoryText: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const PastMedicalHistoryDataEntries = () => {
+const PastSurgicalHistoryDataEntries = () => {
 	const [selectedHistory, setSelectedHistory] = React.useState(null);
 	const [selectedHistoryText, setSelectedHistoryText] = React.useState("");
 	const [dialogIsOpen, setDialogOpen] = React.useState(false);
-	const past_medical_histories = useSelector(
+	const past_surgical_histories = useSelector(
 		(state: IStore) =>
-			state.patientTreatmentDetailsDataStore.past_medical_history
+			state.patientTreatmentDetailsDataStore.past_surgical_history
 	);
 	let dispatch = useDispatch();
-	const fetchAllExistingPastMedicalHistories = async () => {
-		let response = await window.electron.PastMedicalHistoryApi.get({
+	const fetchAllExistingPastSurgicalHistories = async () => {
+		let response = await window.electron.PastSurgicalHistoryApi.get({
 			treatmentDetailId: 1,
 		});
 		if (response.status === 200) {
-			dispatch(setPastMedicalHistory(response.data));
+			dispatch(setPastSurgicalHistory(response.data));
 		}
 	};
 	const handleRemoveButton = async () => {
 		try {
-			let deleted = await window.electron.PastMedicalHistoryApi.delete({
+			let deleted = await window.electron.PastSurgicalHistoryApi.delete({
 				id: selectedHistory,
 			});
 			setDialogOpen(false);
-			await fetchAllExistingPastMedicalHistories();
+			await fetchAllExistingPastSurgicalHistories();
 		} catch (err: any) {
 			console.log(err.message);
 		}
 	};
 
 	React.useEffect(() => {
-		fetchAllExistingPastMedicalHistories();
+		fetchAllExistingPastSurgicalHistories();
 	}, []);
 	return (
 		<React.Fragment>
@@ -78,10 +83,10 @@ const PastMedicalHistoryDataEntries = () => {
 			</Box>
 			<Divider variant="middle" />
 			<Box m={2}>
-				{past_medical_histories &&
-					past_medical_histories.map((item: IPastMedicalHistory) => {
+				{past_surgical_histories &&
+					past_surgical_histories.map((item: IPastSurgicalHistory) => {
 						return (
-							<PastMedicalHistoryDataEntry
+							<PastSurgicalHistoryDataEntry
 								createdAt={item.createdAt}
 								history={item.history}
 								details={item.details}
@@ -105,7 +110,7 @@ const PastMedicalHistoryDataEntries = () => {
 	);
 };
 
-export function PastMedicalHistoryDataEntry({
+export function PastSurgicalHistoryDataEntry({
 	createdAt,
 	history,
 	details,
@@ -116,7 +121,7 @@ export function PastMedicalHistoryDataEntry({
 	setSelectedHistoryText,
 }: IProps) {
 	const [created_at, setCreatedAt] = React.useState<any>("");
-	const [PastMedicalHistory, setPastMedicalHistory] = React.useState<any>("");
+	const [PastSurgicalHistory, setPastSurgicalHistory] = React.useState<any>("");
 	const [durationValue, setDuration] = React.useState<any>("");
 	const [detailValue, setDetail] = React.useState<any>("");
 
@@ -125,7 +130,7 @@ export function PastMedicalHistoryDataEntry({
 
 	React.useEffect(() => {
 		setCreatedAt(createdAt);
-		setPastMedicalHistory(history);
+		setPastSurgicalHistory(history);
 		setDuration(duration);
 		setDetail(details);
 	}, []);
@@ -196,4 +201,4 @@ export function PastMedicalHistoryDataEntry({
 	);
 }
 
-export default PastMedicalHistoryDataEntries;
+export default PastSurgicalHistoryDataEntries;

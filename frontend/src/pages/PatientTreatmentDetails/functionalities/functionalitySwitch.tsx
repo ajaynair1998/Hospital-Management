@@ -4,6 +4,7 @@ import { IStore } from "../../../helpers/interfaces";
 import ChiefComplaints from "./ChiefComplaints";
 import ClinicalDiagnosis from "./ClinicalDiagnosis";
 import PastMedicalHistory from "./PastMedicalHistory";
+import PastSurgicalHistory from "./PastSurgicalHistory";
 
 export const FunctionalitySwitch = (): JSX.Element => {
 	const { data } = useSelector((state: IStore) => state.categoriesStore);
@@ -31,7 +32,7 @@ export const FunctionalitySwitch = (): JSX.Element => {
 		case "follow_up":
 			return <React.Fragment />;
 		case "past_surgical_history":
-			return <React.Fragment />;
+			return <PastSurgicalHistory />;
 		default:
 			return <ChiefComplaints />;
 	}

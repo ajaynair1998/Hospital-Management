@@ -50,6 +50,17 @@ contextBridge.exposeInMainWorld("electron", {
 			return ipcRenderer.invoke("past-medical-history-delete", req);
 		},
 	},
+	PastSurgicalHistoryApi: {
+		async post(req: IPastSurgicalHistory): Promise<any> {
+			return ipcRenderer.invoke("past-surgical-history-post", req);
+		},
+		async get(req: { treatmentDetailId: number }): Promise<any> {
+			return ipcRenderer.invoke("past-surgical-history-get", req);
+		},
+		async delete(req: { id: number }): Promise<any> {
+			return ipcRenderer.invoke("past-surgical-history-delete", req);
+		},
+	},
 });
 
 interface IFavourite {
@@ -71,6 +82,13 @@ interface IClinicalDiagnosis {
 }
 
 interface IPastMedicalHistory {
+	treatmentDetailId: number;
+	history: string;
+	duration: string;
+	details: string;
+}
+
+interface IPastSurgicalHistory {
 	treatmentDetailId: number;
 	history: string;
 	duration: string;

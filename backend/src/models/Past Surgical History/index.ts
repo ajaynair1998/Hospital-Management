@@ -7,19 +7,21 @@ import {
 	InferCreationAttributes,
 } from "sequelize";
 
-export interface IPastDentalHistory
+export interface IPastSurgicalHistory
 	extends Model<
-		InferAttributes<IPastDentalHistory>,
-		InferCreationAttributes<IPastDentalHistory>
+		InferAttributes<IPastSurgicalHistory>,
+		InferCreationAttributes<IPastSurgicalHistory>
 	> {
 	id: CreationOptional<number>;
 	history: string;
-	time: string;
+	time?: string;
+	details: string;
+	duration: string;
 	treatmentDetailId?: number;
 }
 
-const PastDentalHistory = database.define<IPastDentalHistory>(
-	"PastDentalHistory",
+const PastSurgicalHistory = database.define<IPastSurgicalHistory>(
+	"PastSurgicalHistory",
 	{
 		id: {
 			type: DataTypes.UUID,
@@ -31,6 +33,12 @@ const PastDentalHistory = database.define<IPastDentalHistory>(
 		},
 		time: {
 			type: DataTypes.STRING,
+		},
+		duration: {
+			type: DataTypes.STRING(500),
+		},
+		details: {
+			type: DataTypes.STRING(1000),
 		},
 		treatmentDetailId: {
 			type: DataTypes.INTEGER.UNSIGNED,
@@ -44,7 +52,7 @@ const PastDentalHistory = database.define<IPastDentalHistory>(
 
 // `sequelize.define` also returns the model
 console.log(
-	PastDentalHistory === database.models.PastDentalHistory,
-	"Past Dental History"
+	PastSurgicalHistory === database.models.PastSurgicalHistory,
+	"Past Surgical History"
 ); // true
-export default PastDentalHistory;
+export default PastSurgicalHistory;

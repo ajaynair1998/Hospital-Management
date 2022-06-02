@@ -1,7 +1,7 @@
 import Patient from "./Patient";
 import ChiefComplaint from "./Chief Complaint";
 import PastMedicalHistory from "./Past Medical History";
-import PastDentalHistory from "./Past Dental History";
+import PastSurgicalHistory from "./Past Surgical History";
 import DrugAllergy from "./Drug Allergy";
 import GeneralExamination from "./General Examination";
 import LocalExamination from "./Local Examination";
@@ -18,7 +18,7 @@ import Favourite from "./Favourite";
 Patient;
 ChiefComplaint;
 PastMedicalHistory;
-PastDentalHistory;
+PastSurgicalHistory;
 DrugAllergy;
 GeneralExamination;
 LocalExamination;
