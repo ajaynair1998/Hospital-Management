@@ -15,9 +15,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import {
 	setChiefComplaints,
-	setGeneralExamination,
-	setPastMedicalHistory,
-	setPastSurgicalHistory,
+	setLocalExamination,
+	setTreatmentPlan,
 } from "../../redux/Reducers/patientTreatmentDetailsReducer";
 import { IStore } from "../../helpers/interfaces";
 import {
@@ -29,36 +28,33 @@ import { getFavourites, timeout } from "../../helpers/functions";
 import { setFavourites } from "../../redux/Reducers/favouritesDataReducer";
 import { setTimeout } from "timers/promises";
 
-const GeneralExaminationInput = () => {
+const LocalExaminationInput = () => {
 	const dispatch = useDispatch();
 	let [treatmentDetailId, setTreatmentDetailId] = useState(1);
-	let [bp, setBp] = useState("");
-	let [temperature, setTemperature] = useState("");
-	let [oxygen_saturation, setOxygenSaturation] = useState("");
-
-	// let { location } = useSelector((state: IStore) => state.categoriesStore.data);
+	let [extraoral, setExtraoral] = useState("");
+	let [intraoral, setIntraoral] = useState("");
 
 	const handleAdd = async () => {
 		try {
 			// check whether this exists in the favourites , if not
 			// add it into the facourites data
 
-			// let { data } = await getFavourites(location);
-			const response = await window.electron.GeneralExaminationApi.post({
+			let { data } = await getFavourites("treatment_plan");
+			const response = await window.electron.LocalExaminationApi.post({
 				treatmentDetailId: 1,
-				bp: bp + "  mmHg",
-				temperature: temperature + "  F",
-				oxygen_saturation: oxygen_saturation + "  %",
+				extraoral: extraoral,
+				intraoral: intraoral,
 			});
 
-			let allGeneralExamination =
-				await window.electron.GeneralExaminationApi.get({
-					treatmentDetailId: 1,
-				});
-			console.log(allGeneralExamination);
+			let allExaminations = await window.electron.LocalExaminationApi.get({
+				treatmentDetailId: 1,
+			});
+			console.log(allExaminations);
 
-			dispatch(setGeneralExamination(allGeneralExamination.data));
-			// dispatch(setFavourites(data));
+			dispatch(setLocalExamination(allExaminations.data));
+			dispatch(setFavourites(data));
+			setExtraoral("");
+			setIntraoral("");
 
 			if (response.status === 200) {
 				dispatch(setSnackBarState({ snackBarOpen: true, text: "Success" }));
@@ -82,43 +78,24 @@ const GeneralExaminationInput = () => {
 				flexDirection={"column"}
 			>
 				<TextField
-					id="outlined-basic"
-					label="BP"
-					variant="outlined"
-					value={bp}
-					// sx={{ width: "200px!important" }}
-
-					onChange={(e) => setBp(e.target.value)}
+					id="outlined-multiline-static"
+					label="Extra oral"
+					multiline
+					rows={4}
+					value={extraoral}
+					// sx={{ width: "300px!important" }}
+					onChange={(e) => setExtraoral(e.target.value)}
 				/>
 				<TextField
-					id="outlined-basic"
-					label="Temperature"
-					variant="outlined"
-					value={temperature}
-					// sx={{ width: "200px!important" }}
-					onChange={(e) => setTemperature(e.target.value)}
-				/>
-				<TextField
-					id="outlined-basic"
-					label="Oxygen Saturation"
-					variant="outlined"
-					value={oxygen_saturation}
-					// sx={{ width: "200px!important" }}
-					onChange={(e) => setOxygenSaturation(e.target.value)}
+					id="outlined-multiline-static"
+					label="Intra oral"
+					multiline
+					rows={4}
+					value={intraoral}
+					// sx={{ width: "300px!important" }}
+					onChange={(e) => setIntraoral(e.target.value)}
 				/>
 
-				{/* <DialogActions sx={{ m: 0, p: "0!important" }}>
-					<Button
-						variant="outlined"
-						sx={{
-							width: "120px!important",
-							mr: 0,
-						}}
-						onClick={() => handleAdd()}
-					>
-						Save
-					</Button>
-				</DialogActions> */}
 				<AppBar
 					elevation={0}
 					sx={{
@@ -163,4 +140,4 @@ const GeneralExaminationInput = () => {
 	);
 };
 
-export default GeneralExaminationInput;
+export default LocalExaminationInput;

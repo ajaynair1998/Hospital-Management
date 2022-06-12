@@ -83,6 +83,17 @@ contextBridge.exposeInMainWorld("electron", {
 			return ipcRenderer.invoke("treatment-plan-delete", req);
 		},
 	},
+	LocalExaminationApi: {
+		async post(req: ILocalExamination): Promise<any> {
+			return ipcRenderer.invoke("local-examination-post", req);
+		},
+		async get(req: { treatmentDetailId: number }): Promise<any> {
+			return ipcRenderer.invoke("local-examination-get", req);
+		},
+		async delete(req: { id: number }): Promise<any> {
+			return ipcRenderer.invoke("local-examination-delete", req);
+		},
+	},
 });
 
 export interface IFavourite {
@@ -128,4 +139,10 @@ export interface ITreatmentPlan {
 	treatment: string;
 	duration: string;
 	details: string;
+}
+
+export interface ILocalExamination {
+	treatmentDetailId: number;
+	extraoral: string;
+	intraoral: string;
 }

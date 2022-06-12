@@ -7,21 +7,19 @@ import ButtonBase from "@mui/material/ButtonBase";
 import { Button, Box, Divider } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
-	IGeneralExamination,
+	ILocalExamination,
 	IPastMedicalHistory,
-	IPastSurgicalHistory,
 	IStore,
 } from "../../helpers/interfaces";
-import { IChiefComplaint } from "../../helpers/interfaces";
+import { IChiefComplaint, ITreatmentPlan } from "../../helpers/interfaces";
 import {
 	setChiefComplaints,
-	setGeneralExamination,
 	setPastMedicalHistory,
-	setPastSurgicalHistory,
+	setTreatmentPlan,
+	setLocalExamination,
 } from "../../redux/Reducers/patientTreatmentDetailsReducer";
 import { convertToReadableDate } from "../../helpers";
 import AlertDialog from "../Dialog";
-import { minWidth } from "@mui/system";
 
 const Img = styled("img")({
 	margin: "auto",
@@ -32,46 +30,43 @@ const Img = styled("img")({
 
 interface IProps {
 	createdAt?: string;
-	bp: string;
-	temperature?: string;
-	oxygen_saturation?: string;
+	extraoral: string;
+	intraoral: string;
 	id?: number;
-	handleSelectGeneralExamination: Function;
+	handleSelectLocalExamination: Function;
 	openDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const GeneralExaminationDataEntries = () => {
-	const [selectedGeneralExamination, setSelectedGeneralExamination] =
+const LocalExaminationDataEntries = () => {
+	const [selectedLocalExamination, setSelectedLocalExamination] =
 		React.useState(null);
 	const [dialogIsOpen, setDialogOpen] = React.useState(false);
-	const general_examination = useSelector(
-		(state: IStore) =>
-			state.patientTreatmentDetailsDataStore.general_examination
+	const local_examinations = useSelector(
+		(state: IStore) => state.patientTreatmentDetailsDataStore.local_examination
 	);
 	let dispatch = useDispatch();
-	const fetchAllExistingGeneralExamination = async () => {
-		let response = await window.electron.GeneralExaminationApi.get({
+	const fetchAllExistingLocalExaminations = async () => {
+		let response = await window.electron.LocalExaminationApi.get({
 			treatmentDetailId: 1,
 		});
 		if (response.status === 200) {
-			console.log(response);
-			dispatch(setGeneralExamination(response.data));
+			dispatch(setLocalExamination(response.data));
 		}
 	};
 	const handleRemoveButton = async () => {
 		try {
-			let deleted = await window.electron.GeneralExaminationApi.delete({
-				id: selectedGeneralExamination,
+			let deleted = await window.electron.LocalExaminationApi.delete({
+				id: selectedLocalExamination,
 			});
 			setDialogOpen(false);
-			await fetchAllExistingGeneralExamination();
+			await fetchAllExistingLocalExaminations();
 		} catch (err: any) {
 			console.log(err.message);
 		}
 	};
 
 	React.useEffect(() => {
-		fetchAllExistingGeneralExamination();
+		fetchAllExistingLocalExaminations();
 	}, []);
 	return (
 		<React.Fragment>
@@ -86,17 +81,16 @@ const GeneralExaminationDataEntries = () => {
 			</Box>
 			<Divider variant="middle" />
 			<Box m={2}>
-				{general_examination &&
-					general_examination.map((item: IGeneralExamination) => {
+				{local_examinations &&
+					local_examinations.map((item: ILocalExamination) => {
 						return (
-							<GeneralExaminationDataEntry
+							<LocalExaminationDataEntry
 								createdAt={item.createdAt}
-								bp={item.bp}
-								temperature={item.temperature}
-								oxygen_saturation={item.oxygen_saturation}
+								extraoral={item.extra_oral}
+								intraoral={item.intra_oral}
 								id={item.id}
 								key={item.id}
-								handleSelectGeneralExamination={setSelectedGeneralExamination}
+								handleSelectLocalExamination={setSelectedLocalExamination}
 								openDialog={setDialogOpen}
 							/>
 						);
@@ -105,30 +99,34 @@ const GeneralExaminationDataEntries = () => {
 			<AlertDialog
 				action={handleRemoveButton}
 				isOpen={dialogIsOpen}
-				text={`Do you want to remove this General Examination ?`}
+				text={`Do you want to remove this Local examination ?`}
 				close={() => setDialogOpen(false)}
 			/>
 		</React.Fragment>
 	);
 };
 
-export function GeneralExaminationDataEntry({
+export function LocalExaminationDataEntry({
 	createdAt,
-	bp,
-	temperature,
-	oxygen_saturation,
+	extraoral,
+	intraoral,
 	id,
-	handleSelectGeneralExamination,
+	handleSelectLocalExamination,
 	openDialog,
 }: IProps) {
 	const [created_at, setCreatedAt] = React.useState<any>("");
+	const [localExamination, setLocalExamination] = React.useState<any>("");
 
 	let dispatch = useDispatch();
 	let created_at_readable_format = convertToReadableDate(createdAt);
 
+	React.useEffect(() => {
+		setCreatedAt(createdAt);
+	}, []);
+
 	const handleRemoveButton = async () => {
 		try {
-			handleSelectGeneralExamination(id);
+			handleSelectLocalExamination(id);
 			openDialog(true);
 		} catch (err: any) {
 			console.log(err.message);
@@ -160,67 +158,41 @@ export function GeneralExaminationDataEntry({
 					<Grid item xs container direction="column" spacing={2}>
 						<Grid item xs sx={{ m: 1 }}>
 							<Typography
-								variant="body1"
 								gutterBottom
-								sx={{ mb: 1 }}
-								color="#fff"
+								variant="subtitle1"
+								component="div"
+								color={"#fff"}
 							>
-								Vitals
+								Local Examination
 							</Typography>
-							<Typography
-								variant="body2"
-								gutterBottom
-								sx={{
-									display: "flex",
-									flexDirection: "row",
-									alignContent: "center",
-								}}
-							>
-								<Typography
-									variant="body2"
-									color="text.secondary"
-									sx={{ minWidth: "130px" }}
-								>
-									BP
-								</Typography>{" "}
-								-&nbsp;&nbsp;{bp}
-							</Typography>
-							<Typography
-								variant="body2"
-								gutterBottom
-								sx={{
-									display: "flex",
-									flexDirection: "row",
-									alignContent: "center",
-								}}
-							>
-								<Typography
-									variant="body2"
-									color="text.secondary"
-									sx={{ minWidth: "130px" }}
-								>
-									Oxygen Saturation
-								</Typography>{" "}
-								-&nbsp;&nbsp;{oxygen_saturation}
-							</Typography>
-							<Typography
-								variant="body2"
-								gutterBottom
-								sx={{
-									display: "flex",
-									flexDirection: "row",
-									alignContent: "center",
-								}}
-							>
-								<Typography
-									variant="body2"
-									color="text.secondary"
-									sx={{ minWidth: "130px" }}
-								>
-									Temperature
-								</Typography>
-								-&nbsp;&nbsp;{temperature}
-							</Typography>
+							{extraoral !== "" && (
+								<React.Fragment>
+									<Typography
+										variant="body2"
+										color="text.secondary"
+										gutterBottom
+									>
+										Extra oral
+									</Typography>
+									<Typography variant="body2" gutterBottom>
+										{extraoral}
+									</Typography>
+								</React.Fragment>
+							)}
+							{intraoral !== "" && (
+								<React.Fragment>
+									<Typography
+										variant="body2"
+										color="text.secondary"
+										gutterBottom
+									>
+										Intra oral
+									</Typography>
+									<Typography variant="body2" gutterBottom>
+										{intraoral}
+									</Typography>
+								</React.Fragment>
+							)}
 						</Grid>
 						<Grid item xs container direction="row" spacing={2}>
 							<Grid item>
@@ -244,4 +216,4 @@ export function GeneralExaminationDataEntry({
 	);
 }
 
-export default GeneralExaminationDataEntries;
+export default LocalExaminationDataEntries;

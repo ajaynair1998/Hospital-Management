@@ -15,7 +15,7 @@ export interface ILocalExamination
 	id: CreationOptional<number>;
 	extra_oral: string;
 	intra_oral: string;
-	time: string;
+	time?: string;
 	treatmentDetailId?: number;
 }
 
