@@ -11,6 +11,7 @@ export const PatientTreatmentDetailsDataSlice = createSlice({
 		general_examination: [],
 		treatment_plan: [],
 		local_examination: [],
+		diagnosis: [],
 	},
 	reducers: {
 		setChiefComplaints: (state: any, action: any) => {
@@ -34,6 +35,9 @@ export const PatientTreatmentDetailsDataSlice = createSlice({
 		setLocalExamination: (state: any, action: any) => {
 			state.local_examination = action.payload;
 		},
+		setDiagnosis: (state: any, action: any) => {
+			state.diagnosis = action.payload;
+		},
 	},
 });
 
@@ -45,5 +49,6 @@ export const {
 	setGeneralExamination,
 	setTreatmentPlan,
 	setLocalExamination,
+	setDiagnosis,
 } = PatientTreatmentDetailsDataSlice.actions;
 export default PatientTreatmentDetailsDataSlice.reducer;

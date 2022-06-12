@@ -94,6 +94,17 @@ contextBridge.exposeInMainWorld("electron", {
 			return ipcRenderer.invoke("local-examination-delete", req);
 		},
 	},
+	DiagnosisApi: {
+		async post(req: IDiagnosis): Promise<any> {
+			return ipcRenderer.invoke("diagnosis-post", req);
+		},
+		async get(req: { treatmentDetailId: number }): Promise<any> {
+			return ipcRenderer.invoke("diagnosis-get", req);
+		},
+		async delete(req: { id: number }): Promise<any> {
+			return ipcRenderer.invoke("diagnosis-delete", req);
+		},
+	},
 });
 
 export interface IFavourite {
@@ -145,4 +156,9 @@ export interface ILocalExamination {
 	treatmentDetailId: number;
 	extraoral: string;
 	intraoral: string;
+}
+export interface IDiagnosis {
+	treatmentDetailId: number;
+	diagnosis: string;
+	details: string;
 }

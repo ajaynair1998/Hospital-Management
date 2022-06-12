@@ -6,7 +6,6 @@ import {
 	InferAttributes,
 	InferCreationAttributes,
 } from "sequelize";
-
 export interface IDiagnosis
 	extends Model<
 		InferAttributes<IDiagnosis>,
@@ -14,10 +13,10 @@ export interface IDiagnosis
 	> {
 	id: CreationOptional<number>;
 	diagnosis: string;
-	time: string;
+	time?: string;
+	details: string;
 	treatmentDetailId?: number;
 }
-
 const Diagnosis = database.define<IDiagnosis>("Diagnosis", {
 	id: {
 		type: DataTypes.UUID,
@@ -28,6 +27,9 @@ const Diagnosis = database.define<IDiagnosis>("Diagnosis", {
 		type: DataTypes.STRING(1000),
 	},
 	time: {
+		type: DataTypes.STRING,
+	},
+	details: {
 		type: DataTypes.STRING,
 	},
 	treatmentDetailId: {

@@ -40,6 +40,11 @@ export interface IElectronAPI {
 		get: (req: any) => Promise<any>;
 		delete: (req: any) => Promise<any>;
 	};
+	DiagnosisApi: {
+		post: (req: any) => Promise<any>;
+		get: (req: any) => Promise<any>;
+		delete: (req: any) => Promise<any>;
+	};
 }
 
 export interface IStore {
@@ -61,6 +66,7 @@ export interface IStore {
 		general_examination: IGeneralExamination[];
 		treatment_plan: ITreatmentPlan[];
 		local_examination: ILocalExamination[];
+		diagnosis: IDiagnosis[];
 	};
 	utilDataStore: {
 		data: {
@@ -130,5 +136,12 @@ export interface ILocalExamination {
 	id: number;
 	extra_oral: string;
 	intra_oral: string;
+	createdAt: string;
+}
+
+export interface IDiagnosis {
+	id: number;
+	diagnosis: string;
+	details: string;
 	createdAt: string;
 }

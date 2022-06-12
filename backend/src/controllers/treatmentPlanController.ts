@@ -65,7 +65,7 @@ const TreatmentPlanController: ITreatmentPlanController = {
 
 			return {
 				status: 500,
-				message: `Chief complaint ${treatmentPlanId} doesnt exist`,
+				message: `Treatment Plan ${treatmentPlanId} doesnt exist`,
 			};
 		} catch (err: any) {
 			console.log(err);

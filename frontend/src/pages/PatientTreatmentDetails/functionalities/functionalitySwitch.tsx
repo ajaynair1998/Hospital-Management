@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { IStore } from "../../../helpers/interfaces";
 import ChiefComplaints from "./ChiefComplaints";
 import ClinicalDiagnosis from "./ClinicalDiagnosis";
+import Diagnosis from "./Diagnosis";
 import GeneralExamination from "./GeneralExamination";
 import LocalExamination from "./LocalExamination";
 import PastMedicalHistory from "./PastMedicalHistory";
@@ -17,7 +18,7 @@ export const FunctionalitySwitch = (): JSX.Element => {
 		case "clinical_diagnosis":
 			return <ClinicalDiagnosis />;
 		case "diagnosis":
-			return <React.Fragment />;
+			return <Diagnosis />;
 		case "drug_allergy":
 			return <React.Fragment />;
 		case "general_examination":

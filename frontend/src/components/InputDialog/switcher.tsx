@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { IStore } from "../../helpers/interfaces";
 import ChiefComplaintInput from "../ChiefComplaintInput";
 import ClinicalDiagnosisInput from "../ClinicalDiagnosisInput";
+import DiagnosisInput from "../DiagnosisInput";
 import GeneralExaminationInput from "../GeneralExaminationInput";
 import LocalExaminationInput from "../LocalExaminationInput";
 import PastMedicalHistoryInput from "../PastMedicalHistoryInput";
@@ -29,6 +30,8 @@ export const InputSwitcher = () => {
 			return <TreatmentPlanInput />;
 		case "local_examination":
 			return <LocalExaminationInput />;
+		case "diagnosis":
+			return <DiagnosisInput />;
 		default:
 			return <React.Fragment />;
 	}

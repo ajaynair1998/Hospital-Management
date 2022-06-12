@@ -51,14 +51,14 @@ const StickyFooter = () => {
 					sx={{ alignContent: "baseline" }}
 					onClick={goToTop}
 				>
-					<NavigationIcon /> Go to Top
+					<NavigationIcon /> Top
 				</Button>
 				<Button
 					variant="contained"
 					color="success"
 					onClick={handleOpenInputDialog}
 				>
-					New entry
+					New
 				</Button>
 			</Box>
 		</AppBar>

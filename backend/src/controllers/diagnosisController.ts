@@ -1,18 +1,16 @@
-import ClinicalDiagnosis, {
-	IClinicalDiagnosis,
-} from "../models/Clinical Diagnosis";
 import _ from "lodash";
+import Diagnosis from "../models/Diagnosis";
+import { IDiagnosis } from "../preload";
+interface IPost extends IDiagnosis {}
 
-interface IPost extends IClinicalDiagnosis {}
-
-const ClinicalDiagnosisController: IClinicalDiagnosisController = {
+const DiagnosisController: IDiagnosisController = {
 	async post(event, args: IPost) {
 		try {
 			const treatment_detail_id = args.treatmentDetailId;
 			const diagnosis = args.diagnosis;
 			const details = args.details;
 
-			await ClinicalDiagnosis.create({
+			await Diagnosis.create({
 				treatmentDetailId: 1,
 				diagnosis: diagnosis,
 				details: details,
@@ -20,7 +18,7 @@ const ClinicalDiagnosisController: IClinicalDiagnosisController = {
 
 			return {
 				status: 200,
-				message: `Treatment Detail ${treatment_detail_id} updated chief complaint successfully`,
+				message: `Treatment Detail ${treatment_detail_id} updated Diagnosis successfully`,
 			};
 		} catch (err: any) {
 			console.log(err);
@@ -30,7 +28,7 @@ const ClinicalDiagnosisController: IClinicalDiagnosisController = {
 	async get(event: any, args: { treatmentDetailId: number }) {
 		try {
 			const TreatmentDetailId = args.treatmentDetailId;
-			let allDiagnosis = await ClinicalDiagnosis.findAll({
+			let allDiagnosis = await Diagnosis.findAll({
 				where: {
 					treatmentDetailId: TreatmentDetailId,
 				},
@@ -50,7 +48,7 @@ const ClinicalDiagnosisController: IClinicalDiagnosisController = {
 	async delete(event: any, args: { id: number }) {
 		try {
 			const diagnosisId = args.id;
-			let deleteEntry = await ClinicalDiagnosis.destroy({
+			let deleteEntry = await Diagnosis.destroy({
 				where: {
 					id: diagnosisId,
 				},
@@ -65,7 +63,7 @@ const ClinicalDiagnosisController: IClinicalDiagnosisController = {
 
 			return {
 				status: 500,
-				message: `Clinical Diagnosis ${diagnosisId} doesnt exist`,
+				message: `Diagnosis${diagnosisId} doesnt exist`,
 			};
 		} catch (err: any) {
 			console.log(err);
@@ -74,10 +72,10 @@ const ClinicalDiagnosisController: IClinicalDiagnosisController = {
 	},
 };
 
-interface IClinicalDiagnosisController {
+interface IDiagnosisController {
 	post: (event: any, args: any) => Promise<any>;
 	get: (event: any, args: any) => Promise<any>;
 	delete: (event: any, args: any) => Promise<any>;
 }
 
-export default ClinicalDiagnosisController;
+export default DiagnosisController;
