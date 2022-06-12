@@ -30,6 +30,11 @@ export interface IElectronAPI {
 		get: (req: any) => Promise<any>;
 		delete: (req: any) => Promise<any>;
 	};
+	TreatmentPlanApi: {
+		post: (req: any) => Promise<any>;
+		get: (req: any) => Promise<any>;
+		delete: (req: any) => Promise<any>;
+	};
 }
 
 export interface IStore {
@@ -49,6 +54,7 @@ export interface IStore {
 		past_medical_history: IPastMedicalHistory[];
 		past_surgical_history: IPastSurgicalHistory[];
 		general_examination: IGeneralExamination[];
+		treatment_plan: ITreatmentPlan[];
 	};
 	utilDataStore: {
 		data: {
@@ -103,5 +109,13 @@ export interface IGeneralExamination {
 	bp: string;
 	temperature: string;
 	oxygen_saturation: string;
+	createdAt: string;
+}
+
+export interface ITreatmentPlan {
+	id: number;
+	duration: string;
+	treatment: string;
+	details: string;
 	createdAt: string;
 }

@@ -72,6 +72,17 @@ contextBridge.exposeInMainWorld("electron", {
 			return ipcRenderer.invoke("general-examination-delete", req);
 		},
 	},
+	TreatmentPlanApi: {
+		async post(req: ITreatmentPlan): Promise<any> {
+			return ipcRenderer.invoke("treatment-plan-post", req);
+		},
+		async get(req: { treatmentDetailId: number }): Promise<any> {
+			return ipcRenderer.invoke("treatment-plan-get", req);
+		},
+		async delete(req: { id: number }): Promise<any> {
+			return ipcRenderer.invoke("treatment-plan-delete", req);
+		},
+	},
 });
 
 export interface IFavourite {
@@ -111,4 +122,10 @@ export interface IGeneralExamination {
 	bp: string;
 	temperature: string;
 	oxygen_saturation: string;
+}
+export interface ITreatmentPlan {
+	treatmentDetailId: number;
+	treatment: string;
+	duration: string;
+	details: string;
 }

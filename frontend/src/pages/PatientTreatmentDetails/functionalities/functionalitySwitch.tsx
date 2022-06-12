@@ -6,6 +6,7 @@ import ClinicalDiagnosis from "./ClinicalDiagnosis";
 import GeneralExamination from "./GeneralExamination";
 import PastMedicalHistory from "./PastMedicalHistory";
 import PastSurgicalHistory from "./PastSurgicalHistory";
+import TreatmentPlan from "./TreatmentPlan";
 
 export const FunctionalitySwitch = (): JSX.Element => {
 	const { data } = useSelector((state: IStore) => state.categoriesStore);
@@ -20,6 +21,8 @@ export const FunctionalitySwitch = (): JSX.Element => {
 			return <React.Fragment />;
 		case "general_examination":
 			return <GeneralExamination />;
+		case "treatment_plan":
+			return <TreatmentPlan />;
 		case "investigation":
 			return <React.Fragment />;
 		case "local_examination":
@@ -28,8 +31,6 @@ export const FunctionalitySwitch = (): JSX.Element => {
 			return <React.Fragment />;
 		case "past_medical_history":
 			return <PastMedicalHistory />;
-		case "treatment_plan":
-			return <React.Fragment />;
 		case "follow_up":
 			return <React.Fragment />;
 		case "past_surgical_history":

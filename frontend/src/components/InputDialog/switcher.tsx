@@ -6,6 +6,7 @@ import ClinicalDiagnosisInput from "../ClinicalDiagnosisInput";
 import GeneralExaminationInput from "../GeneralExaminationInput";
 import PastMedicalHistoryInput from "../PastMedicalHistoryInput";
 import PastSurgicalHistoryInput from "../PastSurgicalHistoryInput";
+import TreatmentPlanInput from "../TreatmentPlanInput";
 
 export const InputSwitcher = () => {
 	let { location, category_name } = useSelector(
@@ -23,6 +24,8 @@ export const InputSwitcher = () => {
 			return <PastSurgicalHistoryInput />;
 		case "general_examination":
 			return <GeneralExaminationInput />;
+		case "treatment_plan":
+			return <TreatmentPlanInput />;
 		default:
 			return <React.Fragment />;
 	}

@@ -1,4 +1,4 @@
-import { database } from "../../configs/sqlite";
+import { database as sequelize } from "../../configs/sqlite";
 import {
 	Model,
 	DataTypes,
@@ -12,27 +12,31 @@ export interface ITreatmentPlan
 		InferAttributes<ITreatmentPlan>,
 		InferCreationAttributes<ITreatmentPlan>
 	> {
-	id: CreationOptional<number>;
-	treatment_plan: string;
+	id?: CreationOptional<number>;
 	treatment: string;
-	time: string;
+	time?: string;
+	duration: string;
+	details: string;
 	treatmentDetailId?: number;
 }
 
-const TreatmentPlan = database.define<ITreatmentPlan>("TreatmentPlan", {
+const TreatmentPlan = sequelize.define<ITreatmentPlan>("TreatmentPlan", {
 	id: {
 		type: DataTypes.UUID,
 		defaultValue: DataTypes.UUIDV4,
 		primaryKey: true,
 	},
-	treatment_plan: {
-		type: DataTypes.STRING(1000),
-	},
 	treatment: {
-		type: DataTypes.STRING(1000),
+		type: DataTypes.STRING(500),
+	},
+	duration: {
+		type: DataTypes.STRING(500),
 	},
 	time: {
 		type: DataTypes.STRING,
+	},
+	details: {
+		type: DataTypes.STRING(1000),
 	},
 	treatmentDetailId: {
 		type: DataTypes.INTEGER.UNSIGNED,
@@ -44,5 +48,5 @@ const TreatmentPlan = database.define<ITreatmentPlan>("TreatmentPlan", {
 });
 
 // `sequelize.define` also returns the model
-console.log(TreatmentPlan === database.models.TreatmentPlan, "Treatment Plan"); // true
+console.log(TreatmentPlan === sequelize.models.TreatmentPlan, "Treatment Plan"); // true
 export default TreatmentPlan;

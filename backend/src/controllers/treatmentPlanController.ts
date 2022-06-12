@@ -1,35 +1,27 @@
-import ChiefComplaint from "../models/Chief Complaint";
+import TreatmentPlan from "../models/Treatment Plan";
 import _ from "lodash";
-import { IChiefComplaint } from "../preload";
+import { ITreatmentPlan } from "../preload";
 
-interface IPost extends IChiefComplaint {}
+interface IPost extends ITreatmentPlan {}
 
-const ChiefComplaintsController: IChiefComplaintsController = {
+const TreatmentPlanController: ITreatmentPlanController = {
 	async post(event, args: IPost) {
 		try {
 			const treatment_detail_id = args.treatmentDetailId;
 			const details = args.details;
 			const duration = args.duration;
-			const complaint = args.complaint;
+			const treatment = args.treatment;
 
-			// await Patient.create({
-			// 	name: "ajay",
-			// });
-
-			// await TreatmentDetail.create({
-			// 	patientId: 1,
-			// });
-
-			await ChiefComplaint.create({
+			await TreatmentPlan.create({
 				treatmentDetailId: 1,
-				complaint: complaint,
+				treatment: treatment,
 				duration: duration,
 				details: details,
 			});
 
 			return {
 				status: 200,
-				message: `Treatment Detail ${treatment_detail_id} updated chief complaint successfully`,
+				message: `Treatment Detail ${treatment_detail_id} updated treatment plan successfully`,
 			};
 		} catch (err: any) {
 			console.log(err);
@@ -39,7 +31,7 @@ const ChiefComplaintsController: IChiefComplaintsController = {
 	async get(event: any, args: { treatmentDetailId: number }) {
 		try {
 			const TreatmentDetailId = args.treatmentDetailId;
-			let complaints = await ChiefComplaint.findAll({
+			let treatments = await TreatmentPlan.findAll({
 				where: {
 					treatmentDetailId: TreatmentDetailId,
 				},
@@ -48,7 +40,7 @@ const ChiefComplaintsController: IChiefComplaintsController = {
 			});
 			return {
 				status: 200,
-				data: complaints,
+				data: treatments,
 			};
 		} catch (err: any) {
 			console.log(err);
@@ -57,23 +49,23 @@ const ChiefComplaintsController: IChiefComplaintsController = {
 	},
 	async delete(event: any, args: { id: number }) {
 		try {
-			const chiefComplaintId = args.id;
-			let deleteEntry = await ChiefComplaint.destroy({
+			const treatmentPlanId = args.id;
+			let deleteEntry = await TreatmentPlan.destroy({
 				where: {
-					id: chiefComplaintId,
+					id: treatmentPlanId,
 				},
 			});
 
 			if (deleteEntry === 1) {
 				return {
 					status: 200,
-					message: `Deleted ${chiefComplaintId} successfully`,
+					message: `Deleted ${treatmentPlanId} successfully`,
 				};
 			}
 
 			return {
 				status: 500,
-				message: `Chief complaint ${chiefComplaintId} doesnt exist`,
+				message: `Chief complaint ${treatmentPlanId} doesnt exist`,
 			};
 		} catch (err: any) {
 			console.log(err);
@@ -82,10 +74,10 @@ const ChiefComplaintsController: IChiefComplaintsController = {
 	},
 };
 
-interface IChiefComplaintsController {
+interface ITreatmentPlanController {
 	post: (event: any, args: any) => Promise<any>;
 	get: (event: any, args: any) => Promise<any>;
 	delete: (event: any, args: any) => Promise<any>;
 }
 
-export default ChiefComplaintsController;
+export default TreatmentPlanController;
