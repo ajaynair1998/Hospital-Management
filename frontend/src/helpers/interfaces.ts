@@ -45,6 +45,11 @@ export interface IElectronAPI {
 		get: (req: any) => Promise<any>;
 		delete: (req: any) => Promise<any>;
 	};
+	HistoryOfComplaintsApi: {
+		post: (req: any) => Promise<any>;
+		get: (req: any) => Promise<any>;
+		delete: (req: any) => Promise<any>;
+	};
 }
 
 export interface IStore {
@@ -67,6 +72,7 @@ export interface IStore {
 		treatment_plan: ITreatmentPlan[];
 		local_examination: ILocalExamination[];
 		diagnosis: IDiagnosis[];
+		history_of_complaints: IHistoryOfComplaint[];
 	};
 	utilDataStore: {
 		data: {
@@ -142,6 +148,13 @@ export interface ILocalExamination {
 export interface IDiagnosis {
 	id: number;
 	diagnosis: string;
+	details: string;
+	createdAt: string;
+}
+
+export interface IHistoryOfComplaint {
+	id: number;
+	complaint: string;
 	details: string;
 	createdAt: string;
 }

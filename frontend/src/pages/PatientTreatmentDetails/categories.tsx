@@ -20,6 +20,7 @@ export const categoriesList: ICategory[] = [
 		category_icon: <AddShoppingCartIcon />,
 		location: "chief_complaint",
 	},
+
 	{
 		key: 1,
 		category_name: "Clinical Diagnosis",
@@ -86,5 +87,11 @@ export const categoriesList: ICategory[] = [
 		category_name: "Past Surgical Histories",
 		category_icon: <HistoryIcon />,
 		location: "past_surgical_history",
+	},
+	{
+		key: 13,
+		category_name: "History Of Complaints",
+		category_icon: <PersonAddDisabledIcon />,
+		location: "history_of_complaints",
 	},
 ];

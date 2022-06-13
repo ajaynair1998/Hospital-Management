@@ -105,6 +105,17 @@ contextBridge.exposeInMainWorld("electron", {
 			return ipcRenderer.invoke("diagnosis-delete", req);
 		},
 	},
+	HistoryOfComplaintsApi: {
+		async post(req: IHistoryOfComplaints): Promise<any> {
+			return ipcRenderer.invoke("history-of-complaints-post", req);
+		},
+		async get(req: { treatmentDetailId: number }): Promise<any> {
+			return ipcRenderer.invoke("history-of-complaints-get", req);
+		},
+		async delete(req: { id: number }): Promise<any> {
+			return ipcRenderer.invoke("history-of-complaints-delete", req);
+		},
+	},
 });
 
 export interface IFavourite {
@@ -160,5 +171,11 @@ export interface ILocalExamination {
 export interface IDiagnosis {
 	treatmentDetailId: number;
 	diagnosis: string;
+	details: string;
+}
+
+export interface IHistoryOfComplaints {
+	treatmentDetailId: number;
+	complaint: string;
 	details: string;
 }

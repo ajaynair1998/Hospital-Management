@@ -13,6 +13,7 @@ import Medicine from "./Medicine";
 import FollowUp from "./Follow Up";
 import TreatmentDetail from "./Treatment Detail";
 import Favourite from "./Favourite";
+import HistoryOfComplaint from "./History Of Complaint";
 
 // ASSOCIATIONS
 Patient;
@@ -30,6 +31,7 @@ Medicine;
 FollowUp;
 TreatmentDetail;
 Favourite;
+HistoryOfComplaint;
 
 // Patient.hasMany(TreatmentDetail);
 // TreatmentDetail.belongsTo(Patient);
