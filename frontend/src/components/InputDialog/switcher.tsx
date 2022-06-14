@@ -4,6 +4,7 @@ import { IStore } from "../../helpers/interfaces";
 import ChiefComplaintInput from "../ChiefComplaintInput";
 import ClinicalDiagnosisInput from "../ClinicalDiagnosisInput";
 import DiagnosisInput from "../DiagnosisInput";
+import DrugAllergyInput from "../DrugAllergyInput";
 import GeneralExaminationInput from "../GeneralExaminationInput";
 import HistoryOfComplaintsInput from "../HistoryOfComplaintsInput";
 import LocalExaminationInput from "../LocalExaminationInput";
@@ -35,6 +36,8 @@ export const InputSwitcher = () => {
 			return <DiagnosisInput />;
 		case "history_of_complaints":
 			return <HistoryOfComplaintsInput />;
+		case "drug_allergy":
+			return <DrugAllergyInput />;
 		default:
 			return <React.Fragment />;
 	}

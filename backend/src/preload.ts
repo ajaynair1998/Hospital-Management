@@ -116,6 +116,17 @@ contextBridge.exposeInMainWorld("electron", {
 			return ipcRenderer.invoke("history-of-complaints-delete", req);
 		},
 	},
+	DrugAllergyApi: {
+		async post(req: IDrugAllergy): Promise<any> {
+			return ipcRenderer.invoke("drug-allergy-post", req);
+		},
+		async get(req: { treatmentDetailId: number }): Promise<any> {
+			return ipcRenderer.invoke("drug-allergy-get", req);
+		},
+		async delete(req: { id: number }): Promise<any> {
+			return ipcRenderer.invoke("drug-allergy-delete", req);
+		},
+	},
 });
 
 export interface IFavourite {
@@ -177,5 +188,11 @@ export interface IDiagnosis {
 export interface IHistoryOfComplaints {
 	treatmentDetailId: number;
 	complaint: string;
+	details: string;
+}
+
+export interface IDrugAllergy {
+	treatmentDetailId: number;
+	allergy: string;
 	details: string;
 }

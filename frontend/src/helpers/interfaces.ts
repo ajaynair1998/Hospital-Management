@@ -50,6 +50,11 @@ export interface IElectronAPI {
 		get: (req: any) => Promise<any>;
 		delete: (req: any) => Promise<any>;
 	};
+	DrugAllergyApi: {
+		post: (req: any) => Promise<any>;
+		get: (req: any) => Promise<any>;
+		delete: (req: any) => Promise<any>;
+	};
 }
 
 export interface IStore {
@@ -73,6 +78,7 @@ export interface IStore {
 		local_examination: ILocalExamination[];
 		diagnosis: IDiagnosis[];
 		history_of_complaints: IHistoryOfComplaint[];
+		drug_allergies: IDrugAllergy[];
 	};
 	utilDataStore: {
 		data: {
@@ -155,6 +161,12 @@ export interface IDiagnosis {
 export interface IHistoryOfComplaint {
 	id: number;
 	complaint: string;
+	details: string;
+	createdAt: string;
+}
+export interface IDrugAllergy {
+	id: number;
+	allergy: string;
 	details: string;
 	createdAt: string;
 }

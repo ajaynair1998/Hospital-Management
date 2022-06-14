@@ -4,6 +4,7 @@ import { IStore } from "../../../helpers/interfaces";
 import ChiefComplaints from "./ChiefComplaints";
 import ClinicalDiagnosis from "./ClinicalDiagnosis";
 import Diagnosis from "./Diagnosis";
+import DrugAllergy from "./DrugAllergy";
 import GeneralExamination from "./GeneralExamination";
 import HistoryOfComplaints from "./HistoryOfComplaints";
 import LocalExamination from "./LocalExamination";
@@ -21,7 +22,7 @@ export const FunctionalitySwitch = (): JSX.Element => {
 		case "diagnosis":
 			return <Diagnosis />;
 		case "drug_allergy":
-			return <React.Fragment />;
+			return <DrugAllergy />;
 		case "general_examination":
 			return <GeneralExamination />;
 		case "treatment_plan":

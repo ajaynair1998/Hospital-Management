@@ -13,8 +13,9 @@ export interface IDrugAllergy
 		InferCreationAttributes<IDrugAllergy>
 	> {
 	id: CreationOptional<number>;
-	history: string;
-	time: string;
+	allergy: string;
+	details?: string;
+	time?: string;
 	treatmentDetailId?: number;
 }
 
@@ -24,7 +25,10 @@ const DrugAllergy = database.define<IDrugAllergy>("DrugAllergy", {
 		defaultValue: DataTypes.UUIDV4,
 		primaryKey: true,
 	},
-	history: {
+	allergy: {
+		type: DataTypes.STRING(1000),
+	},
+	details: {
 		type: DataTypes.STRING(1000),
 	},
 	time: {

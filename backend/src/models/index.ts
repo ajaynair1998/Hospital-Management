@@ -32,6 +32,7 @@ FollowUp;
 TreatmentDetail;
 Favourite;
 HistoryOfComplaint;
+DrugAllergy;
 
 // Patient.hasMany(TreatmentDetail);
 // TreatmentDetail.belongsTo(Patient);
