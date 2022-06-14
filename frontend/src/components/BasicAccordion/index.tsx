@@ -11,6 +11,7 @@ interface IProps {
 	heading: string;
 	handleDelete: Function;
 	details: string;
+	createdAt: string | undefined;
 }
 
 export default function BasicAccordion({
@@ -18,6 +19,7 @@ export default function BasicAccordion({
 	heading,
 	handleDelete,
 	details,
+	createdAt,
 }: IProps) {
 	return (
 		<div key={id} style={{ marginBottom: 15 }}>
@@ -28,7 +30,25 @@ export default function BasicAccordion({
 					id="panel1a-header"
 					sx={{ pl: 3 }}
 				>
-					<Typography sx={{ flexGrow: 1 }}>{heading}</Typography>
+					<Typography sx={{ width: "33%", flexShrink: 0 }}>
+						{heading}
+					</Typography>
+					<div
+						style={{
+							flexGrow: 1,
+							flexDirection: "row",
+							justifyContent: "flex-end",
+						}}
+					>
+						<Typography
+							sx={{
+								color: "text.secondary",
+								// maxWidth: "200px!important",
+							}}
+						>
+							{createdAt}
+						</Typography>
+					</div>
 				</AccordionSummary>
 				<AccordionDetails>
 					{details && <Typography sx={{ pl: 1, mb: 2 }}>{details}</Typography>}

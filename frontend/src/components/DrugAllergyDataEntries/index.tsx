@@ -200,6 +200,7 @@ export default function DrugAllergyDataEntry({
 			handleDelete={handleRemoveButton}
 			id={id}
 			details={details}
+			createdAt={created_at_readable_format}
 		/>
 	);
 }
