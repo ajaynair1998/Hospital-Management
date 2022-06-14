@@ -31,9 +31,8 @@ export default function BasicAccordion({
 					<Typography sx={{ flexGrow: 1 }}>{heading}</Typography>
 				</AccordionSummary>
 				<AccordionDetails>
-					<Typography sx={{ pl: 1, mb: 2 }}>{details}</Typography>
+					{details && <Typography sx={{ pl: 1, mb: 2 }}>{details}</Typography>}
 					<Grid
-						xs
 						container
 						direction="row"
 						spacing={2}
@@ -44,7 +43,8 @@ export default function BasicAccordion({
 								sx={{ color: "#ea2929" }}
 								onClick={() => handleDelete(id)}
 							>
-								Remove <DeleteIcon />
+								Remove &nbsp;
+								<DeleteIcon />
 							</Button>
 						</Grid>{" "}
 						{/* <Grid item>
