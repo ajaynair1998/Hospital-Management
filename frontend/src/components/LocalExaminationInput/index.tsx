@@ -27,6 +27,7 @@ import {
 import { getFavourites, timeout } from "../../helpers/functions";
 import { setFavourites } from "../../redux/Reducers/favouritesDataReducer";
 import { setTimeout } from "timers/promises";
+import ExtraOralInputList from "../ExtraOralDataEntry";
 
 const LocalExaminationInput = () => {
 	const dispatch = useDispatch();
@@ -86,6 +87,7 @@ const LocalExaminationInput = () => {
 					// sx={{ width: "300px!important" }}
 					onChange={(e) => setExtraoral(e.target.value)}
 				/>
+				<ExtraOralInputList />
 				<TextField
 					id="outlined-multiline-static"
 					label="Intra oral"
