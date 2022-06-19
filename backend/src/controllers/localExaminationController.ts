@@ -13,7 +13,7 @@ const LocalExaminationController: ILocalExaminationController = {
 			await LocalExamination.create({
 				treatmentDetailId: 1,
 				extra_oral: extraoral,
-				intra_oral: intraoral,
+				intra_oral: JSON.stringify(intraoral),
 			});
 
 			return {
@@ -35,9 +35,15 @@ const LocalExaminationController: ILocalExaminationController = {
 				raw: true,
 				order: [["createdAt", "DESC"]],
 			});
+			let LocalExaminationsParsed = LocalExaminations.map((item) => {
+				return {
+					...item,
+					intra_oral: JSON.parse(item.intra_oral),
+				};
+			});
 			return {
 				status: 200,
-				data: LocalExaminations,
+				data: LocalExaminationsParsed,
 			};
 		} catch (err: any) {
 			console.log(err);

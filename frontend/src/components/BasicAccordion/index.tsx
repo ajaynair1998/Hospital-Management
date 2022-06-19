@@ -7,11 +7,11 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Button, Grid } from "@mui/material";
 interface IProps {
-	id: number;
+	id: number | string;
 	heading: string;
-	handleDelete: Function;
+	handleDelete?: Function;
 	details: string;
-	createdAt: string | undefined;
+	createdAt?: string | undefined;
 }
 
 export default function BasicAccordion({
@@ -30,47 +30,53 @@ export default function BasicAccordion({
 					id="panel1a-header"
 					sx={{ pl: 3 }}
 				>
-					<Typography sx={{ width: "33%", flexShrink: 0 }}>
+					<Typography
+						sx={{ width: `${createdAt ? "33%" : "100%"}`, flexShrink: 0 }}
+					>
 						{heading}
 					</Typography>
-					<div
-						style={{
-							flexGrow: 1,
-							flexDirection: "row",
-							justifyContent: "flex-end",
-						}}
-					>
-						<Typography
-							sx={{
-								color: "text.secondary",
-								// maxWidth: "200px!important",
+					{createdAt && (
+						<div
+							style={{
+								flexGrow: 1,
+								flexDirection: "row",
+								justifyContent: "flex-end",
 							}}
 						>
-							{createdAt}
-						</Typography>
-					</div>
+							<Typography
+								sx={{
+									color: "text.secondary",
+									// maxWidth: "200px!important",
+								}}
+							>
+								{createdAt}
+							</Typography>
+						</div>
+					)}
 				</AccordionSummary>
 				<AccordionDetails>
 					{details && <Typography sx={{ pl: 1, mb: 2 }}>{details}</Typography>}
-					<Grid
-						container
-						direction="row"
-						spacing={2}
-						sx={{ pl: "0!important" }}
-					>
-						<Grid item>
-							<Button
-								sx={{ color: "#ea2929" }}
-								onClick={() => handleDelete(id)}
-							>
-								Remove &nbsp;
-								<DeleteIcon />
-							</Button>
-						</Grid>{" "}
-						{/* <Grid item>
+					{handleDelete && (
+						<Grid
+							container
+							direction="row"
+							spacing={2}
+							sx={{ pl: "0!important" }}
+						>
+							<Grid item>
+								<Button
+									sx={{ color: "#ea2929" }}
+									onClick={() => handleDelete(id)}
+								>
+									Remove &nbsp;
+									<DeleteIcon />
+								</Button>
+							</Grid>{" "}
+							{/* <Grid item>
 							<Button>Edit</Button>
 						</Grid> */}
-					</Grid>
+						</Grid>
+					)}
 				</AccordionDetails>
 			</Accordion>
 		</div>

@@ -1,3 +1,5 @@
+import { IIntraOral } from "../components/LocalExaminationInput";
+
 export interface IElectronAPI {
 	notificationApi: { sendNotification: (message: string) => Promise<void> };
 	favouritesApi: {
@@ -147,7 +149,7 @@ export interface ITreatmentPlan {
 export interface ILocalExamination {
 	id: number;
 	extra_oral: string;
-	intra_oral: string;
+	intra_oral: IIntraOral;
 	createdAt: string;
 }
 

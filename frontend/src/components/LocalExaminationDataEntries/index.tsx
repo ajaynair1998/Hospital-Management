@@ -20,6 +20,8 @@ import {
 } from "../../redux/Reducers/patientTreatmentDetailsReducer";
 import { convertToReadableDate } from "../../helpers";
 import AlertDialog from "../Dialog";
+import { IIntraOral } from "../LocalExaminationInput";
+import BasicAccordion from "../BasicAccordion";
 
 const Img = styled("img")({
 	margin: "auto",
@@ -31,7 +33,7 @@ const Img = styled("img")({
 interface IProps {
 	createdAt?: string;
 	extraoral: string;
-	intraoral: string;
+	intraoral: IIntraOral;
 	id?: number;
 	handleSelectLocalExamination: Function;
 	openDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -49,6 +51,10 @@ const LocalExaminationDataEntries = () => {
 		let response = await window.electron.LocalExaminationApi.get({
 			treatmentDetailId: 1,
 		});
+		console.log(
+			"🚀 ~ file: index.tsx ~ line 52 ~ fetchAllExistingLocalExaminations ~ response",
+			response
+		);
 		if (response.status === 200) {
 			dispatch(setLocalExamination(response.data));
 		}
@@ -174,25 +180,40 @@ export function LocalExaminationDataEntry({
 									>
 										Extra oral
 									</Typography>
-									<Typography variant="body2" gutterBottom>
+									<Typography variant="body2" gutterBottom sx={{ mb: 1 }}>
 										{extraoral}
 									</Typography>
 								</React.Fragment>
 							)}
-							{intraoral !== "" && (
+							{
 								<React.Fragment>
 									<Typography
 										variant="body2"
 										color="text.secondary"
 										gutterBottom
+										sx={{ mb: 1 }}
 									>
 										Intra oral
 									</Typography>
-									<Typography variant="body2" gutterBottom>
-										{intraoral}
-									</Typography>
+									<React.Fragment>
+										{Object.entries(intraoral)
+											.reverse()
+											.map((item) => {
+												return (
+													<BasicAccordion
+														details={item[1].details}
+														id={item[0]}
+														heading={
+															item[1].teeth.length > 0
+																? item[1].teeth.join(" , ")
+																: ""
+														}
+													/>
+												);
+											})}
+									</React.Fragment>
 								</React.Fragment>
-							)}
+							}
 						</Grid>
 						<Grid item xs container direction="row" spacing={2}>
 							<Grid item>

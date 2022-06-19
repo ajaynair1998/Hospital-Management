@@ -27,13 +27,18 @@ import {
 import { getFavourites, timeout } from "../../helpers/functions";
 import { setFavourites } from "../../redux/Reducers/favouritesDataReducer";
 import { setTimeout } from "timers/promises";
-import ExtraOralInputList from "../ExtraOralDataEntry";
+import IntraOralInputList from "../IntraOralDataEntry";
+
+export interface IIntraOral {
+	[key: string]: { teeth: string[]; details: string };
+}
 
 const LocalExaminationInput = () => {
 	const dispatch = useDispatch();
 	let [treatmentDetailId, setTreatmentDetailId] = useState(1);
 	let [extraoral, setExtraoral] = useState("");
-	let [intraoral, setIntraoral] = useState("");
+	let [intraoral, setIntraoral] = useState<IIntraOral>({});
+	let [toggleAdd,setToggleAdd]=useState<boolean>(false)
 
 	const handleAdd = async () => {
 		try {
@@ -41,6 +46,7 @@ const LocalExaminationInput = () => {
 			// add it into the facourites data
 
 			let { data } = await getFavourites("treatment_plan");
+			
 			const response = await window.electron.LocalExaminationApi.post({
 				treatmentDetailId: 1,
 				extraoral: extraoral,
@@ -55,7 +61,6 @@ const LocalExaminationInput = () => {
 			dispatch(setLocalExamination(allExaminations.data));
 			dispatch(setFavourites(data));
 			setExtraoral("");
-			setIntraoral("");
 
 			if (response.status === 200) {
 				dispatch(setSnackBarState({ snackBarOpen: true, text: "Success" }));
@@ -87,8 +92,8 @@ const LocalExaminationInput = () => {
 					// sx={{ width: "300px!important" }}
 					onChange={(e) => setExtraoral(e.target.value)}
 				/>
-				<ExtraOralInputList />
-				<TextField
+				<IntraOralInputList setFinalData={setIntraoral} toggleAdd={toggleAdd}  />
+				{/* <TextField
 					id="outlined-multiline-static"
 					label="Intra oral"
 					multiline
@@ -96,7 +101,7 @@ const LocalExaminationInput = () => {
 					value={intraoral}
 					// sx={{ width: "300px!important" }}
 					onChange={(e) => setIntraoral(e.target.value)}
-				/>
+				/> */}
 
 				<AppBar
 					elevation={0}
@@ -134,6 +139,18 @@ const LocalExaminationInput = () => {
 							onClick={() => handleAdd()}
 						>
 							Save
+						</Button>
+
+						<Button
+							variant="contained"
+							color="success"
+							sx={{
+								width: "120px!important",
+								mr: "0",
+							}}
+							onClick={() => setToggleAdd(!toggleAdd)}
+						>
+							Add +
 						</Button>
 					</Box>
 				</AppBar>

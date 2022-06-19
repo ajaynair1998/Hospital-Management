@@ -31,7 +31,7 @@ const LocalExamination = database.define<ILocalExamination>(
 			type: DataTypes.STRING(1000),
 		},
 		intra_oral: {
-			type: DataTypes.STRING(1000),
+			type: DataTypes.STRING(2000),
 		},
 		time: {
 			type: DataTypes.STRING,
