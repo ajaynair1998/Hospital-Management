@@ -26,6 +26,7 @@ import {
 import { getFavourites, timeout } from "../../helpers/functions";
 import { setFavourites } from "../../redux/Reducers/favouritesDataReducer";
 import { setTimeout } from "timers/promises";
+import SelectionArray from "../SelectionArray";
 
 const DrugAllergyInput = () => {
 	const dispatch = useDispatch();
@@ -91,6 +92,7 @@ const DrugAllergyInput = () => {
 			display={"flex"}
 			flexDirection={"column"}
 		>
+			<SelectionArray />
 			<TextField
 				id="outlined-basic"
 				label="Drug allergy"

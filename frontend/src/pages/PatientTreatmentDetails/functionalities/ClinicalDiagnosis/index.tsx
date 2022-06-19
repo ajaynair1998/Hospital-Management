@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Favourites from "../../../../components/Favourites";
 import BasicSaveAllButton from "../../../../components/SaveAllButton";
-import SelectionArray from "../../../../components/SelectionArray";
 import TextFieldComponent from "../../../../components/TextField";
 import AddFavourite from "../../../../components/AddFavourite";
 import ChiefComplaintInput from "../../../../components/ChiefComplaintInput";

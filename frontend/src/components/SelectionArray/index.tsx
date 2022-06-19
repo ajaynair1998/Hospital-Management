@@ -1,12 +1,9 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
-import TagFacesIcon from "@mui/icons-material/TagFaces";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
+import { generateUniqueId } from "../../helpers";
 
 interface ChipData {
 	key: number;
@@ -17,68 +14,109 @@ const ListItem = styled("li")(({ theme }) => ({
 	margin: theme.spacing(0.5),
 }));
 
-export default function SelectionArray() {
-	const [chipData, setChipData] = React.useState<readonly ChipData[]>([
-		{ key: 0, label: "Angular" },
-		{ key: 1, label: "jQuery" },
-		{ key: 2, label: "Polymer" },
-		{ key: 3, label: "React" },
-		{ key: 4, label: "Vue.js" },
-	]);
+interface ISelectionArrayProps {
+	returnSelectedItems?: ISelectedItems;
+	clear?: boolean;
+	items?: string[];
+}
 
-	const handleDelete = (chipToDelete: ChipData) => () => {
-		setChipData((chips) =>
-			chips.filter((chip) => chip.key !== chipToDelete.key)
+interface ISelectedItems {
+	[key: string]: {
+		name: string;
+		selected: boolean;
+	};
+}
+export default function SelectionArray({
+	returnSelectedItems,
+	clear,
+	items,
+}: ISelectionArrayProps) {
+	const [selectedItems, setSelectedItems] = useState<ISelectedItems>({
+		dlfassda: {
+			name: "toothpain",
+			selected: true,
+		},
+		dlfasda: {
+			name: "backpain",
+			selected: false,
+		},
+	});
+
+	const [selectedItemsAsArray, setSelectedItemsAsArray] = useState<string[]>(
+		[]
+	);
+
+	useEffect(() => {
+		let selected: string[] = [];
+		Object.values(selectedItems).forEach((item) => {
+			if (item.selected) {
+				selected.push(item.name);
+			}
+		});
+		console.log(
+			"🚀 ~ file: index.tsx ~ line 51 ~ useEffect ~ selected",
+			selected
 		);
+	}, [selectedItems, clear]);
+
+	useEffect(() => {
+		let copyOfSelectedItems = { ...selectedItems };
+		items?.forEach((item) => {
+			let key = generateUniqueId();
+			if (copyOfSelectedItems[item] === undefined) {
+				copyOfSelectedItems[key] = {
+					name: item,
+					selected: false,
+				};
+			}
+		});
+		setSelectedItems({ ...copyOfSelectedItems });
+	}, [items]);
+	const handleDelete = (key: string) => () => {
+		let copyOfSelectedItems = { ...selectedItems };
+		delete copyOfSelectedItems[key];
+		setSelectedItems({ ...copyOfSelectedItems });
+	};
+
+	const handleSelect = (key: string) => {
+		let copyOfSelectedItems = { ...selectedItems };
+		copyOfSelectedItems[key]["selected"] =
+			!copyOfSelectedItems[key]["selected"];
+		setSelectedItems({ ...copyOfSelectedItems });
 	};
 
 	return (
-		<React.Fragment>
-			<Box sx={{ my: 1, mx: 2 }}>
-				<Grid container alignItems="center">
-					<Grid item xs>
-						<Typography gutterBottom variant="h5" component="div">
-							Selected
-						</Typography>
-					</Grid>
-				</Grid>
-			</Box>
-			<Divider variant="middle" />
+		<Paper
+			elevation={0}
+			sx={{
+				display: "flex",
+				justifyContent: "center",
+				flexWrap: "wrap",
+				listStyle: "none",
+				p: 0.5,
+				m: 0,
+			}}
+			component="ul"
+		>
+			{Object.entries(selectedItems).map((item) => {
+				let key = item[0];
+				let value = item[1];
+				let icon;
 
-			<Paper
-				sx={{
-					display: "flex",
-					justifyContent: "flex-start",
-					flexWrap: "wrap",
-					listStyle: "none",
-					py: 0.5,
-					pl: 0,
-					m: 2,
-					maxWidth: 500,
-				}}
-				elevation={0}
-				component="ul"
-			>
-				{chipData.map((data) => {
-					let icon;
-
-					if (data.label === "React") {
-						icon = <TagFacesIcon />;
-					}
-
-					return (
-						<ListItem key={data.key}>
-							<Chip
-								icon={icon}
-								label={data.label}
-								onDelete={
-									data.label === "React" ? undefined : handleDelete(data)
-								}
-							/>
-						</ListItem>
-					);
-				})}
-			</Paper>
-		</React.Fragment>
+				return (
+					<ListItem key={key}>
+						<Chip
+							icon={icon}
+							label={value.name}
+							onDelete={handleDelete(key)}
+							style={{
+								background: `${value.selected ? "#b2bcef" : ""}`,
+							}}
+							onClick={() => handleSelect(key)}
+						/>
+					</ListItem>
+				);
+			})}
+		</Paper>
 	);
 }
