@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { DrugAllergyDataEntries } from "../../../../components/DrugAllergyDataEntries";
+import DrugAllergyDataEntries from "../../../../components/DrugAllergyDataEntries";
 import Favourites from "../../../../components/Favourites";
 
 let Container = styled.div`
@@ -12,7 +12,7 @@ interface Props {}
 const DrugAllergy: React.FC<Props> = ({}) => {
 	return (
 		<Container>
-			<Favourites />
+			{/* <Favourites /> */}
 			<DrugAllergyDataEntries />
 		</Container>
 	);

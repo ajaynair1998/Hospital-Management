@@ -168,7 +168,7 @@ export interface IHistoryOfComplaint {
 }
 export interface IDrugAllergy {
 	id: number;
-	allergy: string;
-	details: string;
+	allergy: string[];
+	details?: string;
 	createdAt: string;
 }

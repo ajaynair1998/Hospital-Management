@@ -193,6 +193,5 @@ export interface IHistoryOfComplaints {
 
 export interface IDrugAllergy {
 	treatmentDetailId: number;
-	allergy: string;
-	details: string;
+	allergies: string[];
 }

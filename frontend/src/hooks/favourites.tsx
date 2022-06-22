@@ -9,17 +9,16 @@ const FavouritesHook = () => {
 	const [favourites, setFavouritesInState]: any[] = useState([]);
 	let { data } = useSelector((state: IStore) => state.categoriesStore);
 	let location = data.location;
-
 	useEffect(() => {
 		fetchAllFavourites();
 	}, [data]);
 
 	async function fetchAllFavourites() {
 		try {
-			let favourites = await getFavourites(data.location);
-			if (favourites.status === 200) {
-				setFavouritesInState(data);
-				dispatch(setFavourites(favourites.data));
+			let favouritesFromBackend = await getFavourites(data.location);
+			if (favouritesFromBackend.status === 200) {
+				setFavouritesInState(favouritesFromBackend.data);
+				dispatch(setFavourites(favouritesFromBackend.data));
 			}
 		} catch (err) {
 			console.log(err);

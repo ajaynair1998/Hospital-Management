@@ -8,13 +8,12 @@ const drugAllergyController: IdrugAllergyController = {
 	async post(event, args: IPost) {
 		try {
 			const treatment_detail_id = args.treatmentDetailId;
-			const allergy = args.allergy;
-			const details = args.details;
+			let allergies = args.allergies;
+			let allergiesAsString = JSON.stringify(allergies);
 
 			await DrugAllergy.create({
 				treatmentDetailId: 1,
-				allergy: allergy,
-				details: details,
+				allergy: allergiesAsString,
 			});
 
 			return {
@@ -36,10 +35,16 @@ const drugAllergyController: IdrugAllergyController = {
 				raw: true,
 				order: [["createdAt", "DESC"]],
 			});
+			let allAllergiesParsed = allAllergies.map((item) => {
+				return {
+					...item,
+					allergy: JSON.parse(item.allergy),
+				};
+			});
 			console.log(allAllergies);
 			return {
 				status: 200,
-				data: allAllergies,
+				data: allAllergiesParsed,
 			};
 		} catch (err: any) {
 			console.log(err);

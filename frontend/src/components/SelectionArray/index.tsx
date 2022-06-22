@@ -15,30 +15,35 @@ const ListItem = styled("li")(({ theme }) => ({
 }));
 
 interface ISelectionArrayProps {
-	returnSelectedItems?: ISelectedItems;
+	returnSelectedItems: React.Dispatch<React.SetStateAction<string[]>>;
 	clear?: boolean;
-	items?: string[];
+	items?: any[];
+	deleteAction: Function;
 }
 
 interface ISelectedItems {
 	[key: string]: {
 		name: string;
 		selected: boolean;
+		id: string;
 	};
 }
 export default function SelectionArray({
 	returnSelectedItems,
 	clear,
 	items,
+	deleteAction,
 }: ISelectionArrayProps) {
 	const [selectedItems, setSelectedItems] = useState<ISelectedItems>({
 		dlfassda: {
 			name: "toothpain",
 			selected: true,
+			id: "23swdswf",
 		},
 		dlfasda: {
 			name: "backpain",
 			selected: false,
+			id: "asd234s",
 		},
 	});
 
@@ -57,23 +62,30 @@ export default function SelectionArray({
 			"🚀 ~ file: index.tsx ~ line 51 ~ useEffect ~ selected",
 			selected
 		);
+		returnSelectedItems(selected);
 	}, [selectedItems, clear]);
 
 	useEffect(() => {
 		let copyOfSelectedItems = { ...selectedItems };
-		items?.forEach((item) => {
+		items?.forEach((item: any) => {
 			let key = generateUniqueId();
 			if (copyOfSelectedItems[item] === undefined) {
 				copyOfSelectedItems[key] = {
-					name: item,
+					name: item.data,
 					selected: false,
+					id: item.id,
 				};
 			}
 		});
 		setSelectedItems({ ...copyOfSelectedItems });
-	}, [items]);
+	}, []);
 	const handleDelete = (key: string) => () => {
 		let copyOfSelectedItems = { ...selectedItems };
+		deleteAction(copyOfSelectedItems[key].id);
+		console.log(
+			"🚀 ~ file: index.tsx ~ line 88 ~ handleDelete ~ copyOfSelectedItems[key]",
+			copyOfSelectedItems[key]
+		);
 		delete copyOfSelectedItems[key];
 		setSelectedItems({ ...copyOfSelectedItems });
 	};

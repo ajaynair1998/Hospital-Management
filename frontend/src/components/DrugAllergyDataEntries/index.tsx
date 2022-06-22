@@ -7,21 +7,20 @@ import ButtonBase from "@mui/material/ButtonBase";
 import { Button, Box, Divider } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
-	IClinicalDiagnosis,
 	IDrugAllergy,
-	IHistoryOfComplaint,
+	IPastMedicalHistory,
 	IStore,
 } from "../../helpers/interfaces";
-import { IChiefComplaint } from "../../helpers/interfaces";
+import { IChiefComplaint, ITreatmentPlan } from "../../helpers/interfaces";
 import {
 	setChiefComplaints,
-	setClinicalDiagnosis,
 	setDrugAllergies,
-	setHistoryOfComplaints,
+	setPastMedicalHistory,
+	setTreatmentPlan,
 } from "../../redux/Reducers/patientTreatmentDetailsReducer";
 import { convertToReadableDate } from "../../helpers";
 import AlertDialog from "../Dialog";
-import BasicAccordion from "../BasicAccordion";
+import SelectedArray from "../SelectedArray";
 
 const Img = styled("img")({
 	margin: "auto",
@@ -32,19 +31,14 @@ const Img = styled("img")({
 
 interface IProps {
 	createdAt?: string;
-	allergy: string;
-	details: string;
-	duration?: string;
-	id: number;
+	allergies: string[];
+	id?: number;
 	handleSelectDrugAllergy: Function;
 	openDialog: React.Dispatch<React.SetStateAction<boolean>>;
-	setSelectedDrugAllergyText: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const DrugAllergyDataEntries = () => {
-	const [selectedDrugAllergy, setSelectedDrugAllergy] = React.useState(null);
-	const [selectDrugAllergyText, setSelectedDrugAllergyText] =
-		React.useState("");
+const DrugAllergyDataEntries = () => {
+	const [selectAllergy, setSelectedAllergy] = React.useState(null);
 	const [dialogIsOpen, setDialogOpen] = React.useState(false);
 	const drug_allergies = useSelector(
 		(state: IStore) => state.patientTreatmentDetailsDataStore.drug_allergies
@@ -60,8 +54,8 @@ export const DrugAllergyDataEntries = () => {
 	};
 	const handleRemoveButton = async () => {
 		try {
-			let deleted = await window.electron.DrugAllergyApi.delete({
-				id: selectedDrugAllergy,
+			let deleted = await window.electron.TreatmentPlanApi.delete({
+				id: selectAllergy,
 			});
 			setDialogOpen(false);
 			await fetchAllExistingDrugAllergies();
@@ -91,13 +85,11 @@ export const DrugAllergyDataEntries = () => {
 						return (
 							<DrugAllergyDataEntry
 								createdAt={item.createdAt}
-								allergy={item.allergy}
-								details={item.details}
+								allergies={item.allergy}
 								id={item.id}
 								key={item.id}
-								handleSelectDrugAllergy={setSelectedDrugAllergy}
+								handleSelectDrugAllergy={setSelectedAllergy}
 								openDialog={setDialogOpen}
-								setSelectedDrugAllergyText={setSelectedDrugAllergyText}
 							/>
 						);
 					})}
@@ -105,25 +97,23 @@ export const DrugAllergyDataEntries = () => {
 			<AlertDialog
 				action={handleRemoveButton}
 				isOpen={dialogIsOpen}
-				text={`Do you want to remove ${selectDrugAllergyText} ?`}
+				text={`Do you want to remove these allergies ?`}
 				close={() => setDialogOpen(false)}
 			/>
 		</React.Fragment>
 	);
 };
 
-export default function DrugAllergyDataEntry({
+export function DrugAllergyDataEntry({
 	createdAt,
-	allergy,
-	details,
-	duration,
+	allergies,
 	id,
 	handleSelectDrugAllergy,
 	openDialog,
-	setSelectedDrugAllergyText,
 }: IProps) {
 	const [created_at, setCreatedAt] = React.useState<any>("");
 	const [drugAllergy, setDrugAllergy] = React.useState<any>("");
+	const [durationValue, setDuration] = React.useState<any>("");
 	const [detailValue, setDetail] = React.useState<any>("");
 
 	let dispatch = useDispatch();
@@ -131,14 +121,12 @@ export default function DrugAllergyDataEntry({
 
 	React.useEffect(() => {
 		setCreatedAt(createdAt);
-		setDrugAllergy(allergy);
-		setDetail(details);
+		setDrugAllergy(allergies);
 	}, []);
 
 	const handleRemoveButton = async () => {
 		try {
 			handleSelectDrugAllergy(id);
-			setSelectedDrugAllergyText(allergy);
 			openDialog(true);
 		} catch (err: any) {
 			console.log(err.message);
@@ -146,61 +134,71 @@ export default function DrugAllergyDataEntry({
 	};
 
 	return (
-		// <Paper
-		// 	key={id}
-		// 	elevation={2}
-		// 	sx={{
-		// 		p: 2,
-		// 		mb: 2,
+		<Paper
+			key={id}
+			elevation={2}
+			sx={{
+				p: 2,
+				mb: 2,
 
-		// 		// margin: 2,
-		// 		// maxWidth: 500,
-		// 		flexGrow: 1,
-		// 		backgroundColor: (theme) =>
-		// 			theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-		// 	}}
-		// >
-		// 	<Grid container spacing={2}>
-		// 		{/* <Grid item>
-		//   <ButtonBase sx={{ width: 128, height: 128 }}>
-		//     <Img alt="complex" src="/static/images/grid/complex.jpg" />
-		//   </ButtonBase>
-		// </Grid> */}
-		// 		<Grid item xs={12} sm container>
-		// 			<Grid item xs container direction="column" spacing={2}>
-		// 				<Grid item xs sx={{ m: 1 }}>
-		// 					<Typography gutterBottom variant="subtitle1" component="div">
-		// 						{allergy}
-		// 					</Typography>
-		// 					<Typography variant="body2" gutterBottom>
-		// 						{detailValue}
-		// 					</Typography>
-		// 				</Grid>
-		// 				<Grid item xs container direction="row" spacing={2}>
-		// 					<Grid item>
-		// 						<Button sx={{ color: "#ea2929" }} onClick={handleRemoveButton}>
-		// 							Remove
-		// 						</Button>
-		// 					</Grid>
-		// 					<Grid item>
-		// 						<Button>Edit</Button>
-		// 					</Grid>
-		// 				</Grid>
-		// 			</Grid>
-		// 			<Grid item>
-		// 				<Typography variant="subtitle1" component="div" sx={{ m: 1 }}>
-		// 					{created_at_readable_format}
-		// 				</Typography>
-		// 			</Grid>
-		// 		</Grid>
-		// 	</Grid>
-		// </Paper>
-		<BasicAccordion
-			heading={allergy}
-			handleDelete={handleRemoveButton}
-			id={id}
-			details={details}
-			createdAt={created_at_readable_format}
-		/>
+				// margin: 2,
+				// maxWidth: 500,
+				flexGrow: 1,
+				backgroundColor: (theme) =>
+					theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+			}}
+		>
+			<Grid container spacing={2}>
+				{/* <Grid item>
+          <ButtonBase sx={{ width: 128, height: 128 }}>
+            <Img alt="complex" src="/static/images/grid/complex.jpg" />
+          </ButtonBase>
+        </Grid> */}
+				<Grid item xs={12} sm container>
+					<Grid item xs container direction="column" spacing={2}>
+						<Grid
+							item
+							xs
+							sx={{
+								m: 0,
+							}}
+						>
+							<Typography
+								gutterBottom
+								variant="subtitle1"
+								component="div"
+								sx={{ color: "#fff" }}
+							>
+								{allergies}
+							</Typography>
+							<Typography variant="body2" color="text.secondary" gutterBottom>
+								{durationValue}
+							</Typography>
+							{/* <Typography variant="body2" gutterBottom>
+								{detailValue}
+							</Typography> */}
+							<SelectedArray items={allergies} side color={"#f99477"} />
+						</Grid>
+						<Grid item xs container direction="row" spacing={2}>
+							<Grid item>
+								<Button sx={{ color: "#ea2929" }} onClick={handleRemoveButton}>
+									Remove
+								</Button>
+							</Grid>
+							<Grid item>
+								<Button>Edit</Button>
+							</Grid>
+						</Grid>
+					</Grid>
+					<Grid item>
+						<Typography variant="subtitle1" component="div" sx={{ m: 1 }}>
+							{created_at_readable_format}
+						</Typography>
+					</Grid>
+				</Grid>
+			</Grid>
+		</Paper>
 	);
 }
+
+export default DrugAllergyDataEntries;
