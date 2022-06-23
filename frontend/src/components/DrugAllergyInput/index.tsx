@@ -110,6 +110,7 @@ const DrugAllergyInput = () => {
 		let allAllergies = await window.electron.DrugAllergyApi.get({
 			treatmentDetailId: 1,
 		});
+		let { data } = await getFavourites(location);
 		console.log(allAllergies);
 
 		dispatch(setDrugAllergies(allAllergies.data));
