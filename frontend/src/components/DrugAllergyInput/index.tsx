@@ -40,6 +40,7 @@ const DrugAllergyInput = () => {
 	let [allergy, setAllergy] = useState("");
 	let [details, setDetails] = useState("");
 	let [selectedItems, setSelectedItems] = useState<string[]>([]);
+	let [toggleClear, setToggleClear] = useState<boolean>(false);
 
 	FavouritesHook();
 	let favourites = useSelector(
@@ -79,6 +80,16 @@ const DrugAllergyInput = () => {
 			}
 		} catch (err: any) {
 			console.log(err.message);
+		}
+	};
+	const resetFavouritesAndSelectionArrayAndSelectedArray = async () => {
+		try {
+			let { data } = await getFavourites(location);
+			dispatch(setFavourites(data));
+			setSelectedItems([]);
+			setToggleClear(!toggleClear);
+		} catch (err: any) {
+			console.log(err);
 		}
 	};
 
@@ -158,6 +169,7 @@ const DrugAllergyInput = () => {
 				deleteAction={(favouriteId: string) =>
 					handleFavouriteDelete(favouriteId)
 				}
+				clear={toggleClear}
 			/>
 			<Grid container spacing={2} alignItems={"center"}>
 				<Grid item xs={10}>
@@ -238,6 +250,16 @@ const DrugAllergyInput = () => {
 						onClick={() => addTheSelectedDrugAllergies()}
 					>
 						Save
+					</Button>
+					<Button
+						variant="outlined"
+						sx={{
+							width: "120px!important",
+							mr: "0",
+						}}
+						onClick={() => resetFavouritesAndSelectionArrayAndSelectedArray()}
+					>
+						Reset
 					</Button>
 				</Box>
 			</AppBar>

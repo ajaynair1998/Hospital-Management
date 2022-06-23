@@ -35,16 +35,16 @@ export default function SelectionArray({
 	deleteAction,
 }: ISelectionArrayProps) {
 	const [selectedItems, setSelectedItems] = useState<ISelectedItems>({
-		dlfassda: {
-			name: "toothpain",
-			selected: true,
-			id: "23swdswf",
-		},
-		dlfasda: {
-			name: "backpain",
-			selected: false,
-			id: "asd234s",
-		},
+		// dlfassda: {
+		// 	name: "toothpain",
+		// 	selected: true,
+		// 	id: "23swdswf",
+		// },
+		// dlfasda: {
+		// 	name: "backpain",
+		// 	selected: false,
+		// 	id: "asd234s",
+		// },
 	});
 
 	const [selectedItemsAsArray, setSelectedItemsAsArray] = useState<string[]>(
@@ -63,7 +63,22 @@ export default function SelectionArray({
 			selected
 		);
 		returnSelectedItems(selected);
-	}, [selectedItems, clear]);
+	}, [selectedItems]);
+
+	useEffect(() => {
+		let copyOfSelectedItems: ISelectedItems = {};
+		items?.forEach((item: any) => {
+			let key = generateUniqueId();
+			if (copyOfSelectedItems[item] === undefined) {
+				copyOfSelectedItems[key] = {
+					name: item.data,
+					selected: false,
+					id: item.id,
+				};
+			}
+		});
+		setSelectedItems({ ...copyOfSelectedItems });
+	}, [clear]);
 
 	useEffect(() => {
 		let copyOfSelectedItems = { ...selectedItems };
