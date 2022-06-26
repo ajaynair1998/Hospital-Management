@@ -38,7 +38,7 @@ interface IProps {
 }
 
 const DrugAllergyDataEntries = () => {
-	const [selectAllergy, setSelectedAllergy] = React.useState(null);
+	const [selectedAllergy, setSelectedAllergy] = React.useState(null);
 	const [dialogIsOpen, setDialogOpen] = React.useState(false);
 	const drug_allergies = useSelector(
 		(state: IStore) => state.patientTreatmentDetailsDataStore.drug_allergies
@@ -52,10 +52,10 @@ const DrugAllergyDataEntries = () => {
 			dispatch(setDrugAllergies(response.data));
 		}
 	};
-	const handleRemoveButton = async () => {
+	let handleRemoveButton = async () => {
 		try {
-			let deleted = await window.electron.TreatmentPlanApi.delete({
-				id: selectAllergy,
+			let deleted = await window.electron.DrugAllergyApi.delete({
+				id: selectedAllergy,
 			});
 			setDialogOpen(false);
 			await fetchAllExistingDrugAllergies();
@@ -124,7 +124,7 @@ export function DrugAllergyDataEntry({
 		setDrugAllergy(allergies);
 	}, []);
 
-	const handleRemoveButton = async () => {
+	let handleRemoveButton = async () => {
 		try {
 			handleSelectDrugAllergy(id);
 			openDialog(true);
@@ -177,7 +177,11 @@ export function DrugAllergyDataEntry({
 							{/* <Typography variant="body2" gutterBottom>
 								{detailValue}
 							</Typography> */}
-							<SelectedArray items={allergies} side color={"#f99477"} />
+							<SelectedArray
+								itemsAsPlainArray={allergies}
+								side
+								color={"#f99477"}
+							/>
 						</Grid>
 						<Grid item xs container direction="row" spacing={2}>
 							<Grid item>

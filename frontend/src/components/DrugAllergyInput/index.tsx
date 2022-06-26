@@ -30,6 +30,15 @@ import { setTimeout } from "timers/promises";
 import SelectionArray from "../SelectionArray";
 import SelectedArray from "../SelectedArray";
 import FavouritesHook from "../../hooks/favourites";
+export interface ISelectedItems {
+	[key: string]: {
+		name: string;
+		selected: boolean;
+		id?: string;
+	};
+}
+
+interface IfavouritesForSelectionArray extends ISelectedItems {}
 
 const DrugAllergyInput = () => {
 	const dispatch = useDispatch();
@@ -39,58 +48,30 @@ const DrugAllergyInput = () => {
 	let [treatmentDetailId, setTreatmentDetailId] = useState(1);
 	let [allergy, setAllergy] = useState("");
 	let [details, setDetails] = useState("");
-	let [selectedItems, setSelectedItems] = useState<string[]>([]);
+	let [selectedItems, setSelectedItems] = useState<ISelectedItems>({});
 	let [toggleClear, setToggleClear] = useState<boolean>(false);
 
 	FavouritesHook();
 	let favourites = useSelector(
 		(state: IStore) => state.favouritesDataStore.data
 	);
-	// favourites = favourites.map((item: any) => item.data);
-	const handleAdd = async () => {
-		try {
-			// check whether this exists in the favourites , if not
-			// add it into the facourites data
 
-			let addedToFavourites = await window.electron.favouritesApi.post({
-				category: location,
-				data: allergy,
-			});
+	useEffect(() => {
+		initializeSelectedItems();
+	}, []);
+	const initializeSelectedItems = async () => {
+		let currentFavourites = await getFavourites(location);
+		dispatch(setFavourites(currentFavourites.data));
 
-			let { data } = await getFavourites(location);
-			const response = await window.electron.DrugAllergyApi.post({
-				treatmentDetailId: treatmentDetailId,
-				details: details,
-				allergy: allergy,
-			});
-
-			let allAllergies = await window.electron.DrugAllergyApi.get({
-				treatmentDetailId: 1,
-			});
-			console.log(allAllergies);
-
-			dispatch(setDrugAllergies(allAllergies.data));
-			dispatch(setFavourites(data));
-			setAllergy("");
-			setDetails("");
-
-			if (response.status === 200) {
-				dispatch(setSnackBarState({ snackBarOpen: true, text: "Success" }));
-				dispatch(setInputDialogState({ inputDialogOpen: false }));
-			}
-		} catch (err: any) {
-			console.log(err.message);
-		}
-	};
-	const resetFavouritesAndSelectionArrayAndSelectedArray = async () => {
-		try {
-			let { data } = await getFavourites(location);
-			dispatch(setFavourites(data));
-			setSelectedItems([]);
-			setToggleClear(!toggleClear);
-		} catch (err: any) {
-			console.log(err);
-		}
+		let favouriteItemsNonSelected: IfavouritesForSelectionArray = {};
+		currentFavourites?.data?.forEach((item: any) => {
+			favouriteItemsNonSelected[item.data] = {
+				name: item.data,
+				selected: false,
+				id: item.id,
+			};
+		});
+		setSelectedItems(favouriteItemsNonSelected);
 	};
 
 	const handleAddnewDrugAllergy = async () => {
@@ -98,59 +79,96 @@ const DrugAllergyInput = () => {
 			category: location,
 			data: allergy,
 		});
-		console.log(
-			"🚀 ~ file: index.tsx ~ line 90 ~ handleAddnewDrugAllergy ~ addedToFavourites",
-			addedToFavourites
-		);
-		selectedItems.push(allergy);
 
-		setAllergy("");
-		let { data } = await getFavourites(location);
-
-		dispatch(setFavourites(data));
-	};
-
-	const addTheSelectedDrugAllergies = async () => {
-		let addedDrugAllergies = await window.electron.DrugAllergyApi.post({
-			allergies: selectedItems,
-		});
-		console.log(
-			"🚀 ~ file: index.tsx ~ line 106 ~ addTheSelectedDrugAllergies ~ addedDrugAllergies",
-			addedDrugAllergies
-		);
-		let allAllergies = await window.electron.DrugAllergyApi.get({
-			treatmentDetailId: 1,
-		});
-		let { data } = await getFavourites(location);
-		console.log(allAllergies);
-
-		dispatch(setDrugAllergies(allAllergies.data));
-		dispatch(setFavourites(data));
-		setAllergy("");
-		setDetails("");
-
-		if (addedDrugAllergies.status === 200) {
-			dispatch(setSnackBarState({ snackBarOpen: true, text: "Success" }));
-			dispatch(setInputDialogState({ inputDialogOpen: false }));
+		if (addedToFavourites.status === 500) {
+			let currentSelectedItems = { ...selectedItems };
+			currentSelectedItems[allergy] = {
+				...currentSelectedItems[allergy],
+				selected: true,
+			};
+			setSelectedItems(currentSelectedItems);
+		} else {
+			let currentSelectedItems = { ...selectedItems };
+			currentSelectedItems[allergy] = {
+				name: allergy,
+				selected: true,
+			};
+			setSelectedItems(currentSelectedItems);
 		}
+
+		setAllergy("");
 	};
 
-	async function handleFavouriteDelete(id: string) {
-		console.log(
-			"🚀 ~ file: index.tsx ~ line 103 ~ handleFavouriteDelete ~ id",
-			id
-		);
+	async function handleFavouriteDelete(id: string, name: string) {
 		try {
 			let deleteFavourite = await window.electron.favouritesApi.delete({
 				id: id,
 			});
-			console.log(
-				"🚀 ~ file: index.tsx ~ line 104 ~ handleFavouriteDelete ~ deleteFavourite",
-				deleteFavourite
+			if (deleteFavourite.status === 200) {
+				console.log("Deleted The favourite successfully");
+				let currentSelectedItems = { ...selectedItems };
+				delete currentSelectedItems[name];
+				setSelectedItems(currentSelectedItems);
+			} else {
+				console.log("Couldnt delete the  favourite");
+			}
+		} catch (err: any) {}
+	}
+
+	async function addTheSelectedDrugAllergies() {
+		try {
+			let allergies = Object.values(selectedItems).filter((item: any) =>
+				item.selected ? true : false
 			);
+			let listOfAllergies = allergies.map((item) => item.name);
+			const response = await window.electron.DrugAllergyApi.post({
+				treatmentDetailId: treatmentDetailId,
+				allergies: listOfAllergies,
+			});
+
+			let allAllergies = await window.electron.DrugAllergyApi.get({
+				treatmentDetailId: 1,
+			});
+
+			dispatch(setDrugAllergies(allAllergies.data));
+
+			setAllergy("");
 			let { data } = await getFavourites(location);
 			dispatch(setFavourites(data));
-		} catch (err: any) {}
+
+			if (response.status === 200) {
+				dispatch(setSnackBarState({ snackBarOpen: true, text: "Success" }));
+				dispatch(setInputDialogState({ inputDialogOpen: false }));
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
+	function removeTheSelectedDrugAllergy(id: string) {
+		try {
+			let currentSelectedItems = { ...selectedItems };
+			currentSelectedItems[id] = {
+				...currentSelectedItems[id],
+				selected: false,
+			};
+			setSelectedItems(currentSelectedItems);
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
+	function addTheFavouriteToTheDrugAllergy(id: string) {
+		try {
+			let currentSelectedItems = { ...selectedItems };
+			currentSelectedItems[id] = {
+				...currentSelectedItems[id],
+				selected: true,
+			};
+			setSelectedItems(currentSelectedItems);
+		} catch (err) {
+			console.log(err);
+		}
 	}
 	return (
 		<Box
@@ -164,12 +182,9 @@ const DrugAllergyInput = () => {
 			flexDirection={"column"}
 		>
 			<SelectionArray
-				items={favourites}
-				returnSelectedItems={setSelectedItems}
-				deleteAction={(favouriteId: string) =>
-					handleFavouriteDelete(favouriteId)
-				}
-				clear={toggleClear}
+				items={selectedItems}
+				deleteAction={handleFavouriteDelete}
+				selectAction={addTheFavouriteToTheDrugAllergy}
 			/>
 			<Grid container spacing={2} alignItems={"center"}>
 				<Grid item xs={10}>
@@ -203,7 +218,10 @@ const DrugAllergyInput = () => {
 				// sx={{ width: "300px!important" }}
 				onChange={(e) => setDetails(e.target.value)}
 			/> */}
-			<SelectedArray items={selectedItems} />
+			<SelectedArray
+				items={selectedItems}
+				deleteAction={removeTheSelectedDrugAllergy}
+			/>
 
 			{/* <Button
 				variant="contained"
@@ -257,7 +275,7 @@ const DrugAllergyInput = () => {
 							width: "120px!important",
 							mr: "0",
 						}}
-						onClick={() => resetFavouritesAndSelectionArrayAndSelectedArray()}
+						onClick={() => initializeSelectedItems()}
 					>
 						Reset
 					</Button>

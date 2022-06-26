@@ -41,7 +41,6 @@ const drugAllergyController: IdrugAllergyController = {
 					allergy: JSON.parse(item.allergy),
 				};
 			});
-			console.log(allAllergies);
 			return {
 				status: 200,
 				data: allAllergiesParsed,
