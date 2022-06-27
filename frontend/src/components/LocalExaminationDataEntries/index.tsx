@@ -201,6 +201,7 @@ export function LocalExaminationDataEntry({
 											.map((item) => {
 												return (
 													<BasicAccordion
+														key={item[0]}
 														details={item[1].details}
 														id={item[0]}
 														heading={
