@@ -122,9 +122,7 @@ export interface IPastMedicalHistory {
 
 export interface IPastSurgicalHistory {
 	id: number;
-	duration: string;
-	history: string;
-	details: string;
+	history: string[];
 	createdAt: string;
 }
 

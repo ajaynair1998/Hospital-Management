@@ -8,13 +8,15 @@ import {
 	SelectChangeEvent,
 	FormControl,
 	Button,
-	Divider,
-	DialogActions,
 	AppBar,
+	Grid,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	setChiefComplaints,
+	setClinicalDiagnosis,
+	setDiagnosis,
+	setDrugAllergies,
 	setPastMedicalHistory,
 	setPastSurgicalHistory,
 } from "../../redux/Reducers/patientTreatmentDetailsReducer";
@@ -27,178 +29,261 @@ import {
 import { getFavourites, timeout } from "../../helpers/functions";
 import { setFavourites } from "../../redux/Reducers/favouritesDataReducer";
 import { setTimeout } from "timers/promises";
+import SelectionArray from "../SelectionArray";
+import SelectedArray from "../SelectedArray";
+import FavouritesHook from "../../hooks/favourites";
+export interface ISelectedItems {
+	[key: string]: {
+		name: string;
+		selected: boolean;
+		id?: string;
+	};
+}
+
+interface IfavouritesForSelectionArray extends ISelectedItems {}
 
 const PastSurgicalHistoryInput = () => {
 	const dispatch = useDispatch();
+	let { data } = useSelector((state: IStore) => state.categoriesStore);
+
+	let location = data.location;
 	let [treatmentDetailId, setTreatmentDetailId] = useState(1);
 	let [history, setHistory] = useState("");
-	let [type, setType] = useState("hours");
-	let [duration, setDuration] = useState("");
 	let [details, setDetails] = useState("");
+	let [selectedItems, setSelectedItems] = useState<ISelectedItems>({});
+	let [toggleClear, setToggleClear] = useState<boolean>(false);
 
-	let { inputValue } = useSelector((state: IStore) => state.utilDataStore.data);
-	let { location } = useSelector((state: IStore) => state.categoriesStore.data);
-
-	let handleChangeType = (e: SelectChangeEvent<string>) => {
-		setType(e.target.value);
-	};
+	FavouritesHook();
+	let favourites = useSelector(
+		(state: IStore) => state.favouritesDataStore.data
+	);
 
 	useEffect(() => {
-		setHistory(inputValue);
-	}, [inputValue]);
+		initializeSelectedItems();
+	}, []);
+	const initializeSelectedItems = async () => {
+		let currentFavourites = await getFavourites(location);
+		dispatch(setFavourites(currentFavourites.data));
 
-	const handleInputValueChange = (value: string) => {
-		dispatch(setSelectedInputValue(value));
+		let favouriteItemsNonSelected: IfavouritesForSelectionArray = {};
+		currentFavourites?.data?.forEach((item: any) => {
+			favouriteItemsNonSelected[item.data] = {
+				name: item.data,
+				selected: false,
+				id: item.id,
+			};
+		});
+		setSelectedItems(favouriteItemsNonSelected);
 	};
 
-	const handleAdd = async () => {
+	const handleAddnewPastSurgicalHistory = async () => {
+		let addedToFavourites = await window.electron.favouritesApi.post({
+			category: location,
+			data: history,
+		});
+
+		if (addedToFavourites.status === 500) {
+			let currentSelectedItems = { ...selectedItems };
+			currentSelectedItems[history] = {
+				...currentSelectedItems[history],
+				selected: true,
+			};
+			setSelectedItems(currentSelectedItems);
+		} else {
+			let currentSelectedItems = { ...selectedItems };
+			currentSelectedItems[history] = {
+				name: history,
+				selected: true,
+			};
+			setSelectedItems(currentSelectedItems);
+		}
+
+		setHistory("");
+	};
+
+	async function handleFavouriteDelete(id: string, name: string) {
 		try {
-			// check whether this exists in the favourites , if not
-			// add it into the facourites data
-
-			let addedToFavourites = await window.electron.favouritesApi.post({
-				category: location,
-				data: history,
+			let deleteFavourite = await window.electron.favouritesApi.delete({
+				id: id,
 			});
+			if (deleteFavourite.status === 200) {
+				console.log("Deleted The favourite successfully");
+				let currentSelectedItems = { ...selectedItems };
+				delete currentSelectedItems[name];
+				setSelectedItems(currentSelectedItems);
+			} else {
+				console.log("Couldnt delete the  favourite");
+			}
+		} catch (err: any) {}
+	}
 
-			let { data } = await getFavourites(location);
+	async function addTheSelectedpastSurgicalHistories() {
+		try {
+			let histories = Object.values(selectedItems).filter((item: any) =>
+				item.selected ? true : false
+			);
+			let listOfHistories = histories.map((item) => item.name);
 			const response = await window.electron.PastSurgicalHistoryApi.post({
-				treatmentDetailId: 1,
-				details: details,
-				history: history,
-				duration: duration + " " + type,
+				treatmentDetailId: treatmentDetailId,
+				history: listOfHistories,
 			});
 
-			let allHistory = await window.electron.PastSurgicalHistoryApi.get({
+			let allHistories = await window.electron.PastSurgicalHistoryApi.get({
 				treatmentDetailId: 1,
 			});
-			console.log(allHistory);
 
-			dispatch(setPastSurgicalHistory(allHistory.data));
-			dispatch(setFavourites(data));
+			dispatch(setPastSurgicalHistory(allHistories.data));
+
 			setHistory("");
-			setType("hours");
-			setDuration("");
-			setDetails("");
+			let { data } = await getFavourites(location);
+			dispatch(setFavourites(data));
 
 			if (response.status === 200) {
 				dispatch(setSnackBarState({ snackBarOpen: true, text: "Success" }));
 				dispatch(setInputDialogState({ inputDialogOpen: false }));
 			}
-		} catch (err: any) {
-			console.log(err.message);
+		} catch (err) {
+			console.log(err);
 		}
-	};
+	}
+
+	function removeTheSelectedHistory(id: string) {
+		try {
+			let currentSelectedItems = { ...selectedItems };
+			currentSelectedItems[id] = {
+				...currentSelectedItems[id],
+				selected: false,
+			};
+			setSelectedItems(currentSelectedItems);
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
+	function addTheFavouriteToThePastSurgicalHistories(id: string) {
+		try {
+			let currentSelectedItems = { ...selectedItems };
+			currentSelectedItems[id] = {
+				...currentSelectedItems[id],
+				selected: true,
+			};
+			setSelectedItems(currentSelectedItems);
+		} catch (err) {
+			console.log(err);
+		}
+	}
 	return (
-		<React.Fragment>
-			<Box
-				component="form"
-				sx={{
-					// "& > :not(style)": { m: 2, width: "25ch" },
-					"& > :not(style)": { m: 2, width: "90%" },
-				}}
-				noValidate
-				autoComplete="off"
-				display={"flex"}
-				flexDirection={"column"}
-			>
-				<TextField
-					id="outlined-basic"
-					label="History"
-					variant="outlined"
-					value={history}
-					// sx={{ width: "200px!important" }}
+		<Box
+			component="form"
+			sx={{
+				"& > :not(style)": { m: 2, width: "90%" },
+			}}
+			noValidate
+			autoComplete="off"
+			display={"flex"}
+			flexDirection={"column"}
+		>
+			<SelectionArray
+				items={selectedItems}
+				deleteAction={handleFavouriteDelete}
+				selectAction={addTheFavouriteToThePastSurgicalHistories}
+			/>
+			<Grid container spacing={2} alignItems={"center"}>
+				<Grid item xs={10}>
+					<TextField
+						id="outlined-basic"
+						label="Drug allergy"
+						variant="outlined"
+						value={history}
+						sx={{ width: "100%" }}
+						onChange={(e) => setHistory(e.target.value)}
+					/>
+				</Grid>
 
-					onChange={(e) => handleInputValueChange(e.target.value)}
-				/>
-				<TextField
-					id="outlined-basic"
-					label="Duration"
-					variant="outlined"
-					value={duration}
-					// sx={{ width: "200px!important" }}
-					onChange={(e) => setDuration(e.target.value)}
-				/>
-				<FormControl>
-					<InputLabel id="demo-simple-select-label"> type</InputLabel>
-					<Select
-						labelId="demo-simple-select-label"
-						id="demo-simple-select"
-						value={type}
-						label="type"
-						onChange={(e) => handleChangeType(e)}
+				<Grid item xs={2}>
+					<Button
+						variant="contained"
+						onClick={() => handleAddnewPastSurgicalHistory()}
+						sx={{ width: "100%" }}
 					>
-						<MenuItem value={"hours"}>Hours</MenuItem>
-						<MenuItem value={"weeks"}>Weeks</MenuItem>
-						<MenuItem value={"days"}>Days</MenuItem>
-						<MenuItem value={"months"}>Months</MenuItem>
-						<MenuItem value={"years"}>Years</MenuItem>
-					</Select>
-				</FormControl>
+						Add
+					</Button>
+				</Grid>
+			</Grid>
 
-				<TextField
-					id="outlined-multiline-static"
-					label="Details"
-					multiline
-					rows={4}
-					value={details}
-					// sx={{ width: "300px!important" }}
-					onChange={(e) => setDetails(e.target.value)}
-				/>
+			{/* <TextField
+				id="outlined-multiline-static"
+				label="Details"
+				multiline
+				rows={4}
+				value={details}
+				// sx={{ width: "300px!important" }}
+				onChange={(e) => setDetails(e.target.value)}
+			/> */}
+			<SelectedArray
+				items={selectedItems}
+				deleteAction={removeTheSelectedHistory}
+			/>
 
-				{/* <DialogActions sx={{ m: 0, p: "0!important" }}>
+			{/* <Button
+				variant="contained"
+				sx={{
+					width: "80px!important",
+				}}
+				onClick={() => handleAdd()}
+			>
+				Add
+			</Button> */}
+			<AppBar
+				elevation={0}
+				sx={{
+					position: "sticky",
+					bottom: "0",
+					zIndex: 150,
+					backgroundColor: "#ffffff",
+					// m: 0,
+					my: "0!important",
+					height: "50px",
+					width: "100%",
+					borderWidth: 0,
+					p: "0!important",
+				}}
+			>
+				<Box
+					width="100%"
+					sx={{
+						flexDirection: "row-reverse",
+						alignContent: "center",
+						display: "flex",
+						alignItems: "center",
+						margin: "auto",
+						gap: "20px",
+						// pr: 2,
+					}}
+				>
 					<Button
 						variant="outlined"
 						sx={{
 							width: "120px!important",
-							mr: 0,
+							mr: "0",
 						}}
-						onClick={() => handleAdd()}
+						onClick={() => addTheSelectedpastSurgicalHistories()}
 					>
 						Save
 					</Button>
-				</DialogActions> */}
-				<AppBar
-					elevation={0}
-					sx={{
-						position: "sticky",
-						bottom: "0",
-						zIndex: 150,
-						backgroundColor: "#ffffff",
-						// m: 0,
-						my: "0!important",
-						height: "50px",
-						width: "100%",
-						borderWidth: 0,
-						p: "0!important",
-					}}
-				>
-					<Box
-						width="100%"
+					<Button
+						variant="outlined"
 						sx={{
-							flexDirection: "row-reverse",
-							alignContent: "center",
-							display: "flex",
-							alignItems: "center",
-							margin: "auto",
-							gap: "20px",
-							// pr: 2,
+							width: "120px!important",
+							mr: "0",
 						}}
+						onClick={() => initializeSelectedItems()}
 					>
-						<Button
-							variant="outlined"
-							sx={{
-								width: "120px!important",
-								mr: "0",
-							}}
-							onClick={() => handleAdd()}
-						>
-							Save
-						</Button>
-					</Box>
-				</AppBar>
-			</Box>
-		</React.Fragment>
+						Reset
+					</Button>
+				</Box>
+			</AppBar>
+		</Box>
 	);
 };
 
