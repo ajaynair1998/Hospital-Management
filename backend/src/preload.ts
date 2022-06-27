@@ -150,8 +150,6 @@ export interface IClinicalDiagnosis {
 export interface IPastMedicalHistory {
 	treatmentDetailId: number;
 	history: string;
-	duration: string;
-	details: string;
 }
 
 export interface IPastSurgicalHistory {

@@ -8,15 +8,12 @@ const PastSurgicalHistoryController: IPastSurgicalHistoryController = {
 	async post(event, args: IPost) {
 		try {
 			const treatment_detail_id = args.treatmentDetailId;
-			const details = args.details;
-			const duration = args.duration;
 			const history = args.history;
 
+			let historiesAsString = JSON.stringify(history);
 			await PastSurgicalHistory.create({
 				treatmentDetailId: 1,
-				history: history,
-				duration: duration,
-				details: details,
+				history: historiesAsString,
 			});
 
 			return {
@@ -38,9 +35,16 @@ const PastSurgicalHistoryController: IPastSurgicalHistoryController = {
 				raw: true,
 				order: [["createdAt", "DESC"]],
 			});
+
+			let allHistoriesParsed = histories.map((item) => {
+				return {
+					...item,
+					history: JSON.parse(item.history),
+				};
+			});
 			return {
 				status: 200,
-				data: histories,
+				data: allHistoriesParsed,
 			};
 		} catch (err: any) {
 			console.log(err);

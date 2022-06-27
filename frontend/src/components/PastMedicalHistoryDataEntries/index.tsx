@@ -6,14 +6,21 @@ import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 import { Button, Box, Divider } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { IPastMedicalHistory, IStore } from "../../helpers/interfaces";
-import { IChiefComplaint } from "../../helpers/interfaces";
+import {
+	IDrugAllergy,
+	IPastMedicalHistory,
+	IStore,
+} from "../../helpers/interfaces";
+import { IChiefComplaint, ITreatmentPlan } from "../../helpers/interfaces";
 import {
 	setChiefComplaints,
+	setDrugAllergies,
 	setPastMedicalHistory,
+	setTreatmentPlan,
 } from "../../redux/Reducers/patientTreatmentDetailsReducer";
 import { convertToReadableDate } from "../../helpers";
 import AlertDialog from "../Dialog";
+import SelectedArray from "../SelectedArray";
 
 const Img = styled("img")({
 	margin: "auto",
@@ -24,46 +31,46 @@ const Img = styled("img")({
 
 interface IProps {
 	createdAt?: string;
-	history: string;
-	details?: string;
-	duration?: string;
+	histories: string[];
 	id?: number;
-	handleSelectHistory: Function;
+	handleSelectPastMedicalHistory: Function;
 	openDialog: React.Dispatch<React.SetStateAction<boolean>>;
-	setSelectedHistoryText: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const PastMedicalHistoryDataEntries = () => {
 	const [selectedHistory, setSelectedHistory] = React.useState(null);
-	const [selectedHistoryText, setSelectedHistoryText] = React.useState("");
 	const [dialogIsOpen, setDialogOpen] = React.useState(false);
 	const past_medical_histories = useSelector(
 		(state: IStore) =>
 			state.patientTreatmentDetailsDataStore.past_medical_history
 	);
 	let dispatch = useDispatch();
-	const fetchAllExistingPastMedicalHistories = async () => {
+	const fetchAllExistingPastMedicalHistory = async () => {
 		let response = await window.electron.PastMedicalHistoryApi.get({
 			treatmentDetailId: 1,
 		});
+		console.log(
+			"🚀 ~ file: index.tsx ~ line 52 ~ fetchAllExistingPastMedicalHistory ~ response",
+			response
+		);
 		if (response.status === 200) {
 			dispatch(setPastMedicalHistory(response.data));
 		}
 	};
-	const handleRemoveButton = async () => {
+	let handleRemoveButton = async () => {
 		try {
 			let deleted = await window.electron.PastMedicalHistoryApi.delete({
 				id: selectedHistory,
 			});
 			setDialogOpen(false);
-			await fetchAllExistingPastMedicalHistories();
+			await fetchAllExistingPastMedicalHistory();
 		} catch (err: any) {
 			console.log(err.message);
 		}
 	};
 
 	React.useEffect(() => {
-		fetchAllExistingPastMedicalHistories();
+		fetchAllExistingPastMedicalHistory();
 	}, []);
 	return (
 		<React.Fragment>
@@ -81,16 +88,13 @@ const PastMedicalHistoryDataEntries = () => {
 				{past_medical_histories &&
 					past_medical_histories.map((item: IPastMedicalHistory) => {
 						return (
-							<PastMedicalHistoryDataEntry
+							<DrugAllergyDataEntry
 								createdAt={item.createdAt}
-								history={item.history}
-								details={item.details}
-								duration={item.duration}
+								histories={item.history}
 								id={item.id}
 								key={item.id}
-								handleSelectHistory={setSelectedHistory}
+								handleSelectPastMedicalHistory={setSelectedHistory}
 								openDialog={setDialogOpen}
-								setSelectedHistoryText={setSelectedHistoryText}
 							/>
 						);
 					})}
@@ -98,25 +102,22 @@ const PastMedicalHistoryDataEntries = () => {
 			<AlertDialog
 				action={handleRemoveButton}
 				isOpen={dialogIsOpen}
-				text={`Do you want to remove ${selectedHistoryText} ?`}
+				text={`Do you want to remove these allergies ?`}
 				close={() => setDialogOpen(false)}
 			/>
 		</React.Fragment>
 	);
 };
 
-export function PastMedicalHistoryDataEntry({
+export function DrugAllergyDataEntry({
 	createdAt,
-	history,
-	details,
-	duration,
+	histories,
 	id,
-	handleSelectHistory,
+	handleSelectPastMedicalHistory,
 	openDialog,
-	setSelectedHistoryText,
 }: IProps) {
 	const [created_at, setCreatedAt] = React.useState<any>("");
-	const [PastMedicalHistory, setPastMedicalHistory] = React.useState<any>("");
+	const [drugAllergy, setDrugAllergy] = React.useState<any>("");
 	const [durationValue, setDuration] = React.useState<any>("");
 	const [detailValue, setDetail] = React.useState<any>("");
 
@@ -125,15 +126,12 @@ export function PastMedicalHistoryDataEntry({
 
 	React.useEffect(() => {
 		setCreatedAt(createdAt);
-		setPastMedicalHistory(history);
-		setDuration(duration);
-		setDetail(details);
+		setDrugAllergy(histories);
 	}, []);
 
-	const handleRemoveButton = async () => {
+	let handleRemoveButton = async () => {
 		try {
-			handleSelectHistory(id);
-			setSelectedHistoryText(history);
+			handleSelectPastMedicalHistory(id);
 			openDialog(true);
 		} catch (err: any) {
 			console.log(err.message);
@@ -163,16 +161,32 @@ export function PastMedicalHistoryDataEntry({
         </Grid> */}
 				<Grid item xs={12} sm container>
 					<Grid item xs container direction="column" spacing={2}>
-						<Grid item xs sx={{ m: 1 }}>
-							<Typography gutterBottom variant="subtitle1" component="div">
-								{history}
+						<Grid
+							item
+							xs
+							sx={{
+								m: 0,
+							}}
+						>
+							<Typography
+								gutterBottom
+								variant="subtitle1"
+								component="div"
+								sx={{ color: "#fff" }}
+							>
+								'TEMPLATE DATA FOR GUTTER'
 							</Typography>
 							<Typography variant="body2" color="text.secondary" gutterBottom>
 								{durationValue}
 							</Typography>
-							<Typography variant="body2" gutterBottom>
+							{/* <Typography variant="body2" gutterBottom>
 								{detailValue}
-							</Typography>
+							</Typography> */}
+							<SelectedArray
+								itemsAsPlainArray={histories}
+								side
+								color={"#f99477"}
+							/>
 						</Grid>
 						<Grid item xs container direction="row" spacing={2}>
 							<Grid item>

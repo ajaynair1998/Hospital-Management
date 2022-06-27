@@ -15,8 +15,8 @@ export interface IPastSurgicalHistory
 	id: CreationOptional<number>;
 	history: string;
 	time?: string;
-	details: string;
-	duration: string;
+	details?: string;
+	duration?: string;
 	treatmentDetailId?: number;
 }
 
@@ -29,17 +29,17 @@ const PastSurgicalHistory = database.define<IPastSurgicalHistory>(
 			primaryKey: true,
 		},
 		history: {
-			type: DataTypes.STRING(500),
+			type: DataTypes.STRING(2000),
 		},
-		time: {
-			type: DataTypes.STRING,
-		},
-		duration: {
-			type: DataTypes.STRING(500),
-		},
-		details: {
-			type: DataTypes.STRING(1000),
-		},
+		// time: {
+		// 	type: DataTypes.STRING,
+		// },
+		// duration: {
+		// 	type: DataTypes.STRING(500),
+		// },
+		// details: {
+		// 	type: DataTypes.STRING(1000),
+		// },
 		treatmentDetailId: {
 			type: DataTypes.INTEGER.UNSIGNED,
 			references: {

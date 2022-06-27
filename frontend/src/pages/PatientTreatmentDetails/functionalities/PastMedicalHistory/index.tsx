@@ -13,7 +13,6 @@ interface Props {}
 const PastMedicalHistory: React.FC<Props> = ({}) => {
 	return (
 		<Container>
-			<Favourites />
 			<PastMedicalHistoryDataEntries />
 		</Container>
 	);

@@ -1,4 +1,5 @@
 import PastMedicalHistory from "../models/Past Medical History";
+import { IPastMedicalHistory } from "../preload";
 import _ from "lodash";
 
 interface IPost extends IPastMedicalHistory {}
@@ -7,15 +8,12 @@ const PastMedicalHistoryController: IPastMedicalHistoryController = {
 	async post(event, args: IPost) {
 		try {
 			const treatment_detail_id = args.treatmentDetailId;
-			const details = args.details;
-			const duration = args.duration;
 			const history = args.history;
 
+			let historiesAsString = JSON.stringify(history);
 			await PastMedicalHistory.create({
 				treatmentDetailId: 1,
-				history: history,
-				duration: duration,
-				details: details,
+				history: historiesAsString,
 			});
 
 			return {
@@ -37,9 +35,15 @@ const PastMedicalHistoryController: IPastMedicalHistoryController = {
 				raw: true,
 				order: [["createdAt", "DESC"]],
 			});
+			let allHistoriesParsed = histories.map((item) => {
+				return {
+					...item,
+					history: JSON.parse(item.history),
+				};
+			});
 			return {
 				status: 200,
-				data: histories,
+				data: allHistoriesParsed,
 			};
 		} catch (err: any) {
 			console.log(err);
@@ -64,7 +68,7 @@ const PastMedicalHistoryController: IPastMedicalHistoryController = {
 
 			return {
 				status: 500,
-				message: `Chief complaint ${pastMedicalHistoryId} doesnt exist`,
+				message: `Past medical history ${pastMedicalHistoryId} doesnt exist`,
 			};
 		} catch (err: any) {
 			console.log(err);

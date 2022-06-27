@@ -80,9 +80,11 @@ export default function SelectedArray({
 							<Chip
 								icon={icon}
 								label={item}
-								style={{
-									background: `  ${!color ? "#b2bcef" : color}`,
-								}}
+								style={
+									{
+										// background: `  ${!color ? "#b2bcef" : color}`,
+									}
+								}
 								// sx={{
 								// 	ml: "0px!important",
 								// 	mr: "5px!important",

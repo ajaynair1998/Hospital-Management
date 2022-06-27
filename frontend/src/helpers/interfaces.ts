@@ -116,9 +116,7 @@ export interface IClinicalDiagnosis {
 
 export interface IPastMedicalHistory {
 	id: number;
-	duration: string;
-	history: string;
-	details: string;
+	history: string[];
 	createdAt: string;
 }
 
