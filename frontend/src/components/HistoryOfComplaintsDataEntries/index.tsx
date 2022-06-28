@@ -175,9 +175,17 @@ export default function HistoryOfComplaintDataEntry({
 							<Typography gutterBottom variant="subtitle1" component="div">
 								{complaint}
 							</Typography>
-							<Typography variant="body2" gutterBottom>
-								{detailValue}
-							</Typography>
+							{details && (
+								<Box>
+									<Typography variant="body2" gutterBottom mt={0}>
+										Details
+									</Typography>
+									<Divider />
+									<Typography variant="body2" gutterBottom mt={1}>
+										{details}
+									</Typography>
+								</Box>
+							)}
 						</Grid>
 						<Grid item xs container direction="row" spacing={2}>
 							<Grid item>

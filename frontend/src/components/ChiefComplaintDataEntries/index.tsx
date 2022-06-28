@@ -166,10 +166,19 @@ export default function ChiefComplaintDataEntry({
 							<Typography variant="body2" color="text.secondary" gutterBottom>
 								{durationValue}
 							</Typography>
-							<Typography variant="body2" gutterBottom>
-								{detailValue}
-							</Typography>
+							{detailValue && (
+								<React.Fragment>
+									<Typography variant="body2" gutterBottom mt={2}>
+										Details
+									</Typography>
+									<Divider />
+									<Typography variant="body2" gutterBottom mt={1}>
+										{detailValue}
+									</Typography>
+								</React.Fragment>
+							)}
 						</Grid>
+
 						<Grid item xs container direction="row" spacing={2}>
 							<Grid item>
 								<Button sx={{ color: "#ea2929" }} onClick={handleRemoveButton}>

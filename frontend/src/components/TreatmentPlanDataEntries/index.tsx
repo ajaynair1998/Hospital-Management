@@ -170,9 +170,17 @@ export function TreatmentPlanDataEntry({
 							<Typography variant="body2" color="text.secondary" gutterBottom>
 								{durationValue}
 							</Typography>
-							<Typography variant="body2" gutterBottom>
-								{detailValue}
-							</Typography>
+							{detailValue && (
+								<Box>
+									<Typography variant="body2" gutterBottom mt={0}>
+										Details
+									</Typography>
+									<Divider />
+									<Typography variant="body2" gutterBottom mt={1}>
+										{detailValue}
+									</Typography>
+								</Box>
+							)}
 						</Grid>
 						<Grid item xs container direction="row" spacing={2}>
 							<Grid item>

@@ -180,9 +180,13 @@ export function LocalExaminationDataEntry({
 									>
 										Extra oral
 									</Typography>
-									<Typography variant="body2" gutterBottom sx={{ mb: 1 }}>
-										{extraoral}
-									</Typography>
+
+									<Box>
+										<Divider />
+										<Typography variant="body2" gutterBottom mt={1}>
+											{extraoral}
+										</Typography>
+									</Box>
 								</React.Fragment>
 							)}
 							{
@@ -195,12 +199,14 @@ export function LocalExaminationDataEntry({
 									>
 										Intra oral
 									</Typography>
+									<Divider sx={{ mb: 2 }} />
 									<React.Fragment>
 										{Object.entries(intraoral)
 											.reverse()
 											.map((item) => {
 												return (
 													<BasicAccordion
+														arrayOfItems
 														key={item[0]}
 														details={item[1].details}
 														id={item[0]}

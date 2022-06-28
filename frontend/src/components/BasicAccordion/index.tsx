@@ -5,13 +5,14 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Button, Grid } from "@mui/material";
+import { Box, Button, Divider, Grid } from "@mui/material";
 interface IProps {
 	id: number | string;
 	heading: string;
 	handleDelete?: Function;
 	details: string;
 	createdAt?: string | undefined;
+	arrayOfItems?: boolean;
 }
 
 export default function BasicAccordion({
@@ -20,7 +21,13 @@ export default function BasicAccordion({
 	handleDelete,
 	details,
 	createdAt,
+	arrayOfItems,
 }: IProps) {
+	let headings: string[] = [];
+	if (arrayOfItems) {
+		headings = heading.split(",");
+		console.log("🚀 ~ file: index.tsx ~ line 29 ~ headings", headings);
+	}
 	return (
 		<div key={id} style={{ marginBottom: 15 }}>
 			<Accordion>
@@ -30,11 +37,34 @@ export default function BasicAccordion({
 					id="panel1a-header"
 					sx={{ pl: 3 }}
 				>
-					<Typography
-						sx={{ width: `${createdAt ? "33%" : "100%"}`, flexShrink: 0 }}
-					>
-						{heading}
-					</Typography>
+					{!arrayOfItems ? (
+						<Typography
+							sx={{ width: `${createdAt ? "33%" : "100%"}`, flexShrink: 0 }}
+						>
+							{heading}
+						</Typography>
+					) : (
+						<React.Fragment>
+							<Grid item xs direction="row" gap={2} container>
+								{headings.length > 0 ? (
+									headings.map((item: string) => {
+										return (
+											<Button
+												variant="contained"
+												sx={{
+													background: "#293241",
+												}}
+											>
+												{item}
+											</Button>
+										);
+									})
+								) : (
+									<React.Fragment />
+								)}
+							</Grid>
+						</React.Fragment>
+					)}
 					{createdAt && (
 						<div
 							style={{
@@ -54,8 +84,18 @@ export default function BasicAccordion({
 						</div>
 					)}
 				</AccordionSummary>
-				<AccordionDetails>
-					{details && <Typography sx={{ pl: 1, mb: 2 }}>{details}</Typography>}
+				<AccordionDetails sx={{ pl: 3 }}>
+					{details && (
+						<Box>
+							<Typography variant="body2" gutterBottom mt={0}>
+								Details
+							</Typography>
+							<Divider />
+							<Typography variant="body2" gutterBottom mt={1}>
+								{details}
+							</Typography>
+						</Box>
+					)}
 					{handleDelete && (
 						<Grid
 							container

@@ -177,11 +177,26 @@ export function DrugAllergyDataEntry({
 							{/* <Typography variant="body2" gutterBottom>
 								{detailValue}
 							</Typography> */}
-							<SelectedArray
-								itemsAsPlainArray={allergies}
-								side
-								color={"#f99477"}
-							/>
+							<React.Fragment>
+								<Grid item xs direction="row" gap={2} container>
+									{allergies.length > 0 ? (
+										allergies.map((item: string) => {
+											return (
+												<Button
+													variant="contained"
+													sx={{
+														background: "#06d6a0",
+													}}
+												>
+													{item}
+												</Button>
+											);
+										})
+									) : (
+										<React.Fragment />
+									)}
+								</Grid>
+							</React.Fragment>
 						</Grid>
 						<Grid item xs container direction="row" spacing={2}>
 							<Grid item>

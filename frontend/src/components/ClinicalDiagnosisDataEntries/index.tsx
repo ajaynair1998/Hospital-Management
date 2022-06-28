@@ -163,9 +163,17 @@ export default function ChiefComplaintDataEntry({
 							<Typography gutterBottom variant="subtitle1" component="div">
 								{clinicalDiagnosis}
 							</Typography>
-							<Typography variant="body2" gutterBottom>
-								{detailValue}
-							</Typography>
+							{detailValue && (
+								<React.Fragment>
+									<Typography variant="body2" gutterBottom mt={2}>
+										Details
+									</Typography>
+									<Divider />
+									<Typography variant="body2" gutterBottom mt={1}>
+										{detailValue}
+									</Typography>
+								</React.Fragment>
+							)}
 						</Grid>
 						<Grid item xs container direction="row" spacing={2}>
 							<Grid item>

@@ -167,60 +167,39 @@ export function GeneralExaminationDataEntry({
 							>
 								Vitals
 							</Typography>
-							<Typography
-								variant="body2"
-								gutterBottom
-								sx={{
-									display: "flex",
-									flexDirection: "row",
-									alignContent: "center",
-								}}
-							>
-								<Typography
-									variant="body2"
-									color="text.secondary"
-									sx={{ minWidth: "130px" }}
-								>
-									BP
-								</Typography>{" "}
-								-&nbsp;&nbsp;{bp}
-							</Typography>
-							<Typography
-								variant="body2"
-								gutterBottom
-								sx={{
-									display: "flex",
-									flexDirection: "row",
-									alignContent: "center",
-								}}
-							>
-								<Typography
-									variant="body2"
-									color="text.secondary"
-									sx={{ minWidth: "130px" }}
-								>
-									Oxygen Saturation
-								</Typography>{" "}
-								-&nbsp;&nbsp;{oxygen_saturation}
-							</Typography>
-							<Typography
-								variant="body2"
-								gutterBottom
-								sx={{
-									display: "flex",
-									flexDirection: "row",
-									alignContent: "center",
-								}}
-							>
-								<Typography
-									variant="body2"
-									color="text.secondary"
-									sx={{ minWidth: "130px" }}
-								>
-									Temperature
-								</Typography>
-								-&nbsp;&nbsp;{temperature}
-							</Typography>
+							{bp && (
+								<React.Fragment>
+									<Typography variant="body2" gutterBottom mt={2}>
+										BP
+									</Typography>
+									<Divider />
+									<Typography variant="body2" gutterBottom mt={1}>
+										{bp}
+									</Typography>
+								</React.Fragment>
+							)}
+							{oxygen_saturation && (
+								<React.Fragment>
+									<Typography variant="body2" gutterBottom mt={2}>
+										Details
+									</Typography>
+									<Divider />
+									<Typography variant="body2" gutterBottom mt={1}>
+										{oxygen_saturation}
+									</Typography>
+								</React.Fragment>
+							)}
+							{temperature && (
+								<React.Fragment>
+									<Typography variant="body2" gutterBottom mt={2}>
+										Details
+									</Typography>
+									<Divider />
+									<Typography variant="body2" gutterBottom mt={1}>
+										{temperature}
+									</Typography>
+								</React.Fragment>
+							)}
 						</Grid>
 						<Grid item xs container direction="row" spacing={2}>
 							<Grid item>
