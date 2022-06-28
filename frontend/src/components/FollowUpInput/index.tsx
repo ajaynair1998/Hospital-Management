@@ -22,6 +22,7 @@ import {
 } from "../../redux/Reducers/utilDataReducer";
 
 import DateInput from "../DateInput";
+import moment from "moment";
 
 const FollowUpInput = () => {
 	const dispatch = useDispatch();
@@ -34,18 +35,24 @@ const FollowUpInput = () => {
 
 	let { inputValue } = useSelector((state: IStore) => state.utilDataStore.data);
 
-	const handleDateChange = (newValue: Date | null) => {
-		setDate(newValue);
+	const handleDateChange = (newValue: string | null | Date) => {
+		let newDate = newValue?.toString();
+		let newDateParsed = new Date(newDate ? newDate : "");
+		setDate(newDateParsed);
 	};
 
 	let handleChangeType = (e: any) => {
 		setPurpose(e.target.value);
 	};
+	useEffect(() => {
+		let initialDate = moment().clone().add(1, "days").toString();
+		let newDateParsed = new Date(initialDate ? initialDate : "");
+		setDate(newDateParsed);
+	}, []);
 	const handleAdd = async () => {
 		try {
 			// check whether this exists in the favourites , if not
 			// add it into the facourites data
-
 			const response = await window.electron.FollowUpApi.post({
 				treatmentDetailId: treatmentDetailId,
 				follow_up_text: details,
@@ -66,7 +73,7 @@ const FollowUpInput = () => {
 				dispatch(setInputDialogState({ inputDialogOpen: false }));
 			}
 		} catch (err: any) {
-			console.log(err.message);
+			console.log(err);
 		}
 	};
 	return (
@@ -94,7 +101,7 @@ const FollowUpInput = () => {
 					<MenuItem value={"others"}>Others</MenuItem>
 				</Select>
 			</FormControl>
-			<DateInput handleChange={setDate} value={date} />
+			<DateInput handleChange={handleDateChange} value={date} />
 
 			<TextField
 				id="outlined-multiline-static"

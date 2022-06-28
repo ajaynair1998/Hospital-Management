@@ -6,9 +6,11 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import { DesktopDateTimePicker } from "@mui/x-date-pickers/DesktopDateTimePicker";
 import Stack from "@mui/material/Stack";
+import moment from "moment";
 
 interface Iprops {
-	handleChange: React.Dispatch<React.SetStateAction<Date | null>>;
+	// handleChange: React.Dispatch<React.SetStateAction<Date | null | string>>;
+	handleChange: Function;
 	value: Date | null;
 }
 export default function DateInput({ value, handleChange }: Iprops) {
@@ -21,6 +23,7 @@ export default function DateInput({ value, handleChange }: Iprops) {
 					onChange={(newValue) => {
 						handleChange(newValue);
 					}}
+					minDate={moment().clone().add(1, "days")}
 					renderInput={(params) => <TextField {...params} />}
 				/>
 				{/* <DesktopDateTimePicker

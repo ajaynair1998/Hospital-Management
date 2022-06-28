@@ -86,7 +86,7 @@ const FollowUpDataEntries = () => {
 				{follow_ups &&
 					follow_ups.map((item: IFollowUp) => {
 						return (
-							<DiagnosisDataEntry
+							<FollowUpDataEntry
 								createdAt={item.createdAt}
 								follow_up_text={item.follow_up_text}
 								follow_up_date={item.follow_up_date}
@@ -109,7 +109,7 @@ const FollowUpDataEntries = () => {
 	);
 };
 
-export function DiagnosisDataEntry({
+export function FollowUpDataEntry({
 	createdAt,
 	follow_up_text,
 	id,
