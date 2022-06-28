@@ -5,6 +5,7 @@ import ChiefComplaintInput from "../ChiefComplaintInput";
 import ClinicalDiagnosisInput from "../ClinicalDiagnosisInput";
 import DiagnosisInput from "../DiagnosisInput";
 import DrugAllergyInput from "../DrugAllergyInput";
+import FollowUpInput from "../FollowUpInput";
 import GeneralExaminationInput from "../GeneralExaminationInput";
 import HistoryOfComplaintsInput from "../HistoryOfComplaintsInput";
 import LocalExaminationInput from "../LocalExaminationInput";
@@ -38,6 +39,8 @@ export const InputSwitcher = () => {
 			return <HistoryOfComplaintsInput />;
 		case "drug_allergy":
 			return <DrugAllergyInput />;
+		case "follow_up":
+			return <FollowUpInput />;
 		default:
 			return <React.Fragment />;
 	}

@@ -14,8 +14,9 @@ export interface IFollowUp
 	> {
 	id: CreationOptional<number>;
 	follow_up_text: string;
-	follow_up_date: string;
-	time: string;
+	follow_up_date: Date;
+	time?: string;
+	purpose: string;
 	treatmentDetailId?: number;
 }
 
@@ -29,7 +30,10 @@ const FollowUp = database.define<IFollowUp>("FollowUp", {
 		type: DataTypes.STRING(1000),
 	},
 	follow_up_date: {
-		type: DataTypes.STRING,
+		type: DataTypes.DATE,
+	},
+	purpose: {
+		type: DataTypes.STRING(100),
 	},
 	time: {
 		type: DataTypes.STRING,

@@ -1,6 +1,6 @@
 import moment from "moment";
 import uniqid from "uniqid";
-export const convertToReadableDate = (date: string | undefined) => {
+export const convertToReadableDate = (date: string | undefined | Date) => {
 	try {
 		let currentTime = moment(date, "YYYY-MM-DD HH:mm:ss");
 		return currentTime.format("Do MMMM YYYY hh:mm a");
@@ -9,6 +9,6 @@ export const convertToReadableDate = (date: string | undefined) => {
 	}
 };
 
-export const generateUniqueId = () :string => {
+export const generateUniqueId = (): string => {
 	return uniqid();
 };

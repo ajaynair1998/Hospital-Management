@@ -40,6 +40,46 @@ $ npm run rebuild
 
 - [stackoverflow thread](https://stackoverflow.com/questions/49582728/electronjs-please-install-sqlite3-package-manually)
 
+## Guides - @mui/x-date-pickers
+
+#### Installing - @mui/x-date-pickers
+
+```javascript
+// with npm
+npm install @mui/x-date-pickers
+```
+
+This component has the following peer dependencies that you will need to install as well.
+
+```javascript
+"peerDependencies": {
+  "@mui/material": "^5.4.1",
+  "@mui/system": "^5.4.1",
+  "react": "^17.0.2 || ^18.0.0"
+},
+```
+
+You need to provide a date-library that is used by the pickers by setting the dateAdapter to an adapter of your choosing.
+
+i am using Moment.js as the adapter
+
+```javascript
+npm install @date-io/moment
+```
+
+```javascript
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+
+function App({ children }) {
+	// pass in the required dateAdapter -> in my case the Adaptermoment
+	return (
+		<LocalizationProvider dateAdapter={AdapterMoment}>
+			{children}
+		</LocalizationProvider>
+	);
+}
+```
+
 ## Contributing
 
 Contributions are always welcome!

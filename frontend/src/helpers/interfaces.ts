@@ -57,6 +57,11 @@ export interface IElectronAPI {
 		get: (req: any) => Promise<any>;
 		delete: (req: any) => Promise<any>;
 	};
+	FollowUpApi: {
+		post: (req: any) => Promise<any>;
+		get: (req: any) => Promise<any>;
+		delete: (req: any) => Promise<any>;
+	};
 }
 
 export interface IStore {
@@ -81,6 +86,7 @@ export interface IStore {
 		diagnosis: IDiagnosis[];
 		history_of_complaints: IHistoryOfComplaint[];
 		drug_allergies: IDrugAllergy[];
+		follow_ups: IFollowUp[];
 	};
 	utilDataStore: {
 		data: {
@@ -166,5 +172,13 @@ export interface IDrugAllergy {
 	id: number;
 	allergy: string[];
 	details?: string;
+	createdAt: string;
+}
+
+export interface IFollowUp {
+	id: number;
+	follow_up_text: string;
+	follow_up_date: Date;
+	purpose: string;
 	createdAt: string;
 }

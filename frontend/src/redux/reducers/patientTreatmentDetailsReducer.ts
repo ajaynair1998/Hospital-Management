@@ -14,6 +14,7 @@ export const PatientTreatmentDetailsDataSlice = createSlice({
 		diagnosis: [],
 		history_of_complaints: [],
 		drug_allergies: [],
+		follow_ups: [],
 	},
 	reducers: {
 		setChiefComplaints: (state: any, action: any) => {
@@ -46,6 +47,9 @@ export const PatientTreatmentDetailsDataSlice = createSlice({
 		setDrugAllergies: (state: any, action: any) => {
 			state.drug_allergies = action.payload;
 		},
+		setFollowUps: (state: any, action: any) => {
+			state.follow_ups = action.payload;
+		},
 	},
 });
 
@@ -60,5 +64,6 @@ export const {
 	setDiagnosis,
 	setHistoryOfComplaints,
 	setDrugAllergies,
+	setFollowUps,
 } = PatientTreatmentDetailsDataSlice.actions;
 export default PatientTreatmentDetailsDataSlice.reducer;
