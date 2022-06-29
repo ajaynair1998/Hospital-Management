@@ -24,3 +24,10 @@ export function capitalizeFirstLetter(string: string) {
 export function timeout(delay: number) {
 	return new Promise((res) => setTimeout(res, delay));
 }
+
+export function shrinkName(name: string, lengthNeeded = 10) {
+	if (name.length < lengthNeeded) {
+		return name;
+	}
+	return name.slice(0, lengthNeeded) + "...";
+}

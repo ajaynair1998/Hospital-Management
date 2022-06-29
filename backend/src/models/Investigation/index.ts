@@ -13,8 +13,10 @@ export interface IInvestigation
 		InferCreationAttributes<IInvestigation>
 	> {
 	id: CreationOptional<number>;
-	file: string;
-	time: string;
+	file_data: string;
+	file_name: string;
+	file_type: string;
+	time?: string;
 	treatmentDetailId?: number;
 }
 
@@ -24,7 +26,13 @@ const Investigation = database.define<IInvestigation>("Investigation", {
 		defaultValue: DataTypes.UUIDV4,
 		primaryKey: true,
 	},
-	file: {
+	file_data: {
+		type: DataTypes.TEXT("long"),
+	},
+	file_name: {
+		type: DataTypes.STRING(1000),
+	},
+	file_type: {
 		type: DataTypes.STRING(1000),
 	},
 	time: {

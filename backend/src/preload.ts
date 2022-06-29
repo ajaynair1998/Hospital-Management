@@ -128,7 +128,7 @@ contextBridge.exposeInMainWorld("electron", {
 		},
 	},
 	FollowUpApi: {
-		async post(req: IDrugAllergy): Promise<any> {
+		async post(req: IFollowUp): Promise<any> {
 			return ipcRenderer.invoke("follow-up-post", req);
 		},
 		async get(req: { treatmentDetailId: number }): Promise<any> {
@@ -136,6 +136,17 @@ contextBridge.exposeInMainWorld("electron", {
 		},
 		async delete(req: { id: number }): Promise<any> {
 			return ipcRenderer.invoke("follow-up-delete", req);
+		},
+	},
+	InvestigationApi: {
+		async post(req: IInvestigation): Promise<any> {
+			return ipcRenderer.invoke("investigation-post", req);
+		},
+		async get(req: { treatmentDetailId: number }): Promise<any> {
+			return ipcRenderer.invoke("investigation-get", req);
+		},
+		async delete(req: { id: number }): Promise<any> {
+			return ipcRenderer.invoke("investigation-delete", req);
 		},
 	},
 });
@@ -210,4 +221,12 @@ export interface IFollowUp {
 	follow_up_text: string;
 	follow_up_date: Date;
 	purpose: string;
+}
+
+export interface IInvestigation {
+	treatmentDetailId: number;
+	file_data: string;
+	file_name: string;
+	file_type: string;
+	file_size: number;
 }

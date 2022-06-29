@@ -14,6 +14,7 @@ import diagnosisRoute from "./routes/diagnosisRoute";
 import historyOfComplaintsRoute from "./routes/historyOfComplaintsRoute";
 import drugAllergyRoute from "./routes/drugAllergyRoute";
 import followUpRoute from "./routes/followUpRoute";
+import investigationRoute from "./routes/investigationRoute";
 
 function createWindow(): void {
 	const win = new BrowserWindow({
@@ -53,6 +54,7 @@ diagnosisRoute;
 historyOfComplaintsRoute;
 drugAllergyRoute;
 followUpRoute;
+investigationRoute;
 
 app.on("window-all-closed", function () {
 	if (process.platform !== "darwin") app.quit();

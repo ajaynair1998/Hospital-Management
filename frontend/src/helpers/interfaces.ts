@@ -62,6 +62,11 @@ export interface IElectronAPI {
 		get: (req: any) => Promise<any>;
 		delete: (req: any) => Promise<any>;
 	};
+	InvestigationApi: {
+		post: (req: any) => Promise<any>;
+		get: (req: any) => Promise<any>;
+		delete: (req: any) => Promise<any>;
+	};
 }
 
 export interface IStore {
@@ -87,6 +92,7 @@ export interface IStore {
 		history_of_complaints: IHistoryOfComplaint[];
 		drug_allergies: IDrugAllergy[];
 		follow_ups: IFollowUp[];
+		investigation: IInvestigation[];
 	};
 	utilDataStore: {
 		data: {
@@ -180,5 +186,13 @@ export interface IFollowUp {
 	follow_up_text: string;
 	follow_up_date: Date;
 	purpose: string;
+	createdAt: string;
+}
+
+export interface IInvestigation {
+	id: number;
+	file_data: string;
+	file_name: string;
+	file_type: string;
 	createdAt: string;
 }

@@ -8,6 +8,7 @@ import DrugAllergy from "./DrugAllergy";
 import FollowUps from "./FollowUps";
 import GeneralExamination from "./GeneralExamination";
 import HistoryOfComplaints from "./HistoryOfComplaints";
+import Investigation from "./Investigation";
 import LocalExamination from "./LocalExamination";
 import PastMedicalHistory from "./PastMedicalHistory";
 import PastSurgicalHistory from "./PastSurgicalHistory";
@@ -35,7 +36,7 @@ export const FunctionalitySwitch = (): JSX.Element => {
 		case "past_medical_history":
 			return <PastMedicalHistory />;
 		case "investigation":
-			return <React.Fragment />;
+			return <Investigation />;
 		case "medicine":
 			return <React.Fragment />;
 		case "follow_up":
