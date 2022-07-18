@@ -149,6 +149,17 @@ contextBridge.exposeInMainWorld("electron", {
 			return ipcRenderer.invoke("investigation-delete", req);
 		},
 	},
+	TreatmentDoneApi: {
+		async post(req: ITreatmentDone): Promise<any> {
+			return ipcRenderer.invoke("treatment-done-post", req);
+		},
+		async get(req: { treatmentDetailId: number }): Promise<any> {
+			return ipcRenderer.invoke("treatment-done-get", req);
+		},
+		async delete(req: { id: number }): Promise<any> {
+			return ipcRenderer.invoke("treatment-done-delete", req);
+		},
+	},
 });
 
 export interface IFavourite {
@@ -229,4 +240,11 @@ export interface IInvestigation {
 	file_name: string;
 	file_type: string;
 	file_size: number;
+}
+
+export interface ITreatmentDone {
+	treatmentDetailId: number;
+	treatment: string;
+	duration: string;
+	details: string;
 }

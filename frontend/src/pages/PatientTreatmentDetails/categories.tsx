@@ -94,4 +94,10 @@ export const categoriesList: ICategory[] = [
 		category_icon: <PersonAddDisabledIcon />,
 		location: "history_of_complaints",
 	},
+	{
+		key: 14,
+		category_name: "Treatment Done",
+		category_icon: <NextPlanIcon />,
+		location: "treatment_done",
+	},
 ];

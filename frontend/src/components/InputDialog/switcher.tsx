@@ -12,6 +12,7 @@ import InvestigationInput from "../InvestigationInput";
 import LocalExaminationInput from "../LocalExaminationInput";
 import PastMedicalHistoryInput from "../PastMedicalHistoryInput";
 import PastSurgicalHistoryInput from "../PastSurgicalHistoryInput";
+import TreatmentDoneInput from "../TreatmentDoneInput";
 import TreatmentPlanInput from "../TreatmentPlanInput";
 
 export const InputSwitcher = () => {
@@ -44,6 +45,8 @@ export const InputSwitcher = () => {
 			return <FollowUpInput />;
 		case "investigation":
 			return <InvestigationInput />;
+		case "treatment_done":
+			return <TreatmentDoneInput />;
 		default:
 			return <React.Fragment />;
 	}

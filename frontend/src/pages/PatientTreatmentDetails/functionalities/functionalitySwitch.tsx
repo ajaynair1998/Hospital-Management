@@ -12,6 +12,7 @@ import Investigation from "./Investigation";
 import LocalExamination from "./LocalExamination";
 import PastMedicalHistory from "./PastMedicalHistory";
 import PastSurgicalHistory from "./PastSurgicalHistory";
+import TreatmentDone from "./TreatmentDone";
 import TreatmentPlan from "./TreatmentPlan";
 
 export const FunctionalitySwitch = (): JSX.Element => {
@@ -29,6 +30,8 @@ export const FunctionalitySwitch = (): JSX.Element => {
 			return <GeneralExamination />;
 		case "treatment_plan":
 			return <TreatmentPlan />;
+		case "treatment_done":
+			return <TreatmentDone />;
 		case "local_examination":
 			return <LocalExamination />;
 		case "past_surgical_history":

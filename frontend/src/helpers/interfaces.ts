@@ -67,6 +67,11 @@ export interface IElectronAPI {
 		get: (req: any) => Promise<any>;
 		delete: (req: any) => Promise<any>;
 	};
+	TreatmentDoneApi: {
+		post: (req: any) => Promise<any>;
+		get: (req: any) => Promise<any>;
+		delete: (req: any) => Promise<any>;
+	};
 }
 
 export interface IStore {
@@ -93,6 +98,7 @@ export interface IStore {
 		drug_allergies: IDrugAllergy[];
 		follow_ups: IFollowUp[];
 		investigation: IInvestigation[];
+		treatment_done: ITreatmentDone[];
 	};
 	utilDataStore: {
 		data: {
@@ -194,5 +200,13 @@ export interface IInvestigation {
 	file_data: string;
 	file_name: string;
 	file_type: string;
+	createdAt: string;
+}
+
+export interface ITreatmentDone {
+	id: number;
+	duration: string;
+	treatment: string;
+	details: string;
 	createdAt: string;
 }
