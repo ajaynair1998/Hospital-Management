@@ -108,6 +108,12 @@ export interface IStore {
 			inputDialogOpen: boolean;
 		};
 	};
+	applicationDataStore: {
+		data: {
+			location: string;
+			category_name: string;
+		};
+	};
 }
 
 export interface ICategory {
