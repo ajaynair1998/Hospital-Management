@@ -4,7 +4,7 @@ import Test from "./pages/Test";
 import ReduxTest from "./pages/ReduxTest";
 import "./App.css";
 import PatientTreatmentDetails from "./pages/PatientTreatmentDetails";
-import Patients from "./pages/Patients";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
 	return (
@@ -15,7 +15,7 @@ function App() {
 					path="/patient-treatment-details"
 					element={<PatientTreatmentDetails />}
 				/>
-				<Route path="/" element={<Patients />} />
+				<Route path="/" element={<Dashboard />} />
 			</Routes>
 		</div>
 	);
