@@ -8,6 +8,7 @@ export const utilDataSlice = createSlice({
 			snackBarOpen: false,
 			snackBarText: "",
 			inputDialogOpen: false,
+			addNewPatientInputDialogOpen: true,
 		},
 	},
 	reducers: {
@@ -21,9 +22,17 @@ export const utilDataSlice = createSlice({
 		setInputDialogState: (state: any, action: any) => {
 			state.data.inputDialogOpen = action.payload.inputDialogOpen;
 		},
+		setAddNewPatientInputDialogState: (state: any, action: any) => {
+			state.data.addNewPatientInputDialogOpen =
+				action.payload.addNewPatientInputDialogOpen;
+		},
 	},
 });
 
-export const { setSelectedInputValue, setSnackBarState, setInputDialogState } =
-	utilDataSlice.actions;
+export const {
+	setSelectedInputValue,
+	setSnackBarState,
+	setInputDialogState,
+	setAddNewPatientInputDialogState,
+} = utilDataSlice.actions;
 export default utilDataSlice.reducer;

@@ -106,12 +106,16 @@ export interface IStore {
 			snackBarOpen: boolean;
 			snackBarText: string;
 			inputDialogOpen: boolean;
+			addNewPatientInputDialogOpen: boolean;
 		};
 	};
 	applicationDataStore: {
 		data: {
 			location: string;
 			category_name: string;
+		};
+		newPatient: {
+			stage: number;
 		};
 	};
 }
