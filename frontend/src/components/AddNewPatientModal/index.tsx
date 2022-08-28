@@ -15,6 +15,10 @@ import {
 	setAddNewPatientInputDialogState,
 	setInputDialogState,
 } from "../../redux/Reducers/utilDataReducer";
+import { AppBar, Box } from "@mui/material";
+import { width } from "@mui/system";
+import DotsStepper from "../Stepper";
+import { setNewPatientStage } from "../../redux/Reducers/appStateDataReducer";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	"& .MuiDialogContent-root": {
@@ -64,10 +68,10 @@ export default function AddNewPatientInputModal() {
 	const { addNewPatientInputDialogOpen } = useSelector(
 		(state: IStore) => state.utilDataStore.data
 	);
-	console.log(
-		"🚀 ~ file: index.tsx ~ line 65 ~ AddNewPatientInputModal ~ addNewPatientInputDialogOpen",
-		addNewPatientInputDialogOpen
+	let { stage } = useSelector(
+		(state: IStore) => state.applicationDataStore.newPatient
 	);
+
 	const [open, setOpen] = React.useState(false);
 
 	const handleClickOpen = () => {
@@ -78,8 +82,16 @@ export default function AddNewPatientInputModal() {
 		dispatch(
 			setAddNewPatientInputDialogState({ addNewPatientInputDialogOpen: false })
 		);
+		dispatch(setNewPatientStage({ stage: 0 }));
 	};
 
+	const handleStepChange = (stage: number) => {
+		try {
+			dispatch(setNewPatientStage({ stage: stage }));
+		} catch (err) {
+			console.log(err);
+		}
+	};
 	React.useEffect(() => {
 		setOpen(addNewPatientInputDialogOpen);
 	}, [addNewPatientInputDialogOpen]);
@@ -117,6 +129,70 @@ export default function AddNewPatientInputModal() {
 						dui. Donec ullamcorper nulla non metus auctor fringilla.
 					</Typography> */}
 					<InputSwitcher />
+					{/* <AppBar
+						elevation={0}
+						sx={{
+							position: "sticky",
+							bottom: "0",
+							// zIndex: 150,
+							backgroundColor: "#ffffff",
+							// m: 0,
+							my: "0!important",
+							height: "70px",
+							width: "100%",
+							borderWidth: 0,
+							p: "0!important",
+						}}
+					>
+						<Box
+							width="90%"
+							sx={{
+								justifyContent: "flex-end",
+								flexDirection: "row",
+								alignContent: "center",
+								display: "flex",
+								alignItems: "center",
+								margin: "auto",
+								gap: "20px",
+								m: 2,
+								// pr: 2,
+							}}
+						>
+							<Button
+								variant="outlined"
+								sx={{
+									width: "120px!important",
+									mr: "0",
+								}}
+							>
+								Previous
+							</Button>
+							<Button
+								variant="outlined"
+								sx={{
+									width: "120px!important",
+									mr: "0",
+								}}
+							>
+								Next
+							</Button>
+							<Button
+								variant="outlined"
+								sx={{
+									width: "120px!important",
+									mr: "0",
+								}}
+							>
+								Save
+							</Button>
+						</Box>
+					</AppBar> */}
+					<DotsStepper
+						setStep={handleStepChange}
+						activeStep={stage}
+						steps={3}
+						handleSubmit={(e) => console.log(e)}
+					/>
 				</DialogContent>
 				{/* <DialogActions>
 					<Button autoFocus onClick={handleClose}>

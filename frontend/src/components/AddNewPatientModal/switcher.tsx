@@ -14,6 +14,9 @@ import PastMedicalHistoryInput from "../PastMedicalHistoryInput";
 import PastSurgicalHistoryInput from "../PastSurgicalHistoryInput";
 import TreatmentDoneInput from "../TreatmentDoneInput";
 import TreatmentPlanInput from "../TreatmentPlanInput";
+import StageZero from "./stages/stage-0";
+import StageOne from "./stages/stage-1";
+import StageTwo from "./stages/stage-2";
 
 export const InputSwitcher = () => {
 	let { stage } = useSelector(
@@ -21,31 +24,12 @@ export const InputSwitcher = () => {
 	);
 	switch (stage) {
 		case 0:
-			return <></>;
-		// case "clinical_diagnosis":
-		// 	return <ClinicalDiagnosisInput />;
-		// case "past_medical_history":
-		// 	return <PastMedicalHistoryInput />;
-		// case "past_surgical_history":
-		// 	return <PastSurgicalHistoryInput />;
-		// case "general_examination":
-		// 	return <GeneralExaminationInput />;
-		// case "treatment_plan":
-		// 	return <TreatmentPlanInput />;
-		// case "local_examination":
-		// 	return <LocalExaminationInput />;
-		// case "diagnosis":
-		// 	return <DiagnosisInput />;
-		// case "history_of_complaints":
-		// 	return <HistoryOfComplaintsInput />;
-		// case "drug_allergy":
-		// 	return <DrugAllergyInput />;
-		// case "follow_up":
-		// 	return <FollowUpInput />;
-		// case "investigation":
-		// 	return <InvestigationInput />;
-		// case "treatment_done":
-		// 	return <TreatmentDoneInput />;
+			return <StageZero />;
+		case 1:
+			return <StageOne />;
+		case 2:
+			return <StageTwo />;
+
 		default:
 			return <React.Fragment />;
 	}

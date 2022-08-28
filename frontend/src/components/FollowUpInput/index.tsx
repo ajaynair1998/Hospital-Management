@@ -101,7 +101,11 @@ const FollowUpInput = () => {
 					<MenuItem value={"others"}>Others</MenuItem>
 				</Select>
 			</FormControl>
-			<DateInput handleChange={handleDateChange} value={date} />
+			<DateInput
+				handleChange={handleDateChange}
+				value={date}
+				label={"set date for follow up"}
+			/>
 
 			<TextField
 				id="outlined-multiline-static"

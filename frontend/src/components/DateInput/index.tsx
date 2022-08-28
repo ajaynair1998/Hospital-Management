@@ -12,18 +12,19 @@ interface Iprops {
 	// handleChange: React.Dispatch<React.SetStateAction<Date | null | string>>;
 	handleChange: Function;
 	value: Date | null;
+	label: string;
 }
-export default function DateInput({ value, handleChange }: Iprops) {
+export default function DateInput({ value, handleChange, label }: Iprops) {
 	return (
 		<LocalizationProvider dateAdapter={AdapterMoment}>
 			<Stack spacing={3}>
 				<MobileDateTimePicker
-					label="Set Date for follow up"
+					label={label}
 					value={value}
 					onChange={(newValue) => {
 						handleChange(newValue);
 					}}
-					minDate={moment().clone().add(1, "days")}
+					minDate={moment().clone().add(0, "days")}
 					renderInput={(params) => <TextField {...params} />}
 				/>
 				{/* <DesktopDateTimePicker
