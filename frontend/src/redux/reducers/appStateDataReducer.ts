@@ -14,6 +14,10 @@ export const AppStateDataSlice = createSlice({
 			gender: "not_selected",
 			date_of_birth: new Date(),
 			nationality: countries[0],
+			phone_number: "",
+			address: "",
+			marital_status: "not_selected",
+			blood_group: "not_selected",
 		},
 	},
 	reducers: {
@@ -29,6 +33,14 @@ export const AppStateDataSlice = createSlice({
 		resestPatientDataFields: (state: any, action: any) => {
 			state.newPatient = {
 				stage: 0,
+				name: "",
+				gender: "not_selected",
+				date_of_birth: new Date(),
+				nationality: countries[0],
+				phone_number: "",
+				address: "",
+				marital_status: "not_selected",
+				blood_group: "not_selected",
 			};
 		},
 	},

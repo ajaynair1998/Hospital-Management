@@ -1,12 +1,65 @@
 import { TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { returnDbPatientProperties } from "../../../../helpers/functions";
+import { IStore } from "../../../../helpers/interfaces";
+import { setNewPatientDataField } from "../../../../redux/Reducers/appStateDataReducer";
 
 const StageTwo = () => {
-	let [mobileNumber, setMobileNumber] = useState("");
-	let [occupation, setOccupation] = useState("");
-	let [referredBy, setReferredBy] = useState("");
-	let [email, setEmail] = useState("");
+	let dispatch = useDispatch();
+
+	let { mobile_number, occupation, reffered_by, email } = useSelector(
+		(state: IStore) => state.applicationDataStore.newPatient
+	);
+	const handleChangeMobileNumber = (data: string) => {
+		try {
+			dispatch(
+				setNewPatientDataField({
+					key: returnDbPatientProperties("mobileNumber"),
+					value: data,
+				})
+			);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+	const handleChangeOccupation = (data: string) => {
+		try {
+			dispatch(
+				setNewPatientDataField({
+					key: returnDbPatientProperties("occupation"),
+					value: data,
+				})
+			);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+	const handleChangeReferredBy = (data: string) => {
+		try {
+			dispatch(
+				setNewPatientDataField({
+					key: returnDbPatientProperties("referredBy"),
+					value: data,
+				})
+			);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+	const handleChangeEmail = (data: string) => {
+		try {
+			dispatch(
+				setNewPatientDataField({
+					key: returnDbPatientProperties("email"),
+					value: data,
+				})
+			);
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
 	return (
 		<React.Fragment>
@@ -28,16 +81,16 @@ const StageTwo = () => {
 					value={email}
 					// sx={{ width: "200px!important" }}
 
-					onChange={(e) => setEmail(e.target.value)}
+					onChange={(e) => handleChangeEmail(e.target.value)}
 				/>
 				<TextField
 					id="outlined-basic"
 					label="Mobile Number"
 					variant="outlined"
-					value={mobileNumber}
+					value={mobile_number}
 					// sx={{ width: "200px!important" }}
 
-					onChange={(e) => setMobileNumber(e.target.value)}
+					onChange={(e) => handleChangeMobileNumber(e.target.value)}
 				/>
 				<TextField
 					id="outlined-basic"
@@ -46,16 +99,16 @@ const StageTwo = () => {
 					value={occupation}
 					// sx={{ width: "200px!important" }}
 
-					onChange={(e) => setOccupation(e.target.value)}
+					onChange={(e) => handleChangeOccupation(e.target.value)}
 				/>
 				<TextField
 					id="outlined-basic"
 					label="Referred By"
 					variant="outlined"
-					value={referredBy}
+					value={reffered_by}
 					// sx={{ width: "200px!important" }}
 
-					onChange={(e) => setReferredBy(e.target.value)}
+					onChange={(e) => handleChangeReferredBy(e.target.value)}
 				/>
 			</Box>
 		</React.Fragment>

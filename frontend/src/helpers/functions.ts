@@ -42,14 +42,14 @@ export function returnDbPatientProperties(propertyName: string): string {
 		dateOfBirth: "date_of_birth",
 		gender: "gender",
 		address: "address",
-		BloodGroup: "blood_group",
-		PhoneNumber: "phone_number",
-		MobileNumber: "mobile_number",
+		bloodGroup: "blood_group",
+		phoneNumber: "phone_number",
+		mobileNumber: "mobile_number",
 		email: "email",
-		MaritalStatus: "marital_status",
+		maritalStatus: "marital_status",
 		occupation: "occupation",
-		DoctorName: "doctor_name",
-		ReferredBy: "reffered_by",
+		doctorName: "doctor_name",
+		referredBy: "reffered_by",
 	};
 	if (properties[propertyName]) {
 		return properties[propertyName];

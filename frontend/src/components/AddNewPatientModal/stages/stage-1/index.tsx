@@ -8,14 +8,66 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { returnDbPatientProperties } from "../../../../helpers/functions";
+import { IStore } from "../../../../helpers/interfaces";
+import { setNewPatientDataField } from "../../../../redux/Reducers/appStateDataReducer";
 import CountrySelect from "../../../CountrySelect";
 import DateInput from "../../../DateInput";
 
 const StageOne = () => {
-	let [phoneNumber, setPhoneNumber] = useState("");
-	let [address, setAddress] = useState("");
-	let [bloodGroup, setBloodGroup] = useState("Not Selected");
-	let [maritalStatus, setMaritalStatus] = useState<string>("Not Selected");
+	let dispatch = useDispatch();
+	let { phone_number, address, blood_group, marital_status } = useSelector(
+		(store: IStore) => store.applicationDataStore.newPatient
+	);
+	const handleChangePhoneNumber = (data: string) => {
+		try {
+			dispatch(
+				setNewPatientDataField({
+					key: returnDbPatientProperties("phoneNumber"),
+					value: data,
+				})
+			);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+	const handleChangeAddress = (data: string) => {
+		try {
+			dispatch(
+				setNewPatientDataField({
+					key: returnDbPatientProperties("address"),
+					value: data,
+				})
+			);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+	const handleChangeBloodGroup = (data: string) => {
+		try {
+			dispatch(
+				setNewPatientDataField({
+					key: returnDbPatientProperties("bloodGroup"),
+					value: data,
+				})
+			);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+	const handleChangeMaritalStatus = (data: string) => {
+		try {
+			dispatch(
+				setNewPatientDataField({
+					key: returnDbPatientProperties("maritalStatus"),
+					value: data,
+				})
+			);
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
 	return (
 		<React.Fragment>
@@ -34,10 +86,10 @@ const StageOne = () => {
 					id="outlined-basic"
 					label="Phone Number"
 					variant="outlined"
-					value={phoneNumber}
+					value={phone_number}
 					// sx={{ width: "200px!important" }}
 
-					onChange={(e) => setPhoneNumber(e.target.value)}
+					onChange={(e) => handleChangePhoneNumber(e.target.value)}
 				/>
 				<TextField
 					id="outlined-multiline-static"
@@ -46,18 +98,18 @@ const StageOne = () => {
 					rows={2}
 					value={address}
 					// sx={{ width: "300px!important" }}
-					onChange={(e) => setAddress(e.target.value)}
+					onChange={(e) => handleChangeAddress(e.target.value)}
 				/>
 				<FormControl>
 					<InputLabel id="demo-simple-select-label"> Marital Status</InputLabel>
 					<Select
 						labelId="demo-simple-select-label"
 						id="demo-simple-select"
-						value={maritalStatus}
+						value={marital_status}
 						label="Marital Status"
-						onChange={(e) => setMaritalStatus(e.target.value)}
+						onChange={(e) => handleChangeMaritalStatus(e.target.value)}
 					>
-						<MenuItem value={"Not Selected"}>Not Selected</MenuItem>
+						<MenuItem value={"not_selected"}>Not Selected</MenuItem>
 
 						<MenuItem value={"single"}>single</MenuItem>
 						<MenuItem value={"married"}>married</MenuItem>
@@ -68,11 +120,11 @@ const StageOne = () => {
 					<Select
 						labelId="demo-simple-select-label"
 						id="demo-simple-select"
-						value={bloodGroup}
+						value={blood_group}
 						label="Blood Group"
-						onChange={(e) => setBloodGroup(e.target.value)}
+						onChange={(e) => handleChangeBloodGroup(e.target.value)}
 					>
-						<MenuItem value="Not Selected">Not Selected</MenuItem>
+						<MenuItem value="not_selected">Not Selected</MenuItem>
 						<MenuItem value="A+">A+</MenuItem>
 						<MenuItem value="O+">O+</MenuItem>
 						<MenuItem value="B+">B+</MenuItem>
