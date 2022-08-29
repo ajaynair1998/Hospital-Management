@@ -1,3 +1,4 @@
+import { CountryType } from "../components/CountrySelect";
 import { IIntraOral } from "../components/LocalExaminationInput";
 
 export interface IElectronAPI {
@@ -116,6 +117,22 @@ export interface IStore {
 		};
 		newPatient: {
 			stage: number;
+			name: string;
+			date: Date;
+			image: string;
+			nationality: CountryType;
+			age: number;
+			date_of_birth: Date | null;
+			gender: string;
+			address: string;
+			blood_group: string;
+			phone_number: string;
+			mobile_number: string;
+			email: string;
+			marital_status: string;
+			occupation: string;
+			doctor_name: string;
+			reffered_by?: string;
 		};
 	};
 }

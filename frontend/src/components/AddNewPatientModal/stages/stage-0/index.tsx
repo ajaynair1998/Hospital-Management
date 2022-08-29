@@ -6,20 +6,71 @@ import {
 	TextField,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useState } from "react";
-import CountrySelect from "../../../CountrySelect";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { returnDbPatientProperties } from "../../../../helpers/functions";
+import { IStore } from "../../../../helpers/interfaces";
+import { setNewPatientDataField } from "../../../../redux/Reducers/appStateDataReducer";
+import CountrySelect, { CountryType } from "../../../CountrySelect";
 import DateInput from "../../../DateInput";
 
 const StageZero = () => {
-	let [date, setDate] = useState<Date | null>(new Date());
-	let [gender, setGender] = useState<string>("male");
-	const handleChangeDate = (value: Date) => {
+	let dispatch = useDispatch();
+	let { name, date_of_birth, nationality, gender } = useSelector(
+		(state: IStore) => state.applicationDataStore.newPatient
+	);
+	const handleChangeDate = (value: any) => {
 		try {
-			setDate(value);
+			dispatch(
+				setNewPatientDataField({
+					key: returnDbPatientProperties("dateOfBirth"),
+					value: value,
+				})
+			);
 		} catch (err) {
 			console.log(err);
 		}
 	};
+
+	const handleChangeGender = (value: string) => {
+		try {
+			dispatch(
+				setNewPatientDataField({
+					key: returnDbPatientProperties("gender"),
+					value: value,
+				})
+			);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const handleChangeName = (value: string) => {
+		try {
+			dispatch(
+				setNewPatientDataField({
+					key: returnDbPatientProperties("name"),
+					value: value,
+				})
+			);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+	const handleChangeNationality = (data: CountryType) => {
+		try {
+			dispatch(
+				setNewPatientDataField({
+					key: returnDbPatientProperties("nationality"),
+					value: data,
+				})
+			);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	useEffect(() => {}, []);
 	return (
 		<React.Fragment>
 			<Box
@@ -34,32 +85,37 @@ const StageZero = () => {
 				flexDirection={"column"}
 			>
 				<TextField
-					id="outlined-basic"
+					id="name"
 					label="Name"
 					variant="outlined"
-					value={""}
+					value={name}
 					// sx={{ width: "200px!important" }}
 
-					// onChange={}
+					onChange={(e) => handleChangeName(e.target.value)}
 				/>
 
 				<DateInput
 					handleChange={handleChangeDate}
-					value={date}
-					label={"Date"}
+					value={date_of_birth}
+					label={"Date Of Birth"}
 				/>
 
-				<CountrySelect />
+				<CountrySelect
+					handleClickOption={handleChangeNationality}
+					value={nationality}
+				/>
 
 				<FormControl>
-					<InputLabel id="demo-simple-select-label"> type</InputLabel>
+					<InputLabel id="demo-simple-select-label"> Gender</InputLabel>
 					<Select
 						labelId="demo-simple-select-label"
 						id="demo-simple-select"
 						value={gender}
 						label="Gender"
-						onChange={(e) => setGender(e.target.value)}
+						onChange={(e) => handleChangeGender(e.target.value)}
 					>
+						<MenuItem value={"not_selected"}>Not Selected</MenuItem>
+
 						<MenuItem value={"male"}>Male</MenuItem>
 						<MenuItem value={"female"}>Female</MenuItem>
 						<MenuItem value={"other"}>Other</MenuItem>

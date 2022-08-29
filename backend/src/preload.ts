@@ -248,3 +248,22 @@ export interface ITreatmentDone {
 	duration: string;
 	details: string;
 }
+
+export interface IPatient {
+	name: string;
+	date: Date;
+	image: string;
+	nationality: string;
+	age: number;
+	date_of_birth: string;
+	gender: string;
+	address: string;
+	blood_group: string;
+	phone_number: string;
+	mobile_number: string;
+	email: string;
+	marital_status: string;
+	occupation: string;
+	doctor_name: string;
+	reffered_by?: string;
+}

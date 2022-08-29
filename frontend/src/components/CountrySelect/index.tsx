@@ -2,13 +2,18 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+interface IProps {
+	handleClickOption?: (data: CountryType) => void;
+	value?: CountryType;
+}
 
-export default function CountrySelect() {
+export default function CountrySelect({ handleClickOption, value }: IProps) {
 	return (
 		<Autocomplete
 			id="country-select-demo"
 			sx={{ width: 300 }}
 			options={countries}
+			value={value ? value : countries[0]}
 			autoHighlight
 			getOptionLabel={(option) => option.label}
 			renderOption={(props, option) => (
@@ -16,6 +21,9 @@ export default function CountrySelect() {
 					component="li"
 					sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
 					{...props}
+					onClick={(e: any) =>
+						handleClickOption ? handleClickOption(option) : null
+					}
 				>
 					<img
 						loading="lazy"
@@ -41,7 +49,7 @@ export default function CountrySelect() {
 	);
 }
 
-interface CountryType {
+export interface CountryType {
 	code: string;
 	label: string;
 	phone: string;
@@ -49,7 +57,7 @@ interface CountryType {
 }
 
 // From https://bitbucket.org/atlassian/atlaskit-mk-2/raw/4ad0e56649c3e6c973e226b7efaeb28cb240ccb0/packages/core/select/src/data/countries.js
-const countries: readonly CountryType[] = [
+export const countries: readonly CountryType[] = [
 	{ code: "IN", label: "India", phone: "91" },
 	{ code: "AD", label: "Andorra", phone: "376" },
 	{

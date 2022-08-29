@@ -13,8 +13,14 @@ interface Iprops {
 	handleChange: Function;
 	value: Date | null;
 	label: string;
+	minDate?: string;
 }
-export default function DateInput({ value, handleChange, label }: Iprops) {
+export default function DateInput({
+	value,
+	handleChange,
+	label,
+	minDate,
+}: Iprops) {
 	return (
 		<LocalizationProvider dateAdapter={AdapterMoment}>
 			<Stack spacing={3}>
@@ -24,7 +30,7 @@ export default function DateInput({ value, handleChange, label }: Iprops) {
 					onChange={(newValue) => {
 						handleChange(newValue);
 					}}
-					minDate={moment().clone().add(0, "days")}
+					minDate={minDate ? moment().clone().add(minDate, "days") : undefined}
 					renderInput={(params) => <TextField {...params} />}
 				/>
 				{/* <DesktopDateTimePicker
