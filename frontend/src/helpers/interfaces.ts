@@ -132,7 +132,7 @@ export interface IStore {
 			marital_status: string;
 			occupation: string;
 			doctor_name: string;
-			reffered_by?: string;
+			referred_by?: string;
 		};
 	};
 }

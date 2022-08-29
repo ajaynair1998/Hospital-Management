@@ -18,6 +18,10 @@ export const AppStateDataSlice = createSlice({
 			address: "",
 			marital_status: "not_selected",
 			blood_group: "not_selected",
+			mobile_number: "",
+			occupation: "",
+			referred_by: "",
+			email: "",
 		},
 	},
 	reducers: {
@@ -41,6 +45,10 @@ export const AppStateDataSlice = createSlice({
 				address: "",
 				marital_status: "not_selected",
 				blood_group: "not_selected",
+				mobile_number: "",
+				occupation: "",
+				referred_by: "",
+				email: "",
 			};
 		},
 	},

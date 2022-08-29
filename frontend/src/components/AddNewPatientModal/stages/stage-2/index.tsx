@@ -9,7 +9,7 @@ import { setNewPatientDataField } from "../../../../redux/Reducers/appStateDataR
 const StageTwo = () => {
 	let dispatch = useDispatch();
 
-	let { mobile_number, occupation, reffered_by, email } = useSelector(
+	let { mobile_number, occupation, referred_by, email } = useSelector(
 		(state: IStore) => state.applicationDataStore.newPatient
 	);
 	const handleChangeMobileNumber = (data: string) => {
@@ -105,7 +105,7 @@ const StageTwo = () => {
 					id="outlined-basic"
 					label="Referred By"
 					variant="outlined"
-					value={reffered_by}
+					value={referred_by}
 					// sx={{ width: "200px!important" }}
 
 					onChange={(e) => handleChangeReferredBy(e.target.value)}

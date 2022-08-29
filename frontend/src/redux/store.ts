@@ -11,10 +11,6 @@ import patientTreatmentDetailsReducer from "./Reducers/patientTreatmentDetailsRe
 import utilDataReducer from "./Reducers/utilDataReducer";
 import appStateDataReducer from "./Reducers/appStateDataReducer";
 import logger from "redux-logger";
-let serializableCheck = createSerializableStateInvariantMiddleware({
-	isSerializable: (value: any) => true,
-});
-
 export default configureStore({
 	reducer: {
 		applicationDataStore: appStateDataReducer,
