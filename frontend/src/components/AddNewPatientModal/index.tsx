@@ -72,6 +72,10 @@ export default function AddNewPatientInputModal() {
 		(state: IStore) => state.applicationDataStore.newPatient
 	);
 
+	let newPatientData = useSelector(
+		(state: IStore) => state.applicationDataStore.newPatient
+	);
+
 	const [open, setOpen] = React.useState(false);
 
 	const handleClickOpen = () => {
@@ -90,6 +94,14 @@ export default function AddNewPatientInputModal() {
 			dispatch(setNewPatientStage({ stage: stage }));
 		} catch (err) {
 			console.log(err);
+		}
+	};
+	const handleSubmit = async () => {
+		try {
+			await window.electron.PatientApi.post(newPatientData);
+			console.log("posted");
+		} catch (err: any) {
+			console.log(err.message);
 		}
 	};
 	React.useEffect(() => {
@@ -191,7 +203,7 @@ export default function AddNewPatientInputModal() {
 						setStep={handleStepChange}
 						activeStep={stage}
 						steps={3}
-						handleSubmit={(e) => console.log(e)}
+						handleSubmit={handleSubmit}
 					/>
 				</DialogContent>
 				{/* <DialogActions>

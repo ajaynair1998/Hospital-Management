@@ -73,6 +73,11 @@ export interface IElectronAPI {
 		get: (req: any) => Promise<any>;
 		delete: (req: any) => Promise<any>;
 	};
+	PatientApi: {
+		post: (req: IPatient) => Promise<any>;
+		get: (req: any) => Promise<any>;
+		delete: (req: any) => Promise<any>;
+	};
 }
 
 export interface IStore {
@@ -115,25 +120,7 @@ export interface IStore {
 			location: string;
 			category_name: string;
 		};
-		newPatient: {
-			stage: number;
-			name: string;
-			date: Date;
-			image: string;
-			nationality: CountryType;
-			age: number;
-			date_of_birth: Date | null;
-			gender: string;
-			address: string;
-			blood_group: string;
-			phone_number: string;
-			mobile_number: string;
-			email: string;
-			marital_status: string;
-			occupation: string;
-			doctor_name: string;
-			referred_by?: string;
-		};
+		newPatient: IPatient;
 	};
 }
 
@@ -236,4 +223,24 @@ export interface ITreatmentDone {
 	treatment: string;
 	details: string;
 	createdAt: string;
+}
+
+export interface IPatient {
+	stage: number;
+	name: string;
+	date: Date;
+	image: string;
+	nationality: CountryType;
+	age: number;
+	date_of_birth: Date | null;
+	gender: string;
+	address: string;
+	blood_group: string;
+	phone_number: string;
+	mobile_number: string;
+	email: string;
+	marital_status: string;
+	occupation: string;
+	doctor_name: string;
+	referred_by?: string;
 }

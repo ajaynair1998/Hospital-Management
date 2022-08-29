@@ -1,4 +1,5 @@
 const { ipcRenderer, contextBridge } = require("electron");
+import { DataTypes } from "sequelize";
 
 contextBridge.exposeInMainWorld("electron", {
 	notificationApi: {
@@ -160,6 +161,17 @@ contextBridge.exposeInMainWorld("electron", {
 			return ipcRenderer.invoke("treatment-done-delete", req);
 		},
 	},
+	PatientApi: {
+		async post(req: IPatient): Promise<any> {
+			return ipcRenderer.invoke("patient-post", req);
+		},
+		async get(req: { patientId: number }): Promise<any> {
+			return ipcRenderer.invoke("patient-get", req);
+		},
+		async delete(req: { patientId: number }): Promise<any> {
+			return ipcRenderer.invoke("patient-delete", req);
+		},
+	},
 });
 
 export interface IFavourite {
@@ -251,12 +263,11 @@ export interface ITreatmentDone {
 
 export interface IPatient {
 	name: string;
-	date: Date;
 	image: string;
 	nationality: string;
 	age: number;
-	date_of_birth: string;
-	gender: string;
+	date_of_birth: Date;
+	gender: DataTypes.EnumDataType<string>;
 	address: string;
 	blood_group: string;
 	phone_number: string;
@@ -265,5 +276,5 @@ export interface IPatient {
 	marital_status: string;
 	occupation: string;
 	doctor_name: string;
-	reffered_by?: string;
+	referred_by?: string;
 }

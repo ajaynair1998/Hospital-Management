@@ -27,7 +27,7 @@ export interface IPatient
 	occupation?: string;
 	doctor_name?: string;
 	purpose?: string;
-	reffered_by?: string;
+	referred_by?: string;
 }
 
 const Patient = database.define<IPatient>(
@@ -66,7 +66,7 @@ const Patient = database.define<IPatient>(
 			type: DataTypes.STRING,
 		},
 		gender: {
-			type: DataTypes.ENUM({ values: ["male", "female", "other"] }),
+			type: DataTypes.ENUM({ values: ["male", "female", "others"] }),
 		},
 		address: {
 			type: DataTypes.STRING(500),
@@ -95,7 +95,7 @@ const Patient = database.define<IPatient>(
 		purpose: {
 			type: DataTypes.STRING,
 		},
-		reffered_by: {
+		referred_by: {
 			type: DataTypes.STRING,
 		},
 	},

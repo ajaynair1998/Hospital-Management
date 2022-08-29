@@ -69,7 +69,7 @@ const NextAndBackButtons = (props: IPropsNextAndBackButton) => {
 			<Button
 				size="small"
 				onClick={props.handleSubmit}
-				disabled={props.activeStep === props.steps - 1}
+				disabled={props.activeStep !== props.steps - 1}
 				color="success"
 			>
 				Submit
