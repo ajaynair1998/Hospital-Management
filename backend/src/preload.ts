@@ -260,11 +260,17 @@ export interface ITreatmentDone {
 	duration: string;
 	details: string;
 }
+export interface CountryType {
+	code: string;
+	label: string;
+	phone: string;
+	suggested?: boolean;
+}
 
 export interface IPatient {
 	name: string;
 	image: string;
-	nationality: string;
+	nationality: CountryType;
 	age: number;
 	date_of_birth: Date;
 	gender: DataTypes.EnumDataType<string>;

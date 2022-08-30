@@ -16,9 +16,11 @@ const PatientController: IPatientController = {
 				args.date_of_birth,
 				"YYYY-MM-DD HH:mm:ss"
 			).toString();
+
+			let nationName=args.nationality.label
 			await Patient.create({
 				name: args.name,
-				nationality: args.nationality,
+				nationality: nationName,
 				age: args.age,
 				date_of_birth: dateAsString,
 				gender: args.gender,
