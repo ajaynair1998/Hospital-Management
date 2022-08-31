@@ -18,7 +18,7 @@ const PatientController: IPatientController = {
 			).toString();
 
 			let nationName=args.nationality.label
-			await Patient.create({
+			let newPatient=await Patient.create({
 				name: args.name,
 				nationality: nationName,
 				age: args.age,
