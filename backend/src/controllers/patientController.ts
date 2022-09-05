@@ -37,7 +37,7 @@ const PatientController: IPatientController = {
 
 			return {
 				status: 200,
-				message: `New Patient added successfully`,
+				message: `New Patient added successfully in db`,
 			};
 		} catch (err: any) {
 			console.log(err);
