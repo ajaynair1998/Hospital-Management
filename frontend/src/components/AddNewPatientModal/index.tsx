@@ -19,6 +19,7 @@ import { AppBar, Box } from "@mui/material";
 import { width } from "@mui/system";
 import DotsStepper from "../Stepper";
 import { setNewPatientStage } from "../../redux/Reducers/appStateDataReducer";
+import moment from "moment";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	"& .MuiDialogContent-root": {
@@ -98,7 +99,14 @@ export default function AddNewPatientInputModal() {
 	};
 	const handleSubmit = async () => {
 		try {
-			await window.electron.PatientApi.post(newPatientData);
+			const transformedPatientData = { ...newPatientData };
+			transformedPatientData.date_of_birth = moment(
+				newPatientData.date_of_birth,
+				"YYYY-MM-DD HH:mm:ss"
+			).format("YYYY-MM-DD HH:mm:ss");
+
+			console.log(transformedPatientData.date_of_birth);
+			await window.electron.PatientApi.post(transformedPatientData);
 			console.log("posted");
 		} catch (err: any) {
 			console.log(err.message);

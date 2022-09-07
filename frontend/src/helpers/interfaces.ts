@@ -232,7 +232,7 @@ export interface IPatient {
 	image: string;
 	nationality: CountryType;
 	age: number;
-	date_of_birth: Date | null;
+	date_of_birth: Date | null | string;
 	gender: string;
 	address: string;
 	blood_group: string;

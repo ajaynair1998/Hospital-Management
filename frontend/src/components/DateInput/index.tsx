@@ -11,7 +11,7 @@ import moment from "moment";
 interface Iprops {
 	// handleChange: React.Dispatch<React.SetStateAction<Date | null | string>>;
 	handleChange: Function;
-	value: Date | null;
+	value: Date | string | null;
 	label: string;
 	minDate?: string;
 }

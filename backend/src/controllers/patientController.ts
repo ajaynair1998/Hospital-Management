@@ -1,5 +1,6 @@
 import _ from "lodash";
 import moment from "moment";
+import { getAge } from "../helpers";
 import Patient from "../models/Patient";
 import { IPatient } from "../preload";
 interface IPost extends IPatient {}
@@ -7,21 +8,18 @@ interface IPost extends IPatient {}
 const PatientController: IPatientController = {
 	async post(event, args: IPost) {
 		try {
-			console.log(
-				"🚀 ~ file: patientController.ts ~ line 9 ~ post ~ args",
-				args
-			);
-
 			let dateAsString = moment(
 				args.date_of_birth,
 				"YYYY-MM-DD HH:mm:ss"
 			).toString();
 
-			let nationName=args.nationality.label
-			let newPatient=await Patient.create({
+			let age = getAge(args.date_of_birth);
+
+			let nationName = args.nationality.label;
+			let newPatient = await Patient.create({
 				name: args.name,
 				nationality: nationName,
-				age: args.age,
+				age: age,
 				date_of_birth: dateAsString,
 				gender: args.gender,
 				address: args.address,

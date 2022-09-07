@@ -49,7 +49,7 @@ export function returnDbPatientProperties(propertyName: string): string {
 		maritalStatus: "marital_status",
 		occupation: "occupation",
 		doctorName: "doctor_name",
-		referredBy: "reffered_by",
+		referredBy: "referred_by",
 	};
 	if (properties[propertyName]) {
 		return properties[propertyName];

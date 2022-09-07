@@ -272,7 +272,7 @@ export interface IPatient {
 	image: string;
 	nationality: CountryType;
 	age: number;
-	date_of_birth: Date;
+	date_of_birth: string;
 	gender: DataTypes.EnumDataType<string>;
 	address: string;
 	blood_group: string;
