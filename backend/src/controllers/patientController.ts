@@ -1,5 +1,8 @@
 import _ from "lodash";
 import moment from "moment";
+// import { Op } from "sequelize";
+import { QueryTypes } from "sequelize";
+import { database as sequelize } from "../configs/sqlite";
 import { getAge } from "../helpers";
 import Patient from "../models/Patient";
 import { IPatient } from "../preload";
@@ -32,6 +35,10 @@ const PatientController: IPatientController = {
 				doctor_name: args.doctor_name,
 				referred_by: args.referred_by,
 			});
+			console.log(
+				"🚀 ~ file: patientController.ts ~ line 39 ~ post ~ newPatient",
+				newPatient
+			);
 
 			return {
 				status: 200,
@@ -42,16 +49,21 @@ const PatientController: IPatientController = {
 			return { status: 500, message: err.message };
 		}
 	},
-	async get(event: any, args: { patientId: number }) {
+	async get(event: any, args: { searchTerm: string }) {
 		try {
-			let patient = await Patient.findAll({
-				where: {
-					id: args.patientId,
-				},
-			});
+			let patients = await sequelize.query(
+				`SELECT * FROM PATIENTS WHERE id = "${args.searchTerm}" OR name LIKE  "%${args.searchTerm}%"`,
+				{
+					type: QueryTypes.SELECT,
+				}
+			);
+			console.log(
+				"🚀 ~ file: patientController.ts ~ line 57 ~ get ~ patients",
+				patients
+			);
 			return {
 				status: 200,
-				data: patient,
+				data: patients,
 			};
 		} catch (err: any) {
 			console.log(err);

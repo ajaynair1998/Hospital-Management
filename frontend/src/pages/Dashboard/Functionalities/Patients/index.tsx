@@ -1,5 +1,5 @@
 import { Box, Button, Grid } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import AsyncSearchBar from "../../../../components/AsyncSearchBar";
@@ -14,12 +14,28 @@ let Container = styled.div`
 `;
 
 const Patients = () => {
+	const [patients, setPatients] = useState<any>([]);
 	let dispatch = useDispatch();
 	const handleClickAddPatient = () => {
 		try {
 			dispatch(
 				setAddNewPatientInputDialogState({ addNewPatientInputDialogOpen: true })
 			);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const handleChangeSearch = async (searchTerm: string) => {
+		try {
+			let patients = await window.electron.PatientApi.get({
+				searchTerm: searchTerm,
+			});
+			console.log(
+				"🚀 ~ file: index.tsx ~ line 31 ~ handleChangeSearch ~ patients",
+				patients
+			);
+			setPatients(patients);
 		} catch (err) {
 			console.log(err);
 		}
@@ -36,7 +52,11 @@ const Patients = () => {
 						alignItems={"center"}
 					>
 						<Grid item>
-							<AsyncSearchBar label={"Search..."} />
+							<AsyncSearchBar
+								label={"Search..."}
+								handleChange={handleChangeSearch}
+								valuesFromSearch={patients}
+							/>
 						</Grid>
 						<Grid item>
 							<Button

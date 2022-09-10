@@ -2,6 +2,7 @@ import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
+import { PanToolSharp } from "@mui/icons-material";
 
 interface Film {
 	title: string;
@@ -16,10 +17,12 @@ function sleep(delay = 0) {
 
 interface IProps {
 	label: string;
+	handleChange: (e: string) => Promise<void>;
+	valuesFromSearch: any[];
 }
 export default function AsyncSearchBar(props: IProps) {
 	const [open, setOpen] = React.useState(false);
-	const [options, setOptions] = React.useState<readonly Film[]>([]);
+	const [options, setOptions] = React.useState<readonly any[]>([]);
 	const loading = open && options.length === 0;
 
 	React.useEffect(() => {
@@ -33,7 +36,7 @@ export default function AsyncSearchBar(props: IProps) {
 			await sleep(1e3); // For demo purposes.
 
 			if (active) {
-				setOptions([...topFilms]);
+				setOptions([...props.valuesFromSearch]);
 			}
 		})();
 
@@ -48,6 +51,10 @@ export default function AsyncSearchBar(props: IProps) {
 		}
 	}, [open]);
 
+	React.useEffect(() => {
+		console.log(options);
+	}, [options]);
+
 	return (
 		<Autocomplete
 			id="async-search-bar"
@@ -56,7 +63,7 @@ export default function AsyncSearchBar(props: IProps) {
 			onOpen={() => {
 				setOpen(true);
 			}}
-			groupBy={(option) => option.title}
+			groupBy={(option) => option.name}
 			onClose={() => {
 				setOpen(false);
 			}}
@@ -67,6 +74,7 @@ export default function AsyncSearchBar(props: IProps) {
 			renderInput={(params) => (
 				<TextField
 					{...params}
+					onChange={(e) => props.handleChange(e.target.value)}
 					label={props.label}
 					InputProps={{
 						...params.InputProps,
