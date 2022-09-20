@@ -35,7 +35,7 @@ const Patients = () => {
 				"🚀 ~ file: index.tsx ~ line 31 ~ handleChangeSearch ~ patients",
 				patients
 			);
-			setPatients(patients);
+			setPatients(patients.data);
 		} catch (err) {
 			console.log(err);
 		}

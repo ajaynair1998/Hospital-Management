@@ -36,7 +36,7 @@ export default function AsyncSearchBar(props: IProps) {
 			await sleep(1e3); // For demo purposes.
 
 			if (active) {
-				setOptions([...props.valuesFromSearch]);
+				setOptions(props.valuesFromSearch);
 			}
 		})();
 
@@ -63,12 +63,12 @@ export default function AsyncSearchBar(props: IProps) {
 			onOpen={() => {
 				setOpen(true);
 			}}
-			groupBy={(option) => option.name}
+			// groupBy={(option) => option.id}
 			onClose={() => {
 				setOpen(false);
 			}}
 			isOptionEqualToValue={(option, value) => option.title === value.title}
-			getOptionLabel={(option) => option.title}
+			getOptionLabel={(option) => option.name}
 			options={options}
 			loading={loading}
 			renderInput={(params) => (

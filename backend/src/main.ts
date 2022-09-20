@@ -17,6 +17,7 @@ import followUpRoute from "./routes/followUpRoute";
 import investigationRoute from "./routes/investigationRoute";
 import treatmentDoneRoute from "./routes/treatmentDoneRoute";
 import patientRoute from "./routes/patientRoute";
+import logger from "./logger";
 
 function createWindow(): void {
 	const win = new BrowserWindow({
@@ -34,6 +35,8 @@ function createWindow(): void {
 			: `file://${path.join(__dirname, "../build/index.html")}`
 	);
 	if (isDev) {
+		logger.debug("is dev");
+		logger.warn("is dev");
 		win.webContents.openDevTools({ mode: "detach" });
 	}
 }
