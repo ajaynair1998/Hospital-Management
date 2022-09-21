@@ -35,8 +35,7 @@ function createWindow(): void {
 			: `file://${path.join(__dirname, "../build/index.html")}`
 	);
 	if (isDev) {
-		logger.debug("is dev");
-		logger.warn("is dev");
+		logger.debug("Opening dev tools");
 		win.webContents.openDevTools({ mode: "detach" });
 	}
 }

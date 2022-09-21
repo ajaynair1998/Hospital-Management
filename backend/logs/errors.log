@@ -1,0 +1,6 @@
+{
+  level: 'error',
+  message: 'some error',
+  label: 'winston custom format',
+  timestamp: 'Wednesday, September 21st 2022, 9:49:26 am'
+}
