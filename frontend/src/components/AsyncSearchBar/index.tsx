@@ -33,7 +33,7 @@ export default function AsyncSearchBar(props: IProps) {
 		}
 
 		(async () => {
-			await sleep(1e3); // For demo purposes.
+			await sleep(1000); // For demo purposes.
 
 			if (active) {
 				setOptions(props.valuesFromSearch);

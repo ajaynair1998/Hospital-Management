@@ -4,3 +4,15 @@
   label: 'winston custom format',
   timestamp: 'Wednesday, September 21st 2022, 9:49:39 am'
 }
+{
+  level: 'debug',
+  message: 'some error',
+  label: 'winston custom format',
+  timestamp: 'Wednesday, September 21st 2022, 9:55:16 am'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Wednesday, September 21st 2022, 9:55:27 am'
+}

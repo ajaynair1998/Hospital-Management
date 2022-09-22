@@ -7,6 +7,7 @@ import AddIcon from "@mui/icons-material/Add";
 import AddNewPatientInputModal from "../../../../components/AddNewPatientModal";
 import AddNewPatient from "./AddNewPatient";
 import { setAddNewPatientInputDialogState } from "../../../../redux/Reducers/utilDataReducer";
+import PatientInfo from "./PatientInfo";
 
 let Container = styled.div`
 	display: flex;
@@ -69,6 +70,7 @@ const Patients = () => {
 							</Button>
 						</Grid>
 					</Grid>
+					<PatientInfo />
 				</Box>
 			</Container>
 			<AddNewPatient />
