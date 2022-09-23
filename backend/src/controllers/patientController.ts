@@ -52,7 +52,7 @@ const PatientController: IPatientController = {
 	async get(event: any, args: { searchTerm: string }) {
 		try {
 			let patients = await sequelize.query(
-				`SELECT * FROM PATIENTS WHERE id = "${args.searchTerm}" OR name LIKE  "%${args.searchTerm}%"`,
+				`SELECT * FROM PATIENTS WHERE id = "${args.searchTerm}" OR name LIKE  "%${args.searchTerm}%" `,
 				{
 					type: QueryTypes.SELECT,
 				}
@@ -61,6 +61,13 @@ const PatientController: IPatientController = {
 				"🚀 ~ file: patientController.ts ~ line 57 ~ get ~ patients",
 				patients
 			);
+			patients = patients.sort((a: any, b: any) => {
+				if (a.name && b.name) {
+					return a.name[0] > b.name[0] ? 1 : -1;
+				} else {
+					return -1;
+				}
+			});
 			return {
 				status: 200,
 				data: patients,

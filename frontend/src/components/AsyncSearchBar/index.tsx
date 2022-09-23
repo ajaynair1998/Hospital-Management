@@ -63,14 +63,22 @@ export default function AsyncSearchBar(props: IProps) {
 			onOpen={() => {
 				setOpen(true);
 			}}
-			// groupBy={(option) => option.id}
+			blurOnSelect
+			groupBy={(option) => (option.name ? option.name[0] : undefined)}
 			onClose={() => {
 				setOpen(false);
 			}}
-			isOptionEqualToValue={(option, value) => option.title === value.title}
+			// isOptionEqualToValue={(option, value) => option.name === value}
 			getOptionLabel={(option) => option.name}
 			options={options}
 			loading={loading}
+			renderOption={(props, option) => {
+				return (
+					<li {...props} key={option.id}>
+						{option.name}
+					</li>
+				);
+			}}
 			renderInput={(params) => (
 				<TextField
 					{...params}
