@@ -3,7 +3,7 @@ import moment from "moment";
 // import { Op } from "sequelize";
 import { QueryTypes } from "sequelize";
 import { database as sequelize } from "../configs/sqlite";
-import { getAge } from "../helpers";
+import { checkIfNumber, getAge } from "../helpers";
 import Patient from "../models/Patient";
 import { IPatient } from "../preload";
 interface IPost extends IPatient {}
@@ -51,12 +51,32 @@ const PatientController: IPatientController = {
 	},
 	async get(event: any, args: { searchTerm: string }) {
 		try {
-			let patients = await sequelize.query(
-				`SELECT * FROM PATIENTS WHERE id = "${args.searchTerm}" OR name LIKE  "%${args.searchTerm}%" `,
-				{
-					type: QueryTypes.SELECT,
+			let patients;
+			if (args.searchTerm === "" || args.searchTerm === undefined) {
+				patients = await sequelize.query(
+					`SELECT * FROM PATIENTS ORDER BY createdAt LIMIT 10 `,
+					{
+						type: QueryTypes.SELECT,
+					}
+				);
+			} else {
+				let searchTermIsANumber = checkIfNumber(args.searchTerm);
+				if (searchTermIsANumber) {
+					patients = await sequelize.query(
+						`SELECT * FROM PATIENTS WHERE id = '${args.searchTerm}' LIMIT 1`,
+						{
+							type: QueryTypes.SELECT,
+						}
+					);
+				} else {
+					patients = await sequelize.query(
+						`SELECT * FROM PATIENTS WHERE  name LIKE  "${args.searchTerm}%" LIMIT 10 `,
+						{
+							type: QueryTypes.SELECT,
+						}
+					);
 				}
-			);
+			}
 			console.log(
 				"🚀 ~ file: patientController.ts ~ line 57 ~ get ~ patients",
 				patients

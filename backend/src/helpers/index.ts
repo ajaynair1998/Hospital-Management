@@ -11,3 +11,11 @@ export function getAge(dateOfBirth: string): number {
 	let age = currentDate.diff(givenDate, "years");
 	return age;
 }
+
+export function checkIfNumber(text: any) {
+	try {
+		return !isNaN(text);
+	} catch (err) {
+		return false;
+	}
+}

@@ -19,31 +19,33 @@ interface IProps {
 	label: string;
 	handleChange: (e: string) => Promise<void>;
 	valuesFromSearch: any[];
+	selectionOnChange: (e: React.SyntheticEvent<Element, Event>, v: any) => void;
 }
 export default function AsyncSearchBar(props: IProps) {
 	const [open, setOpen] = React.useState(false);
 	const [options, setOptions] = React.useState<readonly any[]>([]);
-	const loading = open && options.length === 0;
+	// const loading = open && options.length === 0;
+	const loading = false;
 
-	React.useEffect(() => {
-		let active = true;
+	// React.useEffect(() => {
+	// 	let active = true;
 
-		if (!loading) {
-			return undefined;
-		}
+	// 	if (!loading) {
+	// 		return undefined;
+	// 	}
 
-		(async () => {
-			await sleep(1000); // For demo purposes.
+	// 	(async () => {
+	// 		await sleep(1000);
 
-			if (active) {
-				setOptions(props.valuesFromSearch);
-			}
-		})();
+	// 		if (active) {
+	// 			setOptions(props.valuesFromSearch);
+	// 		}
+	// 	})();
 
-		return () => {
-			active = false;
-		};
-	}, [loading]);
+	// 	return () => {
+	// 		active = false;
+	// 	};
+	// }, [loading]);
 
 	React.useEffect(() => {
 		if (!open) {
@@ -52,8 +54,8 @@ export default function AsyncSearchBar(props: IProps) {
 	}, [open]);
 
 	React.useEffect(() => {
-		console.log(options);
-	}, [options]);
+		setOptions(props.valuesFromSearch);
+	}, [props.valuesFromSearch]);
 
 	return (
 		<Autocomplete
@@ -68,10 +70,17 @@ export default function AsyncSearchBar(props: IProps) {
 			onClose={() => {
 				setOpen(false);
 			}}
-			// isOptionEqualToValue={(option, value) => option.name === value}
+			isOptionEqualToValue={(option, value) => {
+				if (option.name === "" || value.name === "") {
+					return true;
+				}
+
+				return option.name === value.name;
+			}}
 			getOptionLabel={(option) => option.name}
 			options={options}
 			loading={loading}
+			onChange={(e, v) => props.selectionOnChange(e, v)}
 			renderOption={(props, option) => {
 				return (
 					<li {...props} key={option.id}>

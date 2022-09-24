@@ -32,15 +32,16 @@ const Patients = () => {
 			let patients = await window.electron.PatientApi.get({
 				searchTerm: searchTerm,
 			});
-			console.log(
-				"🚀 ~ file: index.tsx ~ line 31 ~ handleChangeSearch ~ patients",
-				patients
-			);
 			setPatients(patients.data);
 		} catch (err) {
 			console.log(err);
 		}
 	};
+
+	const handleSelectedPatientChange = (
+		e: React.SyntheticEvent<Element, Event>,
+		value: any
+	) => {};
 	return (
 		<React.Fragment>
 			<Container>
@@ -57,6 +58,7 @@ const Patients = () => {
 								label={"Search..."}
 								handleChange={handleChangeSearch}
 								valuesFromSearch={patients}
+								selectionOnChange={handleSelectedPatientChange}
 							/>
 						</Grid>
 						<Grid item>
