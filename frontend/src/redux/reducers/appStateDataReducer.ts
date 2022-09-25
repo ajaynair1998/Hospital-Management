@@ -4,7 +4,6 @@ import { countries } from "../../components/CountrySelect";
 export const AppStateDataSlice = createSlice({
 	name: "applicationData",
 	initialState: {
-		patientSelected: false,
 		data: {
 			location: "dashboard",
 			category_name: "Dashboard",
@@ -25,6 +24,7 @@ export const AppStateDataSlice = createSlice({
 			email: "",
 		},
 		selectedPatient: {
+			selected: false,
 			patientProfileDetails: {},
 			patientConsultationDetails: {},
 		},
@@ -57,17 +57,19 @@ export const AppStateDataSlice = createSlice({
 			};
 		},
 		setSelectedPatientProfileDetails: (state: any, action: any) => {
+			state.selectedPatient.selected = true;
 			state.selectedPatient.patientProfileDetails =
 				action.payload.patientProfileDetails;
 		},
 
 		setSelectedPatientConsultationDetails: (state: any, action: any) => {
+			state.selectedPatient.selected = true;
 			state.selectedPatient.patientConsultationDetails =
 				action.payload.patientConsultationDetails;
 		},
 		resetSelectedPatientDataFields: (state: any, action: any) => {
-			state.patientSelected = false;
 			state.selectedPatient = {
+				selected: false,
 				patientProfileDetails: {},
 				patientConsultationDetails: {},
 			};

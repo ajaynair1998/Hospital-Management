@@ -1,13 +1,19 @@
 import { Box, Button, Grid } from "@mui/material";
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AsyncSearchBar from "../../../../components/AsyncSearchBar";
 import AddIcon from "@mui/icons-material/Add";
 import AddNewPatientInputModal from "../../../../components/AddNewPatientModal";
 import AddNewPatient from "./AddNewPatient";
 import { setAddNewPatientInputDialogState } from "../../../../redux/Reducers/utilDataReducer";
 import PatientInfo from "./PatientInfo";
+import {
+	resetSelectedPatientDataFields,
+	setSelectedPatientConsultationDetails,
+	setSelectedPatientProfileDetails,
+} from "../../../../redux/Reducers/appStateDataReducer";
+import { IStore } from "../../../../helpers/interfaces";
 
 let Container = styled.div`
 	display: flex;
@@ -38,10 +44,27 @@ const Patients = () => {
 		}
 	};
 
-	const handleSelectedPatientChange = (
+	const handleSelectedPatientChange = async (
 		e: React.SyntheticEvent<Element, Event>,
 		value: any
-	) => {};
+	) => {
+		try {
+			let patientWithTreatmentDetails = await window.electron.PatientApi.get({
+				patientId: value.id,
+			});
+			dispatch(resetSelectedPatientDataFields({}));
+			dispatch(
+				setSelectedPatientProfileDetails({ patientProfileDetails: value })
+			);
+			dispatch(
+				setSelectedPatientConsultationDetails({
+					patientConsultationDetails: patientWithTreatmentDetails.data,
+				})
+			);
+		} catch (err) {
+			console.log(err);
+		}
+	};
 	return (
 		<React.Fragment>
 			<Container>

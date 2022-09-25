@@ -49,49 +49,73 @@ const PatientController: IPatientController = {
 			return { status: 500, message: err.message };
 		}
 	},
-	async get(event: any, args: { searchTerm: string }) {
+	async get(event: any, args: { searchTerm: string; patientId: number }) {
 		try {
-			let patients;
-			if (args.searchTerm === "" || args.searchTerm === undefined) {
-				patients = await sequelize.query(
-					`SELECT * FROM PATIENTS ORDER BY createdAt LIMIT 10 `,
+			if (args.patientId) {
+				const patientId = args.patientId;
+				let patientWithTreatmentDetails = await sequelize.query(
+					`SELECT p.id as patientId,td.id as id,td.createdAt,td.updatedAt  from patients as p INNER JOIN treatmentdetails as td on p.id = td.patientId where p.id = ${patientId}  `,
 					{
 						type: QueryTypes.SELECT,
 					}
 				);
+				console.log(
+					"🚀 ~ file: patientController.ts ~ line 62 ~ get ~ patientWithTreatmentDetails",
+					patientWithTreatmentDetails
+				);
+				return {
+					status: 200,
+					data: patientWithTreatmentDetails,
+				};
+			} else if (!args.patientId) {
+				let patients;
+				if (args.searchTerm === "" || args.searchTerm === undefined) {
+					patients = await sequelize.query(
+						`SELECT * FROM PATIENTS ORDER BY createdAt LIMIT 10 `,
+						{
+							type: QueryTypes.SELECT,
+						}
+					);
+				} else {
+					let searchTermIsANumber = checkIfNumber(args.searchTerm);
+					if (searchTermIsANumber) {
+						patients = await sequelize.query(
+							`SELECT * FROM PATIENTS WHERE id = '${args.searchTerm}' LIMIT 1`,
+							{
+								type: QueryTypes.SELECT,
+							}
+						);
+					} else {
+						patients = await sequelize.query(
+							`SELECT * FROM PATIENTS WHERE  name LIKE  "${args.searchTerm}%" LIMIT 10 `,
+							{
+								type: QueryTypes.SELECT,
+							}
+						);
+					}
+				}
+				console.log(
+					"🚀 ~ file: patientController.ts ~ line 57 ~ get ~ patients",
+					patients
+				);
+				patients = patients.sort((a: any, b: any) => {
+					if (a.name && b.name) {
+						return a.name[0] > b.name[0] ? 1 : -1;
+					} else {
+						return -1;
+					}
+				});
+				return {
+					status: 200,
+					data: patients,
+				};
 			} else {
-				let searchTermIsANumber = checkIfNumber(args.searchTerm);
-				if (searchTermIsANumber) {
-					patients = await sequelize.query(
-						`SELECT * FROM PATIENTS WHERE id = '${args.searchTerm}' LIMIT 1`,
-						{
-							type: QueryTypes.SELECT,
-						}
-					);
-				} else {
-					patients = await sequelize.query(
-						`SELECT * FROM PATIENTS WHERE  name LIKE  "${args.searchTerm}%" LIMIT 10 `,
-						{
-							type: QueryTypes.SELECT,
-						}
-					);
-				}
+				return {
+					status: 501,
+					message: "empty query somethings wrong",
+					data: [],
+				};
 			}
-			console.log(
-				"🚀 ~ file: patientController.ts ~ line 57 ~ get ~ patients",
-				patients
-			);
-			patients = patients.sort((a: any, b: any) => {
-				if (a.name && b.name) {
-					return a.name[0] > b.name[0] ? 1 : -1;
-				} else {
-					return -1;
-				}
-			});
-			return {
-				status: 200,
-				data: patients,
-			};
 		} catch (err: any) {
 			console.log(err);
 			return { status: 500, message: err.message };

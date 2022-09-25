@@ -1,8 +1,12 @@
 import { Box, Button, CardMedia, Grid, Paper, Typography } from "@mui/material";
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AddIcon from "@mui/icons-material/Add";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { IStore } from "../../../../../../helpers/interfaces";
+import { generateMaximumLengthString } from "../../../../../../helpers";
+import { shrinkName } from "../../../../../../helpers/functions";
 
 let Container = styled.div`
 	display: flex;
@@ -10,10 +14,21 @@ let Container = styled.div`
 `;
 
 const PatientProfileCard = () => {
+	let patientProfileDetails = useSelector(
+		(state: IStore) =>
+			state.applicationDataStore.selectedPatient.patientProfileDetails
+	);
+	let patientSelected = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatient.selected
+	);
 	const [patients, setPatients] = useState<any>([]);
 	let dispatch = useDispatch();
 
-	return (
+	const handleClickGoToConsultations = () => {
+		console.log("clicked go to consultations");
+	};
+
+	return patientSelected && patientProfileDetails ? (
 		<React.Fragment>
 			<Container>
 				<Box
@@ -58,14 +73,32 @@ const PatientProfileCard = () => {
 								justifyContent={"flex-start"}
 								alignItems={"start"}
 								className="name,age,profession"
+								sx={{ width: "150px" }}
 							>
 								<Grid item>
 									{" "}
-									<Typography variant="h6">Ajay Nair</Typography>
+									<Typography variant="h6">
+										{patientProfileDetails.name == "" ||
+										!patientProfileDetails.name
+											? "Unavailable"
+											: generateMaximumLengthString(
+													patientProfileDetails.name,
+													15
+											  )}
+									</Typography>
 								</Grid>
 								<Grid item>
 									<Typography variant="subtitle1">
-										24 year old engineer
+										{/* 24 year old engineer */}
+										{`${
+											patientProfileDetails.age
+												? `${patientProfileDetails.age} years old`
+												: ""
+										} ${
+											patientProfileDetails.occupation
+												? patientProfileDetails.occupation
+												: ""
+										}`}
 									</Typography>
 								</Grid>
 							</Grid>
@@ -94,7 +127,11 @@ const PatientProfileCard = () => {
 								<Grid item>
 									{" "}
 									<Typography variant="subtitle1" align="center">
-										O+ve
+										{/* O+ve */}
+										{patientProfileDetails.blood_group == "not_selected" ||
+										!patientProfileDetails.blood_group
+											? "Unavailable"
+											: patientProfileDetails.blood_group}
 									</Typography>
 								</Grid>
 							</Grid>
@@ -113,7 +150,9 @@ const PatientProfileCard = () => {
 								<Grid item>
 									{" "}
 									<Typography variant="subtitle1" align="center">
-										Male
+										{patientProfileDetails.gender == "not_selected"
+											? "Unavailable"
+											: patientProfileDetails.gender}
 									</Typography>
 								</Grid>
 							</Grid>
@@ -132,7 +171,9 @@ const PatientProfileCard = () => {
 								<Grid item>
 									{" "}
 									<Typography variant="subtitle1" align="center">
-										India
+										{generateMaximumLengthString(
+											patientProfileDetails.nationality
+										)}
 									</Typography>
 								</Grid>
 							</Grid>
@@ -161,7 +202,9 @@ const PatientProfileCard = () => {
 								<Grid item>
 									{" "}
 									<Typography variant="subtitle1" align="left">
-										Sabarmathy,Punnapra p.o,Alappuzha
+										{!patientProfileDetails.address
+											? "Unavailable"
+											: patientProfileDetails.address}
 									</Typography>
 								</Grid>
 							</Grid>
@@ -190,8 +233,44 @@ const PatientProfileCard = () => {
 								<Grid item>
 									{" "}
 									<Typography variant="subtitle1" align="left">
-										9539067622
+										{patientProfileDetails.phone_number
+											? patientProfileDetails.phone_number
+											: "Unavailable"}
 									</Typography>
+								</Grid>
+							</Grid>
+						</Grid>
+						<Grid
+							item
+							container
+							direction={"row"}
+							spacing={1}
+							justifyContent={"space-between"}
+							alignItems={"flex-start"}
+							className={"Phone Number"}
+						>
+							<Grid
+								item
+								justifyContent={"center"}
+								alignItems={"flex-start"}
+								className={"Consultations"}
+							>
+								<Grid item>
+									{" "}
+									<Button
+										variant="text"
+										sx={{ alignItems: "center", pl: 0 }}
+										onClick={handleClickGoToConsultations}
+									>
+										<Typography
+											variant="subtitle2"
+											alignContent={"center"}
+											alignItems="center"
+										>
+											All Consultations &nbsp;
+										</Typography>
+										<ArrowForwardIcon fontSize="small" />
+									</Button>
 								</Grid>
 							</Grid>
 						</Grid>
@@ -200,6 +279,8 @@ const PatientProfileCard = () => {
 				</Box>
 			</Container>
 		</React.Fragment>
+	) : (
+		<React.Fragment />
 	);
 };
 

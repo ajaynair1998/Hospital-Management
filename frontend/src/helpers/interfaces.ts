@@ -121,6 +121,11 @@ export interface IStore {
 			category_name: string;
 		};
 		newPatient: IPatient;
+		selectedPatient: {
+			selected: boolean;
+			patientProfileDetails: any;
+			patientConsultationDetails: any;
+		};
 	};
 }
 

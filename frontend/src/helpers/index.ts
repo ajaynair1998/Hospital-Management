@@ -12,3 +12,35 @@ export const convertToReadableDate = (date: string | undefined | Date) => {
 export const generateUniqueId = (): string => {
 	return uniqid();
 };
+
+export const generateMaximumLengthString = (
+	string: string,
+	length?: number
+): string => {
+	try {
+		if (!length) {
+			length = 8;
+		}
+		if (string.length > length) {
+			let newString = string.substring(0, 8) + "...";
+			return newString;
+		}
+		return string;
+	} catch (err) {
+		console.log(err);
+		return string;
+	}
+};
+
+export const convertDbTimeToReadableString = (date: string): string => {
+	try {
+		let currentTime = moment(date)
+			.utc()
+			.format("MMMM Do YYYY, h:mm:ss a")
+			.toString();
+		return currentTime;
+	} catch (err) {
+		console.log(err);
+		return "";
+	}
+};

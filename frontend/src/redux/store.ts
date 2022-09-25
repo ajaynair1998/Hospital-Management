@@ -23,5 +23,10 @@ export default configureStore({
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({
 			serializableCheck: false,
-		}).concat(logger),
+		}),
+	// use the below one for loggin current state too
+	// middleware: (getDefaultMiddleware) =>
+	// 	getDefaultMiddleware({
+	// 		serializableCheck: false,
+	// 	}).concat(logger),
 });

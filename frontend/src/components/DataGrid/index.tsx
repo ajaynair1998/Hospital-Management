@@ -50,13 +50,15 @@ interface IProps {
 	height?: number;
 	checkbox?: boolean;
 	edit?: boolean;
+	rows?: any;
+	columns?: any;
 }
 export default function DataGridComponant(props: IProps) {
 	return (
 		<Box sx={{ height: props.height ? props.height : 400, width: "100%" }}>
 			<DataGrid
-				rows={rows}
-				columns={columns}
+				rows={props.rows ? props.rows : rows}
+				columns={props.columns ? props.columns : columns}
 				pageSize={10}
 				rowsPerPageOptions={[20, 10, 5]}
 				checkboxSelection={props.checkbox ? true : false}
