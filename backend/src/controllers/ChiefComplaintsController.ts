@@ -22,7 +22,7 @@ const ChiefComplaintsController: IChiefComplaintsController = {
 			// });
 
 			await ChiefComplaint.create({
-				treatmentDetailId: 1,
+				treatmentDetailId: treatment_detail_id,
 				complaint: complaint,
 				duration: duration,
 				details: details,

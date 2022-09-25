@@ -13,7 +13,7 @@ const GeneralExaminationController: IGeneralExaminationController = {
 			const temperature = args.temperature;
 
 			await GeneralExamination.create({
-				treatmentDetailId: 1,
+				treatmentDetailId: treatment_detail_id,
 				bp: bp,
 				temperature: temperature,
 				oxygen_saturation: oxygen_saturation,

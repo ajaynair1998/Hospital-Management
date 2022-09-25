@@ -172,6 +172,17 @@ contextBridge.exposeInMainWorld("electron", {
 			return ipcRenderer.invoke("patient-delete", req);
 		},
 	},
+	TreatmentDetailsApi: {
+		async post(req: { patientId: number }): Promise<any> {
+			return ipcRenderer.invoke("treatment-details-post", req);
+		},
+		async get(req: { treatmentDetailId: number }): Promise<any> {
+			return ipcRenderer.invoke("treatment-details-get", req);
+		},
+		async delete(req: { treatmentDetailsId: number }): Promise<any> {
+			return ipcRenderer.invoke("treatment-details-delete", req);
+		},
+	},
 });
 
 export interface IFavourite {

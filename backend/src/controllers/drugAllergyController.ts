@@ -12,7 +12,7 @@ const drugAllergyController: IdrugAllergyController = {
 			let allergiesAsString = JSON.stringify(allergies);
 
 			await DrugAllergy.create({
-				treatmentDetailId: 1,
+				treatmentDetailId: treatment_detail_id,
 				allergy: allergiesAsString,
 			});
 

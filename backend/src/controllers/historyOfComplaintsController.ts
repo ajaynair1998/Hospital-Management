@@ -12,7 +12,7 @@ const historyOfComplaintsController: IHistoryOfComplaintsController = {
 			const details = args.details;
 
 			await HistoryOfComplaint.create({
-				treatmentDetailId: 1,
+				treatmentDetailId: treatment_detail_id,
 				complaint: complaint,
 				details: details,
 			});

@@ -13,7 +13,7 @@ const ClinicalDiagnosisController: IClinicalDiagnosisController = {
 			const details = args.details;
 
 			await ClinicalDiagnosis.create({
-				treatmentDetailId: 1,
+				treatmentDetailId: treatment_detail_id,
 				diagnosis: diagnosis,
 				details: details,
 			});

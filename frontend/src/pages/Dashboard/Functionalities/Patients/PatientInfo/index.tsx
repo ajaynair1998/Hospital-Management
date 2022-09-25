@@ -32,6 +32,10 @@ const PatientInfo = () => {
 		(state: IStore) =>
 			state.applicationDataStore.selectedPatient.patientConsultationDetails
 	);
+	console.log(
+		"🚀 ~ file: index.tsx ~ line 35 ~ PatientInfo ~ patientConsultations",
+		patientConsultations
+	);
 
 	const columns: GridColDef[] = [
 		{ field: "id", headerName: "ID", width: 90, sortable: true },

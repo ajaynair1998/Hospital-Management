@@ -12,7 +12,7 @@ const PastSurgicalHistoryController: IPastSurgicalHistoryController = {
 
 			let historiesAsString = JSON.stringify(history);
 			await PastSurgicalHistory.create({
-				treatmentDetailId: 1,
+				treatmentDetailId: treatment_detail_id,
 				history: historiesAsString,
 			});
 

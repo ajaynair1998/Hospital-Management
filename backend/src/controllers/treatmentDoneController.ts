@@ -13,7 +13,7 @@ const TreatmentDoneController: ITreatmentDoneController = {
 			const treatment = args.treatment;
 
 			await TreatmentDone.create({
-				treatmentDetailId: 1,
+				treatmentDetailId: treatment_detail_id,
 				treatment: treatment,
 				duration: duration,
 				details: details,

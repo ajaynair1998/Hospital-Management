@@ -17,7 +17,7 @@ const InvestigationController: IInvestigationController = {
 				throw new Error("File Size limit exceeded");
 			}
 			await Investigation.create({
-				treatmentDetailId: 1,
+				treatmentDetailId: treatment_detail_id,
 				file_data: file_data,
 				file_type: file_type,
 				file_name: file_name,

@@ -11,7 +11,7 @@ const LocalExaminationController: ILocalExaminationController = {
 			const intraoral = args.intraoral;
 
 			await LocalExamination.create({
-				treatmentDetailId: 1,
+				treatmentDetailId: treatment_detail_id,
 				extra_oral: extraoral,
 				intra_oral: JSON.stringify(intraoral),
 			});

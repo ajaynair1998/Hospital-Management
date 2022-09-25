@@ -12,7 +12,7 @@ const FollowUpController: IFollowUpController = {
 			const purpose = args.purpose;
 
 			await FollowUp.create({
-				treatmentDetailId: 1,
+				treatmentDetailId: treatment_detail_id,
 				follow_up_date: follow_up_date,
 				follow_up_text: follow_up_text,
 				purpose: purpose,

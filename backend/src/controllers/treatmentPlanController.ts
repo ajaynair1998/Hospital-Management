@@ -13,7 +13,7 @@ const TreatmentPlanController: ITreatmentPlanController = {
 			const treatment = args.treatment;
 
 			await TreatmentPlan.create({
-				treatmentDetailId: 1,
+				treatmentDetailId: treatment_detail_id,
 				treatment: treatment,
 				duration: duration,
 				details: details,

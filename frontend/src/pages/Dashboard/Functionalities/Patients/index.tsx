@@ -22,6 +22,10 @@ let Container = styled.div`
 
 const Patients = () => {
 	const [patients, setPatients] = useState<any>([]);
+	let patientId = useSelector(
+		(state: IStore) =>
+			state.applicationDataStore.selectedPatient.patientProfileDetails.id
+	);
 	let dispatch = useDispatch();
 	const handleClickAddPatient = () => {
 		try {
@@ -39,6 +43,26 @@ const Patients = () => {
 				searchTerm: searchTerm,
 			});
 			setPatients(patients.data);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const handleClickAddConsultation = async (): Promise<any> => {
+		try {
+			if (patientId) {
+				let newConsultation = await window.electron.TreatmentDetailsApi.post({
+					patientId: patientId,
+				});
+				let patientWithTreatmentDetails = await window.electron.PatientApi.get({
+					patientId: patientId,
+				});
+				dispatch(
+					setSelectedPatientConsultationDetails({
+						patientConsultationDetails: patientWithTreatmentDetails.data,
+					})
+				);
+			}
 		} catch (err) {
 			console.log(err);
 		}
@@ -91,6 +115,16 @@ const Patients = () => {
 								onClick={handleClickAddPatient}
 							>
 								<p>Add patient </p> &nbsp;
+								<AddIcon />
+							</Button>
+						</Grid>
+						<Grid item>
+							<Button
+								variant="outlined"
+								sx={{ height: "50px", alignContent: "center" }}
+								onClick={handleClickAddConsultation}
+							>
+								<p>Add Consultation </p> &nbsp;
 								<AddIcon />
 							</Button>
 						</Grid>

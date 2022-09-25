@@ -11,7 +11,7 @@ const DiagnosisController: IDiagnosisController = {
 			const details = args.details;
 
 			await Diagnosis.create({
-				treatmentDetailId: 1,
+				treatmentDetailId: treatment_detail_id,
 				diagnosis: diagnosis,
 				details: details,
 			});
