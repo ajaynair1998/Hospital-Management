@@ -44,6 +44,7 @@ const TreatmentDone = sequelize.define<ITreatmentDone>("TreatmentDone", {
 			model: "TreatmentDetails", // 'fathers' refers to table name
 			key: "id", // 'id' refers to column name in fathers table
 		},
+		onDelete: "CASCADE",
 	},
 });
 

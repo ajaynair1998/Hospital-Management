@@ -183,9 +183,10 @@ export function DrugAllergyDataEntry({
 							<React.Fragment>
 								<Grid item xs direction="row" gap={2} container>
 									{allergies.length > 0 ? (
-										allergies.map((item: string) => {
+										allergies.map((item: string, index: number) => {
 											return (
 												<Button
+													key={index}
 													variant="contained"
 													sx={{
 														background: "#06d6a0",

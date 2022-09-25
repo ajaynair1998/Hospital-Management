@@ -14,6 +14,7 @@ import {
 	setSelectedPatientConsultationDetails,
 } from "../../../../../redux/Reducers/appStateDataReducer";
 import { useNavigate } from "react-router-dom";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 let Container = styled.div`
 	display: flex;
@@ -32,9 +33,9 @@ const PatientInfo = () => {
 		(state: IStore) =>
 			state.applicationDataStore.selectedPatient.patientConsultationDetails
 	);
-	console.log(
-		"🚀 ~ file: index.tsx ~ line 35 ~ PatientInfo ~ patientConsultations",
-		patientConsultations
+	let patientId = useSelector(
+		(state: IStore) =>
+			state.applicationDataStore.selectedPatient.patientProfileDetails.id
 	);
 
 	const columns: GridColDef[] = [
@@ -75,8 +76,8 @@ const PatientInfo = () => {
 			},
 		},
 		{
-			field: "",
-			headerName: "Redirect",
+			field: "edit",
+			headerName: "Edit",
 			description: "Button to redirect to the consultation details",
 			type: "string",
 			sortable: false,
@@ -89,6 +90,25 @@ const PatientInfo = () => {
 				>
 					<CallMadeIcon
 						onClick={() => handleClickGoToConsultation(params.id)}
+					/>
+				</Button>
+			),
+		},
+		{
+			field: "delete",
+			headerName: "Delete",
+			description: "Button to delete the consultation",
+			type: "string",
+			sortable: false,
+			width: 100,
+			editable: true,
+			renderCell: (params: any) => (
+				<Button
+					sx={{ mx: "auto" }}
+					onClick={() => handleClickDeleteConsultation(params.id)}
+				>
+					<DeleteIcon
+						onClick={() => handleClickDeleteConsultation(params.id)}
 					/>
 				</Button>
 			),
@@ -107,6 +127,25 @@ const PatientInfo = () => {
 			console.log(err);
 		}
 	};
+
+	const handleClickDeleteConsultation = async (id: number): Promise<any> => {
+		try {
+			await window.electron.TreatmentDetailsApi.delete({
+				id: id,
+			});
+			let patientWithTreatmentDetails = await window.electron.PatientApi.get({
+				patientId: patientId,
+			});
+			dispatch(
+				setSelectedPatientConsultationDetails({
+					patientConsultationDetails: patientWithTreatmentDetails.data,
+				})
+			);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
 	return (
 		<React.Fragment>
 			<Container>

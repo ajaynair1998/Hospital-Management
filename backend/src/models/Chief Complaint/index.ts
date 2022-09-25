@@ -44,6 +44,7 @@ const ChiefComplaint = sequelize.define<IChiefComplaint>("ChiefComplaint", {
 			model: "TreatmentDetails", // 'fathers' refers to table name
 			key: "id", // 'id' refers to column name in fathers table
 		},
+		onDelete: "CASCADE",
 	},
 });
 

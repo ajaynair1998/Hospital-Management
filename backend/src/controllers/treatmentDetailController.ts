@@ -49,6 +49,7 @@ const TreatmentDetailsController: ITreatmentDetailsController = {
 				where: {
 					id: args.id,
 				},
+				cascade: true,
 			});
 			return {
 				status: 500,
