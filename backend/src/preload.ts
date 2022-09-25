@@ -183,6 +183,17 @@ contextBridge.exposeInMainWorld("electron", {
 			return ipcRenderer.invoke("treatment-details-delete", req);
 		},
 	},
+	MedicineApi: {
+		async post(req: IMedicine): Promise<any> {
+			return ipcRenderer.invoke("medicine-post", req);
+		},
+		async get(req: {}): Promise<any> {
+			return ipcRenderer.invoke("medicine-get", req);
+		},
+		async delete(req: { id: number }): Promise<any> {
+			return ipcRenderer.invoke("medicine-delete", req);
+		},
+	},
 });
 
 export interface IFavourite {
@@ -294,4 +305,11 @@ export interface IPatient {
 	occupation: string;
 	doctor_name: string;
 	referred_by?: string;
+}
+
+export interface IMedicine {
+	name: string;
+	strength: string;
+	medicine_form: string;
+	description: string;
 }

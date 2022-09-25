@@ -23,6 +23,13 @@ export const AppStateDataSlice = createSlice({
 			referred_by: "",
 			email: "",
 		},
+		newMedicine: {
+			name: "",
+			strength: "",
+			medicine_form: "",
+			description: "",
+		},
+		medicines: [],
 		selectedPatient: {
 			selected: false,
 			patientProfileDetails: {},
@@ -86,6 +93,20 @@ export const AppStateDataSlice = createSlice({
 				multipleIds: action.payload.multipleIds,
 			};
 		},
+		setNewMedicineDataField: (state: any, action: any) => {
+			state.newMedicine[action.payload.key] = action.payload.value;
+		},
+		resetNewMedicineDataFields: (state: any, action: any) => {
+			state.newMedicine = {
+				name: "",
+				strength: "",
+				medicine_form: "",
+				description: "",
+			};
+		},
+		setMedicines: (state: any, action: any) => {
+			state.medicines = action.payload.medicines;
+		},
 	},
 });
 
@@ -98,5 +119,8 @@ export const {
 	setSelectedPatientConsultationDetails,
 	resetSelectedPatientDataFields,
 	setSelectedPatientConsultation,
+	setNewMedicineDataField,
+	resetNewMedicineDataFields,
+	setMedicines,
 } = AppStateDataSlice.actions;
 export default AppStateDataSlice.reducer;

@@ -42,6 +42,12 @@ export const categoriesList: ICategory[] = [
 	},
 	{
 		key: 5,
+		category_name: "Medicines",
+		category_icon: <BiotechIcon />,
+		location: "medicines",
+	},
+	{
+		key: 6,
 		category_name: "Settings",
 		category_icon: <LocationSearchingIcon />,
 		location: "settings",

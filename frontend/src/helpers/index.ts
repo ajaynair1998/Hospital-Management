@@ -18,10 +18,11 @@ export const generateMaximumLengthString = (
 	length?: number
 ): string => {
 	try {
-		if (!length) {
-			length = 8;
+		if (length) {
+			let newString = string.substring(0, length) + "...";
+			return newString;
 		}
-		if (string.length > length) {
+		if (string.length > 8) {
 			let newString = string.substring(0, 8) + "...";
 			return newString;
 		}

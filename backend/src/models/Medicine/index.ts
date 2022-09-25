@@ -13,38 +13,34 @@ export interface IMedicine
 		InferCreationAttributes<IMedicine>
 	> {
 	id: CreationOptional<number>;
-	medicine_name: string;
-	medicine_type: string;
-	frequency: string;
-	time: string;
-	treatmentDetailId?: number;
+	name?: string;
+	strength?: string;
+	medicine_form?: string;
+	description?: string;
+	time?: string;
 }
 
 const Medicine = database.define<IMedicine>("Medicine", {
 	id: {
-		type: DataTypes.UUID,
-		defaultValue: DataTypes.UUIDV4,
+		type: DataTypes.INTEGER,
+		allowNull: false,
+		autoIncrement: true,
 		primaryKey: true,
 	},
-	medicine_type: {
+	name: {
 		type: DataTypes.STRING,
 	},
-	medicine_name: {
+	strength: {
 		type: DataTypes.STRING,
 	},
-	frequency: {
+	description: {
+		type: DataTypes.STRING,
+	},
+	medicine_form: {
 		type: DataTypes.STRING,
 	},
 	time: {
 		type: DataTypes.STRING,
-	},
-	treatmentDetailId: {
-		type: DataTypes.INTEGER.UNSIGNED,
-		references: {
-			model: "TreatmentDetails", // 'fathers' refers to table name
-			key: "id", // 'id' refers to column name in fathers table
-		},
-		onDelete: "CASCADE",
 	},
 });
 

@@ -83,6 +83,11 @@ export interface IElectronAPI {
 		get: (req: any) => Promise<any>;
 		delete: (req: any) => Promise<any>;
 	};
+	MedicineApi: {
+		post: (req: IMedicine) => Promise<any>;
+		get: (req: any) => Promise<any>;
+		delete: (req: any) => Promise<any>;
+	};
 }
 
 export interface IStore {
@@ -118,6 +123,7 @@ export interface IStore {
 			snackBarText: string;
 			inputDialogOpen: boolean;
 			addNewPatientInputDialogOpen: boolean;
+			addNewMedicineInputDialogOpen: boolean;
 		};
 	};
 	applicationDataStore: {
@@ -126,6 +132,13 @@ export interface IStore {
 			category_name: string;
 		};
 		newPatient: IPatient;
+		medicines: IMedicine[];
+		newMedicine: {
+			name: string;
+			strength: string;
+			medicine_form: string;
+			description: string;
+		};
 		selectedPatient: {
 			selected: boolean;
 			patientProfileDetails: any;
@@ -258,4 +271,10 @@ export interface IPatient {
 	occupation: string;
 	doctor_name: string;
 	referred_by?: string;
+}
+export interface IMedicine {
+	name: string;
+	strength: string;
+	medicine_form: string;
+	description: string;
 }
