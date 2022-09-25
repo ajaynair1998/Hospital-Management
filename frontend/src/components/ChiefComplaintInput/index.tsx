@@ -31,6 +31,9 @@ const ChiefComplaintInput = () => {
 	let [type, setType] = useState("hours");
 	let [duration, setDuration] = useState("");
 	let [details, setDetails] = useState("");
+	const patientTreatmentDetailId = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
+	);
 
 	let { inputValue } = useSelector((state: IStore) => state.utilDataStore.data);
 
@@ -58,14 +61,14 @@ const ChiefComplaintInput = () => {
 
 			let { data } = await getFavourites("chief_complaint");
 			const response = await window.electron.ChiefComplaintsApi.post({
-				treatmentDetailId: 1,
+				treatmentDetailId: patientTreatmentDetailId,
 				details: details,
 				complaint: complaint,
 				duration: duration + " " + type,
 			});
 
 			let allComplaints = await window.electron.ChiefComplaintsApi.get({
-				treatmentDetailId: 1,
+				treatmentDetailId: patientTreatmentDetailId,
 			});
 			console.log(allComplaints);
 

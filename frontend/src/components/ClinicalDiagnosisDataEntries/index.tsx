@@ -40,10 +40,13 @@ export const ClinicalDiagnosisDataEntries = () => {
 	const clinical_diagnosis = useSelector(
 		(state: IStore) => state.patientTreatmentDetailsDataStore.clinical_diagnosis
 	);
+	const patientTreatmentDetailId = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
+	);
 	let dispatch = useDispatch();
 	const fetchAllExistingClinicalDiagnosis = async () => {
 		let response = await window.electron.ClinicalDiagnosisApi.get({
-			treatmentDetailId: 1,
+			treatmentDetailId: patientTreatmentDetailId,
 		});
 		if (response.status === 200) {
 			dispatch(setClinicalDiagnosis(response.data));

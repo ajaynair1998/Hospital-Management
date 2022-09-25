@@ -35,6 +35,9 @@ const GeneralExaminationInput = () => {
 	let [bp, setBp] = useState("");
 	let [temperature, setTemperature] = useState("");
 	let [oxygen_saturation, setOxygenSaturation] = useState("");
+	const patientTreatmentDetailId = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
+	);
 
 	// let { location } = useSelector((state: IStore) => state.categoriesStore.data);
 
@@ -45,7 +48,7 @@ const GeneralExaminationInput = () => {
 
 			// let { data } = await getFavourites(location);
 			const response = await window.electron.GeneralExaminationApi.post({
-				treatmentDetailId: 1,
+				treatmentDetailId: patientTreatmentDetailId,
 				bp: bp + "  mmHg",
 				temperature: temperature + "  F",
 				oxygen_saturation: oxygen_saturation + "  %",
@@ -53,7 +56,7 @@ const GeneralExaminationInput = () => {
 
 			let allGeneralExamination =
 				await window.electron.GeneralExaminationApi.get({
-					treatmentDetailId: 1,
+					treatmentDetailId: patientTreatmentDetailId,
 				});
 			console.log(allGeneralExamination);
 

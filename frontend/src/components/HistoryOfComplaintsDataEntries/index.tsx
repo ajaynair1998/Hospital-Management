@@ -50,10 +50,13 @@ export const HistoryOfComplaintDataEntries = () => {
 		(state: IStore) =>
 			state.patientTreatmentDetailsDataStore.history_of_complaints
 	);
+	const patientTreatmentDetailId = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
+	);
 	let dispatch = useDispatch();
 	const fetchAllExistingHistoryOfComplaints = async () => {
 		let response = await window.electron.HistoryOfComplaintsApi.get({
-			treatmentDetailId: 1,
+			treatmentDetailId: patientTreatmentDetailId,
 		});
 		if (response.status === 200) {
 			dispatch(setHistoryOfComplaints(response.data));

@@ -126,6 +126,11 @@ export interface IStore {
 			patientProfileDetails: any;
 			patientConsultationDetails: any;
 		};
+		selectedPatientConsultation: {
+			id: number;
+			multiple: boolean;
+			multipleIds: number[];
+		};
 	};
 }
 

@@ -11,6 +11,7 @@ import { IChiefComplaint } from "../../helpers/interfaces";
 import { setChiefComplaints } from "../../redux/Reducers/patientTreatmentDetailsReducer";
 import { convertToReadableDate } from "../../helpers";
 import AlertDialog from "../Dialog";
+import appStateDataReducer from "../../redux/Reducers/appStateDataReducer";
 
 const Img = styled("img")({
 	margin: "auto",
@@ -37,10 +38,13 @@ export const ChiefComplaintDataEntries = () => {
 	const chief_complaints = useSelector(
 		(state: IStore) => state.patientTreatmentDetailsDataStore.chief_complaints
 	);
+	const patientTreatmentDetailId = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
+	);
 	let dispatch = useDispatch();
 	const fetchAllExistingChiefComplaints = async () => {
 		let response = await window.electron.ChiefComplaintsApi.get({
-			treatmentDetailId: 1,
+			treatmentDetailId: patientTreatmentDetailId,
 		});
 		if (response.status === 200) {
 			dispatch(setChiefComplaints(response.data));

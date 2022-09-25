@@ -29,7 +29,9 @@ const ClinicalDiagnosisInput = () => {
 	const dispatch = useDispatch();
 	let { data } = useSelector((state: IStore) => state.categoriesStore);
 	let location = data.location;
-	let [treatmentDetailId, setTreatmentDetailId] = useState(1);
+	const patientTreatmentDetailId = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
+	);
 	let [diagnosis, setDiagnosis] = useState("");
 	let [details, setDetails] = useState("");
 
@@ -55,13 +57,13 @@ const ClinicalDiagnosisInput = () => {
 
 			let { data } = await getFavourites(location);
 			const response = await window.electron.ClinicalDiagnosisApi.post({
-				treatmentDetailId: treatmentDetailId,
+				treatmentDetailId: patientTreatmentDetailId,
 				details: details,
 				diagnosis: diagnosis,
 			});
 
 			let allDiagnosis = await window.electron.ClinicalDiagnosisApi.get({
-				treatmentDetailId: 1,
+				treatmentDetailId: patientTreatmentDetailId,
 			});
 			console.log(allDiagnosis);
 

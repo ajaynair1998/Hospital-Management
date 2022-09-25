@@ -48,10 +48,13 @@ const GeneralExaminationDataEntries = () => {
 		(state: IStore) =>
 			state.patientTreatmentDetailsDataStore.general_examination
 	);
+	const patientTreatmentDetailId = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
+	);
 	let dispatch = useDispatch();
 	const fetchAllExistingGeneralExamination = async () => {
 		let response = await window.electron.GeneralExaminationApi.get({
-			treatmentDetailId: 1,
+			treatmentDetailId: patientTreatmentDetailId,
 		});
 		if (response.status === 200) {
 			console.log(response);

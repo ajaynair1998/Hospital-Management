@@ -38,7 +38,10 @@ const LocalExaminationInput = () => {
 	let [treatmentDetailId, setTreatmentDetailId] = useState(1);
 	let [extraoral, setExtraoral] = useState("");
 	let [intraoral, setIntraoral] = useState<IIntraOral>({});
-	let [toggleAdd,setToggleAdd]=useState<boolean>(false)
+	let [toggleAdd, setToggleAdd] = useState<boolean>(false);
+	const patientTreatmentDetailId = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
+	);
 
 	const handleAdd = async () => {
 		try {
@@ -46,15 +49,15 @@ const LocalExaminationInput = () => {
 			// add it into the facourites data
 
 			let { data } = await getFavourites("treatment_plan");
-			
+
 			const response = await window.electron.LocalExaminationApi.post({
-				treatmentDetailId: 1,
+				treatmentDetailId: patientTreatmentDetailId,
 				extraoral: extraoral,
 				intraoral: intraoral,
 			});
 
 			let allExaminations = await window.electron.LocalExaminationApi.get({
-				treatmentDetailId: 1,
+				treatmentDetailId: patientTreatmentDetailId,
 			});
 			console.log(allExaminations);
 
@@ -92,7 +95,7 @@ const LocalExaminationInput = () => {
 					// sx={{ width: "300px!important" }}
 					onChange={(e) => setExtraoral(e.target.value)}
 				/>
-				<IntraOralInputList setFinalData={setIntraoral} toggleAdd={toggleAdd}  />
+				<IntraOralInputList setFinalData={setIntraoral} toggleAdd={toggleAdd} />
 				{/* <TextField
 					id="outlined-multiline-static"
 					label="Intra oral"

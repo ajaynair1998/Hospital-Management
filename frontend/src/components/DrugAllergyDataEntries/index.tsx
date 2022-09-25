@@ -43,10 +43,13 @@ const DrugAllergyDataEntries = () => {
 	const drug_allergies = useSelector(
 		(state: IStore) => state.patientTreatmentDetailsDataStore.drug_allergies
 	);
+	const patientTreatmentDetailId = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
+	);
 	let dispatch = useDispatch();
 	const fetchAllExistingDrugAllergies = async () => {
 		let response = await window.electron.DrugAllergyApi.get({
-			treatmentDetailId: 1,
+			treatmentDetailId: patientTreatmentDetailId,
 		});
 		if (response.status === 200) {
 			dispatch(setDrugAllergies(response.data));

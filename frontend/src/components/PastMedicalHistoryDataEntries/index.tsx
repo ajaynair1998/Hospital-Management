@@ -44,10 +44,13 @@ const PastMedicalHistoryDataEntries = () => {
 		(state: IStore) =>
 			state.patientTreatmentDetailsDataStore.past_medical_history
 	);
+	const patientTreatmentDetailId = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
+	);
 	let dispatch = useDispatch();
 	const fetchAllExistingPastMedicalHistory = async () => {
 		let response = await window.electron.PastMedicalHistoryApi.get({
-			treatmentDetailId: 1,
+			treatmentDetailId: patientTreatmentDetailId,
 		});
 		console.log(
 			"🚀 ~ file: index.tsx ~ line 52 ~ fetchAllExistingPastMedicalHistory ~ response",

@@ -46,10 +46,13 @@ const FollowUpDataEntries = () => {
 	const follow_ups = useSelector(
 		(state: IStore) => state.patientTreatmentDetailsDataStore.follow_ups
 	);
+	const patientTreatmentDetailId = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
+	);
 	let dispatch = useDispatch();
 	const fetchAllExistingFollowUps = async () => {
 		let response = await window.electron.FollowUpApi.get({
-			treatmentDetailId: 1,
+			treatmentDetailId: patientTreatmentDetailId,
 		});
 		if (response.status === 200) {
 			dispatch(setFollowUps(response.data));

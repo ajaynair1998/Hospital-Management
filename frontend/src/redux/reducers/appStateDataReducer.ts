@@ -28,6 +28,11 @@ export const AppStateDataSlice = createSlice({
 			patientProfileDetails: {},
 			patientConsultationDetails: {},
 		},
+		selectedPatientConsultation: {
+			id: 1,
+			multiple: false,
+			multipleIds: [],
+		},
 	},
 	reducers: {
 		setSelectedApplicationStateCategory: (state: any, action: any) => {
@@ -74,6 +79,13 @@ export const AppStateDataSlice = createSlice({
 				patientConsultationDetails: {},
 			};
 		},
+		setSelectedPatientConsultation: (state: any, action: any) => {
+			state.selectedPatientConsultation = {
+				id: action.payload.id,
+				multiple: action.payload.multiple,
+				multipleIds: action.payload.multipleIds,
+			};
+		},
 	},
 });
 
@@ -85,5 +97,6 @@ export const {
 	setSelectedPatientProfileDetails,
 	setSelectedPatientConsultationDetails,
 	resetSelectedPatientDataFields,
+	setSelectedPatientConsultation,
 } = AppStateDataSlice.actions;
 export default AppStateDataSlice.reducer;

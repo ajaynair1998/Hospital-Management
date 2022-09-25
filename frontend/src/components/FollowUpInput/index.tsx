@@ -34,6 +34,9 @@ const FollowUpInput = () => {
 	const [date, setDate] = React.useState<Date | null>(new Date());
 
 	let { inputValue } = useSelector((state: IStore) => state.utilDataStore.data);
+	const patientTreatmentDetailId = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
+	);
 
 	const handleDateChange = (newValue: string | null | Date) => {
 		let newDate = newValue?.toString();
@@ -54,14 +57,14 @@ const FollowUpInput = () => {
 			// check whether this exists in the favourites , if not
 			// add it into the facourites data
 			const response = await window.electron.FollowUpApi.post({
-				treatmentDetailId: treatmentDetailId,
+				treatmentDetailId: patientTreatmentDetailId,
 				follow_up_text: details,
 				follow_up_date: date,
 				purpose: purpose,
 			});
 
 			let allFollowups = await window.electron.FollowUpApi.get({
-				treatmentDetailId: 1,
+				treatmentDetailId: patientTreatmentDetailId,
 			});
 			console.log(allFollowups);
 

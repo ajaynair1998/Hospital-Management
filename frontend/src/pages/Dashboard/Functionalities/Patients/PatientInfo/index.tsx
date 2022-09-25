@@ -9,6 +9,11 @@ import { IStore } from "../../../../../helpers/interfaces";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import CallMadeIcon from "@mui/icons-material/CallMade";
 import { convertDbTimeToReadableString } from "../../../../../helpers";
+import {
+	setSelectedPatientConsultation,
+	setSelectedPatientConsultationDetails,
+} from "../../../../../redux/Reducers/appStateDataReducer";
+import { useNavigate } from "react-router-dom";
 
 let Container = styled.div`
 	display: flex;
@@ -16,6 +21,7 @@ let Container = styled.div`
 `;
 
 const PatientInfo = () => {
+	const navigate = useNavigate();
 	const [patients, setPatients] = useState<any>([]);
 	let dispatch = useDispatch();
 
@@ -73,12 +79,30 @@ const PatientInfo = () => {
 			width: 100,
 			editable: true,
 			renderCell: (params: any) => (
-				<Button sx={{ mx: "auto" }}>
-					<CallMadeIcon />
+				<Button
+					sx={{ mx: "auto" }}
+					onClick={() => handleClickGoToConsultation(params.id)}
+				>
+					<CallMadeIcon
+						onClick={() => handleClickGoToConsultation(params.id)}
+					/>
 				</Button>
 			),
 		},
 	];
+
+	const handleClickGoToConsultation = (id: number): void => {
+		try {
+			dispatch(
+				setSelectedPatientConsultation({
+					id: id,
+				})
+			);
+			navigate("/patient-treatment-details", { replace: true });
+		} catch (err) {
+			console.log(err);
+		}
+	};
 	return (
 		<React.Fragment>
 			<Container>

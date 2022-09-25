@@ -25,7 +25,14 @@ const DiagnosisController: IDiagnosisController = {
 			return { status: 500, message: err.message };
 		}
 	},
-	async get(event: any, args: { treatmentDetailId: number }) {
+	async get(
+		event: any,
+		args: {
+			treatmentDetailId: number;
+			multiple: boolean;
+			multipleIds: number[];
+		}
+	) {
 		try {
 			const TreatmentDetailId = args.treatmentDetailId;
 			let allDiagnosis = await Diagnosis.findAll({

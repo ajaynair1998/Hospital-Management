@@ -40,10 +40,13 @@ const InvestigationDataEntries = () => {
 	const investigations = useSelector(
 		(state: IStore) => state.patientTreatmentDetailsDataStore.investigation
 	);
+	const patientTreatmentDetailId = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
+	);
 	let dispatch = useDispatch();
 	const fetchAllExistingInvestigations = async () => {
 		let response = await window.electron.InvestigationApi.get({
-			treatmentDetailId: 1,
+			treatmentDetailId: patientTreatmentDetailId,
 		});
 		if (response.status === 200) {
 			dispatch(setInvestigation(response.data));

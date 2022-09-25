@@ -30,10 +30,11 @@ const DiagnosisInput = () => {
 	const dispatch = useDispatch();
 	let { data } = useSelector((state: IStore) => state.categoriesStore);
 	let location = data.location;
-	let [treatmentDetailId, setTreatmentDetailId] = useState(1);
 	let [diagnosisText, setDiagnosisText] = useState("");
 	let [details, setDetails] = useState("");
-
+	const patientTreatmentDetailId = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
+	);
 	let { inputValue } = useSelector((state: IStore) => state.utilDataStore.data);
 
 	useEffect(() => {
@@ -56,13 +57,13 @@ const DiagnosisInput = () => {
 
 			let { data } = await getFavourites(location);
 			const response = await window.electron.DiagnosisApi.post({
-				treatmentDetailId: treatmentDetailId,
+				treatmentDetailId: patientTreatmentDetailId,
 				details: details,
 				diagnosis: diagnosisText,
 			});
 
 			let allDiagnosis = await window.electron.DiagnosisApi.get({
-				treatmentDetailId: 1,
+				treatmentDetailId: patientTreatmentDetailId,
 			});
 			console.log(allDiagnosis);
 

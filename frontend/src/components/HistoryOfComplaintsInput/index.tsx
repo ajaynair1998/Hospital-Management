@@ -35,6 +35,9 @@ const HistoryOfComplaintsInput = () => {
 	let [details, setDetails] = useState("");
 
 	let { inputValue } = useSelector((state: IStore) => state.utilDataStore.data);
+	const patientTreatmentDetailId = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
+	);
 
 	useEffect(() => {
 		setComplaint(inputValue);
@@ -56,13 +59,13 @@ const HistoryOfComplaintsInput = () => {
 
 			let { data } = await getFavourites(location);
 			const response = await window.electron.HistoryOfComplaintsApi.post({
-				treatmentDetailId: treatmentDetailId,
+				treatmentDetailId: patientTreatmentDetailId,
 				details: details,
 				complaint: complaint,
 			});
 
 			let allComplaints = await window.electron.HistoryOfComplaintsApi.get({
-				treatmentDetailId: 1,
+				treatmentDetailId: patientTreatmentDetailId,
 			});
 			console.log(allComplaints);
 

@@ -37,6 +37,9 @@ const TreatmentDoneInput = () => {
 	let [details, setDetails] = useState("");
 
 	let { inputValue } = useSelector((state: IStore) => state.utilDataStore.data);
+	const patientTreatmentDetailId = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
+	);
 
 	let handleChangeType = (e: SelectChangeEvent<string>) => {
 		setType(e.target.value);
@@ -62,14 +65,14 @@ const TreatmentDoneInput = () => {
 
 			let { data } = await getFavourites("treatment_done");
 			const response = await window.electron.TreatmentDoneApi.post({
-				treatmentDetailId: 1,
+				treatmentDetailId: patientTreatmentDetailId,
 				details: details,
 				treatment: treatment,
 				duration: duration + " " + type,
 			});
 
 			let allTreatments = await window.electron.TreatmentDoneApi.get({
-				treatmentDetailId: 1,
+				treatmentDetailId: patientTreatmentDetailId,
 			});
 			console.log(allTreatments);
 

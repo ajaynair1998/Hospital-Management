@@ -46,10 +46,13 @@ const LocalExaminationDataEntries = () => {
 	const local_examinations = useSelector(
 		(state: IStore) => state.patientTreatmentDetailsDataStore.local_examination
 	);
+	const patientTreatmentDetailId = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
+	);
 	let dispatch = useDispatch();
 	const fetchAllExistingLocalExaminations = async () => {
 		let response = await window.electron.LocalExaminationApi.get({
-			treatmentDetailId: 1,
+			treatmentDetailId: patientTreatmentDetailId,
 		});
 		console.log(
 			"🚀 ~ file: index.tsx ~ line 52 ~ fetchAllExistingLocalExaminations ~ response",

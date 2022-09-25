@@ -3,9 +3,12 @@ import React from "react";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import { useDispatch } from "react-redux";
 import { setInputDialogState } from "../../redux/Reducers/utilDataReducer";
+import { useNavigate } from "react-router-dom";
 
 const StickyFooter = () => {
 	let dispatch = useDispatch();
+
+	const navigate = useNavigate();
 	const goToTop = () => {
 		window.scrollTo({
 			top: 0,
@@ -16,6 +19,14 @@ const StickyFooter = () => {
 	};
 	let handleOpenInputDialog = () => {
 		dispatch(setInputDialogState({ inputDialogOpen: true }));
+	};
+
+	const handleClickExit = () => {
+		try {
+			navigate("/", { replace: true });
+		} catch (err) {
+			console.log(err);
+		}
 	};
 	return (
 		<AppBar
@@ -44,7 +55,9 @@ const StickyFooter = () => {
 					pr: 2,
 				}}
 			>
-				<Button variant="outlined">Exit</Button>
+				<Button variant="outlined" onClick={handleClickExit}>
+					Exit
+				</Button>
 				<Button variant="outlined">Next</Button>
 				<Button
 					variant="outlined"

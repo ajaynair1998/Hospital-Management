@@ -57,7 +57,9 @@ const PastSurgicalHistoryInput = () => {
 	let favourites = useSelector(
 		(state: IStore) => state.favouritesDataStore.data
 	);
-
+	const patientTreatmentDetailId = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
+	);
 	useEffect(() => {
 		initializeSelectedItems();
 	}, []);
@@ -124,12 +126,12 @@ const PastSurgicalHistoryInput = () => {
 			);
 			let listOfHistories = histories.map((item) => item.name);
 			const response = await window.electron.PastSurgicalHistoryApi.post({
-				treatmentDetailId: treatmentDetailId,
+				treatmentDetailId: patientTreatmentDetailId,
 				history: listOfHistories,
 			});
 
 			let allHistories = await window.electron.PastSurgicalHistoryApi.get({
-				treatmentDetailId: 1,
+				treatmentDetailId: patientTreatmentDetailId,
 			});
 
 			dispatch(setPastSurgicalHistory(allHistories.data));

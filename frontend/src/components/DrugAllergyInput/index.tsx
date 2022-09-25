@@ -43,6 +43,9 @@ interface IfavouritesForSelectionArray extends ISelectedItems {}
 const DrugAllergyInput = () => {
 	const dispatch = useDispatch();
 	let { data } = useSelector((state: IStore) => state.categoriesStore);
+	const patientTreatmentDetailId = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
+	);
 
 	let location = data.location;
 	let [treatmentDetailId, setTreatmentDetailId] = useState(1);
@@ -122,12 +125,12 @@ const DrugAllergyInput = () => {
 			);
 			let listOfAllergies = allergies.map((item) => item.name);
 			const response = await window.electron.DrugAllergyApi.post({
-				treatmentDetailId: treatmentDetailId,
+				treatmentDetailId: patientTreatmentDetailId,
 				allergies: listOfAllergies,
 			});
 
 			let allAllergies = await window.electron.DrugAllergyApi.get({
-				treatmentDetailId: 1,
+				treatmentDetailId: patientTreatmentDetailId,
 			});
 
 			dispatch(setDrugAllergies(allAllergies.data));

@@ -1,6 +1,7 @@
 import ChiefComplaint from "../models/Chief Complaint";
 import _ from "lodash";
 import { IChiefComplaint } from "../preload";
+import { Op } from "sequelize";
 
 interface IPost extends IChiefComplaint {}
 
@@ -36,20 +37,43 @@ const ChiefComplaintsController: IChiefComplaintsController = {
 			return { status: 500, message: err.message };
 		}
 	},
-	async get(event: any, args: { treatmentDetailId: number }) {
+	async get(
+		event: any,
+		args: {
+			treatmentDetailId: number;
+			multiple: boolean;
+			multipleIds: number[];
+		}
+	) {
 		try {
-			const TreatmentDetailId = args.treatmentDetailId;
-			let complaints = await ChiefComplaint.findAll({
-				where: {
-					treatmentDetailId: TreatmentDetailId,
-				},
-				raw: true,
-				order: [["createdAt", "DESC"]],
-			});
-			return {
-				status: 200,
-				data: complaints,
-			};
+			if (!args.multiple) {
+				const TreatmentDetailId = args.treatmentDetailId;
+				let complaints = await ChiefComplaint.findAll({
+					where: {
+						treatmentDetailId: TreatmentDetailId,
+					},
+					raw: true,
+					order: [["createdAt", "DESC"]],
+				});
+				return {
+					status: 200,
+					data: complaints,
+				};
+			} else {
+				let complaints = await ChiefComplaint.findAll({
+					where: {
+						treatmentDetailId: {
+							[Op.in]: args.multipleIds,
+						},
+					},
+					raw: true,
+					order: [["createdAt", "DESC"]],
+				});
+				return {
+					status: 200,
+					data: complaints,
+				};
+			}
 		} catch (err: any) {
 			console.log(err);
 			return { status: 500, message: err.message };

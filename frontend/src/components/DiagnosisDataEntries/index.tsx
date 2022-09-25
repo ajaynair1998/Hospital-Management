@@ -45,10 +45,13 @@ const DiagnosisDataEntries = () => {
 	const diagnosis = useSelector(
 		(state: IStore) => state.patientTreatmentDetailsDataStore.diagnosis
 	);
+	const patientTreatmentDetailId = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
+	);
 	let dispatch = useDispatch();
 	const fetchAllExistingDiagnosis = async () => {
 		let response = await window.electron.DiagnosisApi.get({
-			treatmentDetailId: 1,
+			treatmentDetailId: patientTreatmentDetailId,
 		});
 		if (response.status === 200) {
 			dispatch(setDiagnosis(response.data));

@@ -50,6 +50,9 @@ const InvestigationInput = () => {
 			file_data,
 		});
 	};
+	const patientTreatmentDetailId = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
+	);
 	useEffect(() => {
 		console.log(file);
 	}, [file]);
@@ -71,7 +74,7 @@ const InvestigationInput = () => {
 			// 	diagnosis: diagnosisText,
 			// });
 			const response = await window.electron.InvestigationApi.post({
-				treatmentDetailId: 1,
+				treatmentDetailId: patientTreatmentDetailId,
 				file_data,
 				file_name,
 				file_size,
