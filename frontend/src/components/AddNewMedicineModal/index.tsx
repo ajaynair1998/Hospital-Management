@@ -14,6 +14,7 @@ import {
 	setAddNewMedicineInputDialogState,
 	setAddNewPatientInputDialogState,
 	setInputDialogState,
+	setSnackBarState,
 } from "../../redux/Reducers/utilDataReducer";
 import { AppBar, Box } from "@mui/material";
 import { width } from "@mui/system";
@@ -98,6 +99,11 @@ export default function AddNewMedicineInputModal() {
 				description,
 				medicine_form,
 			});
+			if (newMedicine.status == 200) {
+				dispatch(
+					setSnackBarState({ snackBarOpen: true, text: "Added new Medicine" })
+				);
+			}
 			dispatch(resetNewMedicineDataFields({}));
 			dispatch(
 				setAddNewMedicineInputDialogState({

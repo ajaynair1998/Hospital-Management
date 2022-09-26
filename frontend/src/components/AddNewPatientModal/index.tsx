@@ -14,6 +14,7 @@ import { InputSwitcher } from "./switcher";
 import {
 	setAddNewPatientInputDialogState,
 	setInputDialogState,
+	setSnackBarState,
 } from "../../redux/Reducers/utilDataReducer";
 import { AppBar, Box } from "@mui/material";
 import { width } from "@mui/system";
@@ -106,7 +107,22 @@ export default function AddNewPatientInputModal() {
 			).format("YYYY-MM-DD HH:mm:ss");
 
 			console.log(transformedPatientData.date_of_birth);
-			await window.electron.PatientApi.post(transformedPatientData);
+			let newPatient = await window.electron.PatientApi.post(
+				transformedPatientData
+			);
+			if (newPatient.status === 200) {
+				dispatch(
+					setSnackBarState({
+						snackBarOpen: true,
+						text: "New patient added successfully",
+					})
+				);
+				dispatch(
+					setAddNewPatientInputDialogState({
+						addNewPatientInputDialogOpen: false,
+					})
+				);
+			}
 			console.log("posted");
 		} catch (err: any) {
 			console.log(err.message);

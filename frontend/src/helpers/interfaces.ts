@@ -124,6 +124,7 @@ export interface IStore {
 			inputDialogOpen: boolean;
 			addNewPatientInputDialogOpen: boolean;
 			addNewMedicineInputDialogOpen: boolean;
+			addNewConsultationInputDialogOpen: boolean;
 		};
 	};
 	applicationDataStore: {

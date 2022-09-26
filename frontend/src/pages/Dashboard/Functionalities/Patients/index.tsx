@@ -1,4 +1,4 @@
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button, Dialog, Grid } from "@mui/material";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,7 +6,11 @@ import AsyncSearchBar from "../../../../components/AsyncSearchBar";
 import AddIcon from "@mui/icons-material/Add";
 import AddNewPatientInputModal from "../../../../components/AddNewPatientModal";
 import AddNewPatient from "./AddNewPatient";
-import { setAddNewPatientInputDialogState } from "../../../../redux/Reducers/utilDataReducer";
+import {
+	setAddNewConsultationInputDialogState,
+	setAddNewPatientInputDialogState,
+	setSnackBarState,
+} from "../../../../redux/Reducers/utilDataReducer";
 import PatientInfo from "./PatientInfo";
 import {
 	resetSelectedPatientDataFields,
@@ -14,17 +18,26 @@ import {
 	setSelectedPatientProfileDetails,
 } from "../../../../redux/Reducers/appStateDataReducer";
 import { IStore } from "../../../../helpers/interfaces";
+import AlertDialog from "../../../../components/Dialog";
 
 let Container = styled.div`
 	display: flex;
 	flex-direction: column;
 `;
+enum Actions {
+	close,
+	open,
+}
 
 const Patients = () => {
 	const [patients, setPatients] = useState<any>([]);
 	let patientId = useSelector(
 		(state: IStore) =>
 			state.applicationDataStore.selectedPatient.patientProfileDetails.id
+	);
+	let addConsultationConfirmationIsOpen = useSelector(
+		(state: IStore) =>
+			state.utilDataStore.data.addNewConsultationInputDialogOpen
 	);
 	let dispatch = useDispatch();
 	const handleClickAddPatient = () => {
@@ -62,6 +75,20 @@ const Patients = () => {
 						patientConsultationDetails: patientWithTreatmentDetails.data,
 					})
 				);
+
+				if (newConsultation.status == 200) {
+					dispatch(
+						setAddNewConsultationInputDialogState({
+							addNewConsultationInputDialogOpen: false,
+						})
+					);
+					dispatch(
+						setSnackBarState({
+							snackBarOpen: true,
+							text: "Added new Consultation",
+						})
+					);
+				}
 			}
 		} catch (err) {
 			console.log(err);
@@ -85,6 +112,26 @@ const Patients = () => {
 					patientConsultationDetails: patientWithTreatmentDetails.data,
 				})
 			);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const handleInputDialogState = async (action: string): Promise<any> => {
+		try {
+			if (action === "open") {
+				dispatch(
+					setAddNewConsultationInputDialogState({
+						addNewConsultationInputDialogOpen: true,
+					})
+				);
+			} else if (action === "close") {
+				dispatch(
+					setAddNewConsultationInputDialogState({
+						addNewConsultationInputDialogOpen: false,
+					})
+				);
+			}
 		} catch (err) {
 			console.log(err);
 		}
@@ -122,7 +169,7 @@ const Patients = () => {
 							<Button
 								variant="outlined"
 								sx={{ height: "50px", alignContent: "center" }}
-								onClick={handleClickAddConsultation}
+								onClick={() => handleInputDialogState("open")}
 							>
 								<p>Add Consultation </p> &nbsp;
 								<AddIcon />
@@ -133,6 +180,12 @@ const Patients = () => {
 				</Box>
 			</Container>
 			<AddNewPatient />
+			<AlertDialog
+				action={handleClickAddConsultation}
+				close={() => handleInputDialogState("close")}
+				isOpen={addConsultationConfirmationIsOpen}
+				text={"Confirm to create a new Consultation ?"}
+			/>
 		</React.Fragment>
 	);
 };

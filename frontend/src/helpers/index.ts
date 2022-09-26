@@ -19,6 +19,7 @@ export const generateMaximumLengthString = (
 ): string => {
 	try {
 		if (length) {
+			if (string.length < length) return string;
 			let newString = string.substring(0, length) + "...";
 			return newString;
 		}
