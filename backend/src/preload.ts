@@ -194,6 +194,17 @@ contextBridge.exposeInMainWorld("electron", {
 			return ipcRenderer.invoke("medicine-delete", req);
 		},
 	},
+	PrescriptionApi: {
+		async post(req: IPrescription): Promise<any> {
+			return ipcRenderer.invoke("prescription-post", req);
+		},
+		async get(req: { treatmentDetailId: number }): Promise<any> {
+			return ipcRenderer.invoke("prescription-get", req);
+		},
+		async delete(req: { id: number }): Promise<any> {
+			return ipcRenderer.invoke("prescription-delete", req);
+		},
+	},
 });
 
 export interface IFavourite {
@@ -312,4 +323,12 @@ export interface IMedicine {
 	strength: string;
 	medicine_form: string;
 	description: string;
+}
+
+export interface IPrescription {
+	treatmentDetailId: number;
+	frequency: string;
+	from: string;
+	to: string;
+	dosage: string;
 }

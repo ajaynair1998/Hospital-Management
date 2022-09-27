@@ -88,6 +88,11 @@ export interface IElectronAPI {
 		get: (req: any) => Promise<any>;
 		delete: (req: any) => Promise<any>;
 	};
+	PrescriptionApi: {
+		post: (req: any) => Promise<any>;
+		get: (req: any) => Promise<any>;
+		delete: (req: any) => Promise<any>;
+	};
 }
 
 export interface IStore {
@@ -115,6 +120,7 @@ export interface IStore {
 		follow_ups: IFollowUp[];
 		investigation: IInvestigation[];
 		treatment_done: ITreatmentDone[];
+		prescription: IPrescription[];
 	};
 	utilDataStore: {
 		data: {
@@ -278,4 +284,16 @@ export interface IMedicine {
 	strength: string;
 	medicine_form: string;
 	description: string;
+}
+
+export interface IPrescription {
+	id: number;
+	medicine_name: string;
+	medicine_id: number;
+	frequency: string;
+	from: string;
+	to: string;
+	dosage: JSON;
+	createdAt: string;
+	duration: string;
 }

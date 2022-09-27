@@ -20,6 +20,7 @@ import patientRoute from "./routes/patientRoute";
 import logger from "./logger";
 import treatmentDetailsRoute from "./routes/treatmentDetailsRoute";
 import medicineRoute from "./routes/medicineRoute";
+import prescriptionRoute from "./routes/prescriptionRoute";
 
 function createWindow(): void {
 	const win = new BrowserWindow({
@@ -65,6 +66,7 @@ treatmentDoneRoute;
 patientRoute;
 treatmentDetailsRoute;
 medicineRoute;
+prescriptionRoute;
 
 app.on("window-all-closed", function () {
 	if (process.platform !== "darwin") app.quit();

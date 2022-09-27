@@ -17,6 +17,7 @@ export const PatientTreatmentDetailsDataSlice = createSlice({
 		follow_ups: [],
 		investigation: [],
 		treatment_done: [],
+		prescription: [],
 	},
 	reducers: {
 		setChiefComplaints: (state: any, action: any) => {
@@ -58,6 +59,9 @@ export const PatientTreatmentDetailsDataSlice = createSlice({
 		setTreatmentDone: (state: any, action: any) => {
 			state.treatment_done = action.payload;
 		},
+		setPrescription: (state: any, action: any) => {
+			state.prescription = action.payload;
+		},
 	},
 });
 
@@ -75,5 +79,6 @@ export const {
 	setFollowUps,
 	setInvestigation,
 	setTreatmentDone,
+	setPrescription,
 } = PatientTreatmentDetailsDataSlice.actions;
 export default PatientTreatmentDetailsDataSlice.reducer;

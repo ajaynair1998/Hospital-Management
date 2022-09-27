@@ -40,7 +40,7 @@ export const FunctionalitySwitch = (): JSX.Element => {
 			return <PastMedicalHistory />;
 		case "investigation":
 			return <Investigation />;
-		case "medicine":
+		case "prescription":
 			return <React.Fragment />;
 		case "follow_up":
 			return <FollowUps />;

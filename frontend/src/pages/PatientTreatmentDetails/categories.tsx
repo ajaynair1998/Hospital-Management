@@ -60,9 +60,9 @@ export const categoriesList: ICategory[] = [
 	},
 	{
 		key: 8,
-		category_name: "Medicines",
+		category_name: "Prescriptions",
 		category_icon: <HealingIcon />,
-		location: "medicine",
+		location: "prescription",
 	},
 	{
 		key: 9,
