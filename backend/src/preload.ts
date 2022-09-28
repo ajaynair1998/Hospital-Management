@@ -327,8 +327,11 @@ export interface IMedicine {
 
 export interface IPrescription {
 	treatmentDetailId: number;
+	medicine_name: string;
+	medicine_id: number;
 	frequency: string;
 	from: string;
 	to: string;
 	dosage: string;
+	duration: string;
 }
