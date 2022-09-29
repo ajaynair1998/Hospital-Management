@@ -15,6 +15,9 @@ import {
 import { convertToReadableDate } from "../../helpers";
 import AlertDialog from "../Dialog";
 import appStateDataReducer from "../../redux/Reducers/appStateDataReducer";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
 
 const Img = styled("img")({
 	margin: "auto",
@@ -25,13 +28,18 @@ const Img = styled("img")({
 
 interface IProps {
 	createdAt?: string;
-	medicine_name: string;
+	name: string;
 	medicine_id: number;
+	medicine_form: string;
 	frequency: string;
-	from: string;
-	to: string;
+	start_date: string;
+	end_date: string;
 	duration: string;
-	dosage?: JSON;
+	dosage: {
+		morning: number;
+		afternoon: number;
+		evening: number;
+	};
 	id?: number;
 	handleSelectPresciption: Function;
 	openDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -54,6 +62,10 @@ export const PrescriptionDataEntries = () => {
 		let response = await window.electron.PrescriptionApi.get({
 			treatmentDetailId: patientTreatmentDetailId,
 		});
+		console.log(
+			"🚀 ~ file: index.tsx ~ line 57 ~ fetchAllExistingPrescriptions ~ response",
+			response
+		);
 		if (response.status === 200) {
 			dispatch(setPrescription(response.data));
 		}
@@ -91,11 +103,12 @@ export const PrescriptionDataEntries = () => {
 						return (
 							<PrescriptionDataEntry
 								createdAt={item.createdAt}
-								medicine_name={item.medicine_name}
+								name={item.name}
 								medicine_id={item.medicine_id}
 								dosage={item.dosage}
-								from={item.from}
-								to={item.to}
+								medicine_form={item.medicine_form}
+								start_date={item.start_date}
+								end_date={item.end_date}
 								frequency={item.frequency}
 								key={item.id}
 								duration={item.duration}
@@ -118,11 +131,12 @@ export const PrescriptionDataEntries = () => {
 
 export default function PrescriptionDataEntry({
 	createdAt,
-	medicine_name,
+	name,
 	medicine_id,
+	medicine_form,
 	dosage,
-	from,
-	to,
+	start_date,
+	end_date,
 	frequency,
 	duration,
 	handleSelectPresciption,
@@ -132,6 +146,7 @@ export default function PrescriptionDataEntry({
 }: IProps) {
 	const [created_at, setCreatedAt] = React.useState<any>("");
 	const [prescriptionName, setPrescriptionName] = React.useState<any>("");
+	const [medicineForm, setMedicineForm] = React.useState<any>("");
 	const [dosageValue, setDosageValue] = React.useState<any>("");
 	const [fromValue, setFromValue] = React.useState<any>("");
 	const [toValue, setToValue] = React.useState<any>("");
@@ -143,12 +158,13 @@ export default function PrescriptionDataEntry({
 
 	React.useEffect(() => {
 		setCreatedAt(createdAt);
-		setPrescriptionName(medicine_name);
+		setPrescriptionName(name);
 		setDosageValue(dosage);
-		setFromValue(from);
-		setToValue(to);
+		setFromValue(start_date);
+		setToValue(end_date);
 		setFrequencyValue(frequency);
 		setDurationValue(duration);
+		setMedicineForm(medicine_form);
 	}, []);
 
 	const handleRemoveButton = async () => {
@@ -186,11 +202,54 @@ export default function PrescriptionDataEntry({
 					<Grid item xs container direction="column" spacing={2}>
 						<Grid item xs sx={{ m: 1 }}>
 							<Typography gutterBottom variant="subtitle1" component="div">
-								{medicine_name}
+								{prescriptionName} {medicineForm && `(${medicineForm})`}
 							</Typography>
-							<Typography variant="body2" color="text.secondary" gutterBottom>
-								{durationValue}
-							</Typography>
+							<Grid container direction={"row"}>
+								<Grid item xs={3}>
+									<Typography
+										variant="body2"
+										color="text.secondary"
+										gutterBottom
+									>
+										{fromValue}
+									</Typography>
+								</Grid>
+								<Grid
+									item
+									xs={1}
+									sx={{
+										display: "flex",
+										flexDirection: "row",
+										justifyContent: "center",
+									}}
+								>
+									<ArrowForwardIcon fontSize="small" />
+								</Grid>
+
+								<Grid item xs={3}>
+									<Typography
+										variant="body2"
+										color="text.secondary"
+										gutterBottom
+									>
+										{toValue}
+									</Typography>
+								</Grid>
+							</Grid>
+							{/* <Grid container direction={"row"}> */}
+							<Stack direction="row" spacing={1} sx={{ mt: 2 }}>
+								<Chip label={`morning - ${dosage.morning}`} color={"success"} />
+								<Chip
+									label={`afternoon - ${dosage.afternoon}`}
+									color={"default"}
+								/>
+								<Chip
+									label={`evening - ${dosage.evening}`}
+									color={"secondary"}
+								/>
+							</Stack>
+							{/* </Grid> */}
+
 							{frequencyValue && (
 								<React.Fragment>
 									<Typography variant="body2" gutterBottom mt={2}>

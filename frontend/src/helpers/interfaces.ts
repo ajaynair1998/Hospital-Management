@@ -280,6 +280,7 @@ export interface IPatient {
 	referred_by?: string;
 }
 export interface IMedicine {
+	id?: number;
 	name: string;
 	strength: string;
 	medicine_form: string;
@@ -288,12 +289,17 @@ export interface IMedicine {
 
 export interface IPrescription {
 	id: number;
-	medicine_name: string;
+	name: string;
 	medicine_id: number;
 	frequency: string;
-	from: string;
-	to: string;
-	dosage: JSON;
+	start_date: string;
+	medicine_form: string;
+	end_date: string;
+	dosage: {
+		morning: number;
+		afternoon: number;
+		evening: number;
+	};
 	createdAt: string;
 	duration: string;
 }

@@ -14,8 +14,11 @@ import {
 	Grid,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { setChiefComplaints } from "../../redux/Reducers/patientTreatmentDetailsReducer";
-import { IStore } from "../../helpers/interfaces";
+import {
+	setChiefComplaints,
+	setPrescription,
+} from "../../redux/Reducers/patientTreatmentDetailsReducer";
+import { IMedicine, IStore } from "../../helpers/interfaces";
 import {
 	setInputDialogState,
 	setSelectedInputValue,
@@ -25,13 +28,29 @@ import { getFavourites, timeout } from "../../helpers/functions";
 import { setFavourites } from "../../redux/Reducers/favouritesDataReducer";
 import { setTimeout } from "timers/promises";
 import AutoCompleteTemplate from "../AutoCompleteTemplate";
+import DateInput from "../DateInput";
+import moment from "moment";
+import { convertToReadableDate } from "../../helpers";
+let todaysDate = new Date();
+let tomorrowsDate = new Date(
+	todaysDate.getFullYear(),
+	todaysDate.getMonth(),
+	todaysDate.getDate() + 1
+);
 
 const PrescriptionInput = () => {
 	const dispatch = useDispatch();
 	let [treatmentDetailId, setTreatmentDetailId] = useState(1);
+	let [medicine, setMedicine] = useState<IMedicine>({} as IMedicine);
+	let [medicineForm, setMedicineForm] = useState("");
+	let [from, setFrom] = useState<Date | null | string>(todaysDate);
+	let [to, setTo] = useState<Date | null | string>(tomorrowsDate);
+	let [morning, setMorning] = useState(0);
+	let [afternoon, setAfternoon] = useState(0);
+	let [evening, setEvening] = useState(0);
 	let [complaint, setComplaint] = useState("");
 	let [type, setType] = useState("hours");
-	let [duration, setDuration] = useState("");
+	let [duration, setDuration] = useState(0);
 	let [details, setDetails] = useState("");
 	let [medicines, setMedicines] = useState([]);
 	const patientTreatmentDetailId = useSelector(
@@ -51,6 +70,10 @@ const PrescriptionInput = () => {
 	const handleInputValueChange = async (e: any, value: any) => {
 		try {
 			console.log(value);
+			if (value && value.name && value.medicine_form) {
+				setMedicine(value);
+				setMedicineForm(value.medicine_form);
+			}
 			getAllMedicines();
 		} catch (err) {
 			console.log(err);
@@ -65,35 +88,54 @@ const PrescriptionInput = () => {
 		try {
 			// check whether this exists in the favourites , if not
 			// add it into the facourites data
+			if (medicine && medicine.id) {
+				let dosage = {
+					morning,
+					afternoon,
+					evening,
+				};
 
-			let addedToFavourites = await window.electron.favouritesApi.post({
-				category: "chief_complaint",
-				data: complaint,
-			});
+				let fromDate = convertToReadableDate(from);
+				console.log(
+					"🚀 ~ file: index.tsx ~ line 99 ~ handleAdd ~ fromDate",
+					fromDate
+				);
+				let toDate = convertToReadableDate(to);
+				console.log(
+					"🚀 ~ file: index.tsx ~ line 101 ~ handleAdd ~ toDate",
+					toDate
+				);
+				const response = await window.electron.PrescriptionApi.post({
+					treatmentDetailId: patientTreatmentDetailId,
+					details: details,
+					medicine_id: medicine.id,
+					medicine_form: medicineForm,
+					duration: duration + " " + type,
+					dosage: dosage,
+					start_date: fromDate,
+					end_date: toDate,
+				});
 
-			let { data } = await getFavourites("chief_complaint");
-			const response = await window.electron.ChiefComplaintsApi.post({
-				treatmentDetailId: patientTreatmentDetailId,
-				details: details,
-				complaint: complaint,
-				duration: duration + " " + type,
-			});
+				let allPrescriptions = await window.electron.PrescriptionApi.get({
+					treatmentDetailId: patientTreatmentDetailId,
+				});
+				console.log(
+					"🚀 ~ file: index.tsx ~ line 93 ~ handleAdd ~ allPrescriptions",
+					allPrescriptions
+				);
 
-			let allComplaints = await window.electron.ChiefComplaintsApi.get({
-				treatmentDetailId: patientTreatmentDetailId,
-			});
-			console.log(allComplaints);
+				dispatch(setPrescription(allPrescriptions.data));
+				setType("days");
+				setDuration(0);
+				setDetails("");
 
-			dispatch(setChiefComplaints(allComplaints.data));
-			dispatch(setFavourites(data));
-			setComplaint("");
-			setType("hours");
-			setDuration("");
-			setDetails("");
-
-			if (response.status === 200) {
-				dispatch(setSnackBarState({ snackBarOpen: true, text: "Success" }));
-				dispatch(setInputDialogState({ inputDialogOpen: false }));
+				if (response.status === 200) {
+					dispatch(setSnackBarState({ snackBarOpen: true, text: "Success" }));
+					dispatch(setInputDialogState({ inputDialogOpen: false }));
+				}
+			} else {
+				dispatch(setSnackBarState({ snackBarOpen: true, text: "Failure" }));
+				// dispatch(setInputDialogState({ inputDialogOpen: false }));
 			}
 		} catch (err: any) {
 			console.log(err.message);
@@ -109,6 +151,48 @@ const PrescriptionInput = () => {
 			);
 			if (medicines.status === 200) {
 				setMedicines(medicines.data);
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const handleSearchChange = async (value: string): Promise<void> => {
+		try {
+			setMedicineForm("");
+			setMedicine({} as IMedicine);
+			await getAllMedicines();
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const handleChangeFrequency = (type: string, frequencyAsString: string) => {
+		try {
+			let frequency = Number(frequencyAsString);
+			if (type === "morning") {
+				if (frequency >= 0) {
+					setMorning(frequency);
+				}
+			} else if (type === "afternoon") {
+				if (frequency! >= 0) {
+					setAfternoon(frequency);
+				}
+			} else if (type === "evening") {
+				if (frequency! >= 0) {
+					setEvening(frequency);
+				}
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const handleChangeDuration = (durationAsString: string) => {
+		try {
+			let duration = Number(durationAsString);
+			if (duration >= 0) {
+				setDuration(duration);
 			}
 		} catch (err) {
 			console.log(err);
@@ -133,9 +217,7 @@ const PrescriptionInput = () => {
 					label={"Medicine"}
 					selectionOnChange={handleInputValueChange}
 					sortFirstLetterProperty={"name"}
-					handleChange={async (v) => {
-						console.log();
-					}}
+					handleChange={(value: string) => handleSearchChange(value)}
 					componantToDisplayOnSearch={(propsFromRender: any, option: any) => {
 						return (
 							<li {...propsFromRender} key={option.id}>
@@ -146,28 +228,27 @@ const PrescriptionInput = () => {
 				/>
 				<TextField
 					id="outlined-basic"
-					label="Duration"
+					label="Medicine Form"
 					variant="outlined"
-					value={duration}
+					value={medicineForm}
+					disabled={true}
 					// sx={{ width: "200px!important" }}
-					onChange={(e) => setDuration(e.target.value)}
+					// onChange={(e) => setDuration(e.target.value)}
 				/>
-				<FormControl>
-					<InputLabel id="demo-simple-select-label"> type</InputLabel>
-					<Select
-						labelId="demo-simple-select-label"
-						id="demo-simple-select"
-						value={type}
-						label="type"
-						onChange={(e) => handleChangeType(e)}
-					>
-						<MenuItem value={"hours"}>Hours</MenuItem>
-						<MenuItem value={"weeks"}>Weeks</MenuItem>
-						<MenuItem value={"days"}>Days</MenuItem>
-						<MenuItem value={"months"}>Months</MenuItem>
-						<MenuItem value={"years"}>Years</MenuItem>
-					</Select>
-				</FormControl>
+
+				<Grid container spacing={0} justifyContent={"flex-start"} gap={2}>
+					<Grid item xs={5}>
+						<DateInput handleChange={setFrom} value={from} label={"From"} />
+					</Grid>
+					<Grid item xs={5}>
+						<DateInput
+							handleChange={setTo}
+							value={to}
+							label={"To"}
+							minDate={"1"}
+						/>
+					</Grid>
+				</Grid>
 				<Grid container spacing={0} justifyContent={"flex-start"} gap={2}>
 					<Grid item xs={3}>
 						<TextField
@@ -178,6 +259,8 @@ const PrescriptionInput = () => {
 								shrink: true,
 							}}
 							variant="outlined"
+							value={morning}
+							onChange={(e) => handleChangeFrequency("morning", e.target.value)}
 						/>
 					</Grid>
 					<Grid item xs={3}>
@@ -189,6 +272,10 @@ const PrescriptionInput = () => {
 								shrink: true,
 							}}
 							variant="outlined"
+							value={afternoon}
+							onChange={(e) =>
+								handleChangeFrequency("afternoon", e.target.value)
+							}
 						/>
 					</Grid>
 					<Grid item xs={3}>
@@ -200,6 +287,8 @@ const PrescriptionInput = () => {
 								shrink: true,
 							}}
 							variant="outlined"
+							value={evening}
+							onChange={(e) => handleChangeFrequency("evening", e.target.value)}
 						/>
 					</Grid>
 				</Grid>

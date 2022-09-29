@@ -1,6 +1,8 @@
 import moment from "moment";
 import uniqid from "uniqid";
-export const convertToReadableDate = (date: string | undefined | Date) => {
+export const convertToReadableDate = (
+	date: string | undefined | Date | null
+) => {
 	try {
 		let currentTime = moment(date, "YYYY-MM-DD HH:mm:ss");
 		return currentTime.format("Do MMMM YYYY hh:mm a");

@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { PrescriptionDataEntries } from "../../../components/PrescriptionDataEntries";
 import { IStore } from "../../../helpers/interfaces";
 import ChiefComplaints from "./ChiefComplaints";
 import ClinicalDiagnosis from "./ClinicalDiagnosis";
@@ -41,7 +42,7 @@ export const FunctionalitySwitch = (): JSX.Element => {
 		case "investigation":
 			return <Investigation />;
 		case "prescription":
-			return <React.Fragment />;
+			return <PrescriptionDataEntries />;
 		case "follow_up":
 			return <FollowUps />;
 		case "history_of_complaints":

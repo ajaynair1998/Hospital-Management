@@ -15,8 +15,8 @@ export interface IPrescription
 	id?: CreationOptional<number>;
 	treatmentDetailId?: number;
 	frequency?: string;
-	from?: string;
-	to?: string;
+	start_date?: string;
+	end_date?: string;
 	dosage?: string;
 	medicine_name?: string;
 	medicine_id?: number;
@@ -50,11 +50,11 @@ const Prescription = sequelize.define<IPrescription>("Prescription", {
 		type: DataTypes.STRING,
 		allowNull: true,
 	},
-	from: {
+	start_date: {
 		type: DataTypes.STRING,
 		allowNull: true,
 	},
-	to: {
+	end_date: {
 		type: DataTypes.STRING,
 		allowNull: true,
 	},

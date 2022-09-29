@@ -330,8 +330,8 @@ export interface IPrescription {
 	medicine_name: string;
 	medicine_id: number;
 	frequency: string;
-	from: string;
-	to: string;
+	start_date: string;
+	end_date: string;
 	dosage: string;
 	duration: string;
 }

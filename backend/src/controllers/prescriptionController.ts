@@ -1,6 +1,8 @@
 import _ from "lodash";
 import { IPrescription } from "../preload";
 import Prescription from "../models/Prescription";
+import { database as sequelize } from "../configs/sqlite";
+import { QueryTypes } from "sequelize";
 
 interface IPost extends IPrescription {}
 
@@ -10,8 +12,8 @@ const PrescriptionController: IPrescriptionController = {
 			console.log(args);
 			const treatment_detail_id = args.treatmentDetailId;
 			let frequency = args.frequency;
-			let from = args.from;
-			let to = args.to;
+			let start_date = args.start_date;
+			let end_date = args.end_date;
 			let dosage = args.dosage;
 			let medicine_name = args.medicine_name;
 			let medicine_id = args.medicine_id;
@@ -24,8 +26,8 @@ const PrescriptionController: IPrescriptionController = {
 				medicine_name: medicine_name,
 				medicine_id: medicine_id,
 				frequency: frequency,
-				from: from,
-				to: to,
+				start_date: start_date,
+				end_date: end_date,
 				dosage: dosage,
 				duration: duration,
 			});
@@ -49,13 +51,21 @@ const PrescriptionController: IPrescriptionController = {
 	) {
 		try {
 			const TreatmentDetailId = args.treatmentDetailId;
-			let prescriptions = await Prescription.findAll({
-				where: {
-					treatmentDetailId: TreatmentDetailId,
-				},
-				raw: true,
-				order: [["createdAt", "DESC"]],
-			});
+			// let prescriptions = await Prescription.findAll({
+			// 	where: {
+			// 		treatmentDetailId: TreatmentDetailId,
+			// 	},
+			// 	include: [{ model: Medicine }],
+			// 	raw: true,
+			// 	order: [["createdAt", "DESC"]],
+			// });
+			let prescriptions: any[] = await sequelize.query(
+				`SELECT p.id as id ,p.start_date,p.end_date,p.dosage,m.name,m.medicine_form,p.createdAt,p.updatedAt FROM Prescriptions as p INNER JOIN medicines as m on m.id = p.medicine_id  where p.treatmentDetailId = ${TreatmentDetailId}  `,
+				{
+					type: QueryTypes.SELECT,
+				}
+			);
+
 			let allPrescriptionsParsed = prescriptions.map((item) => {
 				return {
 					...item,
@@ -64,7 +74,7 @@ const PrescriptionController: IPrescriptionController = {
 			});
 			return {
 				status: 200,
-				data: prescriptions,
+				data: allPrescriptionsParsed,
 			};
 		} catch (err: any) {
 			console.log(err);
