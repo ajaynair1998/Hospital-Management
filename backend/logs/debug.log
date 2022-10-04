@@ -748,3 +748,9 @@
   label: 'winston custom format',
   timestamp: 'Thursday, September 29th 2022, 11:39:30 pm'
 }
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Tuesday, October 4th 2022, 9:01:42 pm'
+}
