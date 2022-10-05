@@ -69,6 +69,7 @@ const HistoryOfComplaintsInput = () => {
 			});
 			console.log(allComplaints);
 
+			dispatch(setSelectedInputValue(""));
 			dispatch(setHistoryOfComplaints(allComplaints.data));
 			dispatch(setFavourites(data));
 			setComplaint("");

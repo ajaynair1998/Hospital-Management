@@ -49,12 +49,7 @@ export default function BasicAccordion({
 								{headings.length > 0 ? (
 									headings.map((item: string) => {
 										return (
-											<Button
-												variant="contained"
-												sx={{
-													background: "#293241",
-												}}
-											>
+											<Button variant="contained" color="primary">
 												{item}
 											</Button>
 										);

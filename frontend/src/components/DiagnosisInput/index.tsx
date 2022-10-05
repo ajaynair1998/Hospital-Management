@@ -73,6 +73,7 @@ const DiagnosisInput = () => {
 			setDetails("");
 
 			if (response.status === 200) {
+				dispatch(setSelectedInputValue(""));
 				dispatch(setSnackBarState({ snackBarOpen: true, text: "Success" }));
 				dispatch(setInputDialogState({ inputDialogOpen: false }));
 			}

@@ -190,12 +190,7 @@ export function DrugAllergyDataEntry({
 									{histories.length > 0 ? (
 										histories.map((item: string) => {
 											return (
-												<Button
-													variant="contained"
-													sx={{
-														background: "#d81159",
-													}}
-												>
+												<Button variant="contained" color="primary">
 													{item}
 												</Button>
 											);

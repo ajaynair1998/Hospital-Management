@@ -754,3 +754,15 @@
   label: 'winston custom format',
   timestamp: 'Tuesday, October 4th 2022, 9:01:42 pm'
 }
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Wednesday, October 5th 2022, 10:03:35 am'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Wednesday, October 5th 2022, 10:03:46 am'
+}

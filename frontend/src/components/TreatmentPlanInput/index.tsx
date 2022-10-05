@@ -75,6 +75,7 @@ const TreatmentPlanInput = () => {
 			});
 			console.log(allTreatments);
 
+			dispatch(setSelectedInputValue(""));
 			dispatch(setTreatmentPlan(allTreatments.data));
 			dispatch(setFavourites(data));
 			setTreatment("");

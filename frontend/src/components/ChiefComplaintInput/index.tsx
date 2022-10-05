@@ -72,6 +72,7 @@ const ChiefComplaintInput = () => {
 			});
 			console.log(allComplaints);
 
+			dispatch(setSelectedInputValue(""));
 			dispatch(setChiefComplaints(allComplaints.data));
 			dispatch(setFavourites(data));
 			setComplaint("");

@@ -11,7 +11,10 @@ import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import { IStore } from "../../helpers/interfaces";
 import { InputSwitcher } from "./switcher";
-import { setInputDialogState } from "../../redux/Reducers/utilDataReducer";
+import {
+	setInputDialogState,
+	setSelectedInputValue,
+} from "../../redux/Reducers/utilDataReducer";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	"& .MuiDialogContent-root": {
@@ -71,6 +74,7 @@ export default function InputDialog() {
 		setOpen(true);
 	};
 	const handleClose = () => {
+		dispatch(setSelectedInputValue(""));
 		setOpen(false);
 		dispatch(setInputDialogState({ inputDialogOpen: false }));
 	};

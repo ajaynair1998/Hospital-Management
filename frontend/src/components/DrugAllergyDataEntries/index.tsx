@@ -185,13 +185,7 @@ export function DrugAllergyDataEntry({
 									{allergies.length > 0 ? (
 										allergies.map((item: string, index: number) => {
 											return (
-												<Button
-													key={index}
-													variant="contained"
-													sx={{
-														background: "#06d6a0",
-													}}
-												>
+												<Button key={index} variant="contained" color="primary">
 													{item}
 												</Button>
 											);

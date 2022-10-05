@@ -67,6 +67,7 @@ const ClinicalDiagnosisInput = () => {
 			});
 			console.log(allDiagnosis);
 
+			dispatch(setSelectedInputValue(""));
 			dispatch(setClinicalDiagnosis(allDiagnosis.data));
 			dispatch(setFavourites(data));
 			setDiagnosis("");
