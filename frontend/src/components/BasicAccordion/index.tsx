@@ -26,7 +26,6 @@ export default function BasicAccordion({
 	let headings: string[] = [];
 	if (arrayOfItems) {
 		headings = heading.split(",");
-		console.log("🚀 ~ file: index.tsx ~ line 29 ~ headings", headings);
 	}
 	return (
 		<div key={id} style={{ marginBottom: 15 }}>
@@ -47,9 +46,9 @@ export default function BasicAccordion({
 						<React.Fragment>
 							<Grid item xs direction="row" gap={2} container>
 								{headings.length > 0 ? (
-									headings.map((item: string) => {
+									headings.map((item: string, index: number) => {
 										return (
-											<Button variant="contained" color="primary">
+											<Button variant="contained" color="primary" key={index}>
 												{item}
 											</Button>
 										);

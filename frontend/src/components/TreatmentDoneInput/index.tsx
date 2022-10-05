@@ -74,7 +74,6 @@ const TreatmentDoneInput = () => {
 			let allTreatments = await window.electron.TreatmentDoneApi.get({
 				treatmentDetailId: patientTreatmentDetailId,
 			});
-			console.log(allTreatments);
 
 			dispatch(setSelectedInputValue(""));
 			dispatch(setTreatmentDone(allTreatments.data));

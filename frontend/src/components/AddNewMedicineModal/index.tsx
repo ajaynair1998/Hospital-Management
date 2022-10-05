@@ -92,7 +92,6 @@ export default function AddNewMedicineInputModal() {
 
 	const handleSubmit = async () => {
 		try {
-			console.log("pressed save");
 			let newMedicine = await window.electron.MedicineApi.post({
 				name,
 				strength,
@@ -118,10 +117,6 @@ export default function AddNewMedicineInputModal() {
 	const getAllMedicines = async () => {
 		try {
 			let medicines = await window.electron.MedicineApi.get({});
-			console.log(
-				"🚀 ~ file: index.tsx ~ line 115 ~ getAllMedicines ~ medicines",
-				medicines
-			);
 
 			dispatch(setMedicines({ medicines: medicines.data }));
 		} catch (err) {

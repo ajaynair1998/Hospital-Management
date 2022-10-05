@@ -66,7 +66,6 @@ const FollowUpInput = () => {
 			let allFollowups = await window.electron.FollowUpApi.get({
 				treatmentDetailId: patientTreatmentDetailId,
 			});
-			console.log(allFollowups);
 
 			dispatch(setFollowUps(allFollowups.data));
 			setDetails("");

@@ -29,10 +29,6 @@ const MedicineList = () => {
 	const medicines = useSelector(
 		(state: IStore) => state.applicationDataStore.medicines
 	);
-	console.log(
-		"🚀 ~ file: index.tsx ~ line 32 ~ MedicineList ~ medicines",
-		medicines
-	);
 
 	useEffect(() => {
 		getAllMedicines();

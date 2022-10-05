@@ -21,8 +21,6 @@ const FilePickerComponent = ({ handleChange, fileName }: IProps) => {
 		const file_size = file.size;
 		const file_type = file.type;
 		reader.onloadend = () => {
-			console.log(reader.result);
-			console.log("reader load complete");
 			handleChange
 				? handleChange({
 						file_name: file_name,
@@ -30,7 +28,7 @@ const FilePickerComponent = ({ handleChange, fileName }: IProps) => {
 						file_type: file_type,
 						file_data: reader.result,
 				  })
-				: console.log("handlechange was not passed in for image upload");
+				: console.log("handleChange was not passed in for image upload");
 		};
 		reader.readAsDataURL(file);
 	};

@@ -40,7 +40,6 @@ const MedicineController: IMedicineController = {
 				raw: true,
 				order: [["createdAt", "DESC"]],
 			});
-			console.log(allMedicines);
 			return {
 				status: 200,
 				data: allMedicines,

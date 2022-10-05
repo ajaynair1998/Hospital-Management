@@ -42,7 +42,6 @@ const DiagnosisController: IDiagnosisController = {
 				raw: true,
 				order: [["createdAt", "DESC"]],
 			});
-			console.log(allDiagnosis);
 			return {
 				status: 200,
 				data: allDiagnosis,

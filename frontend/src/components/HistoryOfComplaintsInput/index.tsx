@@ -67,7 +67,6 @@ const HistoryOfComplaintsInput = () => {
 			let allComplaints = await window.electron.HistoryOfComplaintsApi.get({
 				treatmentDetailId: patientTreatmentDetailId,
 			});
-			console.log(allComplaints);
 
 			dispatch(setSelectedInputValue(""));
 			dispatch(setHistoryOfComplaints(allComplaints.data));

@@ -20,7 +20,6 @@ export const InputSwitcher = () => {
 	let { location, category_name } = useSelector(
 		(state: IStore) => state.categoriesStore.data
 	);
-	console.log(location);
 	switch (location) {
 		case "chief_complaint":
 			return <ChiefComplaintInput />;

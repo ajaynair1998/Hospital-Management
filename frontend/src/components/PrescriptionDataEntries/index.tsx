@@ -62,10 +62,6 @@ export const PrescriptionDataEntries = () => {
 		let response = await window.electron.PrescriptionApi.get({
 			treatmentDetailId: patientTreatmentDetailId,
 		});
-		console.log(
-			"🚀 ~ file: index.tsx ~ line 57 ~ fetchAllExistingPrescriptions ~ response",
-			response
-		);
 		if (response.status === 200) {
 			dispatch(setPrescription(response.data));
 		}

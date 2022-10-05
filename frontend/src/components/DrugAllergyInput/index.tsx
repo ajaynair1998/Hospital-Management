@@ -108,12 +108,11 @@ const DrugAllergyInput = () => {
 				id: id,
 			});
 			if (deleteFavourite.status === 200) {
-				console.log("Deleted The favourite successfully");
 				let currentSelectedItems = { ...selectedItems };
 				delete currentSelectedItems[name];
 				setSelectedItems(currentSelectedItems);
 			} else {
-				console.log("Couldnt delete the  favourite");
+				console.log("Error Couldnt delete the favourite ");
 			}
 		} catch (err: any) {}
 	}

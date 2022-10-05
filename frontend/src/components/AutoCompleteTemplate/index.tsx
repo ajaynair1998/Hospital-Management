@@ -32,7 +32,6 @@ export default function AutoCompleteTemplate(props: IProps) {
 
 	React.useEffect(() => {
 		setOptions(props.valuesFromSearch);
-		console.log(options);
 	}, [props.valuesFromSearch]);
 
 	return (

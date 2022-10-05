@@ -32,6 +32,7 @@ const Img = styled("img")({
 });
 
 interface IProps {
+	key: number;
 	createdAt?: string;
 	histories: string[];
 	id?: number;
@@ -54,10 +55,6 @@ const PastSurgicalHistoryDataEntries = () => {
 		let response = await window.electron.PastSurgicalHistoryApi.get({
 			treatmentDetailId: patientTreatmentDetailId,
 		});
-		console.log(
-			"🚀 ~ file: index.tsx ~ line 52 ~ fetchAllExistingPastSurgicalHistory ~ response",
-			response
-		);
 		if (response.status === 200) {
 			dispatch(setPastSurgicalHistory(response.data));
 		}
@@ -115,6 +112,7 @@ const PastSurgicalHistoryDataEntries = () => {
 };
 
 export function PastSurgicalHistoryDataEntry({
+	key,
 	createdAt,
 	histories,
 	id,

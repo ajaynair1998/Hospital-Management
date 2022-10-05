@@ -53,26 +53,12 @@ const InvestigationInput = () => {
 	const patientTreatmentDetailId = useSelector(
 		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
 	);
-	useEffect(() => {
-		console.log(file);
-	}, [file]);
+	useEffect(() => {}, [file]);
 
 	const handleAdd = async () => {
 		try {
-			// check whether this exists in the favourites , if not
-			// add it into the facourites data
-
-			// let addedToFavourites = await window.electron.favouritesApi.post({
-			// 	category: location,
-			// 	data: diagnosisText,
-			// });
 			let { file_name, file_size, file_type, file_data } = file;
 			let { data } = await getFavourites(location);
-			// const response = await window.electron.DiagnosisApi.post({
-			// 	treatmentDetailId: treatmentDetailId,
-			// 	details: details,
-			// 	diagnosis: diagnosisText,
-			// });
 			const response = await window.electron.InvestigationApi.post({
 				treatmentDetailId: patientTreatmentDetailId,
 				file_data,
@@ -86,20 +72,7 @@ const InvestigationInput = () => {
 			);
 			setFile({});
 
-			// let allDiagnosis = await window.electron.DiagnosisApi.get({
-			// 	treatmentDetailId: 1,
-			// });
-			// console.log(allDiagnosis);
-
-			// dispatch(setDiagnosis(allDiagnosis.data));
 			dispatch(setFavourites(data));
-			// setDiagnosisText("");
-			// setDetails("");
-
-			// if (response.status === 200) {
-			// 	dispatch(setSnackBarState({ snackBarOpen: true, text: "Success" }));
-			// 	dispatch(setInputDialogState({ inputDialogOpen: false }));
-			// }
 		} catch (err: any) {
 			console.log(err.message);
 		}
@@ -120,15 +93,6 @@ const InvestigationInput = () => {
 				fileName={file.file_name}
 			/>
 
-			{/* <Button
-				variant="contained"
-				sx={{
-					width: "80px!important",
-				}}
-				onClick={() => handleAdd()}
-			>
-				Add
-			</Button> */}
 			<AppBar
 				elevation={0}
 				sx={{

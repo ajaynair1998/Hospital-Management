@@ -58,7 +58,6 @@ const GeneralExaminationInput = () => {
 				await window.electron.GeneralExaminationApi.get({
 					treatmentDetailId: patientTreatmentDetailId,
 				});
-			console.log(allGeneralExamination);
 
 			dispatch(setGeneralExamination(allGeneralExamination.data));
 			// dispatch(setFavourites(data));

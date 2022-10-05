@@ -65,7 +65,6 @@ const DiagnosisInput = () => {
 			let allDiagnosis = await window.electron.DiagnosisApi.get({
 				treatmentDetailId: patientTreatmentDetailId,
 			});
-			console.log(allDiagnosis);
 
 			dispatch(setDiagnosis(allDiagnosis.data));
 			dispatch(setFavourites(data));

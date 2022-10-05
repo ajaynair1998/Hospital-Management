@@ -69,7 +69,6 @@ const PrescriptionInput = () => {
 
 	const handleInputValueChange = async (e: any, value: any) => {
 		try {
-			console.log(value);
 			if (value && value.name && value.medicine_form) {
 				setMedicine(value);
 				setMedicineForm(value.medicine_form);
@@ -96,15 +95,7 @@ const PrescriptionInput = () => {
 				};
 
 				let fromDate = convertToReadableDate(from);
-				console.log(
-					"🚀 ~ file: index.tsx ~ line 99 ~ handleAdd ~ fromDate",
-					fromDate
-				);
 				let toDate = convertToReadableDate(to);
-				console.log(
-					"🚀 ~ file: index.tsx ~ line 101 ~ handleAdd ~ toDate",
-					toDate
-				);
 				const response = await window.electron.PrescriptionApi.post({
 					treatmentDetailId: patientTreatmentDetailId,
 					details: details,
@@ -119,10 +110,6 @@ const PrescriptionInput = () => {
 				let allPrescriptions = await window.electron.PrescriptionApi.get({
 					treatmentDetailId: patientTreatmentDetailId,
 				});
-				console.log(
-					"🚀 ~ file: index.tsx ~ line 93 ~ handleAdd ~ allPrescriptions",
-					allPrescriptions
-				);
 
 				dispatch(setPrescription(allPrescriptions.data));
 				setType("days");
@@ -145,10 +132,6 @@ const PrescriptionInput = () => {
 	const getAllMedicines = async () => {
 		try {
 			let medicines = await window.electron.MedicineApi.get({});
-			console.log(
-				"🚀 ~ file: index.tsx ~ line 96 ~ getAllMedicines ~ medicines",
-				medicines
-			);
 			if (medicines.status === 200) {
 				setMedicines(medicines.data);
 			}

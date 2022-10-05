@@ -54,10 +54,6 @@ const LocalExaminationDataEntries = () => {
 		let response = await window.electron.LocalExaminationApi.get({
 			treatmentDetailId: patientTreatmentDetailId,
 		});
-		console.log(
-			"🚀 ~ file: index.tsx ~ line 52 ~ fetchAllExistingLocalExaminations ~ response",
-			response
-		);
 		if (response.status === 200) {
 			dispatch(setLocalExamination(response.data));
 		}

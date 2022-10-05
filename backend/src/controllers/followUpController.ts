@@ -44,7 +44,6 @@ const FollowUpController: IFollowUpController = {
 				raw: true,
 				order: [["createdAt", "DESC"]],
 			});
-			console.log(allFollowUps);
 			return {
 				status: 200,
 				data: allFollowUps,

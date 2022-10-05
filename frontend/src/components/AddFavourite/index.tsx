@@ -40,9 +40,7 @@ const AddFavourite: React.FC<Props> = ({ category }) => {
 			});
 			if (response.status === 200) {
 				let allFavourites = await getFavourites();
-				console.log(allFavourites);
 			}
-			console.log(response);
 			return true;
 		} catch (err) {
 			console.log(err);

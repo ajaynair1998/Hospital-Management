@@ -70,7 +70,6 @@ const ChiefComplaintInput = () => {
 			let allComplaints = await window.electron.ChiefComplaintsApi.get({
 				treatmentDetailId: patientTreatmentDetailId,
 			});
-			console.log(allComplaints);
 
 			dispatch(setSelectedInputValue(""));
 			dispatch(setChiefComplaints(allComplaints.data));

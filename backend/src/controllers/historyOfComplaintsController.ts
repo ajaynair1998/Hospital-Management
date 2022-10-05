@@ -43,7 +43,6 @@ const historyOfComplaintsController: IHistoryOfComplaintsController = {
 				raw: true,
 				order: [["createdAt", "DESC"]],
 			});
-			console.log(allComplaints);
 			return {
 				status: 200,
 				data: allComplaints,

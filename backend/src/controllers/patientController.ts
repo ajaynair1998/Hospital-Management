@@ -35,10 +35,6 @@ const PatientController: IPatientController = {
 				doctor_name: args.doctor_name,
 				referred_by: args.referred_by,
 			});
-			console.log(
-				"🚀 ~ file: patientController.ts ~ line 39 ~ post ~ newPatient",
-				newPatient
-			);
 
 			return {
 				status: 200,
@@ -58,10 +54,6 @@ const PatientController: IPatientController = {
 					{
 						type: QueryTypes.SELECT,
 					}
-				);
-				console.log(
-					"🚀 ~ file: patientController.ts ~ line 62 ~ get ~ patientWithTreatmentDetails",
-					patientWithTreatmentDetails
 				);
 				return {
 					status: 200,
@@ -94,10 +86,6 @@ const PatientController: IPatientController = {
 						);
 					}
 				}
-				console.log(
-					"🚀 ~ file: patientController.ts ~ line 57 ~ get ~ patients",
-					patients
-				);
 				patients = patients.sort((a: any, b: any) => {
 					if (a.name && b.name) {
 						return a.name[0] > b.name[0] ? 1 : -1;

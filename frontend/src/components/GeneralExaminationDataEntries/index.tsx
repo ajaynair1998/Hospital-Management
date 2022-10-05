@@ -57,7 +57,6 @@ const GeneralExaminationDataEntries = () => {
 			treatmentDetailId: patientTreatmentDetailId,
 		});
 		if (response.status === 200) {
-			console.log(response);
 			dispatch(setGeneralExamination(response.data));
 		}
 	};

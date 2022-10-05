@@ -106,7 +106,6 @@ export default function AddNewPatientInputModal() {
 				"YYYY-MM-DD HH:mm:ss"
 			).format("YYYY-MM-DD HH:mm:ss");
 
-			console.log(transformedPatientData.date_of_birth);
 			let newPatient = await window.electron.PatientApi.post(
 				transformedPatientData
 			);
@@ -123,7 +122,6 @@ export default function AddNewPatientInputModal() {
 					})
 				);
 			}
-			console.log("posted");
 		} catch (err: any) {
 			console.log(err.message);
 		}

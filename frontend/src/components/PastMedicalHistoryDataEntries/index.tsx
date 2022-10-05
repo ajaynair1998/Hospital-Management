@@ -52,10 +52,6 @@ const PastMedicalHistoryDataEntries = () => {
 		let response = await window.electron.PastMedicalHistoryApi.get({
 			treatmentDetailId: patientTreatmentDetailId,
 		});
-		console.log(
-			"🚀 ~ file: index.tsx ~ line 52 ~ fetchAllExistingPastMedicalHistory ~ response",
-			response
-		);
 		if (response.status === 200) {
 			dispatch(setPastMedicalHistory(response.data));
 		}

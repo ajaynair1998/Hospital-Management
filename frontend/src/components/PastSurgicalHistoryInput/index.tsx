@@ -109,7 +109,6 @@ const PastSurgicalHistoryInput = () => {
 				id: id,
 			});
 			if (deleteFavourite.status === 200) {
-				console.log("Deleted The favourite successfully");
 				let currentSelectedItems = { ...selectedItems };
 				delete currentSelectedItems[name];
 				setSelectedItems(currentSelectedItems);

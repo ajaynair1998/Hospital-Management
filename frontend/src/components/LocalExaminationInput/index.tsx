@@ -59,7 +59,6 @@ const LocalExaminationInput = () => {
 			let allExaminations = await window.electron.LocalExaminationApi.get({
 				treatmentDetailId: patientTreatmentDetailId,
 			});
-			console.log(allExaminations);
 
 			dispatch(setLocalExamination(allExaminations.data));
 			dispatch(setFavourites(data));
