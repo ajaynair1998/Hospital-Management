@@ -76,9 +76,15 @@ const PrescriptionController: IPrescriptionController = {
                         type: QueryTypes.SELECT
                     }
                 );
+				let allPrescriptionsParsed = prescriptions.map((item:any) => {
+                    return {
+                        ...item,
+                        dosage: item.dosage ? JSON.parse(item.dosage) : {}
+                    };
+                });
                 return {
                     status: 200,
-                    data: prescriptions
+                    data: allPrescriptionsParsed
                 };
             } else {
                 return { status: 500, message: 'Invalid code path' };

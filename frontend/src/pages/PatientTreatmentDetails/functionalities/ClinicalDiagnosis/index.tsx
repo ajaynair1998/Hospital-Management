@@ -20,9 +20,12 @@ let Container = styled.div`
 
 interface Props {}
 const ClinicalDiagnosis: React.FC<Props> = ({}) => {
+	let { multiple } = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation
+	);
 	return (
 		<Container>
-			<Favourites />
+			{!multiple ? <Favourites /> : <React.Fragment />}
 			{/* <ClinicalDiagnosisInput /> */}
 			<ClinicalDiagnosisDataEntries />
 		</Container>

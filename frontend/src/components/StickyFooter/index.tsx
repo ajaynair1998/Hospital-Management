@@ -9,6 +9,9 @@ import { setSelectedPatientConsultation } from "../../redux/Reducers/appStateDat
 
 const StickyFooter = () => {
 	let dispatch = useDispatch();
+	let { multiple } = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation
+	);
 
 	const navigate = useNavigate();
 	const goToTop = () => {
@@ -78,13 +81,17 @@ const StickyFooter = () => {
 				>
 					<NavigationIcon /> Top
 				</Button>
-				<Button
-					variant="contained"
-					color="success"
-					onClick={handleOpenInputDialog}
-				>
-					New
-				</Button>
+				{!multiple ? (
+					<Button
+						variant="contained"
+						color="success"
+						onClick={handleOpenInputDialog}
+					>
+						New
+					</Button>
+				) : (
+					<React.Fragment />
+				)}
 			</Box>
 		</AppBar>
 	);

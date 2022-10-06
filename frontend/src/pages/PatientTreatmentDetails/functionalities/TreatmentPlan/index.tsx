@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Favourites from "../../../../components/Favourites";
 
 import TreatmentPlanDataEntries from "../../../../components/TreatmentPlanDataEntries";
+import { IStore } from "../../../../helpers/interfaces";
 
 let Container = styled.div`
 	display: flex;
@@ -11,9 +13,12 @@ let Container = styled.div`
 
 interface Props {}
 const TreatmentPlan: React.FC<Props> = ({}) => {
+	let { multiple } = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation
+	);
 	return (
 		<Container>
-			<Favourites />
+			{!multiple ? <Favourites /> : <React.Fragment />}
 			<TreatmentPlanDataEntries />
 		</Container>
 	);
