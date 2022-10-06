@@ -41,10 +41,15 @@ export const ChiefComplaintDataEntries = () => {
 	const patientTreatmentDetailId = useSelector(
 		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
 	);
+	let { patientId, multiple } = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation
+	);
 	let dispatch = useDispatch();
 	const fetchAllExistingChiefComplaints = async () => {
 		let response = await window.electron.ChiefComplaintsApi.get({
 			treatmentDetailId: patientTreatmentDetailId,
+			multiple: multiple ? multiple : false,
+			patientId: patientId,
 		});
 		if (response.status === 200) {
 			dispatch(setChiefComplaints(response.data));

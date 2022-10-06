@@ -60,6 +60,10 @@ const PastMedicalHistoryInput = () => {
 		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
 	);
 
+	let { patientId, multiple } = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation
+	);
+
 	useEffect(() => {
 		initializeSelectedItems();
 	}, []);
@@ -131,6 +135,8 @@ const PastMedicalHistoryInput = () => {
 
 			let allHistories = await window.electron.PastMedicalHistoryApi.get({
 				treatmentDetailId: patientTreatmentDetailId,
+				multiple: multiple ? multiple : false,
+				patientId: patientId,
 			});
 
 			dispatch(setPastMedicalHistory(allHistories.data));

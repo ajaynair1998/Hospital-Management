@@ -30,6 +30,7 @@ const Img = styled("img")({
 });
 
 interface IProps {
+	key: number;
 	createdAt?: string;
 	histories: string[];
 	id?: number;
@@ -47,10 +48,16 @@ const PastMedicalHistoryDataEntries = () => {
 	const patientTreatmentDetailId = useSelector(
 		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
 	);
+
+	let { patientId, multiple } = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation
+	);
 	let dispatch = useDispatch();
 	const fetchAllExistingPastMedicalHistory = async () => {
 		let response = await window.electron.PastMedicalHistoryApi.get({
 			treatmentDetailId: patientTreatmentDetailId,
+			multiple: multiple ? multiple : false,
+			patientId: patientId,
 		});
 		if (response.status === 200) {
 			dispatch(setPastMedicalHistory(response.data));
@@ -87,7 +94,7 @@ const PastMedicalHistoryDataEntries = () => {
 				{past_medical_histories &&
 					past_medical_histories.map((item: IPastMedicalHistory) => {
 						return (
-							<DrugAllergyDataEntry
+							<PastMedicalHistoryDataEntry
 								createdAt={item.createdAt}
 								histories={item.history}
 								id={item.id}
@@ -108,7 +115,8 @@ const PastMedicalHistoryDataEntries = () => {
 	);
 };
 
-export function DrugAllergyDataEntry({
+export function PastMedicalHistoryDataEntry({
+	key,
 	createdAt,
 	histories,
 	id,
@@ -184,9 +192,9 @@ export function DrugAllergyDataEntry({
 							<React.Fragment>
 								<Grid item xs direction="row" gap={2} container>
 									{histories.length > 0 ? (
-										histories.map((item: string) => {
+										histories.map((item: string, index: number) => {
 											return (
-												<Button variant="contained" color="primary">
+												<Button variant="contained" color="primary" key={index}>
 													{item}
 												</Button>
 											);

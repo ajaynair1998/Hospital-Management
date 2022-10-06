@@ -46,6 +46,9 @@ const DrugAllergyInput = () => {
 	const patientTreatmentDetailId = useSelector(
 		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
 	);
+	let { patientId, multiple } = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation
+	);
 
 	let location = data.location;
 	let [treatmentDetailId, setTreatmentDetailId] = useState(1);
@@ -130,6 +133,8 @@ const DrugAllergyInput = () => {
 
 			let allAllergies = await window.electron.DrugAllergyApi.get({
 				treatmentDetailId: patientTreatmentDetailId,
+				multiple: multiple ? multiple : false,
+				patientId: patientId,
 			});
 
 			dispatch(setDrugAllergies(allAllergies.data));

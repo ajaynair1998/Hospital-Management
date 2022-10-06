@@ -15,6 +15,7 @@ import {
 	setChiefComplaints,
 	setClinicalDiagnosis,
 	setDiagnosis,
+	setInvestigation,
 } from "../../redux/Reducers/patientTreatmentDetailsReducer";
 import { IStore } from "../../helpers/interfaces";
 import {
@@ -53,7 +54,20 @@ const InvestigationInput = () => {
 	const patientTreatmentDetailId = useSelector(
 		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
 	);
+	let { patientId, multiple } = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation
+	);
 	useEffect(() => {}, [file]);
+	const fetchAllExistingInvestigations = async () => {
+		let response = await window.electron.InvestigationApi.get({
+			treatmentDetailId: patientTreatmentDetailId,
+			multiple: multiple ? multiple : false,
+			patientId: patientId,
+		});
+		if (response.status === 200) {
+			dispatch(setInvestigation(response.data));
+		}
+	};
 
 	const handleAdd = async () => {
 		try {
@@ -66,10 +80,7 @@ const InvestigationInput = () => {
 				file_size,
 				file_type,
 			});
-			console.log(
-				"🚀 ~ file: index.tsx ~ line 80 ~ handleAdd ~ response",
-				response
-			);
+			await fetchAllExistingInvestigations();
 			setFile({});
 
 			dispatch(setFavourites(data));

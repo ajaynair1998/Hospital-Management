@@ -49,10 +49,16 @@ const LocalExaminationDataEntries = () => {
 	const patientTreatmentDetailId = useSelector(
 		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
 	);
+
+	let { patientId, multiple } = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation
+	);
 	let dispatch = useDispatch();
 	const fetchAllExistingLocalExaminations = async () => {
 		let response = await window.electron.LocalExaminationApi.get({
 			treatmentDetailId: patientTreatmentDetailId,
+			multiple: multiple ? multiple : false,
+			patientId: patientId,
 		});
 		if (response.status === 200) {
 			dispatch(setLocalExamination(response.data));

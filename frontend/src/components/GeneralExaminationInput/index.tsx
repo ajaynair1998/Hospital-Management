@@ -38,6 +38,9 @@ const GeneralExaminationInput = () => {
 	const patientTreatmentDetailId = useSelector(
 		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
 	);
+	let { patientId, multiple } = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation
+	);
 
 	// let { location } = useSelector((state: IStore) => state.categoriesStore.data);
 
@@ -57,6 +60,8 @@ const GeneralExaminationInput = () => {
 			let allGeneralExamination =
 				await window.electron.GeneralExaminationApi.get({
 					treatmentDetailId: patientTreatmentDetailId,
+					multiple: multiple ? multiple : false,
+					patientId: patientId,
 				});
 
 			dispatch(setGeneralExamination(allGeneralExamination.data));

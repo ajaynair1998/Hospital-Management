@@ -36,6 +36,9 @@ const DiagnosisInput = () => {
 		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
 	);
 	let { inputValue } = useSelector((state: IStore) => state.utilDataStore.data);
+	let { patientId, multiple } = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation
+	);
 
 	useEffect(() => {
 		setDiagnosisText(inputValue);
@@ -64,6 +67,8 @@ const DiagnosisInput = () => {
 
 			let allDiagnosis = await window.electron.DiagnosisApi.get({
 				treatmentDetailId: patientTreatmentDetailId,
+				multiple: multiple ? multiple : false,
+				patientId: patientId,
 			});
 
 			dispatch(setDiagnosis(allDiagnosis.data));

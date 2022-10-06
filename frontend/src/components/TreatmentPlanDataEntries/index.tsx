@@ -44,10 +44,16 @@ const TreatmentPlanDataEntries = () => {
 	const patientTreatmentDetailId = useSelector(
 		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
 	);
+
+	let { patientId, multiple } = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation
+	);
 	let dispatch = useDispatch();
 	const fetchAllExistingTreatmentPlans = async () => {
 		let response = await window.electron.TreatmentPlanApi.get({
 			treatmentDetailId: patientTreatmentDetailId,
+			multiple: multiple ? multiple : false,
+			patientId: patientId,
 		});
 		if (response.status === 200) {
 			dispatch(setTreatmentPlan(response.data));

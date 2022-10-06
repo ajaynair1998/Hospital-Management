@@ -154,7 +154,7 @@ export interface IStore {
 		selectedPatientConsultation: {
 			id: number;
 			multiple: boolean;
-			multipleIds: number[];
+			patientId: number;
 		};
 	};
 }

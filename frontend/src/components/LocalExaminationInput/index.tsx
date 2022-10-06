@@ -43,6 +43,10 @@ const LocalExaminationInput = () => {
 		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
 	);
 
+	let { patientId, multiple } = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation
+	);
+
 	const handleAdd = async () => {
 		try {
 			// check whether this exists in the favourites , if not
@@ -58,6 +62,8 @@ const LocalExaminationInput = () => {
 
 			let allExaminations = await window.electron.LocalExaminationApi.get({
 				treatmentDetailId: patientTreatmentDetailId,
+				multiple: multiple ? multiple : false,
+				patientId: patientId,
 			});
 
 			dispatch(setLocalExamination(allExaminations.data));

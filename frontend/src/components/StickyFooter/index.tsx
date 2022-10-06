@@ -1,9 +1,11 @@
 import { AppBar, Box, Button } from "@mui/material";
 import React from "react";
 import NavigationIcon from "@mui/icons-material/Navigation";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setInputDialogState } from "../../redux/Reducers/utilDataReducer";
 import { useNavigate } from "react-router-dom";
+import { IStore } from "../../helpers/interfaces";
+import { setSelectedPatientConsultation } from "../../redux/Reducers/appStateDataReducer";
 
 const StickyFooter = () => {
 	let dispatch = useDispatch();
@@ -20,9 +22,19 @@ const StickyFooter = () => {
 	let handleOpenInputDialog = () => {
 		dispatch(setInputDialogState({ inputDialogOpen: true }));
 	};
+	let patientProfileDetails = useSelector(
+		(state: IStore) =>
+			state.applicationDataStore.selectedPatient.patientProfileDetails
+	);
 
 	const handleClickExit = () => {
 		try {
+			dispatch(
+				setSelectedPatientConsultation({
+					patientId: patientProfileDetails.id,
+					multiple: true,
+				})
+			);
 			navigate("/", { replace: true });
 		} catch (err) {
 			console.log(err);

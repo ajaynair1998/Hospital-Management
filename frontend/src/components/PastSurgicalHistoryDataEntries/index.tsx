@@ -50,11 +50,21 @@ const PastSurgicalHistoryDataEntries = () => {
 	const patientTreatmentDetailId = useSelector(
 		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
 	);
+
+	let { patientId, multiple } = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation
+	);
 	let dispatch = useDispatch();
 	const fetchAllExistingPastSurgicalHistory = async () => {
 		let response = await window.electron.PastSurgicalHistoryApi.get({
 			treatmentDetailId: patientTreatmentDetailId,
+			multiple: multiple ? multiple : false,
+			patientId: patientId,
 		});
+		console.log(
+			"🚀 ~ file: index.tsx ~ line 64 ~ fetchAllExistingPastSurgicalHistory ~ response",
+			response
+		);
 		if (response.status === 200) {
 			dispatch(setPastSurgicalHistory(response.data));
 		}
@@ -128,6 +138,7 @@ export function PastSurgicalHistoryDataEntry({
 	let created_at_readable_format = convertToReadableDate(createdAt);
 
 	React.useEffect(() => {
+		console.log(histories);
 		setCreatedAt(createdAt);
 		setDrugAllergy(histories);
 	}, []);
@@ -188,9 +199,9 @@ export function PastSurgicalHistoryDataEntry({
 							<React.Fragment>
 								<Grid item xs direction="row" gap={2} container>
 									{histories.length > 0 ? (
-										histories.map((item: string) => {
+										histories.map((item: string, index: number) => {
 											return (
-												<Button variant="contained" color="primary">
+												<Button variant="contained" color="primary" key={index}>
 													{item}
 												</Button>
 											);

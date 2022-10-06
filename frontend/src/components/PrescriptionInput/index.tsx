@@ -57,6 +57,10 @@ const PrescriptionInput = () => {
 		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
 	);
 
+	let { patientId, multiple } = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation
+	);
+
 	let { inputValue } = useSelector((state: IStore) => state.utilDataStore.data);
 
 	let handleChangeType = (e: SelectChangeEvent<string>) => {
@@ -109,6 +113,8 @@ const PrescriptionInput = () => {
 
 				let allPrescriptions = await window.electron.PrescriptionApi.get({
 					treatmentDetailId: patientTreatmentDetailId,
+					multiple: multiple ? multiple : false,
+					patientId: patientId,
 				});
 
 				dispatch(setPrescription(allPrescriptions.data));

@@ -38,6 +38,9 @@ const HistoryOfComplaintsInput = () => {
 	const patientTreatmentDetailId = useSelector(
 		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
 	);
+	let { patientId, multiple } = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation
+	);
 
 	useEffect(() => {
 		setComplaint(inputValue);
@@ -66,6 +69,8 @@ const HistoryOfComplaintsInput = () => {
 
 			let allComplaints = await window.electron.HistoryOfComplaintsApi.get({
 				treatmentDetailId: patientTreatmentDetailId,
+				multiple: multiple ? multiple : false,
+				patientId: patientId,
 			});
 
 			dispatch(setSelectedInputValue(""));

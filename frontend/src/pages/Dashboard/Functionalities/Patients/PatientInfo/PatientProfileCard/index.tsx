@@ -7,6 +7,8 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { IStore } from "../../../../../../helpers/interfaces";
 import { generateMaximumLengthString } from "../../../../../../helpers";
 import { shrinkName } from "../../../../../../helpers/functions";
+import { useNavigate } from "react-router-dom";
+import { setSelectedPatientConsultation } from "../../../../../../redux/Reducers/appStateDataReducer";
 
 let Container = styled.div`
 	display: flex;
@@ -14,6 +16,7 @@ let Container = styled.div`
 `;
 
 const PatientProfileCard = () => {
+	const navigate = useNavigate();
 	let patientProfileDetails = useSelector(
 		(state: IStore) =>
 			state.applicationDataStore.selectedPatient.patientProfileDetails
@@ -21,11 +24,24 @@ const PatientProfileCard = () => {
 	let patientSelected = useSelector(
 		(state: IStore) => state.applicationDataStore.selectedPatient.selected
 	);
+	let { patientId, multiple } = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation
+	);
 	const [patients, setPatients] = useState<any>([]);
 	let dispatch = useDispatch();
 
-	const handleClickGoToConsultations = () => {
-		console.log("clicked go to consultations");
+	const handleClickGoToConsultations = (): void => {
+		try {
+			dispatch(
+				setSelectedPatientConsultation({
+					patientId: patientProfileDetails.id,
+					multiple: true,
+				})
+			);
+			navigate("/patient-treatment-details", { replace: true });
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
 	return patientSelected && patientProfileDetails ? (

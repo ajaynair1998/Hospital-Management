@@ -40,6 +40,10 @@ const TreatmentPlanInput = () => {
 		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
 	);
 
+	let { patientId, multiple } = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatientConsultation
+	);
+
 	let handleChangeType = (e: SelectChangeEvent<string>) => {
 		setType(e.target.value);
 	};
@@ -72,6 +76,8 @@ const TreatmentPlanInput = () => {
 
 			let allTreatments = await window.electron.TreatmentPlanApi.get({
 				treatmentDetailId: patientTreatmentDetailId,
+				multiple: multiple ? multiple : false,
+				patientId: patientId,
 			});
 
 			dispatch(setSelectedInputValue(""));

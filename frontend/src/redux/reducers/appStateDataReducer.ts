@@ -38,7 +38,7 @@ export const AppStateDataSlice = createSlice({
 		selectedPatientConsultation: {
 			id: 1,
 			multiple: false,
-			multipleIds: [],
+			patientId: 1,
 		},
 	},
 	reducers: {
@@ -90,7 +90,7 @@ export const AppStateDataSlice = createSlice({
 			state.selectedPatientConsultation = {
 				id: action.payload.id,
 				multiple: action.payload.multiple,
-				multipleIds: action.payload.multipleIds,
+				patientId: action.payload.patientId,
 			};
 		},
 		setNewMedicineDataField: (state: any, action: any) => {
