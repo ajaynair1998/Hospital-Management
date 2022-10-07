@@ -100,7 +100,10 @@ export interface IStore {
 		data: any;
 	};
 	categoriesStore: {
-		data: { location: any; category_name: any };
+		data: {
+			location: any;
+			category_name: any;
+		};
 	};
 	favouritesDataStore: {
 		data: any[];

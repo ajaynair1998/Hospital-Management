@@ -62,6 +62,23 @@ export const PatientTreatmentDetailsDataSlice = createSlice({
 		setPrescription: (state: any, action: any) => {
 			state.prescription = action.payload;
 		},
+		resetAllDataInPatientTreatmentDetails: (state: any, action: any) => {
+			state.treatment_detail_id = 1;
+			state.chief_complaints = [];
+			state.clinical_diagnosis = [];
+			state.past_medical_history = [];
+			state.past_surgical_history = [];
+			state.general_examination = [];
+			state.treatment_plan = [];
+			state.local_examination = [];
+			state.diagnosis = [];
+			state.history_of_complaints = [];
+			state.drug_allergies = [];
+			state.follow_ups = [];
+			state.investigation = [];
+			state.treatment_done = [];
+			state.prescription = [];
+		},
 	},
 });
 
@@ -80,5 +97,6 @@ export const {
 	setInvestigation,
 	setTreatmentDone,
 	setPrescription,
+	resetAllDataInPatientTreatmentDetails,
 } = PatientTreatmentDetailsDataSlice.actions;
 export default PatientTreatmentDetailsDataSlice.reducer;

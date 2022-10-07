@@ -1,3 +1,5 @@
+import { categoriesList } from "../pages/PatientTreatmentDetails/categories";
+
 export const getFavourites: (category?: string) => Promise<any> = async (
 	category
 ) => {
@@ -56,4 +58,29 @@ export function returnDbPatientProperties(propertyName: string): string {
 	} else {
 		return " ";
 	}
+}
+export function handleClickGoToNextCategory(args: {
+	location: string;
+}): IHandleClickNextCategory {
+	try {
+		let allLocations = categoriesList.map((category) => category.location);
+		let allCategories = categoriesList.map(
+			(category) => category.category_name
+		);
+		let currentLocationIndex = allLocations.indexOf(args.location);
+		let next_location = allLocations[currentLocationIndex + 1];
+		let next_category = allCategories[currentLocationIndex + 1];
+		return {
+			next_location,
+			next_category,
+		};
+	} catch (err: any) {
+		console.log(err);
+		return null as unknown as IHandleClickNextCategory;
+	}
+}
+
+interface IHandleClickNextCategory {
+	next_location: string;
+	next_category: string;
 }

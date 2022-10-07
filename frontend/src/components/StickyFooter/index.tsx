@@ -6,12 +6,16 @@ import { setInputDialogState } from "../../redux/Reducers/utilDataReducer";
 import { useNavigate } from "react-router-dom";
 import { IStore } from "../../helpers/interfaces";
 import { setSelectedPatientConsultation } from "../../redux/Reducers/appStateDataReducer";
+import { resetAllDataInPatientTreatmentDetails } from "../../redux/Reducers/patientTreatmentDetailsReducer";
+import { setSelectedCategory } from "../../redux/Reducers/categoriesDataReducer";
+import { handleClickGoToNextCategory } from "../../helpers/functions";
 
 const StickyFooter = () => {
 	let dispatch = useDispatch();
 	let { multiple } = useSelector(
 		(state: IStore) => state.applicationDataStore.selectedPatientConsultation
 	);
+	const { data } = useSelector((state: IStore) => state.categoriesStore);
 
 	const navigate = useNavigate();
 	const goToTop = () => {
@@ -35,10 +39,28 @@ const StickyFooter = () => {
 			dispatch(
 				setSelectedPatientConsultation({
 					patientId: patientProfileDetails.id,
-					multiple: true,
+					multiple: false,
 				})
 			);
+			dispatch(resetAllDataInPatientTreatmentDetails({}));
 			navigate("/", { replace: true });
+		} catch (err) {
+			console.log(err);
+		}
+	};
+	const handleClickNext = () => {
+		try {
+			let currentLocation = data.location;
+			let { next_location, next_category } = handleClickGoToNextCategory({
+				location: currentLocation,
+			});
+
+			dispatch(
+				setSelectedCategory({
+					category_name: next_category,
+					location: next_location,
+				})
+			);
 		} catch (err) {
 			console.log(err);
 		}
@@ -73,7 +95,13 @@ const StickyFooter = () => {
 				<Button variant="outlined" onClick={handleClickExit}>
 					Exit
 				</Button>
-				<Button variant="outlined">Next</Button>
+				{data.location !== "treatment_done" ? (
+					<Button variant="outlined" onClick={handleClickNext}>
+						Next
+					</Button>
+				) : (
+					<React.Fragment />
+				)}
 				<Button
 					variant="outlined"
 					sx={{ alignContent: "baseline" }}
