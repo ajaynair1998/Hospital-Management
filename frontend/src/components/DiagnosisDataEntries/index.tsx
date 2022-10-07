@@ -156,23 +156,15 @@ export function DiagnosisDataEntry({
 			sx={{
 				p: 2,
 				mb: 2,
-
-				// margin: 2,
-				// maxWidth: 500,
 				flexGrow: 1,
 				backgroundColor: (theme) =>
 					theme.palette.mode === "dark" ? "#1A2027" : "#fff",
 			}}
 		>
 			<Grid container spacing={2}>
-				{/* <Grid item>
-          <ButtonBase sx={{ width: 128, height: 128 }}>
-            <Img alt="complex" src="/static/images/grid/complex.jpg" />
-          </ButtonBase>
-        </Grid> */}
-				<Grid item xs={12} sm container>
+				<Grid item xs={12} sm container direction={'column-reverse'}>
 					<Grid item xs container direction="column" spacing={2}>
-						<Grid item xs sx={{ m: 1 }}>
+						<Grid item xs sx={{mx:1}} >
 							<Typography gutterBottom variant="subtitle1" component="div">
 								{diagnosis}
 							</Typography>
@@ -199,8 +191,8 @@ export function DiagnosisDataEntry({
 							</Grid>
 						</Grid>
 					</Grid>
-					<Grid item>
-						<Typography variant="subtitle1" component="div" sx={{ m: 1 }}>
+					<Grid item container justifyContent={'flex-end'}>
+						<Typography variant="subtitle1" component="div" sx={{mx:1}}>
 							{created_at_readable_format}
 						</Typography>
 					</Grid>

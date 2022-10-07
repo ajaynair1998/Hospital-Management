@@ -166,23 +166,16 @@ export function PastMedicalHistoryDataEntry({
             <Img alt="complex" src="/static/images/grid/complex.jpg" />
           </ButtonBase>
         </Grid> */}
-				<Grid item xs={12} sm container>
+				<Grid item xs={12} sm container direction={'column-reverse'}>
 					<Grid item xs container direction="column" spacing={2}>
 						<Grid
 							item
 							xs
 							sx={{
-								m: 0,
+								mx: 1,
 							}}
 						>
-							<Typography
-								gutterBottom
-								variant="subtitle1"
-								component="div"
-								sx={{ color: "#fff" }}
-							>
-								'TEMPLATE DATA FOR GUTTER'
-							</Typography>
+							
 							<Typography variant="body2" color="text.secondary" gutterBottom>
 								{durationValue}
 							</Typography>
@@ -216,8 +209,8 @@ export function PastMedicalHistoryDataEntry({
 							</Grid>
 						</Grid>
 					</Grid>
-					<Grid item>
-						<Typography variant="subtitle1" component="div" sx={{ m: 1 }}>
+					<Grid item container justifyContent={'flex-end'}>
+						<Typography variant="subtitle1" component="div" sx={{ mx: 1 }}>
 							{created_at_readable_format}
 						</Typography>
 					</Grid>

@@ -200,14 +200,14 @@ export default function PrescriptionDataEntry({
             <Img alt="complex" src="/static/images/grid/complex.jpg" />
           </ButtonBase>
         </Grid> */}
-				<Grid item xs={12} sm container>
-					<Grid item xs container direction="column" spacing={2}>
-						<Grid item xs sx={{ m: 1 }}>
+				<Grid item xs={12} sm container direction={'column-reverse'}>
+					<Grid item xs container direction="column" spacing={2} >
+						<Grid item xs sx={{ mx: 1 }}>
 							<Typography gutterBottom variant="subtitle1" component="div">
 								{prescriptionName} {medicineForm && `(${medicineForm})`}
 							</Typography>
-							<Grid container direction={"row"}>
-								<Grid item xs={3}>
+							<Grid container direction={"row"} justifyContent={'flex-start'} spacing={2}>
+								<Grid item >
 									<Typography
 										variant="body2"
 										color="text.secondary"
@@ -218,7 +218,6 @@ export default function PrescriptionDataEntry({
 								</Grid>
 								<Grid
 									item
-									xs={1}
 									sx={{
 										display: "flex",
 										flexDirection: "row",
@@ -228,11 +227,12 @@ export default function PrescriptionDataEntry({
 									<ArrowForwardIcon fontSize="small" />
 								</Grid>
 
-								<Grid item xs={3}>
+								<Grid item >
 									<Typography
 										variant="body2"
 										color="text.secondary"
 										gutterBottom
+										textAlign={'end'}
 									>
 										{toValue}
 									</Typography>
@@ -276,8 +276,8 @@ export default function PrescriptionDataEntry({
 							</Grid>
 						</Grid>
 					</Grid>
-					<Grid item>
-						<Typography variant="subtitle1" component="div" sx={{ m: 1 }}>
+					<Grid item container justifyContent={'flex-end'}>
+						<Typography variant="subtitle1" component="div" sx={{ mx: 1 }}>
 							{created_at_readable_format}
 						</Typography>
 					</Grid>

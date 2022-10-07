@@ -163,9 +163,9 @@ export function GeneralExaminationDataEntry({
             <Img alt="complex" src="/static/images/grid/complex.jpg" />
           </ButtonBase>
         </Grid> */}
-				<Grid item xs={12} sm container>
+				<Grid item xs={12} sm container direction={'column-reverse'}>
 					<Grid item xs container direction="column" spacing={2}>
-						<Grid item xs sx={{ m: 1 }}>
+						<Grid item xs sx={{mx:1}}>
 							<Typography
 								variant="body1"
 								gutterBottom
@@ -208,7 +208,7 @@ export function GeneralExaminationDataEntry({
 								</React.Fragment>
 							)}
 						</Grid>
-						<Grid item xs container direction="row" spacing={2}>
+						<Grid item xs container direction="row" spacing={2} >
 							<Grid item>
 								<Button sx={{ color: "#ea2929" }} onClick={handleRemoveButton}>
 									Remove
@@ -219,8 +219,8 @@ export function GeneralExaminationDataEntry({
 							</Grid>
 						</Grid>
 					</Grid>
-					<Grid item>
-						<Typography variant="subtitle1" component="div" sx={{ m: 1 }}>
+					<Grid item container justifyContent={'flex-end'}>
+						<Typography variant="subtitle1" component="div" sx={{mx:1}} >
 							{created_at_readable_format}
 						</Typography>
 					</Grid>
