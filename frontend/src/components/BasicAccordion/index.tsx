@@ -49,7 +49,7 @@ export default function BasicAccordion({
 									headings.map((item: string, index: number) => {
 										return (
 											<Button variant="contained" color="primary" key={index}>
-												{item}
+												<Typography fontSize={12}>{item}</Typography>
 											</Button>
 										);
 									})
@@ -81,8 +81,8 @@ export default function BasicAccordion({
 				<AccordionDetails sx={{ pl: 3 }}>
 					{details && (
 						<Box>
-							<Typography variant="body2" gutterBottom mt={0}>
-								Details
+							<Typography variant="caption" gutterBottom mt={0} fontSize={10}>
+								DETAILS
 							</Typography>
 							<Divider />
 							<Typography variant="body2" gutterBottom mt={1}>

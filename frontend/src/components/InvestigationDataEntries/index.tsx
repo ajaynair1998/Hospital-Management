@@ -25,6 +25,7 @@ import AlertDialog from "../Dialog";
 import SelectedArray from "../SelectedArray";
 import { shrinkName } from "../../helpers/functions";
 import InvestigationCard from "../InvestigationCard";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Img = styled("img")({
 	margin: "auto",
@@ -33,7 +34,7 @@ const Img = styled("img")({
 	maxHeight: "100%",
 });
 
-const InvestigationDataEntries = () => {
+const InvestigationDataEntries = (props: { summary?: boolean }) => {
 	const [selectedInvestigation, setSelectedInvestigation] =
 		React.useState(null);
 	const [dialogIsOpen, setDialogOpen] = React.useState(false);
@@ -72,13 +73,13 @@ const InvestigationDataEntries = () => {
 	React.useEffect(() => {
 		fetchAllExistingInvestigations();
 	}, []);
-	return (
+	return investigations.length ? (
 		<React.Fragment>
 			<Box sx={{ my: 1, mx: 2 }}>
 				<Grid container alignItems="center">
 					<Grid item xs>
-						<Typography gutterBottom variant="h5" component="div">
-							Data Entries
+						<Typography gutterBottom variant="subtitle2" component="div">
+							{props.summary ? "INVESTIGATIONS" : "DATA ENTRIES"}
 						</Typography>
 					</Grid>
 				</Grid>
@@ -108,6 +109,8 @@ const InvestigationDataEntries = () => {
 				close={() => setDialogOpen(false)}
 			/>
 		</React.Fragment>
+	) : (
+		<React.Fragment />
 	);
 };
 

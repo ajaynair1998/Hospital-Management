@@ -5,6 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { Typography } from "@mui/material";
 
 interface IAlertDialog {
 	action: Function;
@@ -42,13 +43,16 @@ export default function AlertDialog({
 				onClose={handleClose}
 				aria-labelledby="alert-dialog-title"
 				aria-describedby="alert-dialog-description"
+				maxWidth={"500px" as unknown as undefined}
 			>
 				<DialogTitle id="alert-dialog-title">
-					{title ? title : "Are you sure ?"}
+					<Typography variant="caption">{title ? title : "CONFIRM"}</Typography>
 				</DialogTitle>
 				<DialogContent>
 					<DialogContentText id="alert-dialog-description">
-						{text}
+						<Typography variant="subtitle2" minWidth={"500px"}>
+							{text}
+						</Typography>
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>

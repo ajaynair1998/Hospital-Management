@@ -21,6 +21,7 @@ import {
 import { convertToReadableDate } from "../../helpers";
 import AlertDialog from "../Dialog";
 import SelectedArray from "../SelectedArray";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Img = styled("img")({
 	margin: "auto",
@@ -37,7 +38,7 @@ interface IProps {
 	openDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const DrugAllergyDataEntries = () => {
+const DrugAllergyDataEntries = (props: { summary?: boolean }) => {
 	const [selectedAllergy, setSelectedAllergy] = React.useState(null);
 	const [dialogIsOpen, setDialogOpen] = React.useState(false);
 	const drug_allergies = useSelector(
@@ -75,13 +76,13 @@ const DrugAllergyDataEntries = () => {
 	React.useEffect(() => {
 		fetchAllExistingDrugAllergies();
 	}, []);
-	return (
+	return drug_allergies.length ? (
 		<React.Fragment>
 			<Box sx={{ my: 1, mx: 2 }}>
 				<Grid container alignItems="center">
 					<Grid item xs>
-						<Typography gutterBottom variant="h5" component="div">
-							Data Entries
+						<Typography gutterBottom variant="subtitle2" component="div">
+							{props.summary ? "DRUG ALLERGIES" : "DATA ENTRIES"}
 						</Typography>
 					</Grid>
 				</Grid>
@@ -109,6 +110,8 @@ const DrugAllergyDataEntries = () => {
 				close={() => setDialogOpen(false)}
 			/>
 		</React.Fragment>
+	) : (
+		<React.Fragment />
 	);
 };
 
@@ -162,34 +165,33 @@ export function DrugAllergyDataEntry({
             <Img alt="complex" src="/static/images/grid/complex.jpg" />
           </ButtonBase>
         </Grid> */}
-				<Grid item xs={12} sm container direction={'column-reverse'}>
+				<Grid item xs={12} sm container direction={"column-reverse"}>
 					<Grid item xs container direction="column" spacing={2}>
-						<Grid
-							item
-							xs
-							sx={{mx:1}}
-						>
+						<Grid item xs sx={{ mx: 1 }}>
 							<Typography
 								gutterBottom
-								variant="subtitle1"
+								variant="caption"
 								component="div"
-								sx={{ color: "#fff" }}
+								// sx={{ color: "#fff" }}
+								fontSize={10}
 							>
-								{allergies}
+								ALLERGIES
 							</Typography>
-							<Typography variant="body2" color="text.secondary" gutterBottom>
-								{durationValue}
-							</Typography>
-							{/* <Typography variant="body2" gutterBottom>
-								{detailValue}
-							</Typography> */}
+							<Divider />
 							<React.Fragment>
-								<Grid item xs direction="row" gap={2} container>
+								<Grid item xs direction="row" gap={2} container mt={1}>
 									{allergies.length > 0 ? (
 										allergies.map((item: string, index: number) => {
 											return (
-												<Button key={index} variant="contained" color="primary">
-													{item}
+												<Button
+													key={index}
+													variant="contained"
+													color="primary"
+													disableElevation
+													disableFocusRipple
+													disableTouchRipple
+												>
+													<Typography fontSize={12}> {item}</Typography>
 												</Button>
 											);
 										})
@@ -201,17 +203,38 @@ export function DrugAllergyDataEntry({
 						</Grid>
 						<Grid item xs container direction="row" spacing={2}>
 							<Grid item>
-								<Button sx={{ color: "#ea2929" }} onClick={handleRemoveButton}>
-									Remove
+								<Button
+									sx={{
+										color: "#ea2929",
+										borderColor: "#ea2929",
+										ml: 1,
+										width: "90px",
+										"&:hover": {
+											borderColor: "#ea2929",
+											color: "#ea2929",
+										},
+									}}
+									disableFocusRipple
+									onClick={handleRemoveButton}
+									variant="outlined"
+								>
+									<Typography
+										variant="caption"
+										fontSize={10}
+										sx={{ pb: 0 }}
+										onClick={handleRemoveButton}
+									>
+										REMOVE
+									</Typography>
 								</Button>
 							</Grid>
-							<Grid item>
+							{/* <Grid item>
 								<Button>Edit</Button>
-							</Grid>
+							</Grid> */}
 						</Grid>
 					</Grid>
-					<Grid item container justifyContent={'flex-end'}>
-						<Typography variant="subtitle1" component="div" sx={{mx:1}} >
+					<Grid item container justifyContent={"flex-end"}>
+						<Typography variant="subtitle1" component="div" sx={{ mx: 1 }}>
 							{created_at_readable_format}
 						</Typography>
 					</Grid>

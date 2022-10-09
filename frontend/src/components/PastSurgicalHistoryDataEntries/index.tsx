@@ -22,6 +22,7 @@ import {
 } from "../../redux/Reducers/patientTreatmentDetailsReducer";
 import { convertToReadableDate } from "../../helpers";
 import AlertDialog from "../Dialog";
+import DeleteIcon from "@mui/icons-material/Delete";
 import SelectedArray from "../SelectedArray";
 
 const Img = styled("img")({
@@ -40,7 +41,7 @@ interface IProps {
 	openDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const PastSurgicalHistoryDataEntries = () => {
+const PastSurgicalHistoryDataEntries = (props: { summary?: boolean }) => {
 	const [selectedHistory, setSelectedHistory] = React.useState(null);
 	const [dialogIsOpen, setDialogOpen] = React.useState(false);
 	const past_surgical_histories = useSelector(
@@ -84,13 +85,13 @@ const PastSurgicalHistoryDataEntries = () => {
 	React.useEffect(() => {
 		fetchAllExistingPastSurgicalHistory();
 	}, []);
-	return (
+	return past_surgical_histories.length ? (
 		<React.Fragment>
 			<Box sx={{ my: 1, mx: 2 }}>
 				<Grid container alignItems="center">
 					<Grid item xs>
-						<Typography gutterBottom variant="h5" component="div">
-							Data Entries
+						<Typography gutterBottom variant="subtitle2" component="div">
+							{props.summary ? "PAST SURGICAL HISTORIES" : "DATA ENTRIES"}
 						</Typography>
 					</Grid>
 				</Grid>
@@ -118,6 +119,8 @@ const PastSurgicalHistoryDataEntries = () => {
 				close={() => setDialogOpen(false)}
 			/>
 		</React.Fragment>
+	) : (
+		<React.Fragment />
 	);
 };
 
@@ -173,7 +176,7 @@ export function PastSurgicalHistoryDataEntry({
             <Img alt="complex" src="/static/images/grid/complex.jpg" />
           </ButtonBase>
         </Grid> */}
-				<Grid item xs={12} sm container direction={'column-reverse'}>
+				<Grid item xs={12} sm container direction={"column-reverse"}>
 					<Grid item xs container direction="column" spacing={2}>
 						<Grid
 							item
@@ -182,20 +185,30 @@ export function PastSurgicalHistoryDataEntry({
 								mx: 1,
 							}}
 						>
-							
-							<Typography variant="body2" color="text.secondary" gutterBottom>
-								{durationValue}
+							<Typography
+								gutterBottom
+								variant="caption"
+								component="div"
+								// sx={{ color: "#fff" }}
+								fontSize={10}
+							>
+								PAST SURGICAL HISTORIES
 							</Typography>
-							{/* <Typography variant="body2" gutterBottom>
-								{detailValue}
-							</Typography> */}
+							<Divider />
 							<React.Fragment>
-								<Grid item xs direction="row" gap={2} container>
+								<Grid item xs direction="row" gap={2} container mt={1}>
 									{histories.length > 0 ? (
 										histories.map((item: string, index: number) => {
 											return (
-												<Button variant="contained" color="primary" key={index}>
-													{item}
+												<Button
+													variant="contained"
+													color="primary"
+													key={index}
+													disableFocusRipple
+													disableTouchRipple
+													disableElevation
+												>
+													<Typography fontSize={12}>{item}</Typography>
 												</Button>
 											);
 										})
@@ -207,16 +220,37 @@ export function PastSurgicalHistoryDataEntry({
 						</Grid>
 						<Grid item xs container direction="row" spacing={2}>
 							<Grid item>
-								<Button sx={{ color: "#ea2929" }} onClick={handleRemoveButton}>
-									Remove
+								<Button
+									sx={{
+										color: "#ea2929",
+										borderColor: "#ea2929",
+										ml: 1,
+										width: "90px",
+										"&:hover": {
+											borderColor: "#ea2929",
+											color: "#ea2929",
+										},
+									}}
+									disableFocusRipple
+									onClick={handleRemoveButton}
+									variant="outlined"
+								>
+									<Typography
+										variant="caption"
+										fontSize={10}
+										sx={{ pb: 0 }}
+										onClick={handleRemoveButton}
+									>
+										REMOVE
+									</Typography>
 								</Button>
 							</Grid>
-							<Grid item>
+							{/* <Grid item>
 								<Button>Edit</Button>
-							</Grid>
+							</Grid> */}
 						</Grid>
 					</Grid>
-					<Grid item container justifyContent={'flex-end'}>
+					<Grid item container justifyContent={"flex-end"}>
 						<Typography variant="subtitle1" component="div" sx={{ mx: 1 }}>
 							{created_at_readable_format}
 						</Typography>

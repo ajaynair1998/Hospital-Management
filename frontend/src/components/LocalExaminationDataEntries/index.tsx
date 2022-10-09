@@ -22,6 +22,7 @@ import { convertToReadableDate } from "../../helpers";
 import AlertDialog from "../Dialog";
 import { IIntraOral } from "../LocalExaminationInput";
 import BasicAccordion from "../BasicAccordion";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Img = styled("img")({
 	margin: "auto",
@@ -39,7 +40,7 @@ interface IProps {
 	openDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const LocalExaminationDataEntries = () => {
+const LocalExaminationDataEntries = (props: { summary?: boolean }) => {
 	const [selectedLocalExamination, setSelectedLocalExamination] =
 		React.useState(null);
 	const [dialogIsOpen, setDialogOpen] = React.useState(false);
@@ -79,13 +80,13 @@ const LocalExaminationDataEntries = () => {
 	React.useEffect(() => {
 		fetchAllExistingLocalExaminations();
 	}, []);
-	return (
+	return local_examinations.length ? (
 		<React.Fragment>
 			<Box sx={{ my: 1, mx: 2 }}>
 				<Grid container alignItems="center">
 					<Grid item xs>
-						<Typography gutterBottom variant="h5" component="div">
-							Data Entries
+						<Typography gutterBottom variant="subtitle2" component="div">
+							{props.summary ? "LOCAL EXAMINATIONS" : "DATA ENTRIES"}
 						</Typography>
 					</Grid>
 				</Grid>
@@ -114,6 +115,8 @@ const LocalExaminationDataEntries = () => {
 				close={() => setDialogOpen(false)}
 			/>
 		</React.Fragment>
+	) : (
+		<React.Fragment />
 	);
 };
 
@@ -165,7 +168,7 @@ export function LocalExaminationDataEntry({
             <Img alt="complex" src="/static/images/grid/complex.jpg" />
           </ButtonBase>
         </Grid> */}
-				<Grid item xs={12} sm container direction={'column-reverse'}>
+				<Grid item xs={12} sm container direction={"column-reverse"}>
 					<Grid item xs container direction="column" spacing={2}>
 						<Grid item xs sx={{ mx: 1 }}>
 							<Typography
@@ -179,11 +182,12 @@ export function LocalExaminationDataEntry({
 							{extraoral !== "" && (
 								<React.Fragment>
 									<Typography
-										variant="body2"
+										variant="caption"
 										color="text.secondary"
 										gutterBottom
+										fontSize={10}
 									>
-										Extra oral
+										EXTRA ORAL
 									</Typography>
 
 									<Box>
@@ -197,14 +201,15 @@ export function LocalExaminationDataEntry({
 							{
 								<React.Fragment>
 									<Typography
-										variant="body2"
+										variant="caption"
 										color="text.secondary"
 										gutterBottom
 										sx={{ mb: 1 }}
+										fontSize={10}
 									>
-										Intra oral
+										INTRA ORAL
 									</Typography>
-									<Divider sx={{ mb: 2 }} />
+									<Divider sx={{ mb: 1 }} />
 									<React.Fragment>
 										{Object.entries(intraoral)
 											.reverse()
@@ -229,16 +234,37 @@ export function LocalExaminationDataEntry({
 						</Grid>
 						<Grid item xs container direction="row" spacing={2}>
 							<Grid item>
-								<Button sx={{ color: "#ea2929" }} onClick={handleRemoveButton}>
-									Remove
+								<Button
+									sx={{
+										color: "#ea2929",
+										borderColor: "#ea2929",
+										ml: 1,
+										width: "90px",
+										"&:hover": {
+											borderColor: "#ea2929",
+											color: "#ea2929",
+										},
+									}}
+									disableFocusRipple
+									onClick={handleRemoveButton}
+									variant="outlined"
+								>
+									<Typography
+										variant="caption"
+										fontSize={10}
+										sx={{ pb: 0 }}
+										onClick={handleRemoveButton}
+									>
+										REMOVE
+									</Typography>
 								</Button>
 							</Grid>
-							<Grid item>
+							{/* <Grid item>
 								<Button>Edit</Button>
-							</Grid>
+							</Grid> */}
 						</Grid>
 					</Grid>
-					<Grid item container justifyContent={'flex-end'}>
+					<Grid item container justifyContent={"flex-end"}>
 						<Typography variant="subtitle1" component="div" sx={{ mx: 1 }}>
 							{created_at_readable_format}
 						</Typography>

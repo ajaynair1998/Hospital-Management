@@ -113,8 +113,14 @@ export default function ResponsiveDrawer(props: Props) {
 					>
 						<MenuIcon />
 					</IconButton>
-					<Typography variant="h6" noWrap component="div" mx={"auto"}>
-						{data.category_name}
+					<Typography
+						variant="caption"
+						noWrap
+						component="div"
+						mx={"auto"}
+						fontSize={13}
+					>
+						{data.category_name.toUpperCase()}
 					</Typography>
 				</Toolbar>
 			</AppBar>

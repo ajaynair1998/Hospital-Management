@@ -22,6 +22,7 @@ import {
 import { convertToReadableDate } from "../../helpers";
 import AlertDialog from "../Dialog";
 import { minWidth } from "@mui/system";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Img = styled("img")({
 	margin: "auto",
@@ -40,7 +41,7 @@ interface IProps {
 	openDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const GeneralExaminationDataEntries = () => {
+const GeneralExaminationDataEntries = (props: { summary?: boolean }) => {
 	const [selectedGeneralExamination, setSelectedGeneralExamination] =
 		React.useState(null);
 	const [dialogIsOpen, setDialogOpen] = React.useState(false);
@@ -80,13 +81,13 @@ const GeneralExaminationDataEntries = () => {
 	React.useEffect(() => {
 		fetchAllExistingGeneralExamination();
 	}, []);
-	return (
+	return general_examination.length ? (
 		<React.Fragment>
 			<Box sx={{ my: 1, mx: 2 }}>
 				<Grid container alignItems="center">
 					<Grid item xs>
-						<Typography gutterBottom variant="h5" component="div">
-							Data Entries
+						<Typography gutterBottom variant="subtitle2" component="div">
+							{props.summary ? "GENERAL EXAMINATIONS" : "DATA ENTRIES"}
 						</Typography>
 					</Grid>
 				</Grid>
@@ -116,6 +117,8 @@ const GeneralExaminationDataEntries = () => {
 				close={() => setDialogOpen(false)}
 			/>
 		</React.Fragment>
+	) : (
+		<React.Fragment />
 	);
 };
 
@@ -163,20 +166,17 @@ export function GeneralExaminationDataEntry({
             <Img alt="complex" src="/static/images/grid/complex.jpg" />
           </ButtonBase>
         </Grid> */}
-				<Grid item xs={12} sm container direction={'column-reverse'}>
+				<Grid item xs={12} sm container direction={"column-reverse"}>
 					<Grid item xs container direction="column" spacing={2}>
-						<Grid item xs sx={{mx:1}}>
-							<Typography
-								variant="body1"
-								gutterBottom
-								sx={{ mb: 1 }}
-								color="#fff"
-							>
-								Vitals
-							</Typography>
+						<Grid item xs sx={{ mx: 1 }}>
 							{bp && (
 								<React.Fragment>
-									<Typography variant="body2" gutterBottom mt={2}>
+									<Typography
+										variant="caption"
+										gutterBottom
+										mt={2}
+										fontSize={10}
+									>
 										BP
 									</Typography>
 									<Divider />
@@ -187,8 +187,13 @@ export function GeneralExaminationDataEntry({
 							)}
 							{oxygen_saturation && (
 								<React.Fragment>
-									<Typography variant="body2" gutterBottom mt={2}>
-										Details
+									<Typography
+										variant="caption"
+										gutterBottom
+										mt={2}
+										fontSize={10}
+									>
+										O ²
 									</Typography>
 									<Divider />
 									<Typography variant="body2" gutterBottom mt={1}>
@@ -198,8 +203,13 @@ export function GeneralExaminationDataEntry({
 							)}
 							{temperature && (
 								<React.Fragment>
-									<Typography variant="body2" gutterBottom mt={2}>
-										Details
+									<Typography
+										variant="caption"
+										gutterBottom
+										mt={2}
+										fontSize={10}
+									>
+										TEMPERATURE
 									</Typography>
 									<Divider />
 									<Typography variant="body2" gutterBottom mt={1}>
@@ -208,19 +218,40 @@ export function GeneralExaminationDataEntry({
 								</React.Fragment>
 							)}
 						</Grid>
-						<Grid item xs container direction="row" spacing={2} >
+						<Grid item xs container direction="row" spacing={2}>
 							<Grid item>
-								<Button sx={{ color: "#ea2929" }} onClick={handleRemoveButton}>
-									Remove
+								<Button
+									sx={{
+										color: "#ea2929",
+										borderColor: "#ea2929",
+										ml: 1,
+										width: "90px",
+										"&:hover": {
+											borderColor: "#ea2929",
+											color: "#ea2929",
+										},
+									}}
+									disableFocusRipple
+									onClick={handleRemoveButton}
+									variant="outlined"
+								>
+									<Typography
+										variant="caption"
+										fontSize={10}
+										sx={{ pb: 0 }}
+										onClick={handleRemoveButton}
+									>
+										REMOVE
+									</Typography>
 								</Button>
 							</Grid>
-							<Grid item>
+							{/* <Grid item>
 								<Button>Edit</Button>
-							</Grid>
+							</Grid> */}
 						</Grid>
 					</Grid>
-					<Grid item container justifyContent={'flex-end'}>
-						<Typography variant="subtitle1" component="div" sx={{mx:1}} >
+					<Grid item container justifyContent={"flex-end"}>
+						<Typography variant="subtitle1" component="div" sx={{ mx: 1 }}>
 							{created_at_readable_format}
 						</Typography>
 					</Grid>

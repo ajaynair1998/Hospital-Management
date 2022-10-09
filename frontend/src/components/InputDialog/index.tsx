@@ -36,7 +36,7 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
 
 	return (
 		<DialogTitle
-			sx={{ m: 0, p: 2, width: "600px", overflowX: "hidden!important" }}
+			sx={{ m: 0, p: 2, pl: 4, width: "600px", overflowX: "hidden!important" }}
 			{...other}
 		>
 			{children}

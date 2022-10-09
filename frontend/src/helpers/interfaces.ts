@@ -131,6 +131,7 @@ export interface IStore {
 			snackBarOpen: boolean;
 			snackBarText: string;
 			inputDialogOpen: boolean;
+			summaryDialogOpen: boolean;
 			addNewPatientInputDialogOpen: boolean;
 			addNewMedicineInputDialogOpen: boolean;
 			addNewConsultationInputDialogOpen: boolean;

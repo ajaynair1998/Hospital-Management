@@ -72,13 +72,40 @@ export default function InvestigationCard({
 				</CardContent>
 				<Grid item xs container direction="row" spacing={2} pl={1} pb={1}>
 					<Grid item>
-						<Button sx={{ color: "#ea2929" }} onClick={handleRemoveButton}>
-							Remove
+						<Button
+							sx={{
+								color: "#ea2929",
+								borderColor: "#ea2929",
+								ml: 1,
+								width: "90px",
+								"&:hover": {
+									borderColor: "#ea2929",
+									color: "#ea2929",
+								},
+							}}
+							disableFocusRipple
+							onClick={handleRemoveButton}
+							variant="outlined"
+						>
+							<Typography
+								variant="caption"
+								fontSize={10}
+								sx={{ pb: 0 }}
+								onClick={handleRemoveButton}
+							>
+								REMOVE
+							</Typography>
 						</Button>
 					</Grid>
 					<Grid item>
-						<Button href={file_data} download={`${file_name}`}>
-							Open
+						<Button
+							href={file_data}
+							download={`${file_name}`}
+							variant="outlined"
+						>
+							<Typography variant="caption" fontSize={10} sx={{ pb: 0 }}>
+								Open
+							</Typography>
 						</Button>
 					</Grid>
 				</Grid>

@@ -33,7 +33,7 @@ interface IProps {
 	setSelectedDiagnosisText: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const ClinicalDiagnosisDataEntries = () => {
+export const ClinicalDiagnosisDataEntries = (props: { summary?: boolean }) => {
 	const [selectedDiagnosis, setSelectedDiagnosis] = React.useState(null);
 	const [selectedDiagnosisText, setSelectedDiagnosisText] = React.useState("");
 	const [dialogIsOpen, setDialogOpen] = React.useState(false);
@@ -72,13 +72,13 @@ export const ClinicalDiagnosisDataEntries = () => {
 	React.useEffect(() => {
 		fetchAllExistingClinicalDiagnosis();
 	}, []);
-	return (
+	return clinical_diagnosis.length ? (
 		<React.Fragment>
 			<Box sx={{ my: 1, mx: 2 }}>
 				<Grid container alignItems="center">
 					<Grid item xs>
-						<Typography gutterBottom variant="h5" component="div">
-							Data Entries
+						<Typography gutterBottom variant="subtitle2" component="div">
+							{props.summary ? " CLINICAL DIAGNOSIS" : "DATA ENTRIES"}
 						</Typography>
 					</Grid>
 				</Grid>
@@ -108,6 +108,8 @@ export const ClinicalDiagnosisDataEntries = () => {
 				close={() => setDialogOpen(false)}
 			/>
 		</React.Fragment>
+	) : (
+		<React.Fragment />
 	);
 };
 
@@ -160,16 +162,21 @@ export default function ChiefComplaintDataEntry({
 			}}
 		>
 			<Grid container spacing={2}>
-				<Grid item xs={12} sm container direction={'column-reverse'}>
+				<Grid item xs={12} sm container direction={"column-reverse"}>
 					<Grid item xs container direction="column" spacing={2}>
-						<Grid item xs >
+						<Grid item xs sx={{ mx: 1 }}>
 							<Typography gutterBottom variant="subtitle1" component="div">
 								{clinicalDiagnosis}
 							</Typography>
 							{detailValue && (
 								<React.Fragment>
-									<Typography variant="body2" gutterBottom mt={2}>
-										Details
+									<Typography
+										variant="caption"
+										gutterBottom
+										mt={2}
+										fontSize={10}
+									>
+										DETAILS
 									</Typography>
 									<Divider />
 									<Typography variant="body2" gutterBottom mt={1}>
@@ -180,17 +187,38 @@ export default function ChiefComplaintDataEntry({
 						</Grid>
 						<Grid item xs container direction="row" spacing={2}>
 							<Grid item>
-								<Button sx={{ color: "#ea2929" }} onClick={handleRemoveButton}>
-									Remove
+								<Button
+									sx={{
+										color: "#ea2929",
+										borderColor: "#ea2929",
+										ml: 1,
+										width: "90px",
+										"&:hover": {
+											borderColor: "#ea2929",
+											color: "#ea2929",
+										},
+									}}
+									disableFocusRipple
+									onClick={handleRemoveButton}
+									variant="outlined"
+								>
+									<Typography
+										variant="caption"
+										fontSize={10}
+										sx={{ pb: 0 }}
+										onClick={handleRemoveButton}
+									>
+										REMOVE
+									</Typography>
 								</Button>
 							</Grid>
-							<Grid item>
+							{/* <Grid item>
 								<Button>Edit</Button>
-							</Grid>
+							</Grid> */}
 						</Grid>
 					</Grid>
-					<Grid item container justifyContent={'flex-end'}>
-						<Typography variant="subtitle1" component="div" >
+					<Grid item container justifyContent={"flex-end"}>
+						<Typography variant="subtitle1" component="div">
 							{created_at_readable_format}
 						</Typography>
 					</Grid>

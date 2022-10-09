@@ -9,7 +9,7 @@ let Container = styled.div`
 `;
 
 interface Props {}
-const ChiefComplaints: React.FC<Props> = ({}) => {
+const Prescriptions: React.FC<Props> = ({}) => {
 	return (
 		<Container>
 			<Favourites />
@@ -19,4 +19,4 @@ const ChiefComplaints: React.FC<Props> = ({}) => {
 	);
 };
 
-export default ChiefComplaints;
+export default Prescriptions;

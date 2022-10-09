@@ -80,8 +80,8 @@ export default function Favourites({}: Props) {
 			<Box sx={{ my: 1, mx: 2 }}>
 				<Grid container alignItems="center">
 					<Grid item xs>
-						<Typography gutterBottom variant="h5" component="div">
-							Favourites
+						<Typography gutterBottom variant="subtitle2" component="div">
+							FAVOURITES
 						</Typography>
 					</Grid>
 					<Grid item>

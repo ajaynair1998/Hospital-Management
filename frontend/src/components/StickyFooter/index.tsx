@@ -2,7 +2,10 @@ import { AppBar, Box, Button } from "@mui/material";
 import React from "react";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { setInputDialogState } from "../../redux/Reducers/utilDataReducer";
+import {
+	setInputDialogState,
+	setSummaryDialogState,
+} from "../../redux/Reducers/utilDataReducer";
 import { useNavigate } from "react-router-dom";
 import { IStore } from "../../helpers/interfaces";
 import { setSelectedPatientConsultation } from "../../redux/Reducers/appStateDataReducer";
@@ -65,6 +68,10 @@ const StickyFooter = () => {
 			console.log(err);
 		}
 	};
+
+	const handleClickOpenSummary = () => {
+		dispatch(setSummaryDialogState(true));
+	};
 	return (
 		<AppBar
 			elevation={0}
@@ -110,13 +117,22 @@ const StickyFooter = () => {
 					<NavigationIcon /> Top
 				</Button>
 				{!multiple ? (
-					<Button
-						variant="contained"
-						color="success"
-						onClick={handleOpenInputDialog}
-					>
-						New
-					</Button>
+					<React.Fragment>
+						<Button
+							variant="outlined"
+							color="primary"
+							onClick={handleClickOpenSummary}
+						>
+							Summary
+						</Button>
+						<Button
+							variant="contained"
+							color="success"
+							onClick={handleOpenInputDialog}
+						>
+							New
+						</Button>
+					</React.Fragment>
 				) : (
 					<React.Fragment />
 				)}
