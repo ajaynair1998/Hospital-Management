@@ -40,6 +40,11 @@ $ npm run rebuild
 
 - [stackoverflow thread](https://stackoverflow.com/questions/49582728/electronjs-please-install-sqlite3-package-manually)
 
+## Extra Tools Used
+
+- [react-big-calender](https://github.com/jquense/react-big-calendar)
+- [mui-date-picker](https://mui.com/x/react-date-pickers/getting-started/)
+
 ## Guides - @mui/x-date-pickers
 
 #### Installing - @mui/x-date-pickers
