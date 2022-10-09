@@ -18,6 +18,7 @@ import {
 } from "../../../../../redux/Reducers/appStateDataReducer";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Medicines from "..";
+import AlertDialog from "../../../../../components/Dialog";
 
 let Container = styled.div`
 	display: flex;
@@ -26,6 +27,12 @@ let Container = styled.div`
 
 const MedicineList = () => {
 	let dispatch = useDispatch();
+
+	const [medicineId, setMedicineId] = useState<number>(
+		null as unknown as number
+	);
+	const [medicineName, setMedicineName] = useState<string>("");
+	const [open, setOpen] = useState<boolean>(false);
 	const medicines = useSelector(
 		(state: IStore) => state.applicationDataStore.medicines
 	);
@@ -44,12 +51,13 @@ const MedicineList = () => {
 		}
 	};
 
-	const handleClickDeleteMedicine = async (id: number) => {
+	const handleClickDeleteMedicine = async () => {
 		try {
-			await window.electron.MedicineApi.delete({ id: id });
+			await window.electron.MedicineApi.delete({ id: medicineId });
 			let medicines = await window.electron.MedicineApi.get({});
 
 			dispatch(setMedicines({ medicines: medicines.data }));
+			setOpen(false);
 		} catch (err) {
 			console.log(err);
 		}
@@ -110,9 +118,17 @@ const MedicineList = () => {
 			renderCell: (params: any) => (
 				<Button
 					sx={{ mx: "auto" }}
-					onClick={() => handleClickDeleteMedicine(params.id)}
+					onClick={() => {
+						setMedicineId(params.id);
+						setOpen(true);
+					}}
 				>
-					<DeleteIcon onClick={() => handleClickDeleteMedicine(params.id)} />
+					<DeleteIcon
+						onClick={() => {
+							setMedicineId(params.id);
+							setOpen(true);
+						}}
+					/>
 				</Button>
 			),
 		},
@@ -140,6 +156,12 @@ const MedicineList = () => {
 					</Grid>
 				</Box>
 			</Container>
+			<AlertDialog
+				action={handleClickDeleteMedicine}
+				isOpen={open}
+				text={`Do you want to remove ${medicineName} ?`}
+				close={() => setOpen(false)}
+			/>
 		</React.Fragment>
 	);
 };

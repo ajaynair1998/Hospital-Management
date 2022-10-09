@@ -1054,3 +1054,51 @@
   label: 'winston custom format',
   timestamp: 'Thursday, October 6th 2022, 1:44:14 pm'
 }
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Sunday, October 9th 2022, 5:34:07 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Sunday, October 9th 2022, 5:37:47 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Sunday, October 9th 2022, 5:37:58 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Sunday, October 9th 2022, 5:39:23 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Sunday, October 9th 2022, 5:42:40 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Sunday, October 9th 2022, 5:43:04 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Sunday, October 9th 2022, 5:43:26 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Sunday, October 9th 2022, 5:43:38 pm'
+}
