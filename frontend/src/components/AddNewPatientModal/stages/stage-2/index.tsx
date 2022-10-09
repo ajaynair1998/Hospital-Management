@@ -9,9 +9,8 @@ import { setNewPatientDataField } from "../../../../redux/Reducers/appStateDataR
 const StageTwo = () => {
 	let dispatch = useDispatch();
 
-	let { mobile_number, occupation, referred_by, email } = useSelector(
-		(state: IStore) => state.applicationDataStore.newPatient
-	);
+	let { mobile_number, occupation, referred_by, email, phone_number } =
+		useSelector((state: IStore) => state.applicationDataStore.newPatient);
 	const handleChangeMobileNumber = (data: string) => {
 		try {
 			dispatch(
@@ -87,9 +86,10 @@ const StageTwo = () => {
 					id="outlined-basic"
 					label="Mobile Number"
 					variant="outlined"
-					value={mobile_number}
+					value={phone_number}
+					// value={mobile_number}
 					// sx={{ width: "200px!important" }}
-
+					disabled
 					onChange={(e) => handleChangeMobileNumber(e.target.value)}
 				/>
 				<TextField

@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { IStore } from "../../../helpers/interfaces";
+import Calender from "./Calendar";
 import Medicines from "./Medicines";
 import Patients from "./Patients";
 
@@ -14,7 +15,7 @@ export const FunctionalitySwitch = (): JSX.Element => {
 		case "payments":
 			return <></>;
 		case "calendar":
-			return <></>;
+			return <Calender />;
 		case "medicines":
 			return <Medicines />;
 		case "settings":

@@ -4,6 +4,9 @@
   "private": true,
   "dependencies": {
     "@date-io/moment": "^2.14.0",
+    "@devexpress/dx-react-core": "^3.0.5",
+    "@devexpress/dx-react-scheduler": "^3.0.5",
+    "@devexpress/dx-react-scheduler-material-ui": "^3.0.5",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.6.0",
@@ -18,9 +21,11 @@
     "@types/jest": "^27.4.1",
     "@types/node": "^16.11.26",
     "@types/react": "^17.0.44",
+    "date-fns": "^2.29.3",
     "immer": "^9.0.12",
     "moment": "^2.29.3",
     "react": "^18.0.0",
+    "react-big-calendar": "^1.5.0",
     "react-dom": "^18.0.0",
     "react-redux": "^7.2.8",
     "react-router-dom": "^6.3.0",
@@ -56,6 +61,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-big-calendar": "^0.38.2",
     "@types/react-dom": "^18.0.4",
     "@types/redux-logger": "^3.0.9",
     "@types/styled-components": "^5.1.25"

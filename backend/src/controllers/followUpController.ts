@@ -53,8 +53,23 @@ const FollowUpController: IFollowUpController = {
                 };
             } else if (args.multiple && args.patientId) {
                 let allFollowUps = await sequelize.query(
-                    `SELECT fu.* from Patients as p INNER JOIN TreatmentDetails as td ON p.id = td.patientId INNER JOIN FollowUps as fu on fu.treatmentDetailId = td.id WHERE 
+                    `SELECT fu.*,p.name from Patients as p INNER JOIN TreatmentDetails as td ON p.id = td.patientId INNER JOIN FollowUps as fu on fu.treatmentDetailId = td.id WHERE 
 					p.id = ${args.patientId} `,
+                    {
+                        type: QueryTypes.SELECT
+                    }
+                );
+                return {
+                    status: 200,
+                    data: allFollowUps
+                };
+            } else if (
+                args.multiple &&
+                !args.patientId &&
+                !args.treatmentDetailId
+            ) {
+                let allFollowUps = await sequelize.query(
+                    `SELECT fu.*,p.name from Patients as p INNER JOIN TreatmentDetails as td ON p.id = td.patientId INNER JOIN FollowUps as fu on fu.treatmentDetailId = td.id`,
                     {
                         type: QueryTypes.SELECT
                     }
