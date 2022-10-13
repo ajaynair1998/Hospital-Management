@@ -16,6 +16,14 @@ const PatientController: IPatientController = {
                 'YYYY-MM-DD HH:mm:ss'
             ).toString();
 
+            if (
+                args.name == '' ||
+                args.name === null ||
+                args.name == undefined
+            ) {
+                throw new Error('Invalid Name');
+            }
+
             let age = getAge(args.date_of_birth);
 
             let nationName = args.nationality.label;

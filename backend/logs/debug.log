@@ -1222,3 +1222,27 @@
   label: 'winston custom format',
   timestamp: 'Thursday, October 13th 2022, 9:34:41 pm'
 }
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Thursday, October 13th 2022, 10:26:26 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Thursday, October 13th 2022, 10:26:37 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Thursday, October 13th 2022, 10:54:53 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Thursday, October 13th 2022, 10:55:17 pm'
+}

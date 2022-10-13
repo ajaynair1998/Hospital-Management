@@ -22,6 +22,7 @@ import { IStore } from "../../helpers/interfaces";
 import { setSelectedCategory } from "../../redux/Reducers/categoriesDataReducer";
 
 import { categoriesList } from "./categories";
+import { Button, Grid } from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -42,6 +43,10 @@ export default function ResponsiveDrawer(props: Props) {
 	};
 	const dispatch = useDispatch();
 	const { data } = useSelector((state: IStore) => state.categoriesStore);
+	let patientProfileDetails = useSelector(
+		(state: IStore) =>
+			state.applicationDataStore.selectedPatient.patientProfileDetails
+	);
 
 	const drawer = (
 		<div>
@@ -113,15 +118,29 @@ export default function ResponsiveDrawer(props: Props) {
 					>
 						<MenuIcon />
 					</IconButton>
-					<Typography
-						variant="caption"
-						noWrap
-						component="div"
-						mx={"auto"}
-						fontSize={13}
-					>
-						{data.category_name.toUpperCase()}
-					</Typography>
+					<Grid container direction="row" sx={{ mx: 2 }}>
+						<Grid item xs={8}>
+							<Typography
+								variant="caption"
+								noWrap
+								component="div"
+								fontSize={13}
+							>
+								{data.category_name.toUpperCase()}
+							</Typography>
+						</Grid>
+						<Grid item xs={4}>
+							<Typography
+								sx={{ textAlign: "end" }}
+								variant="caption"
+								noWrap
+								component="div"
+								fontSize={13}
+							>
+								{patientProfileDetails.name.toUpperCase()}
+							</Typography>
+						</Grid>
+					</Grid>
 				</Toolbar>
 			</AppBar>
 			<Box

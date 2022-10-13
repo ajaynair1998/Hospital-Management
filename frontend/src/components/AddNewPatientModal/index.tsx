@@ -19,7 +19,10 @@ import {
 import { AppBar, Box } from "@mui/material";
 import { width } from "@mui/system";
 import DotsStepper from "../Stepper";
-import { setNewPatientStage } from "../../redux/Reducers/appStateDataReducer";
+import {
+	resestPatientDataFields,
+	setNewPatientStage,
+} from "../../redux/Reducers/appStateDataReducer";
 import moment from "moment";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -89,6 +92,7 @@ export default function AddNewPatientInputModal() {
 			setAddNewPatientInputDialogState({ addNewPatientInputDialogOpen: false })
 		);
 		dispatch(setNewPatientStage({ stage: 0 }));
+		dispatch(resestPatientDataFields({}));
 	};
 
 	const handleStepChange = (stage: number) => {
@@ -121,6 +125,8 @@ export default function AddNewPatientInputModal() {
 						addNewPatientInputDialogOpen: false,
 					})
 				);
+				dispatch(setNewPatientStage({ stage: 0 }));
+				dispatch(resestPatientDataFields({}));
 			}
 		} catch (err: any) {
 			console.log(err.message);
