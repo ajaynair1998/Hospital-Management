@@ -72,7 +72,7 @@ const PatientController: IPatientController = {
                     let searchTermIsANumber = checkIfNumber(args.searchTerm);
                     if (searchTermIsANumber) {
                         patients = await sequelize.query(
-                            `SELECT * FROM PATIENTS WHERE id = '${args.searchTerm}' LIMIT 1`,
+                            `SELECT * FROM PATIENTS WHERE id = ${args.searchTerm} LIMIT 1`,
                             {
                                 type: QueryTypes.SELECT
                             }
@@ -93,6 +93,10 @@ const PatientController: IPatientController = {
                         return -1;
                     }
                 });
+                console.log(
+                    '🚀 ~ file: patientController.ts ~ line 97 ~ patients=patients.sort ~ patients',
+                    patients
+                );
                 return {
                     status: 200,
                     data: patients

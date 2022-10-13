@@ -20,19 +20,23 @@ export const categoriesList: ICategory[] = [
 		category_icon: <AddShoppingCartIcon />,
 		location: "chief_complaint",
 	},
-
 	{
 		key: 1,
-		category_name: "Clinical Diagnosis",
-		category_icon: <ManageSearchIcon />,
-		location: "clinical_diagnosis",
+		category_name: "History Of Complaints",
+		category_icon: <PersonAddDisabledIcon />,
+		location: "history_of_complaints",
 	},
-
+	{
+		key: 2,
+		category_name: "Past Medical Histories",
+		category_icon: <HistoryIcon />,
+		location: "past_medical_history",
+	},
 	{
 		key: 3,
-		category_name: "Diagnosis",
-		category_icon: <ContentPasteSearchIcon />,
-		location: "diagnosis",
+		category_name: "Past Surgical Histories",
+		category_icon: <HistoryIcon />,
+		location: "past_surgical_history",
 	},
 	{
 		key: 4,
@@ -48,27 +52,28 @@ export const categoriesList: ICategory[] = [
 	},
 	{
 		key: 6,
+		category_name: "Local Examinations",
+		category_icon: <BiotechIcon />,
+		location: "local_examination",
+	},
+
+	{
+		key: 7,
+		category_name: "Clinical Diagnosis",
+		category_icon: <ManageSearchIcon />,
+		location: "clinical_diagnosis",
+	},
+	{
+		key: 8,
 		category_name: "Investigation",
 		category_icon: <PersonSearchIcon />,
 		location: "investigation",
 	},
 	{
-		key: 7,
-		category_name: "Local Examinations",
-		category_icon: <BiotechIcon />,
-		location: "local_examination",
-	},
-	{
-		key: 8,
-		category_name: "Prescriptions",
-		category_icon: <HealingIcon />,
-		location: "prescription",
-	},
-	{
 		key: 9,
-		category_name: "Past Medical Histories",
-		category_icon: <HistoryIcon />,
-		location: "past_medical_history",
+		category_name: "Diagnosis",
+		category_icon: <ContentPasteSearchIcon />,
+		location: "diagnosis",
 	},
 	{
 		key: 10,
@@ -78,26 +83,28 @@ export const categoriesList: ICategory[] = [
 	},
 	{
 		key: 11,
-		category_name: "Follow Ups",
-		category_icon: <TodayIcon />,
-		location: "follow_up",
-	},
-	{
-		key: 12,
-		category_name: "Past Surgical Histories",
-		category_icon: <HistoryIcon />,
-		location: "past_surgical_history",
-	},
-	{
-		key: 13,
-		category_name: "History Of Complaints",
-		category_icon: <PersonAddDisabledIcon />,
-		location: "history_of_complaints",
-	},
-	{
-		key: 14,
 		category_name: "Treatment Done",
 		category_icon: <NextPlanIcon />,
 		location: "treatment_done",
+	},
+
+	{
+		key: 12,
+		category_name: "Prescriptions",
+		category_icon: <HealingIcon />,
+		location: "prescription",
+	},
+
+	{
+		key: 13,
+		category_name: "Special Comments",
+		category_icon: <AddShoppingCartIcon />,
+		location: "special_comments",
+	},
+	{
+		key: 14,
+		category_name: "Follow Ups",
+		category_icon: <TodayIcon />,
+		location: "follow_up",
 	},
 ];

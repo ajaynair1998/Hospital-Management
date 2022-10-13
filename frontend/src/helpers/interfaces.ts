@@ -202,6 +202,8 @@ export interface IGeneralExamination {
 	bp: string;
 	temperature: string;
 	oxygen_saturation: string;
+	respiration_rate: string;
+	pulse: string;
 	createdAt: string;
 }
 

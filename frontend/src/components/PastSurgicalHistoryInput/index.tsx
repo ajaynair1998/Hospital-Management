@@ -199,7 +199,7 @@ const PastSurgicalHistoryInput = () => {
 				<Grid item xs={10}>
 					<TextField
 						id="outlined-basic"
-						label="Drug allergy"
+						label="Past Surgical History"
 						variant="outlined"
 						value={history}
 						sx={{ width: "100%" }}

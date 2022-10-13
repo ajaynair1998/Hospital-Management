@@ -36,6 +36,8 @@ interface IProps {
 	bp: string;
 	temperature?: string;
 	oxygen_saturation?: string;
+	pulse: string;
+	respiration_rate: string;
 	id?: number;
 	handleSelectGeneralExamination: Function;
 	openDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -102,6 +104,8 @@ const GeneralExaminationDataEntries = (props: { summary?: boolean }) => {
 								bp={item.bp}
 								temperature={item.temperature}
 								oxygen_saturation={item.oxygen_saturation}
+								pulse={item.pulse}
+								respiration_rate={item.respiration_rate}
 								id={item.id}
 								key={item.id}
 								handleSelectGeneralExamination={setSelectedGeneralExamination}
@@ -127,6 +131,8 @@ export function GeneralExaminationDataEntry({
 	bp,
 	temperature,
 	oxygen_saturation,
+	respiration_rate,
+	pulse,
 	id,
 	handleSelectGeneralExamination,
 	openDialog,
@@ -169,6 +175,22 @@ export function GeneralExaminationDataEntry({
 				<Grid item xs={12} sm container direction={"column-reverse"}>
 					<Grid item xs container direction="column" spacing={2}>
 						<Grid item xs sx={{ mx: 1 }}>
+							{pulse && (
+								<React.Fragment>
+									<Typography
+										variant="caption"
+										gutterBottom
+										mt={2}
+										fontSize={10}
+									>
+										PULSE
+									</Typography>
+									<Divider />
+									<Typography variant="body2" gutterBottom mt={1}>
+										{pulse}
+									</Typography>
+								</React.Fragment>
+							)}
 							{bp && (
 								<React.Fragment>
 									<Typography
@@ -198,6 +220,22 @@ export function GeneralExaminationDataEntry({
 									<Divider />
 									<Typography variant="body2" gutterBottom mt={1}>
 										{oxygen_saturation}
+									</Typography>
+								</React.Fragment>
+							)}
+							{respiration_rate && (
+								<React.Fragment>
+									<Typography
+										variant="caption"
+										gutterBottom
+										mt={2}
+										fontSize={10}
+									>
+										Respiration Rate
+									</Typography>
+									<Divider />
+									<Typography variant="body2" gutterBottom mt={1}>
+										{respiration_rate}
 									</Typography>
 								</React.Fragment>
 							)}

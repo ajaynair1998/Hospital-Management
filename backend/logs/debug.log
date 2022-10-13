@@ -1150,3 +1150,75 @@
   label: 'winston custom format',
   timestamp: 'Sunday, October 9th 2022, 7:40:42 pm'
 }
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Thursday, October 13th 2022, 5:27:46 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Thursday, October 13th 2022, 5:28:00 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Thursday, October 13th 2022, 5:44:25 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Thursday, October 13th 2022, 5:44:42 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Thursday, October 13th 2022, 5:45:32 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Thursday, October 13th 2022, 9:23:12 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Thursday, October 13th 2022, 9:26:10 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Thursday, October 13th 2022, 9:26:24 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Thursday, October 13th 2022, 9:28:05 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Thursday, October 13th 2022, 9:28:23 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Thursday, October 13th 2022, 9:28:52 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Thursday, October 13th 2022, 9:34:41 pm'
+}

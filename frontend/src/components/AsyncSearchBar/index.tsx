@@ -3,6 +3,7 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
 import { PanToolSharp } from "@mui/icons-material";
+import { Grid } from "@mui/material";
 
 interface Film {
 	title: string;
@@ -71,11 +72,12 @@ export default function AsyncSearchBar(props: IProps) {
 				setOpen(false);
 			}}
 			isOptionEqualToValue={(option, value) => {
-				if (option.name === "" || value.name === "") {
-					return true;
-				}
+				// if (option.name === "" || value.name === "") {
+				// 	return true;
+				// }
 
-				return option.name === value.name;
+				// this value is done when selecting from the dropdown after autocompleting
+				return option.id === value.id;
 			}}
 			getOptionLabel={(option) => option.name}
 			options={options}
@@ -84,7 +86,17 @@ export default function AsyncSearchBar(props: IProps) {
 			renderOption={(props, option) => {
 				return (
 					<li {...props} key={option.id}>
-						{option.name}
+						<Grid
+							container
+							direction={"row"}
+							justifyContent="space-between"
+							sx={{ width: "100%" }}
+						>
+							<Grid item xs={8}>
+								{option.name}
+							</Grid>
+							{/* <Grid item xs={3} sx={{color:'#b6b4b4'}}>{option.id}</Grid> */}
+						</Grid>
 					</li>
 				);
 			}}

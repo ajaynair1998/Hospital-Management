@@ -250,6 +250,58 @@ export default function IntraOralInputList({
 							variant="h6"
 							component="div"
 						>
+							Q4
+						</Typography>
+						<Demo>
+							<List dense={dense}>
+								{teeth.map((item) => (
+									<ListItem
+										key={item}
+										sx={{
+											background: !selectedTooth[Number(`4${item}`)]
+												? "#fff"
+												: "#bac3ca",
+											"&:hover": {
+												background: "#88a0ec",
+												cursor: "pointer",
+												transition: "all 0.1s ease-in",
+											},
+										}}
+										// secondaryAction={
+										// 	<IconButton edge="end" aria-label="delete">
+										// 		<Checkbox
+										// 			checked={
+										// 				selectedTooth[Number(`4${item}`)] === undefined ||
+										// 				selectedTooth[Number(`4${item}`)] === false
+										// 					? false
+										// 					: true
+										// 			}
+										// 			// onChange={() => addOrRemoveATooth(Number(`4${item}`))}
+										// 		/>
+										// 	</IconButton>
+										// }
+										onClick={() => addOrRemoveATooth(Number(`4${item}`))}
+									>
+										{/* <ListItemAvatar>
+										<Avatar>
+											<FolderIcon />
+										</Avatar>
+									</ListItemAvatar> */}
+										<ListItemText
+											primary={`Q4 - ${item + 1}`}
+											secondary={secondary ? "Secondary text" : null}
+										/>
+									</ListItem>
+								))}
+							</List>
+						</Demo>
+					</Grid>
+					<Grid item xs={6} md={6}>
+						<Typography
+							sx={{ mt: 4, mb: 2, pl: 2 }}
+							variant="h6"
+							component="div"
+						>
 							Q3
 						</Typography>
 						<Demo>
@@ -290,58 +342,6 @@ export default function IntraOralInputList({
 									</ListItemAvatar> */}
 										<ListItemText
 											primary={`Q3 - ${item + 1}`}
-											secondary={secondary ? "Secondary text" : null}
-										/>
-									</ListItem>
-								))}
-							</List>
-						</Demo>
-					</Grid>
-					<Grid item xs={6} md={6}>
-						<Typography
-							sx={{ mt: 4, mb: 2, pl: 2 }}
-							variant="h6"
-							component="div"
-						>
-							Q4
-						</Typography>
-						<Demo>
-							<List dense={dense}>
-								{teeth.map((item) => (
-									<ListItem
-										key={item}
-										sx={{
-											background: !selectedTooth[Number(`4${item}`)]
-												? "#fff"
-												: "#bac3ca",
-											"&:hover": {
-												background: "#88a0ec",
-												cursor: "pointer",
-												transition: "all 0.1s ease-in",
-											},
-										}}
-										// secondaryAction={
-										// 	<IconButton edge="end" aria-label="delete">
-										// 		<Checkbox
-										// 			checked={
-										// 				selectedTooth[Number(`4${item}`)] === undefined ||
-										// 				selectedTooth[Number(`4${item}`)] === false
-										// 					? false
-										// 					: true
-										// 			}
-										// 			// onChange={() => addOrRemoveATooth(Number(`4${item}`))}
-										// 		/>
-										// 	</IconButton>
-										// }
-										onClick={() => addOrRemoveATooth(Number(`4${item}`))}
-									>
-										{/* <ListItemAvatar>
-										<Avatar>
-											<FolderIcon />
-										</Avatar>
-									</ListItemAvatar> */}
-										<ListItemText
-											primary={`Q4 - ${item + 1}`}
 											secondary={secondary ? "Secondary text" : null}
 										/>
 									</ListItem>

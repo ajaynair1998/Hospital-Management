@@ -69,6 +69,9 @@ export const FunctionalitySwitch = (): JSX.Element => {
 		case "history_of_complaints":
 			goToTop();
 			return <HistoryOfComplaints />;
+		case "special_comments":
+			goToTop();
+			return <React.Fragment />;
 		default:
 			goToTop();
 			return <ChiefComplaints />;

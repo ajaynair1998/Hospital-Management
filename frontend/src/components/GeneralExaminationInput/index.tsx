@@ -35,6 +35,8 @@ const GeneralExaminationInput = () => {
 	let [bp, setBp] = useState("");
 	let [temperature, setTemperature] = useState("");
 	let [oxygen_saturation, setOxygenSaturation] = useState("");
+	let [pulse, setPulse] = useState("");
+	let [respirationRate, setRespirationRate] = useState("");
 	const patientTreatmentDetailId = useSelector(
 		(state: IStore) => state.applicationDataStore.selectedPatientConsultation.id
 	);
@@ -55,6 +57,8 @@ const GeneralExaminationInput = () => {
 				bp: bp + "  mmHg",
 				temperature: temperature + "  F",
 				oxygen_saturation: oxygen_saturation + "  %",
+				pulse: pulse + "  beats/minute",
+				respiration_rate: respirationRate + "  times/minute",
 			});
 
 			let allGeneralExamination =
@@ -90,6 +94,15 @@ const GeneralExaminationInput = () => {
 			>
 				<TextField
 					id="outlined-basic"
+					label="Pulse"
+					variant="outlined"
+					value={pulse}
+					// sx={{ width: "200px!important" }}
+
+					onChange={(e) => setPulse(e.target.value)}
+				/>
+				<TextField
+					id="outlined-basic"
 					label="BP"
 					variant="outlined"
 					value={bp}
@@ -99,19 +112,29 @@ const GeneralExaminationInput = () => {
 				/>
 				<TextField
 					id="outlined-basic"
-					label="Temperature"
-					variant="outlined"
-					value={temperature}
-					// sx={{ width: "200px!important" }}
-					onChange={(e) => setTemperature(e.target.value)}
-				/>
-				<TextField
-					id="outlined-basic"
 					label="Oxygen Saturation"
 					variant="outlined"
 					value={oxygen_saturation}
 					// sx={{ width: "200px!important" }}
 					onChange={(e) => setOxygenSaturation(e.target.value)}
+				/>
+				<TextField
+					id="outlined-basic"
+					label="Respiration Rate"
+					variant="outlined"
+					value={respirationRate}
+					// sx={{ width: "200px!important" }}
+
+					onChange={(e) => setRespirationRate(e.target.value)}
+				/>
+
+				<TextField
+					id="outlined-basic"
+					label="Temperature"
+					variant="outlined"
+					value={temperature}
+					// sx={{ width: "200px!important" }}
+					onChange={(e) => setTemperature(e.target.value)}
 				/>
 
 				{/* <DialogActions sx={{ m: 0, p: "0!important" }}>

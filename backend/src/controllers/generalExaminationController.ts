@@ -13,12 +13,16 @@ const GeneralExaminationController: IGeneralExaminationController = {
             const bp = args.bp;
             const oxygen_saturation = args.oxygen_saturation;
             const temperature = args.temperature;
+            const pulse = args.pulse;
+            const respiration_rate = args.respiration_rate;
 
             await GeneralExamination.create({
                 treatmentDetailId: treatment_detail_id,
                 bp: bp,
                 temperature: temperature,
-                oxygen_saturation: oxygen_saturation
+                oxygen_saturation: oxygen_saturation,
+                pulse: pulse,
+                respiration_rate: respiration_rate
             });
 
             return {
