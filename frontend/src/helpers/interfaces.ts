@@ -75,6 +75,7 @@ export interface IElectronAPI {
 	};
 	PatientApi: {
 		post: (req: IPatient) => Promise<any>;
+		put: (req: IPatient) => Promise<any>;
 		get: (req: any) => Promise<any>;
 		delete: (req: any) => Promise<any>;
 	};
@@ -133,8 +134,10 @@ export interface IStore {
 			inputDialogOpen: boolean;
 			summaryDialogOpen: boolean;
 			addNewPatientInputDialogOpen: boolean;
+			addNewPatientMode: "new" | "edit";
 			addNewMedicineInputDialogOpen: boolean;
 			addNewConsultationInputDialogOpen: boolean;
+			deletePatientConfirmationDialogOpen: boolean;
 		};
 	};
 	applicationDataStore: {
@@ -268,6 +271,7 @@ export interface ITreatmentDone {
 
 export interface IPatient {
 	stage: number;
+	id: number;
 	name: string;
 	date: Date;
 	image: string;

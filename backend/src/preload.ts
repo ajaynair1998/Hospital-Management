@@ -165,6 +165,9 @@ contextBridge.exposeInMainWorld('electron', {
         async post(req: IPatient): Promise<any> {
             return ipcRenderer.invoke('patient-post', req);
         },
+        async put(req: IPatient): Promise<any> {
+            return ipcRenderer.invoke('patient-put', req);
+        },
         async get(req: { patientId: number }): Promise<any> {
             return ipcRenderer.invoke('patient-get', req);
         },
@@ -303,6 +306,8 @@ export interface CountryType {
 }
 
 export interface IPatient {
+    // id will be present if it's put
+    id?: number;
     name: string;
     image: string;
     nationality: CountryType;

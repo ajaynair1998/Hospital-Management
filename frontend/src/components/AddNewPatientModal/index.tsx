@@ -4,15 +4,14 @@ import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import { IStore } from "../../helpers/interfaces";
 import { InputSwitcher } from "./switcher";
 import {
 	setAddNewPatientInputDialogState,
+	setAddNewPatientMode,
 	setInputDialogState,
 	setSnackBarState,
 } from "../../redux/Reducers/utilDataReducer";
@@ -21,7 +20,10 @@ import { width } from "@mui/system";
 import DotsStepper from "../Stepper";
 import {
 	resestPatientDataFields,
+	resetSelectedPatientDataFields,
 	setNewPatientStage,
+	setSelectedPatientConsultationDetails,
+	setSelectedPatientProfileDetails,
 } from "../../redux/Reducers/appStateDataReducer";
 import moment from "moment";
 
@@ -73,12 +75,20 @@ export default function AddNewPatientInputModal() {
 	const { addNewPatientInputDialogOpen } = useSelector(
 		(state: IStore) => state.utilDataStore.data
 	);
+	let patientId = useSelector(
+		(state: IStore) =>
+			state.applicationDataStore.selectedPatient.patientProfileDetails.id
+	);
 	let { stage } = useSelector(
 		(state: IStore) => state.applicationDataStore.newPatient
 	);
 
 	let newPatientData = useSelector(
 		(state: IStore) => state.applicationDataStore.newPatient
+	);
+
+	const mode = useSelector(
+		(state: IStore) => state.utilDataStore.data.addNewPatientMode
 	);
 
 	const [open, setOpen] = React.useState(false);
@@ -132,6 +142,62 @@ export default function AddNewPatientInputModal() {
 			console.log(err.message);
 		}
 	};
+	const handleUpdate = async () => {
+		try {
+			const transformedPatientData = { ...newPatientData };
+			transformedPatientData.date_of_birth = moment(
+				newPatientData.date_of_birth,
+				"YYYY-MM-DD HH:mm:ss"
+			).format("YYYY-MM-DD HH:mm:ss");
+
+			let updatedPatient = await window.electron.PatientApi.put(
+				transformedPatientData
+			);
+			if (updatedPatient.status === 200) {
+				dispatch(
+					setSnackBarState({
+						snackBarOpen: true,
+						text: "patient updated successfully",
+					})
+				);
+				dispatch(
+					setAddNewPatientInputDialogState({
+						addNewPatientInputDialogOpen: false,
+					})
+				);
+				dispatch(setNewPatientStage({ stage: 0 }));
+				dispatch(resestPatientDataFields({}));
+				dispatch(resetSelectedPatientDataFields({}));
+				dispatch(setAddNewPatientMode("new"));
+				await handleSelectedPatientChange(patientId);
+			}
+		} catch (err: any) {
+			console.log(err.message);
+		}
+	};
+	const handleSelectedPatientChange = async (id: number) => {
+		try {
+			// currently inner joining so doesnt return when no treatment details are present
+			let patientWithTreatmentDetails = await window.electron.PatientApi.get({
+				patientId: id,
+			});
+			console.log(
+				"🚀 ~ file: index.tsx ~ line 180 ~ AddNewPatientInputModal ~ patientWithTreatmentDetails",
+				patientWithTreatmentDetails
+			);
+			// dispatch(resetSelectedPatientDataFields({}));
+			// dispatch(
+			// 	setSelectedPatientProfileDetails({ patientProfileDetails: patientWithTreatmentDetails.data })
+			// );
+			// dispatch(
+			// 	setSelectedPatientConsultationDetails({
+			// 		patientConsultationDetails: patientWithTreatmentDetails.data,
+			// 	})
+			// );
+		} catch (err) {
+			console.log(err);
+		}
+	};
 	React.useEffect(() => {
 		setOpen(addNewPatientInputDialogOpen);
 	}, [addNewPatientInputDialogOpen]);
@@ -150,7 +216,7 @@ export default function AddNewPatientInputModal() {
 					id="customized-dialog-title"
 					onClose={handleClose}
 				>
-					Add a new Patient
+					{mode === "new" ? "Add a new Patient" : "Edit Patient"}
 				</BootstrapDialogTitle>
 				<DialogContent dividers>
 					{/* <Typography gutterBottom>
@@ -231,7 +297,7 @@ export default function AddNewPatientInputModal() {
 						setStep={handleStepChange}
 						activeStep={stage}
 						steps={3}
-						handleSubmit={handleSubmit}
+						handleSubmit={mode === "new" ? handleSubmit : handleUpdate}
 					/>
 				</DialogContent>
 				{/* <DialogActions>

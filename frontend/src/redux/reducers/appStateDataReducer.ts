@@ -86,6 +86,12 @@ export const AppStateDataSlice = createSlice({
 				patientConsultationDetails: {},
 			};
 		},
+		migrateSelectedPatientToEditPatient: (state: any, action: any) => {
+			state.newPatient = {
+				stage: 0,
+				...state.selectedPatient.patientProfileDetails,
+			};
+		},
 		setSelectedPatientConsultation: (state: any, action: any) => {
 			state.selectedPatientConsultation = {
 				id: action.payload.id,
@@ -122,5 +128,6 @@ export const {
 	setNewMedicineDataField,
 	resetNewMedicineDataFields,
 	setMedicines,
+	migrateSelectedPatientToEditPatient,
 } = AppStateDataSlice.actions;
 export default AppStateDataSlice.reducer;

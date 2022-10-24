@@ -9,10 +9,13 @@ import AddNewPatient from "./AddNewPatient";
 import {
 	setAddNewConsultationInputDialogState,
 	setAddNewPatientInputDialogState,
+	setAddNewPatientMode,
+	setDeletePatientConfirmationState,
 	setSnackBarState,
 } from "../../../../redux/Reducers/utilDataReducer";
 import PatientInfo from "./PatientInfo";
 import {
+	migrateSelectedPatientToEditPatient,
 	resetSelectedPatientDataFields,
 	setSelectedPatientConsultationDetails,
 	setSelectedPatientProfileDetails,
@@ -39,9 +42,25 @@ const Patients = () => {
 		(state: IStore) =>
 			state.utilDataStore.data.addNewConsultationInputDialogOpen
 	);
+	let deletePatientConfirmationIsOpen = useSelector(
+		(state: IStore) =>
+			state.utilDataStore.data.deletePatientConfirmationDialogOpen
+	);
 	let dispatch = useDispatch();
 	const handleClickAddPatient = () => {
 		try {
+			dispatch(setAddNewPatientMode("new"));
+			dispatch(
+				setAddNewPatientInputDialogState({ addNewPatientInputDialogOpen: true })
+			);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+	const handleClickEditPatient = () => {
+		try {
+			dispatch(setAddNewPatientMode("edit"));
+			dispatch(migrateSelectedPatientToEditPatient({}));
 			dispatch(
 				setAddNewPatientInputDialogState({ addNewPatientInputDialogOpen: true })
 			);
@@ -95,6 +114,28 @@ const Patients = () => {
 		}
 	};
 
+	const handleClickDeletePatient = async (): Promise<any> => {
+		try {
+			if (patientId) {
+				let deletePatient = await window.electron.PatientApi.delete({
+					id: patientId,
+				});
+				if (deletePatient.status == 200) {
+					dispatch(setDeletePatientConfirmationState(false));
+					dispatch(
+						setSnackBarState({
+							snackBarOpen: true,
+							text: "Deleted Patient",
+						})
+					);
+					handleDeletedPatientChange();
+				}
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
 	const handleSelectedPatientChange = async (
 		e: React.SyntheticEvent<Element, Event>,
 		value: any
@@ -116,6 +157,13 @@ const Patients = () => {
 			console.log(err);
 		}
 	};
+	const handleDeletedPatientChange = (): void => {
+		try {
+			dispatch(resetSelectedPatientDataFields({}));
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
 	const handleInputDialogState = async (action: string): Promise<any> => {
 		try {
@@ -131,6 +179,20 @@ const Patients = () => {
 						addNewConsultationInputDialogOpen: false,
 					})
 				);
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const handleClickOpenDeleteConfirmation = async (
+		action: string
+	): Promise<any> => {
+		try {
+			if (action === "open") {
+				dispatch(setDeletePatientConfirmationState(true));
+			} else if (action === "close") {
+				dispatch(setDeletePatientConfirmationState(false));
 			}
 		} catch (err) {
 			console.log(err);
@@ -175,6 +237,28 @@ const Patients = () => {
 								<AddIcon />
 							</Button>
 						</Grid>
+						<Grid item>
+							<Button
+								variant="outlined"
+								color="success"
+								sx={{ height: "50px", alignContent: "center" }}
+								onClick={() => handleClickEditPatient()}
+							>
+								<p>Edit Patient </p> &nbsp;
+								<AddIcon />
+							</Button>
+						</Grid>
+						<Grid item>
+							<Button
+								variant="outlined"
+								color="error"
+								sx={{ height: "50px", alignContent: "center" }}
+								onClick={() => handleClickOpenDeleteConfirmation("open")}
+							>
+								<p>Delete Patient </p> &nbsp;
+								<AddIcon />
+							</Button>
+						</Grid>
 					</Grid>
 					<PatientInfo />
 				</Box>
@@ -184,6 +268,12 @@ const Patients = () => {
 				action={handleClickAddConsultation}
 				close={() => handleInputDialogState("close")}
 				isOpen={addConsultationConfirmationIsOpen}
+				text={"Confirm to create a new Consultation ?"}
+			/>
+			<AlertDialog
+				action={handleClickDeletePatient}
+				close={() => handleClickOpenDeleteConfirmation("close")}
+				isOpen={deletePatientConfirmationIsOpen}
 				text={"Confirm to create a new Consultation ?"}
 			/>
 		</React.Fragment>

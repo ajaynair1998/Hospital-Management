@@ -53,6 +53,58 @@ const PatientController: IPatientController = {
             return { status: 500, message: err.message };
         }
     },
+    async put(event: any, args: IPost) {
+        try {
+            console.log(args);
+            let dateAsString = moment(
+                args.date_of_birth,
+                'YYYY-MM-DD HH:mm:ss'
+            ).toString();
+
+            if (
+                args.name == '' ||
+                args.name === null ||
+                args.name == undefined
+            ) {
+                throw new Error('Invalid Name');
+            }
+
+            let age = getAge(args.date_of_birth);
+
+            let nationName = args.nationality && args.nationality.label;
+            await Patient.update(
+                {
+                    name: args.name,
+                    nationality: nationName,
+                    age: age,
+                    date_of_birth: dateAsString,
+                    gender: args.gender,
+                    address: args.address,
+                    blood_group: args.blood_group,
+                    phone_number: args.phone_number,
+                    mobile_number: args.mobile_number,
+                    email: args.email,
+                    marital_status: args.marital_status,
+                    occupation: args.occupation,
+                    doctor_name: args.doctor_name,
+                    referred_by: args.referred_by
+                },
+                {
+                    where: {
+                        id: args.id
+                    }
+                }
+            );
+
+            return {
+                status: 200,
+                message: `patient updated successfully`
+            };
+        } catch (err: any) {
+            console.log(err);
+            return { status: 500, message: err.message };
+        }
+    },
     async get(event: any, args: { searchTerm: string; patientId: number }) {
         try {
             if (args.patientId) {
@@ -152,6 +204,7 @@ interface IPatientController {
     post: (event: any, args: IPatient) => Promise<any>;
     get: (event: any, args: any) => Promise<any>;
     delete: (event: any, args: any) => Promise<any>;
+    put: (event: any, args: any) => Promise<any>;
 }
 
 export default PatientController;
