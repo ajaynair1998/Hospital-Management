@@ -105,11 +105,7 @@ const StageZero = () => {
 
 				<CountrySelect
 					handleClickOption={handleChangeNationality}
-					value={
-						nationality
-							? JSON.parse(nationality as unknown as string)
-							: undefined
-					}
+					value={nationality ? nationality : undefined}
 				/>
 
 				<FormControl>

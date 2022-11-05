@@ -110,6 +110,7 @@ const PatientController: IPatientController = {
         try {
             if (args.patientId) {
                 const patientId = args.patientId;
+                // this query is only for getting all the consultations to population the consultation table
                 let patientWithTreatmentDetails = await sequelize.query(
                     `SELECT p.id as patientId,td.* from patients as p INNER JOIN treatmentdetails as td on p.id = td.patientId where p.id = ${patientId} AND p.id NOT NULL `,
                     {

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import moment from "moment";
 import { countries } from "../../components/CountrySelect";
 
 export const AppStateDataSlice = createSlice({
@@ -113,6 +114,12 @@ export const AppStateDataSlice = createSlice({
 			state.editPatient = {
 				stage: 0,
 				...state.selectedPatient.patientProfileDetails,
+				date_of_birth: moment(
+					state.selectedPatient.patientProfileDetails.date_of_birth
+				).toDate(),
+				nationality: state.selectedPatient.patientProfileDetails.nationality
+					? JSON.parse(state.selectedPatient.patientProfileDetails.nationality)
+					: countries[0],
 			};
 		},
 		setEditPatientStage: (state: any, action: any) => {

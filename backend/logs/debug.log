@@ -1,0 +1,30 @@
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Saturday, November 5th 2022, 1:00:15 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Saturday, November 5th 2022, 1:15:57 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Saturday, November 5th 2022, 1:16:09 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Saturday, November 5th 2022, 1:18:03 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Saturday, November 5th 2022, 1:18:15 pm'
+}
