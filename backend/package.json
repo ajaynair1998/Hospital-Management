@@ -1,6 +1,7 @@
 {
-    "main": "./build/main.js",
+    "main": "build/main.js",
     "name": "hospital-management",
+    "homepage": "./",
     "version": "0.1.0",
     "author": {
         "name": "ajay nair",
@@ -42,7 +43,7 @@
         "files": [
             "build/**/*",
             "node_modules/**/*",
-            "../frontend/build/**/**",
+            "package.json",
             "./storage/**/*"
         ],
         "directories": {

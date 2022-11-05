@@ -33,12 +33,9 @@ function createWindow(): void {
     win.loadURL(
         isDev
             ? 'http://localhost:3000'
-            : `file://${path.join(
-                  __dirname,
-                  '../../frontend/build/index.html'
-              )}`
+            : `file://${path.join(__dirname, './frontend-build/index.html')}`
     );
-    if (isDev) {
+    if (true) {
         win.webContents.openDevTools({ mode: 'left' });
     }
 }
