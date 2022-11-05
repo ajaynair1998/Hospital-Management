@@ -189,6 +189,8 @@ const PatientProfileCard = () => {
 									<Typography variant="subtitle1" align="center">
 										{generateMaximumLengthString(
 											patientProfileDetails.nationality
+												? JSON.parse(patientProfileDetails.nationality).label
+												: "Unavailable"
 										)}
 									</Typography>
 								</Grid>

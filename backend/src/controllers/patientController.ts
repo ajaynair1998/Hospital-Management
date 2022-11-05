@@ -27,9 +27,10 @@ const PatientController: IPatientController = {
             let age = getAge(args.date_of_birth);
 
             let nationName = args.nationality.label;
+            let nation = JSON.stringify(args.nationality);
             await Patient.create({
                 name: args.name,
-                nationality: nationName,
+                nationality: nation,
                 age: age,
                 date_of_birth: dateAsString,
                 gender: args.gender,
@@ -55,7 +56,6 @@ const PatientController: IPatientController = {
     },
     async put(event: any, args: IPost) {
         try {
-            console.log(args);
             let dateAsString = moment(
                 args.date_of_birth,
                 'YYYY-MM-DD HH:mm:ss'
@@ -72,10 +72,11 @@ const PatientController: IPatientController = {
             let age = getAge(args.date_of_birth);
 
             let nationName = args.nationality && args.nationality.label;
+            let nation = args.nationality && JSON.stringify(args.nationality);
             await Patient.update(
                 {
                     name: args.name,
-                    nationality: nationName,
+                    nationality: nation,
                     age: age,
                     date_of_birth: dateAsString,
                     gender: args.gender,

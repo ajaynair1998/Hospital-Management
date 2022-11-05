@@ -134,7 +134,7 @@ export interface IStore {
 			inputDialogOpen: boolean;
 			summaryDialogOpen: boolean;
 			addNewPatientInputDialogOpen: boolean;
-			editPatientInputDialogOpen:false,
+			editPatientInputDialogOpen: false;
 			addNewPatientMode: "new" | "edit";
 			addNewMedicineInputDialogOpen: boolean;
 			addNewConsultationInputDialogOpen: boolean;
@@ -147,7 +147,7 @@ export interface IStore {
 			category_name: string;
 		};
 		newPatient: IPatient;
-		editPatient:IPatient;
+		editPatient: IPatient;
 		medicines: IMedicine[];
 		newMedicine: {
 			name: string;

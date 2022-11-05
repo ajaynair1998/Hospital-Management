@@ -78,10 +78,6 @@ export default function EditPatientInputModal() {
 	const { editPatientInputDialogOpen } = useSelector(
 		(state: IStore) => state.utilDataStore.data
 	);
-	console.log(
-		"🚀 ~ file: index.tsx ~ line 79 ~ AddNewPatientInputModal ~ editPatientInputDialogOpen",
-		editPatientInputDialogOpen
-	);
 	let patientId = useSelector(
 		(state: IStore) =>
 			state.applicationDataStore.selectedPatient.patientProfileDetails.id
@@ -95,9 +91,6 @@ export default function EditPatientInputModal() {
 	);
 	const [open, setOpen] = React.useState(false);
 
-	const handleClickOpen = () => {
-		setOpen(true);
-	};
 	const handleClose = () => {
 		setOpen(false);
 		dispatch(setEditPatientInputDialogState(false));

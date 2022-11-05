@@ -153,7 +153,7 @@ export default function AddNewPatientInputModal() {
 					id="customized-dialog-title"
 					onClose={handleClose}
 				>
-					{mode === "new" ? "Add a new Patient" : "Edit Patient"}
+					{"Add a new Patient"}
 				</BootstrapDialogTitle>
 				<DialogContent dividers>
 					{/* <Typography gutterBottom>

@@ -73,9 +73,7 @@ const StageZero = () => {
 		}
 	};
 
-	useEffect(() => {
-		handleChangeDate(date_of_birth);
-	}, [date_of_birth]);
+	useEffect(() => {}, []);
 	return (
 		<React.Fragment>
 			<Box
@@ -107,7 +105,11 @@ const StageZero = () => {
 
 				<CountrySelect
 					handleClickOption={handleChangeNationality}
-					value={nationality}
+					value={
+						nationality
+							? JSON.parse(nationality as unknown as string)
+							: undefined
+					}
 				/>
 
 				<FormControl>
