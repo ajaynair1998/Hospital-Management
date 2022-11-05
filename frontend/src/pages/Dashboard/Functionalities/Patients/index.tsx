@@ -48,6 +48,9 @@ const Patients = () => {
 		(state: IStore) =>
 			state.utilDataStore.data.deletePatientConfirmationDialogOpen
 	);
+	let { selected } = useSelector(
+		(state: IStore) => state.applicationDataStore.selectedPatient
+	);
 	let dispatch = useDispatch();
 	const handleClickAddPatient = () => {
 		try {
@@ -225,38 +228,50 @@ const Patients = () => {
 								<AddIcon />
 							</Button>
 						</Grid>
-						<Grid item>
-							<Button
-								variant="outlined"
-								sx={{ height: "50px", alignContent: "center" }}
-								onClick={() => handleInputDialogState("open")}
-							>
-								<p>Add Consultation </p> &nbsp;
-								<AddIcon />
-							</Button>
-						</Grid>
-						<Grid item>
-							<Button
-								variant="outlined"
-								color="success"
-								sx={{ height: "50px", alignContent: "center" }}
-								onClick={() => handleClickEditPatient()}
-							>
-								<p>Edit Patient </p> &nbsp;
-								<AddIcon />
-							</Button>
-						</Grid>
-						<Grid item>
-							<Button
-								variant="outlined"
-								color="error"
-								sx={{ height: "50px", alignContent: "center" }}
-								onClick={() => handleClickOpenDeleteConfirmation("open")}
-							>
-								<p>Delete Patient </p> &nbsp;
-								<AddIcon />
-							</Button>
-						</Grid>
+						{selected ? (
+							<Grid item>
+								<Button
+									variant="outlined"
+									sx={{ height: "50px", alignContent: "center" }}
+									onClick={() => handleInputDialogState("open")}
+								>
+									<p>Add Consultation </p> &nbsp;
+									<AddIcon />
+								</Button>
+							</Grid>
+						) : (
+							<React.Fragment />
+						)}
+						{selected ? (
+							<Grid item>
+								<Button
+									variant="outlined"
+									color="success"
+									sx={{ height: "50px", alignContent: "center" }}
+									onClick={() => handleClickEditPatient()}
+								>
+									<p>Edit Patient </p> &nbsp;
+									<AddIcon />
+								</Button>
+							</Grid>
+						) : (
+							<React.Fragment />
+						)}
+						{selected ? (
+							<Grid item>
+								<Button
+									variant="outlined"
+									color="error"
+									sx={{ height: "50px", alignContent: "center" }}
+									onClick={() => handleClickOpenDeleteConfirmation("open")}
+								>
+									<p>Delete Patient </p> &nbsp;
+									<AddIcon />
+								</Button>
+							</Grid>
+						) : (
+							<React.Fragment />
+						)}
 					</Grid>
 					<PatientInfo />
 				</Box>

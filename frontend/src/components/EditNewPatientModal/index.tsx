@@ -135,23 +135,25 @@ export default function EditPatientInputModal() {
 	};
 	const handleSelectedPatientChange = async (id: number) => {
 		try {
-			// currently inner joining so doesnt return when no treatment details are present
-			let patientWithTreatmentDetails = await window.electron.PatientApi.get({
-				patientId: id,
+			let patientProfileUpdated = await window.electron.PatientApi.get({
+				searchTerm: id,
 			});
-			console.log(
-				"🚀 ~ file: index.tsx ~ line 180 ~ AddNewPatientInputModal ~ patientWithTreatmentDetails",
-				patientWithTreatmentDetails
+			if (patientProfileUpdated.data.length > 0) {
+				dispatch(resetSelectedPatientDataFields({}));
+				dispatch(
+					setSelectedPatientProfileDetails({
+						patientProfileDetails: patientProfileUpdated.data[0],
+					})
+				);
+			}
+			let patientWithTreatmentDetails = await window.electron.PatientApi.get({
+				patientId: patientId,
+			});
+			dispatch(
+				setSelectedPatientConsultationDetails({
+					patientConsultationDetails: patientWithTreatmentDetails.data,
+				})
 			);
-			// dispatch(resetSelectedPatientDataFields({}));
-			// dispatch(
-			// 	setSelectedPatientProfileDetails({ patientProfileDetails: patientWithTreatmentDetails.data })
-			// );
-			// dispatch(
-			// 	setSelectedPatientConsultationDetails({
-			// 		patientConsultationDetails: patientWithTreatmentDetails.data,
-			// 	})
-			// );
 		} catch (err) {
 			console.log(err);
 		}

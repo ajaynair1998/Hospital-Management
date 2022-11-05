@@ -25,7 +25,7 @@ const PatientController: IPatientController = {
             }
 
             let age = getAge(args.date_of_birth);
-
+            // @ts-ignore
             let nationName = args.nationality.label;
             let nation = JSON.stringify(args.nationality);
             await Patient.create({
@@ -70,7 +70,7 @@ const PatientController: IPatientController = {
             }
 
             let age = getAge(args.date_of_birth);
-
+            // @ts-ignore
             let nationName = args.nationality && args.nationality.label;
             let nation = args.nationality && JSON.stringify(args.nationality);
             await Patient.update(
@@ -155,10 +155,6 @@ const PatientController: IPatientController = {
                         return -1;
                     }
                 });
-                console.log(
-                    '🚀 ~ file: patientController.ts ~ line 97 ~ patients=patients.sort ~ patients',
-                    patients
-                );
                 return {
                     status: 200,
                     data: patients
