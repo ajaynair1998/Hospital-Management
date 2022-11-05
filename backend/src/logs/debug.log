@@ -76,3 +76,15 @@
   label: 'winston custom format',
   timestamp: 'Saturday, November 5th 2022, 3:54:54 pm'
 }
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Saturday, November 5th 2022, 4:44:37 pm'
+}
+{
+  message: 'Opening dev tools',
+  level: 'debug',
+  label: 'winston custom format',
+  timestamp: 'Saturday, November 5th 2022, 4:44:47 pm'
+}

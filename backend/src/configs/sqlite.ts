@@ -4,9 +4,9 @@ const { Sequelize } = sequelize;
 
 const sequelizeDB = new Sequelize({
     dialect: 'sqlite',
-    storage: path.resolve(__dirname, '../../storage/development.sqlite'),
+    storage: path.resolve(__dirname, '../../storage/development.sqlite')
     // logging output actions to the console
-    logging: true
+    // logging: true
 });
 
 // MOST PROBABLY WILL THROW ERROR IN SQLITE QUERY.JS IN NODE MODULES IF TABLE IN IMPOSSIBLE TO ALTER ie LIKE

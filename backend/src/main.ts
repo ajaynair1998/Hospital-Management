@@ -16,7 +16,6 @@ import followUpRoute from './routes/followUpRoute';
 import investigationRoute from './routes/investigationRoute';
 import treatmentDoneRoute from './routes/treatmentDoneRoute';
 import patientRoute from './routes/patientRoute';
-import logger from './logger';
 import treatmentDetailsRoute from './routes/treatmentDetailsRoute';
 import medicineRoute from './routes/medicineRoute';
 import prescriptionRoute from './routes/prescriptionRoute';
@@ -34,11 +33,13 @@ function createWindow(): void {
     win.loadURL(
         isDev
             ? 'http://localhost:3000'
-            : `file://${path.join(__dirname, '../build/index.html')}`
+            : `file://${path.join(
+                  __dirname,
+                  '../../frontend/build/index.html'
+              )}`
     );
     if (isDev) {
-        logger.debug('Opening dev tools');
-        win.webContents.openDevTools({ mode: 'detach' });
+        win.webContents.openDevTools({ mode: 'left' });
     }
 }
 

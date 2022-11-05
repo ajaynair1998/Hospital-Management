@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 import "./index.css";
@@ -13,9 +13,10 @@ const root = ReactDOM.createRoot(
 root.render(
 	<React.StrictMode>
 		<Provider store={store}>
-			<BrowserRouter>
+			{/* use broweser router for development */}
+			<HashRouter>
 				<App />
-			</BrowserRouter>
+			</HashRouter>
 			<PositionedSnackbar />
 		</Provider>
 	</React.StrictMode>
