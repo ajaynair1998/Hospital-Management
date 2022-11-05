@@ -11,6 +11,7 @@ import {
 	setAddNewPatientInputDialogState,
 	setAddNewPatientMode,
 	setDeletePatientConfirmationState,
+	setEditPatientInputDialogState,
 	setSnackBarState,
 } from "../../../../redux/Reducers/utilDataReducer";
 import PatientInfo from "./PatientInfo";
@@ -22,6 +23,7 @@ import {
 } from "../../../../redux/Reducers/appStateDataReducer";
 import { IStore } from "../../../../helpers/interfaces";
 import AlertDialog from "../../../../components/Dialog";
+import EditPatient from "./EditPatient";
 
 let Container = styled.div`
 	display: flex;
@@ -49,7 +51,6 @@ const Patients = () => {
 	let dispatch = useDispatch();
 	const handleClickAddPatient = () => {
 		try {
-			dispatch(setAddNewPatientMode("new"));
 			dispatch(
 				setAddNewPatientInputDialogState({ addNewPatientInputDialogOpen: true })
 			);
@@ -59,11 +60,8 @@ const Patients = () => {
 	};
 	const handleClickEditPatient = () => {
 		try {
-			dispatch(setAddNewPatientMode("edit"));
 			dispatch(migrateSelectedPatientToEditPatient({}));
-			dispatch(
-				setAddNewPatientInputDialogState({ addNewPatientInputDialogOpen: true })
-			);
+			dispatch(setEditPatientInputDialogState(true));
 		} catch (err) {
 			console.log(err);
 		}
@@ -264,6 +262,7 @@ const Patients = () => {
 				</Box>
 			</Container>
 			<AddNewPatient />
+			<EditPatient />
 			<AlertDialog
 				action={handleClickAddConsultation}
 				close={() => handleInputDialogState("close")}

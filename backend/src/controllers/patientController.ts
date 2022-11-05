@@ -110,7 +110,7 @@ const PatientController: IPatientController = {
             if (args.patientId) {
                 const patientId = args.patientId;
                 let patientWithTreatmentDetails = await sequelize.query(
-                    `SELECT p.id as patientId,td.id as id,td.createdAt,td.updatedAt  from patients as p INNER JOIN treatmentdetails as td on p.id = td.patientId where p.id = ${patientId}  `,
+                    `SELECT p.*,td.id as tdid from patients as p LEFT JOIN treatmentdetails as td on p.id = td.patientId where p.id = ${patientId} AND p.id NOT NULL `,
                     {
                         type: QueryTypes.SELECT
                     }

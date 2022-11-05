@@ -12,6 +12,7 @@ import { InputSwitcher } from "./switcher";
 import {
 	setAddNewPatientInputDialogState,
 	setAddNewPatientMode,
+	setEditPatientInputDialogState,
 	setInputDialogState,
 	setSnackBarState,
 } from "../../redux/Reducers/utilDataReducer";
@@ -20,7 +21,9 @@ import { width } from "@mui/system";
 import DotsStepper from "../Stepper";
 import {
 	resestPatientDataFields,
+	resetEditPatientDataFields,
 	resetSelectedPatientDataFields,
+	setEditPatientStage,
 	setNewPatientStage,
 	setSelectedPatientConsultationDetails,
 	setSelectedPatientProfileDetails,
@@ -69,75 +72,100 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
 	);
 };
 
-export default function AddNewPatientInputModal() {
+export default function EditPatientInputModal() {
 	// get the current location (category) for displaying the necessary input fields
 	const dispatch = useDispatch();
-	const { addNewPatientInputDialogOpen } = useSelector(
+	const { editPatientInputDialogOpen } = useSelector(
 		(state: IStore) => state.utilDataStore.data
 	);
+	console.log(
+		"🚀 ~ file: index.tsx ~ line 79 ~ AddNewPatientInputModal ~ editPatientInputDialogOpen",
+		editPatientInputDialogOpen
+	);
+	let patientId = useSelector(
+		(state: IStore) =>
+			state.applicationDataStore.selectedPatient.patientProfileDetails.id
+	);
 	let { stage } = useSelector(
-		(state: IStore) => state.applicationDataStore.newPatient
+		(state: IStore) => state.applicationDataStore.editPatient
 	);
 
-	let newPatientData = useSelector(
-		(state: IStore) => state.applicationDataStore.newPatient
+	let editPatientData = useSelector(
+		(state: IStore) => state.applicationDataStore.editPatient
 	);
-
-	const mode = useSelector(
-		(state: IStore) => state.utilDataStore.data.addNewPatientMode
-	);
-
 	const [open, setOpen] = React.useState(false);
 
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
 	const handleClose = () => {
 		setOpen(false);
-		dispatch(
-			setAddNewPatientInputDialogState({ addNewPatientInputDialogOpen: false })
-		);
-		dispatch(setNewPatientStage({ stage: 0 }));
-		dispatch(resestPatientDataFields({}));
+		dispatch(setEditPatientInputDialogState(false));
+		dispatch(setEditPatientStage({ stage: 0 }));
+		dispatch(resetEditPatientDataFields({}));
 	};
 
 	const handleStepChange = (stage: number) => {
 		try {
-			dispatch(setNewPatientStage({ stage: stage }));
+			dispatch(setEditPatientStage({ stage: stage }));
 		} catch (err) {
 			console.log(err);
 		}
 	};
-	const handleSubmit = async () => {
+	const handleUpdate = async () => {
 		try {
-			const transformedPatientData = { ...newPatientData };
+			const transformedPatientData = { ...editPatientData };
 			transformedPatientData.date_of_birth = moment(
-				newPatientData.date_of_birth,
+				editPatientData.date_of_birth,
 				"YYYY-MM-DD HH:mm:ss"
 			).format("YYYY-MM-DD HH:mm:ss");
 
-			let newPatient = await window.electron.PatientApi.post(
+			let updatedPatient = await window.electron.PatientApi.put(
 				transformedPatientData
 			);
-			if (newPatient.status === 200) {
+			if (updatedPatient.status === 200) {
 				dispatch(
 					setSnackBarState({
 						snackBarOpen: true,
-						text: "New patient added successfully",
+						text: "patient updated successfully",
 					})
 				);
-				dispatch(
-					setAddNewPatientInputDialogState({
-						addNewPatientInputDialogOpen: false,
-					})
-				);
-				dispatch(setNewPatientStage({ stage: 0 }));
-				dispatch(resestPatientDataFields({}));
+				dispatch(setEditPatientInputDialogState(false));
+				dispatch(setEditPatientStage({ stage: 0 }));
+				dispatch(resetEditPatientDataFields({}));
+				dispatch(resetSelectedPatientDataFields({}));
+				await handleSelectedPatientChange(patientId);
 			}
 		} catch (err: any) {
 			console.log(err.message);
 		}
 	};
+	const handleSelectedPatientChange = async (id: number) => {
+		try {
+			// currently inner joining so doesnt return when no treatment details are present
+			let patientWithTreatmentDetails = await window.electron.PatientApi.get({
+				patientId: id,
+			});
+			console.log(
+				"🚀 ~ file: index.tsx ~ line 180 ~ AddNewPatientInputModal ~ patientWithTreatmentDetails",
+				patientWithTreatmentDetails
+			);
+			// dispatch(resetSelectedPatientDataFields({}));
+			// dispatch(
+			// 	setSelectedPatientProfileDetails({ patientProfileDetails: patientWithTreatmentDetails.data })
+			// );
+			// dispatch(
+			// 	setSelectedPatientConsultationDetails({
+			// 		patientConsultationDetails: patientWithTreatmentDetails.data,
+			// 	})
+			// );
+		} catch (err) {
+			console.log(err);
+		}
+	};
 	React.useEffect(() => {
-		setOpen(addNewPatientInputDialogOpen);
-	}, [addNewPatientInputDialogOpen]);
+		setOpen(editPatientInputDialogOpen);
+	}, [editPatientInputDialogOpen]);
 
 	return (
 		<React.Fragment>
@@ -153,7 +181,7 @@ export default function AddNewPatientInputModal() {
 					id="customized-dialog-title"
 					onClose={handleClose}
 				>
-					{mode === "new" ? "Add a new Patient" : "Edit Patient"}
+					{"Edit Patient"}
 				</BootstrapDialogTitle>
 				<DialogContent dividers>
 					{/* <Typography gutterBottom>
@@ -234,7 +262,7 @@ export default function AddNewPatientInputModal() {
 						setStep={handleStepChange}
 						activeStep={stage}
 						steps={3}
-						handleSubmit={handleSubmit}
+						handleSubmit={handleUpdate}
 					/>
 				</DialogContent>
 				{/* <DialogActions>

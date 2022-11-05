@@ -10,7 +10,7 @@ export const utilDataSlice = createSlice({
 			inputDialogOpen: false,
 			summaryDialogOpen: false,
 			addNewPatientInputDialogOpen: false,
-			addNewPatientMode: "new",
+			editPatientInputDialogOpen: false,
 			addNewMedicineInputDialogOpen: false,
 			addNewConsultationInputDialogOpen: false,
 			deletePatientConfirmationDialogOpen: false,
@@ -33,6 +33,9 @@ export const utilDataSlice = createSlice({
 		setAddNewPatientInputDialogState: (state: any, action: any) => {
 			state.data.addNewPatientInputDialogOpen =
 				action.payload.addNewPatientInputDialogOpen;
+		},
+		setEditPatientInputDialogState: (state: any, action: any) => {
+			state.data.editPatientInputDialogOpen = action.payload;
 		},
 		setAddNewMedicineInputDialogState: (state: any, action: any) => {
 			state.data.addNewMedicineInputDialogOpen =
@@ -61,5 +64,6 @@ export const {
 	setSummaryDialogState,
 	setAddNewPatientMode,
 	setDeletePatientConfirmationState,
+	setEditPatientInputDialogState,
 } = utilDataSlice.actions;
 export default utilDataSlice.reducer;

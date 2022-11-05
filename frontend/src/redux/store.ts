@@ -1,8 +1,5 @@
 import {
 	configureStore,
-	createSerializableStateInvariantMiddleware,
-	getDefaultMiddleware,
-	isPlain,
 } from "@reduxjs/toolkit";
 import userDataReducer from "./Reducers/userDataReducer";
 import categoriesDataReducer from "./Reducers/categoriesDataReducer";

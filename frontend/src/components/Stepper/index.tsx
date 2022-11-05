@@ -65,11 +65,6 @@ export default function DotsStepper(props: IProps) {
 
 const NextAndBackButtons = (props: IPropsNextAndBackButton) => {
 	const theme = useTheme();
-
-	const mode = useSelector(
-		(state: IStore) => state.utilDataStore.data.addNewPatientMode
-	);
-
 	if (props.activeStep === props.steps - 1) {
 		return (
 			<Button
@@ -78,7 +73,7 @@ const NextAndBackButtons = (props: IPropsNextAndBackButton) => {
 				disabled={props.activeStep !== props.steps - 1}
 				color="success"
 			>
-				{mode === "new" ? "Submit" : "Update"}
+				{"Submit"}
 			</Button>
 		);
 	} else {

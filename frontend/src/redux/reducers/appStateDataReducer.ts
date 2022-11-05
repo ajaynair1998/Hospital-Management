@@ -23,6 +23,21 @@ export const AppStateDataSlice = createSlice({
 			referred_by: "",
 			email: "",
 		},
+		editPatient: {
+			stage: 0,
+			name: "",
+			gender: "not_selected",
+			date_of_birth: new Date(),
+			nationality: countries[0],
+			phone_number: "",
+			address: "",
+			marital_status: "not_selected",
+			blood_group: "not_selected",
+			mobile_number: "",
+			occupation: "",
+			referred_by: "",
+			email: "",
+		},
 		newMedicine: {
 			name: "",
 			strength: "",
@@ -50,6 +65,9 @@ export const AppStateDataSlice = createSlice({
 		},
 		setNewPatientDataField: (state: any, action: any) => {
 			state.newPatient[action.payload.key] = action.payload.value;
+		},
+		setEditPatientDataField: (state: any, action: any) => {
+			state.editPatient[action.payload.key] = action.payload.value;
 		},
 		resestPatientDataFields: (state: any, action: any) => {
 			state.newPatient = {
@@ -86,12 +104,21 @@ export const AppStateDataSlice = createSlice({
 				patientConsultationDetails: {},
 			};
 		},
+		resetEditPatientDataFields: (state: any, action: any) => {
+			state.editPatient = {
+				stage: 0,
+			};
+		},
 		migrateSelectedPatientToEditPatient: (state: any, action: any) => {
-			state.newPatient = {
+			state.editPatient = {
 				stage: 0,
 				...state.selectedPatient.patientProfileDetails,
 			};
 		},
+		setEditPatientStage: (state: any, action: any) => {
+			state.editPatient.stage = action.payload.stage;
+		},
+
 		setSelectedPatientConsultation: (state: any, action: any) => {
 			state.selectedPatientConsultation = {
 				id: action.payload.id,
@@ -129,5 +156,8 @@ export const {
 	resetNewMedicineDataFields,
 	setMedicines,
 	migrateSelectedPatientToEditPatient,
+	resetEditPatientDataFields,
+	setEditPatientStage,
+	setEditPatientDataField,
 } = AppStateDataSlice.actions;
 export default AppStateDataSlice.reducer;
