@@ -1,10 +1,22 @@
 import sequelize from 'sequelize';
 import path from 'path';
 const { Sequelize } = sequelize;
+import isDev from 'electron-is-dev';
+import { app } from 'electron';
 
 const sequelizeDB = new Sequelize({
     dialect: 'sqlite',
-    storage: path.resolve(__dirname, '../../storage/development.sqlite')
+    storage: isDev
+        ? path.resolve(__dirname, '../../storage/development.sqlite')
+        : // : './Users/ajay/Desktop/storage/development.sqlite'
+          path.join(
+              app.getAppPath(),
+              '..',
+              '..',
+              'resources',
+              'app.asar.unpacked',
+              'development.sqlite'
+          )
     // logging output actions to the console
     // logging: true
 });

@@ -207,6 +207,11 @@ contextBridge.exposeInMainWorld('electron', {
         async delete(req: { id: number }): Promise<any> {
             return ipcRenderer.invoke('prescription-delete', req);
         }
+    },
+    DebugApi: {
+        async get(req: {}): Promise<any> {
+            return ipcRenderer.invoke('debug-get', req);
+        }
     }
 });
 

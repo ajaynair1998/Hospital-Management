@@ -1,5 +1,5 @@
 import { Box, Button, Dialog, Grid } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import AsyncSearchBar from "../../../../components/AsyncSearchBar";
@@ -69,7 +69,20 @@ const Patients = () => {
 			console.log(err);
 		}
 	};
-
+	async function getNamesOfFiles() {
+		try {
+			let files = await window.electron.DebugApi.get({});
+			console.log(
+				"🚀 ~ file: index.tsx ~ line 75 ~ getNamesOfFiles ~ files",
+				files
+			);
+		} catch (err) {
+			console.log(err);
+		}
+	}
+	useEffect(() => {
+		getNamesOfFiles();
+	}, []);
 	const handleChangeSearch = async (searchTerm: string) => {
 		try {
 			let patients = await window.electron.PatientApi.get({
