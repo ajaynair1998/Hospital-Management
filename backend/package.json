@@ -21,11 +21,13 @@
     },
     "devDependencies": {
         "@types/sequelize": "^4.28.11",
-        "electron": "^18.0.3",
-        "electron-rebuild": "^3.2.7",
+        "electron": "^18.3.15",
+        "electron-builder": "^26.0.12",
+        "electron-rebuild": "^3.2.9",
         "nodemon": "^2.0.15",
         "npm-run-all": "^4.1.5",
         "prettier-plugin-sql": "^0.12.1",
+        "sqlite3": "^5.1.7",
         "ts-node": "^10.7.0",
         "typescript": "^4.6.3"
     },
@@ -35,7 +37,6 @@
         "lodash": "^4.17.21",
         "moment": "^2.29.4",
         "sequelize": "^6.18.0",
-        "sqlite3": "^5.1.2",
         "winston": "^3.8.2"
     },
     "build": {
