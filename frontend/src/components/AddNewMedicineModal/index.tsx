@@ -15,7 +15,7 @@ import {
 	setAddNewPatientInputDialogState,
 	setInputDialogState,
 	setSnackBarState,
-} from "../../redux/Reducers/utilDataReducer";
+} from "../../redux/reducers/utilDataReducer";
 import { AppBar, Box } from "@mui/material";
 import { width } from "@mui/system";
 import DotsStepper from "../Stepper";
@@ -23,7 +23,7 @@ import {
 	resetNewMedicineDataFields,
 	setMedicines,
 	setNewPatientStage,
-} from "../../redux/Reducers/appStateDataReducer";
+} from "../../redux/reducers/appStateDataReducer";
 import moment from "moment";
 import StageZero from "./stages/stage-0";
 

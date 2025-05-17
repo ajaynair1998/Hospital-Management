@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFavourites } from "../helpers/functions";
 import { IStore } from "../helpers/interfaces";
-import { setFavourites } from "../redux/Reducers/favouritesDataReducer";
+import { setFavourites } from "../redux/reducers/favouritesDataReducer";
 
 const FavouritesHook = () => {
 	const dispatch = useDispatch();

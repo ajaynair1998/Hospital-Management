@@ -11,10 +11,10 @@ import { IChiefComplaint } from "../../helpers/interfaces";
 import {
 	setChiefComplaints,
 	setPrescription,
-} from "../../redux/Reducers/patientTreatmentDetailsReducer";
+} from "../../redux/reducers/patientTreatmentDetailsReducer";
 import { convertToReadableDate } from "../../helpers";
 import AlertDialog from "../Dialog";
-import appStateDataReducer from "../../redux/Reducers/appStateDataReducer";
+import appStateDataReducer from "../../redux/reducers/appStateDataReducer";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";

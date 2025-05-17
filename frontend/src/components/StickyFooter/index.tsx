@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {
 	setInputDialogState,
 	setSummaryDialogState,
-} from "../../redux/Reducers/utilDataReducer";
+} from "../../redux/reducers/utilDataReducer";
 import { useNavigate } from "react-router-dom";
 import { IStore } from "../../helpers/interfaces";
-import { setSelectedPatientConsultation } from "../../redux/Reducers/appStateDataReducer";
-import { resetAllDataInPatientTreatmentDetails } from "../../redux/Reducers/patientTreatmentDetailsReducer";
-import { setSelectedCategory } from "../../redux/Reducers/categoriesDataReducer";
+import { setSelectedPatientConsultation } from "../../redux/reducers/appStateDataReducer";
+import { resetAllDataInPatientTreatmentDetails } from "../../redux/reducers/patientTreatmentDetailsReducer";
+import { setSelectedCategory } from "../../redux/reducers/categoriesDataReducer";
 import { handleClickGoToNextCategory } from "../../helpers/functions";
 
 const StickyFooter = () => {

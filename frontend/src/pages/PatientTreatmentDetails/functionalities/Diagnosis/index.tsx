@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import Favourites from "../../../../components/Favourites";
+import Favourites from "../../../../components/favourites";
 import DiagnosisDataEntries from "../../../../components/DiagnosisDataEntries";
 import { useSelector } from "react-redux";
 import { IStore } from "../../../../helpers/interfaces";

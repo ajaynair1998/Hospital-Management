@@ -7,7 +7,7 @@ import { IStore } from "../../../../helpers/interfaces";
 import {
 	setEditPatientDataField,
 	setNewPatientDataField,
-} from "../../../../redux/Reducers/appStateDataReducer";
+} from "../../../../redux/reducers/appStateDataReducer";
 
 const StageTwo = () => {
 	let dispatch = useDispatch();

@@ -13,13 +13,13 @@ import { useDispatch, useSelector } from "react-redux";
 import {
 	setDiagnosis,
 	setFollowUps,
-} from "../../redux/Reducers/patientTreatmentDetailsReducer";
+} from "../../redux/reducers/patientTreatmentDetailsReducer";
 import { IStore } from "../../helpers/interfaces";
 import {
 	setInputDialogState,
 	setSelectedInputValue,
 	setSnackBarState,
-} from "../../redux/Reducers/utilDataReducer";
+} from "../../redux/reducers/utilDataReducer";
 
 import DateInput from "../DateInput";
 import moment from "moment";

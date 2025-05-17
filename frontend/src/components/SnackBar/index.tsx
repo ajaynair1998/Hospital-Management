@@ -4,7 +4,7 @@ import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
 import { useDispatch, useSelector } from "react-redux";
 import { IStore } from "../../helpers/interfaces";
 import { Alert } from "@mui/material";
-import { setSnackBarState } from "../../redux/Reducers/utilDataReducer";
+import { setSnackBarState } from "../../redux/reducers/utilDataReducer";
 
 export interface State extends SnackbarOrigin {
 	open: boolean;

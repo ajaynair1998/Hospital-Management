@@ -15,7 +15,7 @@ import {
 	setMedicines,
 	setSelectedPatientConsultation,
 	setSelectedPatientConsultationDetails,
-} from "../../../../../redux/Reducers/appStateDataReducer";
+} from "../../../../../redux/reducers/appStateDataReducer";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Medicines from "..";
 import AlertDialog from "../../../../../components/Dialog";

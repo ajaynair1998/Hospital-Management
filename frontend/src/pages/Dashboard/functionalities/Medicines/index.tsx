@@ -6,7 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 import { IStore } from "../../../../helpers/interfaces";
 import AddNewMedicine from "./AddNewMedicine";
-import { setAddNewMedicineInputDialogState } from "../../../../redux/Reducers/utilDataReducer";
+import { setAddNewMedicineInputDialogState } from "../../../../redux/reducers/utilDataReducer";
 import DataGridComponant from "../../../../components/DataGrid";
 import MedicineList from "./MedicineList";
 

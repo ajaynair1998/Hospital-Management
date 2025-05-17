@@ -14,7 +14,7 @@ import { InputSwitcher } from "./switcher";
 import {
 	setInputDialogState,
 	setSelectedInputValue,
-} from "../../redux/Reducers/utilDataReducer";
+} from "../../redux/reducers/utilDataReducer";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	"& .MuiDialogContent-root": {

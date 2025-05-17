@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import Favourites from "../../../../components/Favourites";
+import Favourites from "../../../../components/favourites";
 
 import { HistoryOfComplaintDataEntries } from "../../../../components/HistoryOfComplaintsDataEntries";
 import { IStore } from "../../../../helpers/interfaces";

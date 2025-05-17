@@ -1,12 +1,12 @@
 import {
 	configureStore,
 } from "@reduxjs/toolkit";
-import userDataReducer from "./Reducers/userDataReducer";
-import categoriesDataReducer from "./Reducers/categoriesDataReducer";
-import favouritesDataReducer from "./Reducers/favouritesDataReducer";
-import patientTreatmentDetailsReducer from "./Reducers/patientTreatmentDetailsReducer";
-import utilDataReducer from "./Reducers/utilDataReducer";
-import appStateDataReducer from "./Reducers/appStateDataReducer";
+import userDataReducer from "./reducers/userDataReducer";
+import categoriesDataReducer from "./reducers/categoriesDataReducer";
+import favouritesDataReducer from "./reducers/favouritesDataReducer";
+import patientTreatmentDetailsReducer from "./reducers/patientTreatmentDetailsReducer";
+import utilDataReducer from "./reducers/utilDataReducer";
+import appStateDataReducer from "./reducers/appStateDataReducer";
 import logger from "redux-logger";
 export default configureStore({
 	reducer: {

@@ -18,7 +18,7 @@ import {
 	setGeneralExamination,
 	setPastMedicalHistory,
 	setPastSurgicalHistory,
-} from "../../redux/Reducers/patientTreatmentDetailsReducer";
+} from "../../redux/reducers/patientTreatmentDetailsReducer";
 import { convertToReadableDate } from "../../helpers";
 import AlertDialog from "../Dialog";
 import { minWidth } from "@mui/system";

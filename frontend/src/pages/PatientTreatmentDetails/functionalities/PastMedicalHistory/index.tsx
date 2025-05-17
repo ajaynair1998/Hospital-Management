@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import Favourites from "../../../../components/Favourites";
+import Favourites from "../../../../components/favourites";
 
 import PastMedicalHistoryDataEntries from "../../../../components/PastMedicalHistoryDataEntries";
 

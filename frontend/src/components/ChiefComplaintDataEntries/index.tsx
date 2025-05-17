@@ -8,10 +8,10 @@ import { Button, Box, Divider } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { IStore } from "../../helpers/interfaces";
 import { IChiefComplaint } from "../../helpers/interfaces";
-import { setChiefComplaints } from "../../redux/Reducers/patientTreatmentDetailsReducer";
+import { setChiefComplaints } from "../../redux/reducers/patientTreatmentDetailsReducer";
 import { convertToReadableDate } from "../../helpers";
 import AlertDialog from "../Dialog";
-import appStateDataReducer from "../../redux/Reducers/appStateDataReducer";
+import appStateDataReducer from "../../redux/reducers/appStateDataReducer";
 
 const Img = styled("img")({
 	margin: "auto",

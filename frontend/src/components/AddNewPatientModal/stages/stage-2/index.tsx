@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { returnDbPatientProperties } from "../../../../helpers/functions";
 import { IStore } from "../../../../helpers/interfaces";
-import { setNewPatientDataField } from "../../../../redux/Reducers/appStateDataReducer";
+import { setNewPatientDataField } from "../../../../redux/reducers/appStateDataReducer";
 
 const StageTwo = () => {
 	let dispatch = useDispatch();

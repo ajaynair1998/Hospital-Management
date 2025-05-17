@@ -11,11 +11,11 @@ import { capitalizeFirstLetter, getFavourites } from "../../helpers/functions";
 import FavouritesHook from "../../hooks/favourites";
 import { useDispatch, useSelector } from "react-redux";
 import { IStore } from "../../helpers/interfaces";
-import { setFavourites } from "../../redux/Reducers/favouritesDataReducer";
+import { setFavourites } from "../../redux/reducers/favouritesDataReducer";
 import {
 	setInputDialogState,
 	setSelectedInputValue,
-} from "../../redux/Reducers/utilDataReducer";
+} from "../../redux/reducers/utilDataReducer";
 import AlertDialog from "../Dialog";
 
 interface Props {}

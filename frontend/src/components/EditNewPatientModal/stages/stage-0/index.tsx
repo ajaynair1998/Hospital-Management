@@ -13,7 +13,7 @@ import { IStore } from "../../../../helpers/interfaces";
 import {
 	setEditPatientDataField,
 	setNewPatientDataField,
-} from "../../../../redux/Reducers/appStateDataReducer";
+} from "../../../../redux/reducers/appStateDataReducer";
 import CountrySelect, { CountryType } from "../../../CountrySelect";
 import DateInput from "../../../DateInput";
 

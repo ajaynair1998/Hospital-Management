@@ -15,15 +15,15 @@ import {
 	setChiefComplaints,
 	setClinicalDiagnosis,
 	setHistoryOfComplaints,
-} from "../../redux/Reducers/patientTreatmentDetailsReducer";
+} from "../../redux/reducers/patientTreatmentDetailsReducer";
 import { IStore } from "../../helpers/interfaces";
 import {
 	setInputDialogState,
 	setSelectedInputValue,
 	setSnackBarState,
-} from "../../redux/Reducers/utilDataReducer";
+} from "../../redux/reducers/utilDataReducer";
 import { getFavourites, timeout } from "../../helpers/functions";
-import { setFavourites } from "../../redux/Reducers/favouritesDataReducer";
+import { setFavourites } from "../../redux/reducers/favouritesDataReducer";
 import { setTimeout } from "timers/promises";
 
 const HistoryOfComplaintsInput = () => {

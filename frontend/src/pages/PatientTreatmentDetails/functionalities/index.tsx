@@ -9,7 +9,7 @@ import StickyFooter from "../../../components/StickyFooter";
 import { FunctionalitySwitch } from "./functionalitySwitch";
 import InputDialog from "../../../components/InputDialog";
 import DialogSkeleton from "../../../components/DialogSkeleton";
-import { setSummaryDialogState } from "../../../redux/Reducers/utilDataReducer";
+import { setSummaryDialogState } from "../../../redux/reducers/utilDataReducer";
 import Summary from "../../../components/SummaryTreatmentDetails";
 
 let FunctionalityContainer = styled.div`

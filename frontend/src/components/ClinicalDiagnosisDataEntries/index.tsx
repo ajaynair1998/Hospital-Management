@@ -11,7 +11,7 @@ import { IChiefComplaint } from "../../helpers/interfaces";
 import {
 	setChiefComplaints,
 	setClinicalDiagnosis,
-} from "../../redux/Reducers/patientTreatmentDetailsReducer";
+} from "../../redux/reducers/patientTreatmentDetailsReducer";
 import { convertToReadableDate } from "../../helpers";
 import AlertDialog from "../Dialog";
 

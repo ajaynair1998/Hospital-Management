@@ -15,7 +15,7 @@ import {
 	setEditPatientInputDialogState,
 	setInputDialogState,
 	setSnackBarState,
-} from "../../redux/Reducers/utilDataReducer";
+} from "../../redux/reducers/utilDataReducer";
 import { AppBar, Box } from "@mui/material";
 import { width } from "@mui/system";
 import DotsStepper from "../Stepper";
@@ -27,7 +27,7 @@ import {
 	setNewPatientStage,
 	setSelectedPatientConsultationDetails,
 	setSelectedPatientProfileDetails,
-} from "../../redux/Reducers/appStateDataReducer";
+} from "../../redux/reducers/appStateDataReducer";
 import moment from "moment";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({

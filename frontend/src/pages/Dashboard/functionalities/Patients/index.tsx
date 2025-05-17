@@ -13,14 +13,14 @@ import {
 	setDeletePatientConfirmationState,
 	setEditPatientInputDialogState,
 	setSnackBarState,
-} from "../../../../redux/Reducers/utilDataReducer";
+} from "../../../../redux/reducers/utilDataReducer";
 import PatientInfo from "./PatientInfo";
 import {
 	migrateSelectedPatientToEditPatient,
 	resetSelectedPatientDataFields,
 	setSelectedPatientConsultationDetails,
 	setSelectedPatientProfileDetails,
-} from "../../../../redux/Reducers/appStateDataReducer";
+} from "../../../../redux/reducers/appStateDataReducer";
 import { IStore } from "../../../../helpers/interfaces";
 import AlertDialog from "../../../../components/Dialog";
 import EditPatient from "./EditPatient";

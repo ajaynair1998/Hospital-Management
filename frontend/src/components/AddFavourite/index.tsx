@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
 import { getFavourites } from "../../helpers/functions";
-import { setFavourites } from "../../redux/Reducers/favouritesDataReducer";
+import { setFavourites } from "../../redux/reducers/favouritesDataReducer";
 
 interface Props {
 	category: string;

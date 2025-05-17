@@ -8,7 +8,7 @@ import { IStore } from "../../../../../../helpers/interfaces";
 import { generateMaximumLengthString } from "../../../../../../helpers";
 import { shrinkName } from "../../../../../../helpers/functions";
 import { useNavigate } from "react-router-dom";
-import { setSelectedPatientConsultation } from "../../../../../../redux/Reducers/appStateDataReducer";
+import { setSelectedPatientConsultation } from "../../../../../../redux/reducers/appStateDataReducer";
 
 let Container = styled.div`
 	display: flex;

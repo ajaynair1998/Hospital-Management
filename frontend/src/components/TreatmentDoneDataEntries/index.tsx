@@ -17,7 +17,7 @@ import {
 	setPastMedicalHistory,
 	setTreatmentDone,
 	setTreatmentPlan,
-} from "../../redux/Reducers/patientTreatmentDetailsReducer";
+} from "../../redux/reducers/patientTreatmentDetailsReducer";
 import { convertToReadableDate } from "../../helpers";
 import AlertDialog from "../Dialog";
 import DeleteIcon from "@mui/icons-material/Delete";

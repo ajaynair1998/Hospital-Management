@@ -18,7 +18,7 @@ import {
 	setClinicalDiagnosis,
 	setDiagnosis,
 	setFollowUps,
-} from "../../redux/Reducers/patientTreatmentDetailsReducer";
+} from "../../redux/reducers/patientTreatmentDetailsReducer";
 import { convertToReadableDate } from "../../helpers";
 import AlertDialog from "../Dialog";
 import { purple } from "@mui/material/colors";

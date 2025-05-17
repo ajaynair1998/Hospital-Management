@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import Favourites from "../../../../components/Favourites";
+import Favourites from "../../../../components/favourites";
 import { PrescriptionDataEntries } from "../../../../components/PrescriptionDataEntries";
 
 let Container = styled.div`
