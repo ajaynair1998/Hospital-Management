@@ -14,12 +14,12 @@ import TodayIcon from "@mui/icons-material/Today";
 import { ICategory } from "../../helpers/interfaces";
 
 export const categoriesList: ICategory[] = [
-	{
-		key: 0,
-		category_name: "Dashboard",
-		category_icon: <AddShoppingCartIcon />,
-		location: "dashboard",
-	},
+	// {
+	// 	key: 0,
+	// 	category_name: "Dashboard",
+	// 	category_icon: <AddShoppingCartIcon />,
+	// 	location: "dashboard",
+	// },
 
 	{
 		key: 1,
